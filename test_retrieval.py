@@ -10,7 +10,7 @@ def test_retrieval():
     # 1. 路径配置
     txt_path = "data/part_name.txt"
     vector_db_path = "output/vector_store.json" # 这里保持json后缀，load_from_disk会自动去读对应的.npz
-    data_dir = "data/box/"
+    data_dir = "data/layouts/"
     
     # 2. 加载配置与向量库
     print("正在加载配置与向量库...")
@@ -26,7 +26,7 @@ def test_retrieval():
     extractor = FeatureExtractor(part_types)
     
     # 3. 随机抽取一个历史案例作为 Query
-    all_files = glob.glob(os.path.join(data_dir, "**/layout_processed.json"), recursive=True)
+    all_files = glob.glob(os.path.join(data_dir, "*.json"), recursive=True)
     if not all_files:
         print("未找到测试数据！")
         return

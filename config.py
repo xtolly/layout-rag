@@ -9,9 +9,9 @@ FEATURE_SCHEMA_DEF = {
     "panel_width": {"type": "continuous", "weight": 2.0, "display_name": "面板宽度"},
     "panel_height": {"type": "continuous", "weight": 2.0, "display_name": "面板高度"},
     "panel_area": {"type": "continuous", "weight": 1.5, "display_name": "面板总面积"},
-    "panel_aspect_ratio": {"type": "continuous", "weight": 100, "display_name": "面板纵横比"},
+    "panel_aspect_ratio": {"type": "continuous", "weight": 2, "display_name": "面板纵横比"},
     
-    "total_parts": {"type": "count", "weight": 3.0, "display_name": "元器件总数"},
+    "total_parts": {"type": "count", "weight": 2.0, "display_name": "元器件总数"},
     "unique_types": {"type": "count", "weight": 2.0, "display_name": "元件种类数"},
     "total_parts_area": {"type": "continuous", "weight": 2.0, "display_name": "元器件总面积"},
     "fill_ratio": {"type": "continuous", "weight": 2.5, "display_name": "空间填充率"},
