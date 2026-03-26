@@ -1,0 +1,74 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      400.0,
+      500.0
+    ],
+    "Parts": [
+      {
+        "ID": "19D9B",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent18.1MaxCurrent25Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          56.0,
+          84.0
+        ]
+      },
+      {
+        "ID": "19D9A",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "19D99",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "197C4",
+        "Type": "1387202622f920b5eb-525c-4b62-9bf6-50dbf1fb1d91",
+        "Size": [
+          75.11322444450343,
+          276.20332498836797
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "19D9B",
+      "Pos": [
+        258.1057531296974,
+        256.50289330992382
+      ]
+    },
+    {
+      "ID": "19D9A",
+      "Pos": [
+        263.6057531296974,
+        340.50289330992382
+      ]
+    },
+    {
+      "ID": "19D99",
+      "Pos": [
+        258.24469559843419,
+        107.72307949920651
+      ]
+    },
+    {
+      "ID": "197C4",
+      "Pos": [
+        91.8578734647017,
+        128.25213385390816
+      ]
+    }
+  ]
+}

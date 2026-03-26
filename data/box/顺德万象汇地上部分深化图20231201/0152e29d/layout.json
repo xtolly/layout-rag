@@ -1,0 +1,164 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1000.0
+    ],
+    "Parts": [
+      {
+        "ID": "6EF47",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "6EF46",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "6EF42",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "6EF41",
+        "Type": "Manufacturer光辉PartName剩余电流互感器Series一体式ShellFrame250LimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent250PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          125.0,
+          30.0
+        ]
+      },
+      {
+        "ID": "6EF40",
+        "Type": "8P三相导轨表",
+        "Size": [
+          144.0,
+          105.07633132394403
+        ]
+      },
+      {
+        "ID": "6EF3F",
+        "Type": "8P三相导轨表",
+        "Size": [
+          144.0,
+          105.07633132394403
+        ]
+      },
+      {
+        "ID": "6EF3E",
+        "Type": "8P三相导轨表",
+        "Size": [
+          144.0,
+          105.07633132394403
+        ]
+      },
+      {
+        "ID": "6EF3D",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          122.0,
+          151.0
+        ]
+      },
+      {
+        "ID": "6EF3C",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          122.0,
+          151.0
+        ]
+      },
+      {
+        "ID": "6EF3B",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          122.0,
+          151.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "6EF47",
+      "Pos": [
+        499.727902760962,
+        640.00857282790821
+      ]
+    },
+    {
+      "ID": "6EF46",
+      "Pos": [
+        571.727902760962,
+        640.00857282790821
+      ]
+    },
+    {
+      "ID": "6EF42",
+      "Pos": [
+        109.62909622304142,
+        235.96918462426402
+      ]
+    },
+    {
+      "ID": "6EF41",
+      "Pos": [
+        93.129096223041415,
+        405.969184624264
+      ]
+    },
+    {
+      "ID": "6EF40",
+      "Pos": [
+        500.5158684727503,
+        366.97895008209161
+      ]
+    },
+    {
+      "ID": "6EF3F",
+      "Pos": [
+        361.03629342431668,
+        148.43205863767071
+      ]
+    },
+    {
+      "ID": "6EF3E",
+      "Pos": [
+        505.03629342431668,
+        148.43205863767071
+      ]
+    },
+    {
+      "ID": "6EF3D",
+      "Pos": [
+        85.180887688300572,
+        606.418391568237
+      ]
+    },
+    {
+      "ID": "6EF3C",
+      "Pos": [
+        217.18088768830057,
+        606.418391568237
+      ]
+    },
+    {
+      "ID": "6EF3B",
+      "Pos": [
+        349.18088768830057,
+        606.418391568237
+      ]
+    }
+  ]
+}

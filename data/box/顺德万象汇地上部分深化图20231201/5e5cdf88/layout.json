@@ -1,0 +1,179 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      600.0,
+      800.0
+    ],
+    "Parts": [
+      {
+        "ID": "34E84",
+        "Type": "Manufacturer光辉PartName隔离开关Series100ShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent100Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          115.55480976984836,
+          124.0
+        ]
+      },
+      {
+        "ID": "34E83",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "34E82",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "34E81",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "34E80",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "34E7F",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "34E7E",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "348A9",
+        "Type": "121530891323deb898-3182-4c05-8ed8-cacf246d68dd",
+        "Size": [
+          75.11322444450343,
+          276.20332498836797
+        ]
+      },
+      {
+        "ID": "342D4",
+        "Type": "163446495003f96b0b-b6e6-4e75-8d69-6ad8d1e20548",
+        "Size": [
+          75.11322444450343,
+          276.20332498836797
+        ]
+      },
+      {
+        "ID": "342D3",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "342D2",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "34E84",
+      "Pos": [
+        325.86674344714265,
+        120.0
+      ]
+    },
+    {
+      "ID": "34E83",
+      "Pos": [
+        303.2263275841251,
+        345.5
+      ]
+    },
+    {
+      "ID": "34E82",
+      "Pos": [
+        307.7263275841251,
+        527.0
+      ]
+    },
+    {
+      "ID": "34E81",
+      "Pos": [
+        307.7263275841251,
+        602.0
+      ]
+    },
+    {
+      "ID": "34E80",
+      "Pos": [
+        357.2263275841251,
+        345.5
+      ]
+    },
+    {
+      "ID": "34E7F",
+      "Pos": [
+        361.7263275841251,
+        527.0
+      ]
+    },
+    {
+      "ID": "34E7E",
+      "Pos": [
+        361.7263275841251,
+        602.0
+      ]
+    },
+    {
+      "ID": "348A9",
+      "Pos": [
+        100.0,
+        136.79667501157383
+      ]
+    },
+    {
+      "ID": "342D4",
+      "Pos": [
+        100.7263275841251,
+        412.79667501157383
+      ]
+    },
+    {
+      "ID": "342D3",
+      "Pos": [
+        425.22632736619562,
+        527.00000381469727
+      ]
+    },
+    {
+      "ID": "342D2",
+      "Pos": [
+        426.22632736619562,
+        350.00000762939453
+      ]
+    }
+  ]
+}

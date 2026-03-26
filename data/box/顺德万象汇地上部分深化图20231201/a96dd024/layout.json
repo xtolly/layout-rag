@@ -1,0 +1,179 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1100.0
+    ],
+    "Parts": [
+      {
+        "ID": "64902",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent63MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          293.0,
+          192.0
+        ]
+      },
+      {
+        "ID": "64901",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "64900",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-95ShellFrameLimitingCurrentRemarkPartTypeMinCurrent17MaxCurrent104Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          70.000005814479664,
+          74.112894952530041
+        ]
+      },
+      {
+        "ID": "648FF",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "648FE",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "648FD",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "648FC",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "648FB",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "648FA",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "63F47",
+        "Type": "15695387253a0c8362-d697-4858-bfb8-77c8f58fbe77",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "63594",
+        "Type": "1988694762bdbe2493-332a-4d16-b6a6-e1b6eda859b8",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "64902",
+      "Pos": [
+        330.73965608916478,
+        150.0
+      ]
+    },
+    {
+      "ID": "64901",
+      "Pos": [
+        342.12191037734738,
+        742.0
+      ]
+    },
+    {
+      "ID": "64900",
+      "Pos": [
+        344.62190747010754,
+        870.443552523735
+      ]
+    },
+    {
+      "ID": "648FF",
+      "Pos": [
+        444.12191037734738,
+        742.0
+      ]
+    },
+    {
+      "ID": "648FE",
+      "Pos": [
+        459.12191037734738,
+        870.0
+      ]
+    },
+    {
+      "ID": "648FD",
+      "Pos": [
+        543.62191037688171,
+        754.757045455277
+      ]
+    },
+    {
+      "ID": "648FC",
+      "Pos": [
+        333.62191037734738,
+        442.0
+      ]
+    },
+    {
+      "ID": "648FB",
+      "Pos": [
+        435.62191037734738,
+        442.0
+      ]
+    },
+    {
+      "ID": "648FA",
+      "Pos": [
+        537.62191037734738,
+        442.0
+      ]
+    },
+    {
+      "ID": "63F47",
+      "Pos": [
+        127.12191037734738,
+        626.66408480471
+      ]
+    },
+    {
+      "ID": "63594",
+      "Pos": [
+        126.62191037734738,
+        307.66408480471
+      ]
+    }
+  ]
+}

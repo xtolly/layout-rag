@@ -1,0 +1,728 @@
+{
+    "uuid": "e1ce235b-d93d-4dc8-92e1-39d2e4ad6786",
+    "meta": {
+        "industry": "",
+        "cabinet_type": "配电柜",
+        "panel_type": "安装板",
+        "panel_size": [
+            700.0,
+            2000.0
+        ],
+        "parts": [
+            {
+                "part_id": "7778B",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    65.0
+                ]
+            },
+            {
+                "part_id": "77404",
+                "part_type": "继电器+接线端子",
+                "part_size": [
+                    147.50000000162981,
+                    82.52233661466744
+                ]
+            },
+            {
+                "part_id": "7707D",
+                "part_type": "继电器+接线端子",
+                "part_size": [
+                    147.50000000162981,
+                    82.52233661466744
+                ]
+            },
+            {
+                "part_id": "76CF6",
+                "part_type": "继电器+接线端子",
+                "part_size": [
+                    147.50000000162981,
+                    82.52233661466744
+                ]
+            },
+            {
+                "part_id": "7696F",
+                "part_type": "继电器+接线端子",
+                "part_size": [
+                    147.50000000162981,
+                    82.52233661466744
+                ]
+            },
+            {
+                "part_id": "765E8",
+                "part_type": "继电器+接线端子",
+                "part_size": [
+                    147.50000000162981,
+                    82.52233661466744
+                ]
+            },
+            {
+                "part_id": "76261",
+                "part_type": "继电器+接线端子",
+                "part_size": [
+                    147.50000000162981,
+                    82.52233661466744
+                ]
+            },
+            {
+                "part_id": "75EDA",
+                "part_type": "继电器+接线端子",
+                "part_size": [
+                    147.50000000162981,
+                    82.52233661466744
+                ]
+            },
+            {
+                "part_id": "75ED9",
+                "part_type": "微型断路器",
+                "part_size": [
+                    117.0,
+                    97.0
+                ]
+            },
+            {
+                "part_id": "75ED8",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    75.0
+                ]
+            },
+            {
+                "part_id": "75ED7",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    65.0
+                ]
+            },
+            {
+                "part_id": "75ED6",
+                "part_type": "微型断路器",
+                "part_size": [
+                    117.0,
+                    97.0
+                ]
+            },
+            {
+                "part_id": "75ED5",
+                "part_type": "微型断路器",
+                "part_size": [
+                    117.0,
+                    97.0
+                ]
+            },
+            {
+                "part_id": "75ED4",
+                "part_type": "接触器",
+                "part_size": [
+                    75.0,
+                    128.0
+                ]
+            },
+            {
+                "part_id": "75ED3",
+                "part_type": "微型断路器",
+                "part_size": [
+                    117.0,
+                    97.0
+                ]
+            },
+            {
+                "part_id": "75ED2",
+                "part_type": "微型断路器",
+                "part_size": [
+                    117.0,
+                    97.0
+                ]
+            },
+            {
+                "part_id": "75ED1",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    92.0,
+                    150.0
+                ]
+            },
+            {
+                "part_id": "75ED0",
+                "part_type": "电流互感器",
+                "part_size": [
+                    125.0,
+                    30.0
+                ]
+            },
+            {
+                "part_id": "75ECF",
+                "part_type": "接触器",
+                "part_size": [
+                    56.0,
+                    84.0
+                ]
+            },
+            {
+                "part_id": "75ECE",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    75.0
+                ]
+            },
+            {
+                "part_id": "75ECD",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    75.0
+                ]
+            },
+            {
+                "part_id": "75ECC",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    75.0
+                ]
+            },
+            {
+                "part_id": "75ECB",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    75.0
+                ]
+            },
+            {
+                "part_id": "75ECA",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    65.0
+                ]
+            },
+            {
+                "part_id": "75EC9",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    65.0
+                ]
+            },
+            {
+                "part_id": "75EC8",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    65.0
+                ]
+            },
+            {
+                "part_id": "75EC7",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    65.0
+                ]
+            },
+            {
+                "part_id": "75EC6",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    65.0
+                ]
+            },
+            {
+                "part_id": "75EC5",
+                "part_type": "微型断路器",
+                "part_size": [
+                    117.0,
+                    97.0
+                ]
+            },
+            {
+                "part_id": "75EC4",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    122.0,
+                    151.0
+                ]
+            },
+            {
+                "part_id": "75EC3",
+                "part_type": "浪涌保护器",
+                "part_size": [
+                    72.00000021792948,
+                    78.99999618530273
+                ]
+            },
+            {
+                "part_id": "75EC2",
+                "part_type": "浪涌保护器",
+                "part_size": [
+                    72.00000021792948,
+                    78.99999618530273
+                ]
+            }
+        ]
+    },
+    "arrange": {
+        "7778B": {
+            "position": [
+                461.671822997916,
+                1235.8487978538615
+            ],
+            "rotation": 0
+        },
+        "77404": {
+            "position": [
+                64.56091278593522,
+                1426.3742944669793
+            ],
+            "rotation": 0
+        },
+        "7707D": {
+            "position": [
+                54.560912785935216,
+                1621.3742944669793
+            ],
+            "rotation": 0
+        },
+        "76CF6": {
+            "position": [
+                215.56091278593522,
+                1427.3742944669793
+            ],
+            "rotation": 0
+        },
+        "7696F": {
+            "position": [
+                203.56091278593522,
+                1619.3742944669793
+            ],
+            "rotation": 0
+        },
+        "765E8": {
+            "position": [
+                364.5609127859352,
+                1426.3742944669793
+            ],
+            "rotation": 0
+        },
+        "76261": {
+            "position": [
+                513.5609127859352,
+                1427.3742944669793
+            ],
+            "rotation": 0
+        },
+        "75EDA": {
+            "position": [
+                354.5609127859352,
+                1619.3742944669793
+            ],
+            "rotation": 0
+        },
+        "75ED9": {
+            "position": [
+                86.17846788518364,
+                606.9890869027586
+            ],
+            "rotation": 0
+        },
+        "75ED8": {
+            "position": [
+                97.2127215868677,
+                1107.86068347533
+            ],
+            "rotation": 0
+        },
+        "75ED7": {
+            "position": [
+                97.2127215868677,
+                1182.86068347533
+            ],
+            "rotation": 0
+        },
+        "75ED6": {
+            "position": [
+                203.44550386077026,
+                834.4644993072143
+            ],
+            "rotation": 0
+        },
+        "75ED5": {
+            "position": [
+                437.17846788518364,
+                606.9890869027586
+            ],
+            "rotation": 0
+        },
+        "75ED4": {
+            "position": [
+                446.671822997916,
+                1107.8487978538615
+            ],
+            "rotation": 0
+        },
+        "75ED3": {
+            "position": [
+                203.17846788518364,
+                606.9890869027586
+            ],
+            "rotation": 0
+        },
+        "75ED2": {
+            "position": [
+                320.17846788518364,
+                606.9890869027586
+            ],
+            "rotation": 0
+        },
+        "75ED1": {
+            "position": [
+                304.2349616372376,
+                281.0495118513354
+            ],
+            "rotation": 0
+        },
+        "75ED0": {
+            "position": [
+                287.7349616372376,
+                451.0495118513354
+            ],
+            "rotation": 0
+        },
+        "75ECF": {
+            "position": [
+                154.59500581613975,
+                1109.4620250700973
+            ],
+            "rotation": 0
+        },
+        "75ECE": {
+            "position": [
+                222.03928237303626,
+                1109.6844545358908
+            ],
+            "rotation": 0
+        },
+        "75ECD": {
+            "position": [
+                278.63893493975047,
+                1109.0080767303007
+            ],
+            "rotation": 0
+        },
+        "75ECC": {
+            "position": [
+                333.0905968564912,
+                1111.1219563610503
+            ],
+            "rotation": 0
+        },
+        "75ECB": {
+            "position": [
+                389.68136644142214,
+                1110.0303161786287
+            ],
+            "rotation": 0
+        },
+        "75ECA": {
+            "position": [
+                333.0905968564912,
+                1186.1219563610503
+            ],
+            "rotation": 0
+        },
+        "75EC9": {
+            "position": [
+                160.09500581613975,
+                1193.4620250700973
+            ],
+            "rotation": 0
+        },
+        "75EC8": {
+            "position": [
+                222.03928237303626,
+                1184.6844545358908
+            ],
+            "rotation": 0
+        },
+        "75EC7": {
+            "position": [
+                278.63893493975047,
+                1184.0080767303007
+            ],
+            "rotation": 0
+        },
+        "75EC6": {
+            "position": [
+                389.68136644142214,
+                1185.0303161786287
+            ],
+            "rotation": 0
+        },
+        "75EC5": {
+            "position": [
+                86.44550386077026,
+                834.4644993072143
+            ],
+            "rotation": 0
+        },
+        "75EC4": {
+            "position": [
+                347.86466784158256,
+                836.1488954874221
+            ],
+            "rotation": 0
+        },
+        "75EC3": {
+            "position": [
+                565.0764629722107,
+                838.8955804200959
+            ],
+            "rotation": 0
+        },
+        "75EC2": {
+            "position": [
+                493.0764629722107,
+                838.8955804200959
+            ],
+            "rotation": 0
+        }
+    },
+    "features": [
+        {
+            "name": "panel_width",
+            "display_name": "面板宽度",
+            "value": 700.0
+        },
+        {
+            "name": "panel_height",
+            "display_name": "面板高度",
+            "value": 2000.0
+        },
+        {
+            "name": "panel_area",
+            "display_name": "面板面积",
+            "value": 1400000.0
+        },
+        {
+            "name": "panel_aspect_ratio",
+            "display_name": "面板宽高比",
+            "value": 0.35
+        },
+        {
+            "name": "total_parts",
+            "display_name": "元件总数",
+            "value": 32
+        },
+        {
+            "name": "unique_types",
+            "display_name": "元件类型数",
+            "value": 7
+        },
+        {
+            "name": "total_parts_area",
+            "display_name": "元件总面积",
+            "value": 252300.31204070206
+        },
+        {
+            "name": "fill_ratio",
+            "display_name": "填充率",
+            "value": 0.18021450860050148
+        },
+        {
+            "name": "avg_part_width",
+            "display_name": "元件平均宽度",
+            "value": 90.26562501397711
+        },
+        {
+            "name": "avg_part_height",
+            "display_name": "元件平均高度",
+            "value": 84.08301089603992
+        },
+        {
+            "name": "max_part_width",
+            "display_name": "元件最大宽度",
+            "value": 147.50000000162981
+        },
+        {
+            "name": "max_part_height",
+            "display_name": "元件最大高度",
+            "value": 151.0
+        },
+        {
+            "name": "width_std",
+            "display_name": "宽度标准差",
+            "value": 41.86939969001954
+        },
+        {
+            "name": "height_std",
+            "display_name": "高度标准差",
+            "value": 23.52396649826837
+        },
+        {
+            "name": "count_电流互感器",
+            "display_name": "电流互感器数量",
+            "value": 1
+        },
+        {
+            "name": "count_时间继电器",
+            "display_name": "时间继电器数量",
+            "value": 0
+        },
+        {
+            "name": "count_继电器+接线端子",
+            "display_name": "继电器+接线端子数量",
+            "value": 7
+        },
+        {
+            "name": "count_零排",
+            "display_name": "零排数量",
+            "value": 0
+        },
+        {
+            "name": "count_塑壳断路器",
+            "display_name": "塑壳断路器数量",
+            "value": 2
+        },
+        {
+            "name": "count_火灾监控探测器",
+            "display_name": "火灾监控探测器数量",
+            "value": 0
+        },
+        {
+            "name": "count_时控开关",
+            "display_name": "时控开关数量",
+            "value": 0
+        },
+        {
+            "name": "count_浪涌保护器",
+            "display_name": "浪涌保护器数量",
+            "value": 2
+        },
+        {
+            "name": "count_熔断器",
+            "display_name": "熔断器数量",
+            "value": 0
+        },
+        {
+            "name": "count_电源模块",
+            "display_name": "电源模块数量",
+            "value": 0
+        },
+        {
+            "name": "count_分线端子",
+            "display_name": "分线端子数量",
+            "value": 0
+        },
+        {
+            "name": "count_微型断路器",
+            "display_name": "微型断路器数量",
+            "value": 6
+        },
+        {
+            "name": "count_电源监控",
+            "display_name": "电源监控数量",
+            "value": 0
+        },
+        {
+            "name": "count_母线排",
+            "display_name": "母线排数量",
+            "value": 0
+        },
+        {
+            "name": "count_端子堵头",
+            "display_name": "端子堵头数量",
+            "value": 0
+        },
+        {
+            "name": "count_热继电器",
+            "display_name": "热继电器数量",
+            "value": 7
+        },
+        {
+            "name": "count_变频器",
+            "display_name": "变频器数量",
+            "value": 0
+        },
+        {
+            "name": "count_隔离开关",
+            "display_name": "隔离开关数量",
+            "value": 0
+        },
+        {
+            "name": "count_接触器",
+            "display_name": "接触器数量",
+            "value": 7
+        },
+        {
+            "name": "count_双电源自动转换开关",
+            "display_name": "双电源自动转换开关数量",
+            "value": 0
+        },
+        {
+            "name": "count_控制与保护开关",
+            "display_name": "控制与保护开关数量",
+            "value": 0
+        },
+        {
+            "name": "count_变压器",
+            "display_name": "变压器数量",
+            "value": 0
+        },
+        {
+            "name": "count_地排",
+            "display_name": "地排数量",
+            "value": 0
+        },
+        {
+            "name": "count_后备保护断路器",
+            "display_name": "后备保护断路器数量",
+            "value": 0
+        },
+        {
+            "name": "count_余压控制器",
+            "display_name": "余压控制器数量",
+            "value": 0
+        },
+        {
+            "name": "count_电能表",
+            "display_name": "电能表数量",
+            "value": 0
+        },
+        {
+            "name": "count_智能照明控制模块",
+            "display_name": "智能照明控制模块数量",
+            "value": 0
+        },
+        {
+            "name": "count_接线端子",
+            "display_name": "接线端子数量",
+            "value": 0
+        },
+        {
+            "name": "has_双电源",
+            "display_name": "包含双电源",
+            "value": 0.0
+        },
+        {
+            "name": "has_地排",
+            "display_name": "包含地排",
+            "value": 0.0
+        },
+        {
+            "name": "has_零排",
+            "display_name": "包含零排",
+            "value": 0.0
+        },
+        {
+            "name": "large_part_ratio",
+            "display_name": "大元件比例",
+            "value": 0.46875
+        }
+    ]
+}

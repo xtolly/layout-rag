@@ -1,0 +1,359 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      600.0,
+      1300.0
+    ],
+    "Parts": [
+      {
+        "ID": "11F62",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "11F61",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "11F60",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "11F5F",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent63MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          293.0,
+          192.0
+        ]
+      },
+      {
+        "ID": "11F5E",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F5D",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F5C",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F5B",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F5A",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F59",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F58",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F57",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F56",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F55",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F54",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F53",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F52",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F51",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "11F50",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          117.0,
+          97.0
+        ]
+      },
+      {
+        "ID": "11F4F",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "11F4E",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "11F4D",
+        "Type": "Manufacturer光辉PartName智能照明控制模块Series12位ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          216.0,
+          104.0
+        ]
+      },
+      {
+        "ID": "11F4C",
+        "Type": "Manufacturer光辉PartName剩余电流互感器Series一体式ShellFrame250LimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent250PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          125.0,
+          30.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "11F62",
+      "Pos": [
+        144.0,
+        150.0
+      ]
+    },
+    {
+      "ID": "11F61",
+      "Pos": [
+        246.0,
+        150.0
+      ]
+    },
+    {
+      "ID": "11F60",
+      "Pos": [
+        348.0,
+        152.5
+      ]
+    },
+    {
+      "ID": "11F5F",
+      "Pos": [
+        153.5,
+        450.0
+      ]
+    },
+    {
+      "ID": "11F5E",
+      "Pos": [
+        66.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F5D",
+      "Pos": [
+        102.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F5C",
+      "Pos": [
+        138.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F5B",
+      "Pos": [
+        174.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F5A",
+      "Pos": [
+        210.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F59",
+      "Pos": [
+        246.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F58",
+      "Pos": [
+        282.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F57",
+      "Pos": [
+        318.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F56",
+      "Pos": [
+        354.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F55",
+      "Pos": [
+        390.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F54",
+      "Pos": [
+        426.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F53",
+      "Pos": [
+        462.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F52",
+      "Pos": [
+        498.0,
+        778.5
+      ]
+    },
+    {
+      "ID": "11F51",
+      "Pos": [
+        50.5,
+        963.0
+      ]
+    },
+    {
+      "ID": "11F50",
+      "Pos": [
+        86.5,
+        963.0
+      ]
+    },
+    {
+      "ID": "11F4F",
+      "Pos": [
+        203.5,
+        963.0
+      ]
+    },
+    {
+      "ID": "11F4E",
+      "Pos": [
+        231.5,
+        963.0
+      ]
+    },
+    {
+      "ID": "11F4D",
+      "Pos": [
+        333.5,
+        963.0
+      ]
+    },
+    {
+      "ID": "11F4C",
+      "Pos": [
+        289.0,
+        668.5
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      500.0,
+      800.0
+    ],
+    "Parts": [
+      {
+        "ID": "53E6C",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "53E6B",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "53E6A",
+        "Type": "Manufacturer光辉PartName剩余电流互感器Series一体式ShellFrame250LimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent250PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          125.0,
+          30.0
+        ]
+      },
+      {
+        "ID": "53E69",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          122.0,
+          151.0
+        ]
+      },
+      {
+        "ID": "53E68",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          122.0,
+          151.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "53E6C",
+      "Pos": [
+        145.0,
+        150.0
+      ]
+    },
+    {
+      "ID": "53E6B",
+      "Pos": [
+        247.0,
+        152.5
+      ]
+    },
+    {
+      "ID": "53E6A",
+      "Pos": [
+        125.0,
+        340.0
+      ]
+    },
+    {
+      "ID": "53E69",
+      "Pos": [
+        124.88411985617131,
+        478.26179784262786
+      ]
+    },
+    {
+      "ID": "53E68",
+      "Pos": [
+        256.88411985617131,
+        478.26179784262786
+      ]
+    }
+  ]
+}

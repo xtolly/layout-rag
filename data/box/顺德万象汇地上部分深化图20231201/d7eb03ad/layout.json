@@ -1,0 +1,254 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      500.0,
+      800.0
+    ],
+    "Parts": [
+      {
+        "ID": "121B9",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121B8",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121B7",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "121B6",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series63ShellFrameLimitingCurrentRemarkPartTypeMinCurrent10MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          266.0,
+          192.0
+        ]
+      },
+      {
+        "ID": "121B5",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121B4",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121B3",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121B2",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121B1",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121B0",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121AF",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121AE",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121AD",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121AC",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "121AB",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "121AA",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "121B9",
+      "Pos": [
+        142.0,
+        121.5
+      ]
+    },
+    {
+      "ID": "121B8",
+      "Pos": [
+        196.0,
+        121.5
+      ]
+    },
+    {
+      "ID": "121B7",
+      "Pos": [
+        250.0,
+        122.5
+      ]
+    },
+    {
+      "ID": "121B6",
+      "Pos": [
+        117.0,
+        315.0
+      ]
+    },
+    {
+      "ID": "121B5",
+      "Pos": [
+        52.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "121B4",
+      "Pos": [
+        70.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "121B3",
+      "Pos": [
+        88.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "121B2",
+      "Pos": [
+        106.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "121B1",
+      "Pos": [
+        124.0,
+        608.5
+      ]
+    },
+    {
+      "ID": "121B0",
+      "Pos": [
+        178.0,
+        608.5
+      ]
+    },
+    {
+      "ID": "121AF",
+      "Pos": [
+        232.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "121AE",
+      "Pos": [
+        250.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "121AD",
+      "Pos": [
+        268.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "121AC",
+      "Pos": [
+        286.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "121AB",
+      "Pos": [
+        303.99999989103526,
+        607.00000190734863
+      ]
+    },
+    {
+      "ID": "121AA",
+      "Pos": [
+        375.99999989103526,
+        607.00000190734863
+      ]
+    }
+  ]
+}

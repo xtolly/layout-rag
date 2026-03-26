@@ -1,0 +1,344 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1800.0
+    ],
+    "Parts": [
+      {
+        "ID": "5A250",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "5A24F",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "5A24E",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "5A24D",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "5A24C",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "5A24B",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "59896",
+        "Type": "1942301953493639ec-f8dd-4ff3-9d81-77978f8e2990",
+        "Size": [
+          318.33591519529,
+          75.0
+        ]
+      },
+      {
+        "ID": "58EE3",
+        "Type": "14036583084a09a1d8-794b-4468-902b-b5911ccef5f8",
+        "Size": [
+          318.33591519529,
+          75.0
+        ]
+      },
+      {
+        "ID": "58EE2",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent25.1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          56.0,
+          84.0
+        ]
+      },
+      {
+        "ID": "58EE1",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "58EE0",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent25.1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          56.0,
+          84.0
+        ]
+      },
+      {
+        "ID": "58EDF",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "58EDE",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent25.1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          56.0,
+          84.0
+        ]
+      },
+      {
+        "ID": "58EDD",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "58EDC",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "58EDB",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "58EDA",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "58ED9",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "58526",
+        "Type": "333461951ca3e45db-29a2-43d5-9a5a-c844d1434c0f",
+        "Size": [
+          318.33591519529,
+          75.0
+        ]
+      },
+      {
+        "ID": "57B73",
+        "Type": "752617988c22008e6-758d-4bc0-8699-fc487bab25f5",
+        "Size": [
+          318.33591519529,
+          75.0
+        ]
+      },
+      {
+        "ID": "571C0",
+        "Type": "21397434300918903-6373-4e5c-8745-c27032fdc806",
+        "Size": [
+          318.33591519529,
+          75.0
+        ]
+      },
+      {
+        "ID": "571BE",
+        "Type": "Manufacturer光辉PartName隔离开关Series100ShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent100Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          115.55480976984836,
+          124.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "5A250",
+      "Pos": [
+        86.0,
+        424.0
+      ]
+    },
+    {
+      "ID": "5A24F",
+      "Pos": [
+        188.0,
+        424.0
+      ]
+    },
+    {
+      "ID": "5A24E",
+      "Pos": [
+        290.0,
+        424.0
+      ]
+    },
+    {
+      "ID": "5A24D",
+      "Pos": [
+        392.0,
+        424.0
+      ]
+    },
+    {
+      "ID": "5A24C",
+      "Pos": [
+        494.0,
+        424.0
+      ]
+    },
+    {
+      "ID": "5A24B",
+      "Pos": [
+        596.0,
+        424.0
+      ]
+    },
+    {
+      "ID": "59896",
+      "Pos": [
+        39.38292740151519,
+        1178.2317998239305
+      ]
+    },
+    {
+      "ID": "58EE3",
+      "Pos": [
+        39.38292740151519,
+        1358.074467701721
+      ]
+    },
+    {
+      "ID": "58EE2",
+      "Pos": [
+        104.0,
+        674.0
+      ]
+    },
+    {
+      "ID": "58EE1",
+      "Pos": [
+        109.5,
+        758.0
+      ]
+    },
+    {
+      "ID": "58EE0",
+      "Pos": [
+        206.0,
+        674.0
+      ]
+    },
+    {
+      "ID": "58EDF",
+      "Pos": [
+        211.5,
+        758.0
+      ]
+    },
+    {
+      "ID": "58EDE",
+      "Pos": [
+        308.0,
+        674.0
+      ]
+    },
+    {
+      "ID": "58EDD",
+      "Pos": [
+        313.5,
+        758.0
+      ]
+    },
+    {
+      "ID": "58EDC",
+      "Pos": [
+        400.5,
+        674.0
+      ]
+    },
+    {
+      "ID": "58EDB",
+      "Pos": [
+        415.5,
+        802.0
+      ]
+    },
+    {
+      "ID": "58EDA",
+      "Pos": [
+        502.5,
+        674.0
+      ]
+    },
+    {
+      "ID": "58ED9",
+      "Pos": [
+        517.5,
+        802.0
+      ]
+    },
+    {
+      "ID": "58526",
+      "Pos": [
+        42.66408480471,
+        991.0
+      ]
+    },
+    {
+      "ID": "57B73",
+      "Pos": [
+        354.66408480471,
+        991.0
+      ]
+    },
+    {
+      "ID": "571C0",
+      "Pos": [
+        351.38292740151519,
+        1178.2317998239305
+      ]
+    },
+    {
+      "ID": "571BE",
+      "Pos": [
+        300.0,
+        150.0
+      ]
+    }
+  ]
+}

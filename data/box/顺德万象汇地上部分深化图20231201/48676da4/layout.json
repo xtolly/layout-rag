@@ -1,0 +1,479 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1200.0
+    ],
+    "Parts": [
+      {
+        "ID": "41CE3",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38PolesMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "41CE2",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38PolesMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "41CE1",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38PolesMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "41CE0",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38PolesMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "41CDF",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38PolesMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "41CDE",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38PolesMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "41CDD",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38PolesMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "41956",
+        "Type": "75303397658d25ca2-5b10-486a-8ade-1c9dadf3a1b8",
+        "Size": [
+          82.522336614667438,
+          147.50000000162981
+        ]
+      },
+      {
+        "ID": "415CF",
+        "Type": "146606185011b7608-20d6-4eee-aeba-bb625e910711",
+        "Size": [
+          82.522336614667438,
+          147.50000000162981
+        ]
+      },
+      {
+        "ID": "41248",
+        "Type": "194271794192ec5941-8aa3-4ee7-885f-f05c99cdb3e5",
+        "Size": [
+          82.522336614667438,
+          147.50000000162981
+        ]
+      },
+      {
+        "ID": "40EC1",
+        "Type": "110440586753ef0fd0-7f46-40d6-abce-3104fcb72d38",
+        "Size": [
+          82.522336614667438,
+          147.50000000162981
+        ]
+      },
+      {
+        "ID": "40B3A",
+        "Type": "5657622220c2e73aa-a4a3-40da-907e-22730289f55e",
+        "Size": [
+          82.522336614667438,
+          147.50000000162981
+        ]
+      },
+      {
+        "ID": "407B3",
+        "Type": "984918259ce49b782-8fe3-4328-b64f-e755842220a0",
+        "Size": [
+          82.522336614667438,
+          147.50000000162981
+        ]
+      },
+      {
+        "ID": "4042C",
+        "Type": "1755446187068de171-ab05-451d-aff7-0d24f305cb2c",
+        "Size": [
+          82.522336614667438,
+          147.50000000162981
+        ]
+      },
+      {
+        "ID": "4042A",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "40429",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "40428",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "40427",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "40426",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "40425",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "40424",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "40423",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "40422",
+        "Type": "Manufacturer光辉PartName剩余电流互感器Series一体式ShellFrame250LimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent250PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          125.0,
+          30.0
+        ]
+      },
+      {
+        "ID": "40421",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "40420",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "4041F",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "4041E",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "4041D",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "4041C",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "4041B",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "4041A",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "41CE3",
+      "Pos": [
+        268.12778087472543,
+        732.73666680959286
+      ]
+    },
+    {
+      "ID": "41CE2",
+      "Pos": [
+        322.12778087472543,
+        732.73666680959286
+      ]
+    },
+    {
+      "ID": "41CE1",
+      "Pos": [
+        376.12778087472543,
+        732.73666680959286
+      ]
+    },
+    {
+      "ID": "41CE0",
+      "Pos": [
+        430.12778087472543,
+        732.73666680959286
+      ]
+    },
+    {
+      "ID": "41CDF",
+      "Pos": [
+        484.12778087472543,
+        732.73666680959286
+      ]
+    },
+    {
+      "ID": "41CDE",
+      "Pos": [
+        538.12778087472543,
+        732.73666680959286
+      ]
+    },
+    {
+      "ID": "41CDD",
+      "Pos": [
+        592.12778087472543,
+        732.73666680959286
+      ]
+    },
+    {
+      "ID": "41956",
+      "Pos": [
+        98.956878308148589,
+        685.36424463818548
+      ]
+    },
+    {
+      "ID": "415CF",
+      "Pos": [
+        98.829097433306742,
+        832.36424464144511
+      ]
+    },
+    {
+      "ID": "41248",
+      "Pos": [
+        98.829097433306742,
+        980.364244647848
+      ]
+    },
+    {
+      "ID": "40EC1",
+      "Pos": [
+        98.829097433306742,
+        536.36424463818548
+      ]
+    },
+    {
+      "ID": "40B3A",
+      "Pos": [
+        98.956878308148589,
+        92.364244638185482
+      ]
+    },
+    {
+      "ID": "407B3",
+      "Pos": [
+        98.456878308148589,
+        240.36424463818548
+      ]
+    },
+    {
+      "ID": "4042C",
+      "Pos": [
+        98.456878308148589,
+        388.36424463818548
+      ]
+    },
+    {
+      "ID": "4042A",
+      "Pos": [
+        268.12778087472543,
+        657.73666680959286
+      ]
+    },
+    {
+      "ID": "40429",
+      "Pos": [
+        322.12778087472543,
+        657.73666680959286
+      ]
+    },
+    {
+      "ID": "40428",
+      "Pos": [
+        376.12778087472543,
+        657.73666680959286
+      ]
+    },
+    {
+      "ID": "40427",
+      "Pos": [
+        430.12778087472543,
+        657.73666680959286
+      ]
+    },
+    {
+      "ID": "40426",
+      "Pos": [
+        484.12778087472543,
+        657.73666680959286
+      ]
+    },
+    {
+      "ID": "40425",
+      "Pos": [
+        538.12778087472543,
+        657.73666680959286
+      ]
+    },
+    {
+      "ID": "40424",
+      "Pos": [
+        592.12778087472543,
+        657.73666680959286
+      ]
+    },
+    {
+      "ID": "40423",
+      "Pos": [
+        339.12778087472543,
+        154.73666680959286
+      ]
+    },
+    {
+      "ID": "40422",
+      "Pos": [
+        322.62778087472543,
+        324.73666680959286
+      ]
+    },
+    {
+      "ID": "40421",
+      "Pos": [
+        466.12778087472543,
+        157.23666680959286
+      ]
+    },
+    {
+      "ID": "40420",
+      "Pos": [
+        263.62778087472543,
+        476.23666680959286
+      ]
+    },
+    {
+      "ID": "4041F",
+      "Pos": [
+        317.62778087472543,
+        476.23666680959286
+      ]
+    },
+    {
+      "ID": "4041E",
+      "Pos": [
+        371.62778087472543,
+        476.23666680959286
+      ]
+    },
+    {
+      "ID": "4041D",
+      "Pos": [
+        425.62778087472543,
+        476.23666680959286
+      ]
+    },
+    {
+      "ID": "4041C",
+      "Pos": [
+        479.62778087472543,
+        476.23666680959286
+      ]
+    },
+    {
+      "ID": "4041B",
+      "Pos": [
+        533.62778087472543,
+        476.23666680959286
+      ]
+    },
+    {
+      "ID": "4041A",
+      "Pos": [
+        587.62778087472543,
+        476.23666680959286
+      ]
+    }
+  ]
+}

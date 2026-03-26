@@ -1,0 +1,179 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      500.0,
+      800.0
+    ],
+    "Parts": [
+      {
+        "ID": "11D2F",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "11D2E",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "11D2D",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "11D2C",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series63ShellFrameLimitingCurrentRemarkPartTypeMinCurrent10MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          266.0,
+          192.0
+        ]
+      },
+      {
+        "ID": "11D2B",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "11D2A",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "11D29",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "11D28",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "11D27",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "11D26",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "11D25",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "11D2F",
+      "Pos": [
+        142.0,
+        121.5
+      ]
+    },
+    {
+      "ID": "11D2E",
+      "Pos": [
+        196.0,
+        121.5
+      ]
+    },
+    {
+      "ID": "11D2D",
+      "Pos": [
+        250.0,
+        122.5
+      ]
+    },
+    {
+      "ID": "11D2C",
+      "Pos": [
+        117.0,
+        315.0
+      ]
+    },
+    {
+      "ID": "11D2B",
+      "Pos": [
+        115.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "11D2A",
+      "Pos": [
+        133.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "11D29",
+      "Pos": [
+        151.0,
+        607.0
+      ]
+    },
+    {
+      "ID": "11D28",
+      "Pos": [
+        169.0,
+        608.5
+      ]
+    },
+    {
+      "ID": "11D27",
+      "Pos": [
+        223.0,
+        608.5
+      ]
+    },
+    {
+      "ID": "11D26",
+      "Pos": [
+        277.0,
+        608.5
+      ]
+    },
+    {
+      "ID": "11D25",
+      "Pos": [
+        331.0,
+        608.5
+      ]
+    }
+  ]
+}

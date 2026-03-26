@@ -1,0 +1,494 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      900.0,
+      1100.0
+    ],
+    "Parts": [
+      {
+        "ID": "122B6",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent63MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          293.0,
+          192.0
+        ]
+      },
+      {
+        "ID": "122B5",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "122B4",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "122B3",
+        "Type": "Manufacturer光辉PartName剩余电流互感器Series一体式ShellFrame250LimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent250PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          125.0,
+          30.0
+        ]
+      },
+      {
+        "ID": "122B2",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122B1",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122B0",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122AF",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122AE",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122AD",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122AC",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122AB",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122AA",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A9",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A8",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A7",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A6",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A5",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A4",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A3",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A2",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A1",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "122A0",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "1229F",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "1229E",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "1229D",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          117.0,
+          97.0
+        ]
+      },
+      {
+        "ID": "1229C",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "1229B",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "1229A",
+        "Type": "Manufacturer光辉PartName智能照明控制模块Series12位ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          216.0,
+          104.0
+        ]
+      },
+      {
+        "ID": "12299",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "12298",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "12297",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "122B6",
+      "Pos": [
+        61.0,
+        501.0
+      ]
+    },
+    {
+      "ID": "122B5",
+      "Pos": [
+        110.54747307032812,
+        201.0
+      ]
+    },
+    {
+      "ID": "122B4",
+      "Pos": [
+        212.54747307032812,
+        201.0
+      ]
+    },
+    {
+      "ID": "122B3",
+      "Pos": [
+        154.0,
+        737.0
+      ]
+    },
+    {
+      "ID": "122B2",
+      "Pos": [
+        565.91659175814129,
+        135.5
+      ]
+    },
+    {
+      "ID": "122B1",
+      "Pos": [
+        565.91659175814129,
+        320.0
+      ]
+    },
+    {
+      "ID": "122B0",
+      "Pos": [
+        565.91659175814129,
+        504.5
+      ]
+    },
+    {
+      "ID": "122AF",
+      "Pos": [
+        493.91659175814129,
+        135.5
+      ]
+    },
+    {
+      "ID": "122AE",
+      "Pos": [
+        529.91659175814129,
+        135.5
+      ]
+    },
+    {
+      "ID": "122AD",
+      "Pos": [
+        493.91659175814129,
+        320.0
+      ]
+    },
+    {
+      "ID": "122AC",
+      "Pos": [
+        529.91659175814129,
+        320.0
+      ]
+    },
+    {
+      "ID": "122AB",
+      "Pos": [
+        493.91659175814129,
+        504.5
+      ]
+    },
+    {
+      "ID": "122AA",
+      "Pos": [
+        529.91659175814129,
+        504.5
+      ]
+    },
+    {
+      "ID": "122A9",
+      "Pos": [
+        601.91659175814129,
+        135.5
+      ]
+    },
+    {
+      "ID": "122A8",
+      "Pos": [
+        637.91659175814129,
+        135.5
+      ]
+    },
+    {
+      "ID": "122A7",
+      "Pos": [
+        673.91659175814129,
+        135.5
+      ]
+    },
+    {
+      "ID": "122A6",
+      "Pos": [
+        709.91659175814129,
+        135.5
+      ]
+    },
+    {
+      "ID": "122A5",
+      "Pos": [
+        745.91659175814129,
+        135.5
+      ]
+    },
+    {
+      "ID": "122A4",
+      "Pos": [
+        781.91659175814129,
+        135.5
+      ]
+    },
+    {
+      "ID": "122A3",
+      "Pos": [
+        601.91659175814129,
+        320.0
+      ]
+    },
+    {
+      "ID": "122A2",
+      "Pos": [
+        637.91659175814129,
+        320.0
+      ]
+    },
+    {
+      "ID": "122A1",
+      "Pos": [
+        673.91659175814129,
+        320.0
+      ]
+    },
+    {
+      "ID": "122A0",
+      "Pos": [
+        709.91659175814129,
+        320.0
+      ]
+    },
+    {
+      "ID": "1229F",
+      "Pos": [
+        745.91659175814129,
+        320.0
+      ]
+    },
+    {
+      "ID": "1229E",
+      "Pos": [
+        781.91659175814129,
+        320.0
+      ]
+    },
+    {
+      "ID": "1229D",
+      "Pos": [
+        601.91659175814129,
+        504.5
+      ]
+    },
+    {
+      "ID": "1229C",
+      "Pos": [
+        718.91659175814129,
+        504.5
+      ]
+    },
+    {
+      "ID": "1229B",
+      "Pos": [
+        739.301295258163,
+        500.92092596006114
+      ]
+    },
+    {
+      "ID": "1229A",
+      "Pos": [
+        567.80846572216251,
+        752.57734493934549
+      ]
+    },
+    {
+      "ID": "12299",
+      "Pos": [
+        455.50575851509348,
+        753.39931818679906
+      ]
+    },
+    {
+      "ID": "12298",
+      "Pos": [
+        786.98007176394458,
+        752.57734684669413
+      ]
+    },
+    {
+      "ID": "12297",
+      "Pos": [
+        790.847163793369,
+        888.84316278778715
+      ]
+    }
+  ]
+}

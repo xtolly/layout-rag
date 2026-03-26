@@ -1,0 +1,134 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      600.0,
+      800.0
+    ],
+    "Parts": [
+      {
+        "ID": "4A4BF",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent63MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          293.0,
+          192.0
+        ]
+      },
+      {
+        "ID": "4A4BE",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "4A4BD",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "4A4BC",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "4A4BB",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "4A4BA",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "4A46E",
+        "Type": "ManufacturerPartName浪涌后备保护器SeriesShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles4P3P+NMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          108.0,
+          70.0
+        ]
+      },
+      {
+        "ID": "4A46D",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "4A4BF",
+      "Pos": [
+        89.5,
+        150.0
+      ]
+    },
+    {
+      "ID": "4A4BE",
+      "Pos": [
+        402.5,
+        152.5
+      ]
+    },
+    {
+      "ID": "4A4BD",
+      "Pos": [
+        105.0,
+        442.0
+      ]
+    },
+    {
+      "ID": "4A4BC",
+      "Pos": [
+        207.0,
+        442.0
+      ]
+    },
+    {
+      "ID": "4A4BB",
+      "Pos": [
+        243.0,
+        442.0
+      ]
+    },
+    {
+      "ID": "4A4BA",
+      "Pos": [
+        279.0,
+        442.0
+      ]
+    },
+    {
+      "ID": "4A46E",
+      "Pos": [
+        315.0,
+        442.0
+      ]
+    },
+    {
+      "ID": "4A46D",
+      "Pos": [
+        422.99999989103526,
+        442.00000190734863
+      ]
+    }
+  ]
+}

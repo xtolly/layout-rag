@@ -1,0 +1,59 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1800.0
+    ],
+    "Parts": [
+      {
+        "ID": "19EB1",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "19EB0",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "19E81",
+        "Type": "Manufacturer上海良信PartName隔离开关SeriesShellFrameLimitingCurrentRemarkPartTypeMinCurrent500MaxCurrent800PolesMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          230.0,
+          260.00376454519574
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "19EB1",
+      "Pos": [
+        486.97023033699952,
+        1463.0811246774974
+      ]
+    },
+    {
+      "ID": "19EB0",
+      "Pos": [
+        558.97023033699952,
+        1463.0811246774974
+      ]
+    },
+    {
+      "ID": "19E81",
+      "Pos": [
+        235.0,
+        399.99811772740213
+      ]
+    }
+  ]
+}

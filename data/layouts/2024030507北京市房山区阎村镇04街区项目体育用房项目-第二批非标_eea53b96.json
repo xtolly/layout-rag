@@ -1,0 +1,833 @@
+{
+    "uuid": "1ea17e7d-1da1-43d3-9f3f-3104d80ab712",
+    "meta": {
+        "industry": "",
+        "cabinet_type": "配电柜",
+        "panel_type": "安装板",
+        "panel_size": [
+            600.0,
+            1600.0
+        ],
+        "parts": [
+            {
+                "part_id": "1353CC",
+                "part_type": "端子堵头",
+                "part_size": [
+                    9.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353CB",
+                "part_type": "余压控制器",
+                "part_size": [
+                    130.20731258229353,
+                    90.0
+                ]
+            },
+            {
+                "part_id": "1353CA",
+                "part_type": "端子堵头",
+                "part_size": [
+                    9.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353C9",
+                "part_type": "端子堵头",
+                "part_size": [
+                    9.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353C8",
+                "part_type": "时间继电器",
+                "part_size": [
+                    30.0,
+                    71.0
+                ]
+            },
+            {
+                "part_id": "1353C7",
+                "part_type": "接线端子",
+                "part_size": [
+                    25.0,
+                    43.0
+                ]
+            },
+            {
+                "part_id": "1353C6",
+                "part_type": "接线端子",
+                "part_size": [
+                    25.0,
+                    43.0
+                ]
+            },
+            {
+                "part_id": "1353C5",
+                "part_type": "端子堵头",
+                "part_size": [
+                    9.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353C4",
+                "part_type": "接线端子",
+                "part_size": [
+                    25.0,
+                    43.0
+                ]
+            },
+            {
+                "part_id": "1353C3",
+                "part_type": "接线端子",
+                "part_size": [
+                    25.0,
+                    43.0
+                ]
+            },
+            {
+                "part_id": "1353C2",
+                "part_type": "端子堵头",
+                "part_size": [
+                    9.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353C1",
+                "part_type": "端子堵头",
+                "part_size": [
+                    9.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353C0",
+                "part_type": "熔断器",
+                "part_size": [
+                    18.0,
+                    82.0
+                ]
+            },
+            {
+                "part_id": "1353BF",
+                "part_type": "时间继电器",
+                "part_size": [
+                    21.995882438030094,
+                    71.0
+                ]
+            },
+            {
+                "part_id": "1353BE",
+                "part_type": "时间继电器",
+                "part_size": [
+                    21.995882437797263,
+                    71.0
+                ]
+            },
+            {
+                "part_id": "1353BD",
+                "part_type": "时间继电器",
+                "part_size": [
+                    30.0,
+                    71.0
+                ]
+            },
+            {
+                "part_id": "1353BC",
+                "part_type": "时间继电器",
+                "part_size": [
+                    30.0,
+                    71.0
+                ]
+            },
+            {
+                "part_id": "1353BB",
+                "part_type": "微型断路器",
+                "part_size": [
+                    105.0,
+                    55.0
+                ]
+            },
+            {
+                "part_id": "1353BA",
+                "part_type": "熔断器",
+                "part_size": [
+                    108.0,
+                    82.0
+                ]
+            },
+            {
+                "part_id": "1353B9",
+                "part_type": "接线端子",
+                "part_size": [
+                    33.0,
+                    43.0
+                ]
+            },
+            {
+                "part_id": "1353B8",
+                "part_type": "熔断器",
+                "part_size": [
+                    126.0,
+                    82.0
+                ]
+            },
+            {
+                "part_id": "1353B7",
+                "part_type": "接线端子",
+                "part_size": [
+                    24.0,
+                    43.0
+                ]
+            },
+            {
+                "part_id": "1353B6",
+                "part_type": "端子堵头",
+                "part_size": [
+                    9.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353B5",
+                "part_type": "端子堵头",
+                "part_size": [
+                    9.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353B4",
+                "part_type": "接线端子",
+                "part_size": [
+                    12.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353B3",
+                "part_type": "接线端子",
+                "part_size": [
+                    12.0,
+                    42.0
+                ]
+            },
+            {
+                "part_id": "1353B2",
+                "part_type": "双电源自动转换开关",
+                "part_size": [
+                    265.0,
+                    272.0
+                ]
+            },
+            {
+                "part_id": "1353B1",
+                "part_type": "浪涌保护器",
+                "part_size": [
+                    72.0,
+                    135.0
+                ]
+            },
+            {
+                "part_id": "1353B0",
+                "part_type": "控制与保护开关",
+                "part_size": [
+                    93.0,
+                    249.0
+                ]
+            },
+            {
+                "part_id": "1353AF",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    92.99999137269333,
+                    155.0000011920929
+                ]
+            },
+            {
+                "part_id": "1353AE",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    92.99999137269333,
+                    155.0000011920929
+                ]
+            },
+            {
+                "part_id": "1353AD",
+                "part_type": "微型断路器",
+                "part_size": [
+                    54.0,
+                    135.0
+                ]
+            },
+            {
+                "part_id": "1353AC",
+                "part_type": "微型断路器",
+                "part_size": [
+                    18.0,
+                    135.0
+                ]
+            },
+            {
+                "part_id": "1353AB",
+                "part_type": "微型断路器",
+                "part_size": [
+                    54.0,
+                    135.0
+                ]
+            },
+            {
+                "part_id": "1353AA",
+                "part_type": "微型断路器",
+                "part_size": [
+                    18.0,
+                    135.0
+                ]
+            },
+            {
+                "part_id": "1353A9",
+                "part_type": "后备保护断路器",
+                "part_size": [
+                    82.10692774457857,
+                    134.0
+                ]
+            },
+            {
+                "part_id": "1353A8",
+                "part_type": "火灾监控探测器",
+                "part_size": [
+                    110.0,
+                    94.5
+                ]
+            },
+            {
+                "part_id": "1353A7",
+                "part_type": "电能表",
+                "part_size": [
+                    71.5,
+                    90.0
+                ]
+            },
+            {
+                "part_id": "135349",
+                "part_type": "地排",
+                "part_size": [
+                    530.000004499685,
+                    176.32938821963035
+                ]
+            }
+        ]
+    },
+    "arrange": {
+        "1353CC": {
+            "position": [
+                75.19232548470609,
+                1190.0000324363937
+            ],
+            "rotation": 0
+        },
+        "1353CB": {
+            "position": [
+                324.40391871961765,
+                1194.8000309208874
+            ],
+            "rotation": 0
+        },
+        "1353CA": {
+            "position": [
+                75.45108551904559,
+                838.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353C9": {
+            "position": [
+                171.22124118660577,
+                1028.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353C8": {
+            "position": [
+                114.45108551927842,
+                824.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353C7": {
+            "position": [
+                159.1923254847061,
+                1189.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353C6": {
+            "position": [
+                109.19232548470609,
+                1189.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353C5": {
+            "position": [
+                184.19232548447326,
+                1190.0000324363937
+            ],
+            "rotation": 0
+        },
+        "1353C4": {
+            "position": [
+                134.1923254847061,
+                1189.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353C3": {
+            "position": [
+                84.19232548470609,
+                1189.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353C2": {
+            "position": [
+                144.45108551927842,
+                838.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353C1": {
+            "position": [
+                70.22947631077841,
+                1028.5000324363937
+            ],
+            "rotation": 0
+        },
+        "1353C0": {
+            "position": [
+                79.22947631077841,
+                1009.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353BF": {
+            "position": [
+                97.22947631077841,
+                1014.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353BE": {
+            "position": [
+                119.22535874857567,
+                1014.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353BD": {
+            "position": [
+                84.45108551927842,
+                824.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353BC": {
+            "position": [
+                141.22124118660577,
+                1014.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353BB": {
+            "position": [
+                425.8594088833779,
+                832.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353BA": {
+            "position": [
+                107.61476032529026,
+                277.73980799957644
+            ],
+            "rotation": 0
+        },
+        "1353B9": {
+            "position": [
+                371.4510855192784,
+                838.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353B8": {
+            "position": [
+                144.45108551927842,
+                819.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353B7": {
+            "position": [
+                496.29667126527056,
+                645.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353B6": {
+            "position": [
+                353.1308741439134,
+                318.00003243633546
+            ],
+            "rotation": 0
+        },
+        "1353B5": {
+            "position": [
+                320.1308741439134,
+                318.00003243633546
+            ],
+            "rotation": 0
+        },
+        "1353B4": {
+            "position": [
+                341.1308741439134,
+                318.00003243633546
+            ],
+            "rotation": 0
+        },
+        "1353B3": {
+            "position": [
+                329.1308741439134,
+                318.00003243633546
+            ],
+            "rotation": 0
+        },
+        "1353B2": {
+            "position": [
+                102.13042891188525,
+                440.00003243633546
+            ],
+            "rotation": 0
+        },
+        "1353B1": {
+            "position": [
+                454.40391204389744,
+                982.000031782256
+            ],
+            "rotation": 0
+        },
+        "1353B0": {
+            "position": [
+                197.04082671459764,
+                982.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353AF": {
+            "position": [
+                360.63088024570607,
+                205.00003124424256
+            ],
+            "rotation": 0
+        },
+        "1353AE": {
+            "position": [
+                228.63087666942738,
+                205.00003124424256
+            ],
+            "rotation": 0
+        },
+        "1353AD": {
+            "position": [
+                397.7088622653391,
+                982.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353AC": {
+            "position": [
+                361.7088622653391,
+                982.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353AB": {
+            "position": [
+                307.7088622653391,
+                982.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353AA": {
+            "position": [
+                379.7088622653391,
+                982.0000324363355
+            ],
+            "rotation": 0
+        },
+        "1353A9": {
+            "position": [
+                454.40391871961765,
+                1175.3000309208874
+            ],
+            "rotation": 0
+        },
+        "1353A8": {
+            "position": [
+                270.4510855192784,
+                814.5000324363355
+            ],
+            "rotation": 0
+        },
+        "1353A7": {
+            "position": [
+                424.79667126527056,
+                622.0000324363355
+            ],
+            "rotation": 0
+        },
+        "135349": {
+            "position": [
+                34.99999550031498,
+                1330.071119431872
+            ],
+            "rotation": 0
+        }
+    },
+    "features": [
+        {
+            "name": "panel_width",
+            "display_name": "面板宽度",
+            "value": 600.0
+        },
+        {
+            "name": "panel_height",
+            "display_name": "面板高度",
+            "value": 1600.0
+        },
+        {
+            "name": "panel_area",
+            "display_name": "面板面积",
+            "value": 960000.0
+        },
+        {
+            "name": "panel_aspect_ratio",
+            "display_name": "面板宽高比",
+            "value": 0.375
+        },
+        {
+            "name": "total_parts",
+            "display_name": "元件总数",
+            "value": 39
+        },
+        {
+            "name": "unique_types",
+            "display_name": "元件类型数",
+            "value": 14
+        },
+        {
+            "name": "total_parts_area",
+            "display_name": "元件总面积",
+            "value": 332967.9758534587
+        },
+        {
+            "name": "fill_ratio",
+            "display_name": "填充率",
+            "value": 0.34684164151401947
+        },
+        {
+            "name": "avg_part_width",
+            "display_name": "元件平均宽度",
+            "value": 62.25143570378901
+        },
+        {
+            "name": "avg_part_height",
+            "display_name": "元件平均高度",
+            "value": 87.81613822061067
+        },
+        {
+            "name": "max_part_width",
+            "display_name": "元件最大宽度",
+            "value": 530.000004499685
+        },
+        {
+            "name": "max_part_height",
+            "display_name": "元件最大高度",
+            "value": 272.0
+        },
+        {
+            "name": "width_std",
+            "display_name": "宽度标准差",
+            "value": 91.45083763227913
+        },
+        {
+            "name": "height_std",
+            "display_name": "高度标准差",
+            "value": 56.77644255565141
+        },
+        {
+            "name": "count_电流互感器",
+            "display_name": "电流互感器数量",
+            "value": 0
+        },
+        {
+            "name": "count_时间继电器",
+            "display_name": "时间继电器数量",
+            "value": 5
+        },
+        {
+            "name": "count_继电器+接线端子",
+            "display_name": "继电器+接线端子数量",
+            "value": 0
+        },
+        {
+            "name": "count_零排",
+            "display_name": "零排数量",
+            "value": 0
+        },
+        {
+            "name": "count_塑壳断路器",
+            "display_name": "塑壳断路器数量",
+            "value": 2
+        },
+        {
+            "name": "count_火灾监控探测器",
+            "display_name": "火灾监控探测器数量",
+            "value": 1
+        },
+        {
+            "name": "count_时控开关",
+            "display_name": "时控开关数量",
+            "value": 0
+        },
+        {
+            "name": "count_浪涌保护器",
+            "display_name": "浪涌保护器数量",
+            "value": 1
+        },
+        {
+            "name": "count_熔断器",
+            "display_name": "熔断器数量",
+            "value": 3
+        },
+        {
+            "name": "count_电源模块",
+            "display_name": "电源模块数量",
+            "value": 0
+        },
+        {
+            "name": "count_分线端子",
+            "display_name": "分线端子数量",
+            "value": 0
+        },
+        {
+            "name": "count_微型断路器",
+            "display_name": "微型断路器数量",
+            "value": 5
+        },
+        {
+            "name": "count_电源监控",
+            "display_name": "电源监控数量",
+            "value": 0
+        },
+        {
+            "name": "count_母线排",
+            "display_name": "母线排数量",
+            "value": 0
+        },
+        {
+            "name": "count_端子堵头",
+            "display_name": "端子堵头数量",
+            "value": 8
+        },
+        {
+            "name": "count_热继电器",
+            "display_name": "热继电器数量",
+            "value": 0
+        },
+        {
+            "name": "count_变频器",
+            "display_name": "变频器数量",
+            "value": 0
+        },
+        {
+            "name": "count_隔离开关",
+            "display_name": "隔离开关数量",
+            "value": 0
+        },
+        {
+            "name": "count_接触器",
+            "display_name": "接触器数量",
+            "value": 0
+        },
+        {
+            "name": "count_双电源自动转换开关",
+            "display_name": "双电源自动转换开关数量",
+            "value": 1
+        },
+        {
+            "name": "count_控制与保护开关",
+            "display_name": "控制与保护开关数量",
+            "value": 1
+        },
+        {
+            "name": "count_变压器",
+            "display_name": "变压器数量",
+            "value": 0
+        },
+        {
+            "name": "count_地排",
+            "display_name": "地排数量",
+            "value": 1
+        },
+        {
+            "name": "count_后备保护断路器",
+            "display_name": "后备保护断路器数量",
+            "value": 1
+        },
+        {
+            "name": "count_余压控制器",
+            "display_name": "余压控制器数量",
+            "value": 1
+        },
+        {
+            "name": "count_电能表",
+            "display_name": "电能表数量",
+            "value": 1
+        },
+        {
+            "name": "count_智能照明控制模块",
+            "display_name": "智能照明控制模块数量",
+            "value": 0
+        },
+        {
+            "name": "count_接线端子",
+            "display_name": "接线端子数量",
+            "value": 8
+        },
+        {
+            "name": "has_双电源",
+            "display_name": "包含双电源",
+            "value": 1.0
+        },
+        {
+            "name": "has_地排",
+            "display_name": "包含地排",
+            "value": 1.0
+        },
+        {
+            "name": "has_零排",
+            "display_name": "包含零排",
+            "value": 0.0
+        },
+        {
+            "name": "large_part_ratio",
+            "display_name": "大元件比例",
+            "value": 0.23076923076923078
+        }
+    ]
+}

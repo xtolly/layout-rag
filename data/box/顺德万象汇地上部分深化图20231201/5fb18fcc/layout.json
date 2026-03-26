@@ -1,0 +1,104 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1600.0
+    ],
+    "Parts": [
+      {
+        "ID": "43295",
+        "Type": "Manufacturer上海良信PartName双电源自动转换开关SeriesNDQ3ShellFrame630LimitingCurrentRemarkPartTypeMinCurrent315MaxCurrent630Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          412.0,
+          301.0
+        ]
+      },
+      {
+        "ID": "43292",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "43291",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "43290",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series400ShellFrameLimitingCurrentRemarkPartTypeMinCurrent300MaxCurrent400Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          150.0,
+          257.0
+        ]
+      },
+      {
+        "ID": "4328F",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "4328E",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "43295",
+      "Pos": [
+        144.0,
+        400.0
+      ]
+    },
+    {
+      "ID": "43292",
+      "Pos": [
+        71.999999999534339,
+        970.757045455277
+      ]
+    },
+    {
+      "ID": "43291",
+      "Pos": [
+        207.74209644575603,
+        951.0
+      ]
+    },
+    {
+      "ID": "43290",
+      "Pos": [
+        309.74209644575603,
+        951.0
+      ]
+    },
+    {
+      "ID": "4328F",
+      "Pos": [
+        482.99999978207052,
+        971.00000381469727
+      ]
+    },
+    {
+      "ID": "4328E",
+      "Pos": [
+        554.99999978207052,
+        971.00000381469727
+      ]
+    }
+  ]
+}

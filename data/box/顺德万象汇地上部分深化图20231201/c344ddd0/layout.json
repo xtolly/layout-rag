@@ -1,0 +1,359 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      2000.0
+    ],
+    "Parts": [
+      {
+        "ID": "70CA3",
+        "Type": "Manufacturer光辉PartName变频器Series15KWShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower11MaxPower15LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          135.0,
+          296.0
+        ]
+      },
+      {
+        "ID": "6FFFD",
+        "Type": "69714707723d04b10-3cc3-43d9-97f8-1a0cc00e302f",
+        "Size": [
+          431.73770330531988,
+          75.0
+        ]
+      },
+      {
+        "ID": "6F357",
+        "Type": "188683104202d2bf74-61ed-4aa4-8eb9-177b455f77d9",
+        "Size": [
+          431.73770330531988,
+          75.0
+        ]
+      },
+      {
+        "ID": "6F356",
+        "Type": "Manufacturer光辉PartName变频器Series15KWShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower11MaxPower15LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          135.0,
+          296.0
+        ]
+      },
+      {
+        "ID": "6EFCF",
+        "Type": "929031360ec87971d-3d72-45e4-801c-d9072299594a",
+        "Size": [
+          147.50000000162981,
+          82.522336614667438
+        ]
+      },
+      {
+        "ID": "6EFCE",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "6EFCD",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "6EFCB",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "6EFCA",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          117.0,
+          97.0
+        ]
+      },
+      {
+        "ID": "6EFC9",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          122.0,
+          151.0
+        ]
+      },
+      {
+        "ID": "6EFC8",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          122.0,
+          151.0
+        ]
+      },
+      {
+        "ID": "6EFC7",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          117.0,
+          97.0
+        ]
+      },
+      {
+        "ID": "6EFC6",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent12.1MaxCurrent18Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "6EFC5",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "6EFC4",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent12.1MaxCurrent18Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "6EFC3",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "6EFC2",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "6EFC1",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38PolesMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "6EFC0",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent12.1MaxCurrent18Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "6EFBF",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent12.1MaxCurrent18Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "6EFBE",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          117.0,
+          97.0
+        ]
+      },
+      {
+        "ID": "6EFBD",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "6EFBC",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "70CA3",
+      "Pos": [
+        362.0,
+        1350.3629617339466
+      ]
+    },
+    {
+      "ID": "6FFFD",
+      "Pos": [
+        55.262296694621909,
+        933.16145235847216
+      ]
+    },
+    {
+      "ID": "6F357",
+      "Pos": [
+        52.262296694621909,
+        1126.6206276019802
+      ]
+    },
+    {
+      "ID": "6F356",
+      "Pos": [
+        207.0,
+        1350.3629617339466
+      ]
+    },
+    {
+      "ID": "6EFCF",
+      "Pos": [
+        486.49999999837019,
+        932.63911574380472
+      ]
+    },
+    {
+      "ID": "6EFCE",
+      "Pos": [
+        452.48112288664561,
+        443.51677063765237
+      ]
+    },
+    {
+      "ID": "6EFCD",
+      "Pos": [
+        420.22930976795033,
+        692.38279242493445
+      ]
+    },
+    {
+      "ID": "6EFCB",
+      "Pos": [
+        304.0,
+        150.0
+      ]
+    },
+    {
+      "ID": "6EFCA",
+      "Pos": [
+        335.48112288664561,
+        443.51677063765237
+      ]
+    },
+    {
+      "ID": "6EFC9",
+      "Pos": [
+        71.481122886645608,
+        443.51677063765237
+      ]
+    },
+    {
+      "ID": "6EFC8",
+      "Pos": [
+        203.48112288664561,
+        443.51677063765237
+      ]
+    },
+    {
+      "ID": "6EFC7",
+      "Pos": [
+        77.7657389943488,
+        693.08666603639722
+      ]
+    },
+    {
+      "ID": "6EFC6",
+      "Pos": [
+        194.26573899434879,
+        693.08666603639722
+      ]
+    },
+    {
+      "ID": "6EFC5",
+      "Pos": [
+        194.26573899434879,
+        768.08666603639722
+      ]
+    },
+    {
+      "ID": "6EFC4",
+      "Pos": [
+        239.76573899434879,
+        693.58666794374585
+      ]
+    },
+    {
+      "ID": "6EFC3",
+      "Pos": [
+        239.76573899434879,
+        768.58666794374585
+      ]
+    },
+    {
+      "ID": "6EFC2",
+      "Pos": [
+        284.76573899434879,
+        693.08666794374585
+      ]
+    },
+    {
+      "ID": "6EFC1",
+      "Pos": [
+        284.76573899434879,
+        768.08666794374585
+      ]
+    },
+    {
+      "ID": "6EFC0",
+      "Pos": [
+        329.76573899434879,
+        693.08666985109448
+      ]
+    },
+    {
+      "ID": "6EFBF",
+      "Pos": [
+        374.76573899434879,
+        693.08666985109448
+      ]
+    },
+    {
+      "ID": "6EFBE",
+      "Pos": [
+        488.98112288664561,
+        443.51677063765237
+      ]
+    },
+    {
+      "ID": "6EFBD",
+      "Pos": [
+        605.98112288664561,
+        443.51677063765237
+      ]
+    },
+    {
+      "ID": "6EFBC",
+      "Pos": [
+        492.22930976795033,
+        692.38279242493445
+      ]
+    }
+  ]
+}

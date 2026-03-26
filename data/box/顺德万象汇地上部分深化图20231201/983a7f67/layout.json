@@ -1,0 +1,209 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1400.0
+    ],
+    "Parts": [
+      {
+        "ID": "6A09F",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "6A09E",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "6A09C",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series250ShellFrameLimitingCurrentRemarkPartTypeMinCurrent100MaxCurrent250Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          107.0,
+          165.0
+        ]
+      },
+      {
+        "ID": "6A09B",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series250ShellFrameLimitingCurrentRemarkPartTypeMinCurrent100MaxCurrent250Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          107.0,
+          165.0
+        ]
+      },
+      {
+        "ID": "6A09A",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series250ShellFrameLimitingCurrentRemarkPartTypeMinCurrent160MaxCurrent250Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          319.0,
+          195.0
+        ]
+      },
+      {
+        "ID": "6A099",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "6A098",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "6A097",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "6A096",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "6A095",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "6A094",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "6A093",
+        "Type": "Manufacturer光辉PartName微型断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          72.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "6A092",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "6A09F",
+      "Pos": [
+        170.0,
+        979.95735325466376
+      ]
+    },
+    {
+      "ID": "6A09E",
+      "Pos": [
+        68.0,
+        979.95735325466376
+      ]
+    },
+    {
+      "ID": "6A09C",
+      "Pos": [
+        238.0,
+        269.95735325466376
+      ]
+    },
+    {
+      "ID": "6A09B",
+      "Pos": [
+        355.0,
+        269.95735325466376
+      ]
+    },
+    {
+      "ID": "6A09A",
+      "Pos": [
+        190.5,
+        584.95735325466376
+      ]
+    },
+    {
+      "ID": "6A099",
+      "Pos": [
+        272.0,
+        979.95735325466376
+      ]
+    },
+    {
+      "ID": "6A098",
+      "Pos": [
+        308.0,
+        979.95735325466376
+      ]
+    },
+    {
+      "ID": "6A097",
+      "Pos": [
+        344.0,
+        979.95735325466376
+      ]
+    },
+    {
+      "ID": "6A096",
+      "Pos": [
+        380.0,
+        979.95735325466376
+      ]
+    },
+    {
+      "ID": "6A095",
+      "Pos": [
+        416.0,
+        979.95735325466376
+      ]
+    },
+    {
+      "ID": "6A094",
+      "Pos": [
+        452.0,
+        979.95735325466376
+      ]
+    },
+    {
+      "ID": "6A093",
+      "Pos": [
+        488.0,
+        979.95735325466376
+      ]
+    },
+    {
+      "ID": "6A092",
+      "Pos": [
+        559.99999989103526,
+        979.95735516201239
+      ]
+    }
+  ]
+}

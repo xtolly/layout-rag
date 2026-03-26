@@ -1,0 +1,59 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1300.0
+    ],
+    "Parts": [
+      {
+        "ID": "21DFD",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "21DFC",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "21DFA",
+        "Type": "Manufacturer光辉PartName隔离开关Series400ShellFrameLimitingCurrentRemarkPartTypeMinCurrent100MaxCurrent400Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          290.0,
+          240.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "21DFD",
+      "Pos": [
+        471.1093875024817,
+        1039.2946545145242
+      ]
+    },
+    {
+      "ID": "21DFC",
+      "Pos": [
+        543.1093875024817,
+        1039.2946545145242
+      ]
+    },
+    {
+      "ID": "21DFA",
+      "Pos": [
+        205.0,
+        400.0
+      ]
+    }
+  ]
+}

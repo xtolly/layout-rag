@@ -1,0 +1,254 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1200.0
+    ],
+    "Parts": [
+      {
+        "ID": "33CE0",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "33CDF",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "33CDE",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "3332B",
+        "Type": "15075997589f0d8da0-a790-4e56-aaf7-76ddd21531d7",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "3332A",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "33329",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-95ShellFrameLimitingCurrentRemarkPartTypeMinCurrent17MaxCurrent104Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          70.000005814479664,
+          74.112894952530041
+        ]
+      },
+      {
+        "ID": "33328",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "33327",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "32974",
+        "Type": "3179157937ec2447a-c66a-4314-829e-1db4791a8b54",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "32973",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "32972",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "32971",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "3296F",
+        "Type": "Manufacturer光辉PartName隔离开关Series100ShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent100Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          115.55480976984836,
+          124.0
+        ]
+      },
+      {
+        "ID": "31FBC",
+        "Type": "19267557950009ea18-d3ca-41fd-b3d4-0c9cd2e927b8",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "31FBB",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "31FBA",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "33CE0",
+      "Pos": [
+        506.73203913378529,
+        424.0
+      ]
+    },
+    {
+      "ID": "33CDF",
+      "Pos": [
+        302.73203913378529,
+        424.0
+      ]
+    },
+    {
+      "ID": "33CDE",
+      "Pos": [
+        404.73203913378529,
+        424.0
+      ]
+    },
+    {
+      "ID": "3332B",
+      "Pos": [
+        132.39671099709813,
+        449.81620603852207
+      ]
+    },
+    {
+      "ID": "3332A",
+      "Pos": [
+        413.23203913378529,
+        724.0
+      ]
+    },
+    {
+      "ID": "33329",
+      "Pos": [
+        415.73203622654546,
+        852.443552523735
+      ]
+    },
+    {
+      "ID": "33328",
+      "Pos": [
+        311.23203913378529,
+        724.0
+      ]
+    },
+    {
+      "ID": "33327",
+      "Pos": [
+        326.23203913378529,
+        852.0
+      ]
+    },
+    {
+      "ID": "32974",
+      "Pos": [
+        133.14363845752086,
+        768.15212123381207
+      ]
+    },
+    {
+      "ID": "32973",
+      "Pos": [
+        515.23203913378529,
+        724.0
+      ]
+    },
+    {
+      "ID": "32972",
+      "Pos": [
+        530.23203913378529,
+        852.0
+      ]
+    },
+    {
+      "ID": "32971",
+      "Pos": [
+        466.47693081293255,
+        180.13353288936196
+      ]
+    },
+    {
+      "ID": "3296F",
+      "Pos": [
+        300.0,
+        150.0
+      ]
+    },
+    {
+      "ID": "31FBC",
+      "Pos": [
+        132.305253312923,
+        131.48029084323207
+      ]
+    },
+    {
+      "ID": "31FBB",
+      "Pos": [
+        538.47693081293255,
+        180.13353288936196
+      ]
+    },
+    {
+      "ID": "31FBA",
+      "Pos": [
+        608.73203913378529,
+        424.0
+      ]
+    }
+  ]
+}

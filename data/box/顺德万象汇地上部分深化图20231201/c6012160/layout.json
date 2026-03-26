@@ -1,0 +1,59 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1200.0
+    ],
+    "Parts": [
+      {
+        "ID": "571BA",
+        "Type": "Manufacturer光辉PartName隔离开关Series250ShellFrameLimitingCurrentRemarkPartTypeMinCurrent100MaxCurrent250Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          230.0,
+          170.0
+        ]
+      },
+      {
+        "ID": "571B9",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "571B8",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "571BA",
+      "Pos": [
+        235.0,
+        250.0
+      ]
+    },
+    {
+      "ID": "571B9",
+      "Pos": [
+        277.99999989103526,
+        620.00000190734863
+      ]
+    },
+    {
+      "ID": "571B8",
+      "Pos": [
+        349.99999989103526,
+        620.00000190734863
+      ]
+    }
+  ]
+}

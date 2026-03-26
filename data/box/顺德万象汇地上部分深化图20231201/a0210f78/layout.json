@@ -1,0 +1,179 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      600.0,
+      1000.0
+    ],
+    "Parts": [
+      {
+        "ID": "6A08F",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "696DC",
+        "Type": "8395584278c315533-bee9-48d6-ae0f-4a1720a747a1",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "68D29",
+        "Type": "20292423920fcff6b0-b16b-4949-9ff9-15eb3b8dcd7c",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "68D27",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series63ShellFrameLimitingCurrentRemarkPartTypeMinCurrent10MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          266.0,
+          192.0
+        ]
+      },
+      {
+        "ID": "68D26",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "68D25",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "68D24",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "68D23",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "68D22",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "68D21",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "68D20",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "6A08F",
+      "Pos": [
+        86.52701690455433,
+        105.84162715030834
+      ]
+    },
+    {
+      "ID": "696DC",
+      "Pos": [
+        105.94354192301398,
+        568.639015116496
+      ]
+    },
+    {
+      "ID": "68D29",
+      "Pos": [
+        106.36384682438802,
+        250.639015116496
+      ]
+    },
+    {
+      "ID": "68D27",
+      "Pos": [
+        265.42030490137404,
+        126.39450019295327
+      ]
+    },
+    {
+      "ID": "68D26",
+      "Pos": [
+        305.45291450526565,
+        416.97350015008124
+      ]
+    },
+    {
+      "ID": "68D25",
+      "Pos": [
+        407.45291450526565,
+        416.97350015008124
+      ]
+    },
+    {
+      "ID": "68D24",
+      "Pos": [
+        313.95291450526565,
+        666.97350015008124
+      ]
+    },
+    {
+      "ID": "68D23",
+      "Pos": [
+        328.95291450526565,
+        794.97350015008124
+      ]
+    },
+    {
+      "ID": "68D22",
+      "Pos": [
+        415.95291450526565,
+        666.97350015008124
+      ]
+    },
+    {
+      "ID": "68D21",
+      "Pos": [
+        430.95291450526565,
+        794.97350015008124
+      ]
+    },
+    {
+      "ID": "68D20",
+      "Pos": [
+        509.45291450526565,
+        416.97350015008124
+      ]
+    }
+  ]
+}

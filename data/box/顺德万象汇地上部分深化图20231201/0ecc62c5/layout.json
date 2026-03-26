@@ -1,0 +1,164 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      600.0,
+      900.0
+    ],
+    "Parts": [
+      {
+        "ID": "6AA68",
+        "Type": "647144133578e7633-d407-45a9-b887-fad640080923",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "6A0B5",
+        "Type": "18368280989de3f7fe-8e65-43a6-b2de-cf71b383b3ab",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "6A0B3",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "6A0B2",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "6A0B1",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent25.1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          56.0,
+          84.0
+        ]
+      },
+      {
+        "ID": "6A0B0",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "6A0AF",
+        "Type": "Manufacturer光辉PartName隔离开关Series100ShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent100Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          115.55480976984836,
+          124.0
+        ]
+      },
+      {
+        "ID": "6A0AE",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "6A0AD",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "6A0AC",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "6AA68",
+      "Pos": [
+        112.0,
+        459.98599266802194
+      ]
+    },
+    {
+      "ID": "6A0B5",
+      "Pos": [
+        112.43195481412113,
+        141.98599266802194
+      ]
+    },
+    {
+      "ID": "6A0B3",
+      "Pos": [
+        337.93195481412113,
+        588.41767061164137
+      ]
+    },
+    {
+      "ID": "6A0B2",
+      "Pos": [
+        352.93195481412113,
+        716.41767061164137
+      ]
+    },
+    {
+      "ID": "6A0B1",
+      "Pos": [
+        449.43195481412113,
+        588.41767061164137
+      ]
+    },
+    {
+      "ID": "6A0B0",
+      "Pos": [
+        454.93195481412113,
+        672.41767061164137
+      ]
+    },
+    {
+      "ID": "6A0AF",
+      "Pos": [
+        390.43195481412113,
+        120.0
+      ]
+    },
+    {
+      "ID": "6A0AE",
+      "Pos": [
+        329.43195481412113,
+        344.0
+      ]
+    },
+    {
+      "ID": "6A0AD",
+      "Pos": [
+        431.43195481412113,
+        344.0
+      ]
+    },
+    {
+      "ID": "6A0AC",
+      "Pos": [
+        533.43195481412113,
+        344.0
+      ]
+    }
+  ]
+}

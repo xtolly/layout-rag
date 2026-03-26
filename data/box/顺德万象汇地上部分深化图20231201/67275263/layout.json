@@ -1,0 +1,164 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      600.0,
+      900.0
+    ],
+    "Parts": [
+      {
+        "ID": "45977",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "45976",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "44FC3",
+        "Type": "907926674b3672a1f-e954-4909-98cc-7249f5c92f7c",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "44FC2",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "44FC1",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "44FC0",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent38.1MaxCurrent65Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          75.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "44FBF",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "4460C",
+        "Type": "840142528abb9c6c0-544f-4abf-b621-526fc877f36e",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "4460A",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "44609",
+        "Type": "Manufacturer光辉PartName隔离开关Series100ShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent100Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          115.55480976984836,
+          124.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "45977",
+      "Pos": [
+        305.33510802208912,
+        344.0
+      ]
+    },
+    {
+      "ID": "45976",
+      "Pos": [
+        407.33510802208912,
+        344.0
+      ]
+    },
+    {
+      "ID": "44FC3",
+      "Pos": [
+        98.0,
+        131.76775532891043
+      ]
+    },
+    {
+      "ID": "44FC2",
+      "Pos": [
+        313.83510802208912,
+        574.61081532965181
+      ]
+    },
+    {
+      "ID": "44FC1",
+      "Pos": [
+        328.83510802208912,
+        702.61081532965181
+      ]
+    },
+    {
+      "ID": "44FC0",
+      "Pos": [
+        415.83510802208912,
+        574.61081532965181
+      ]
+    },
+    {
+      "ID": "44FBF",
+      "Pos": [
+        430.83510802208912,
+        702.61081532965181
+      ]
+    },
+    {
+      "ID": "4460C",
+      "Pos": [
+        97.835108022089116,
+        449.76775532891043
+      ]
+    },
+    {
+      "ID": "4460A",
+      "Pos": [
+        509.33510802208912,
+        344.0
+      ]
+    },
+    {
+      "ID": "44609",
+      "Pos": [
+        309.08232938835863,
+        120.0
+      ]
+    }
+  ]
+}

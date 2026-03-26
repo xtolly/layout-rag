@@ -1,0 +1,315 @@
+{
+    "meta": {
+        "industry": "",
+        "cabinet_type": "配电柜",
+        "panel_type": "安装板",
+        "panel_size": [
+            600,
+            1600
+        ],
+        "parts": [
+            {
+                "part_id": "134E69",
+                "part_type": "微型断路器",
+                "part_size": [
+                    57,
+                    40
+                ]
+            },
+            {
+                "part_id": "134E68",
+                "part_type": "微型断路器",
+                "part_size": [
+                    105,
+                    55
+                ]
+            },
+            {
+                "part_id": "134E67",
+                "part_type": "熔断器",
+                "part_size": [
+                    108,
+                    82
+                ]
+            },
+            {
+                "part_id": "134E66",
+                "part_type": "接线端子",
+                "part_size": [
+                    24,
+                    43
+                ]
+            },
+            {
+                "part_id": "134E65",
+                "part_type": "电能表",
+                "part_size": [
+                    71.5,
+                    90
+                ]
+            },
+            {
+                "part_id": "134E64",
+                "part_type": "双电源自动转换开关",
+                "part_size": [
+                    265,
+                    272
+                ]
+            },
+            {
+                "part_id": "134E63",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    92.99999137269333,
+                    155.0000011920929
+                ]
+            },
+            {
+                "part_id": "134E62",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    92.99999137269333,
+                    155.0000011920929
+                ]
+            },
+            {
+                "part_id": "134E61",
+                "part_type": "浪涌保护器",
+                "part_size": [
+                    144,
+                    135
+                ]
+            },
+            {
+                "part_id": "134E60",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    92.99999137269333,
+                    155.0000011920929
+                ]
+            },
+            {
+                "part_id": "134E5F",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    125,
+                    150
+                ]
+            },
+            {
+                "part_id": "134E5E",
+                "part_type": "微型断路器",
+                "part_size": [
+                    63,
+                    145.59999934589723
+                ]
+            },
+            {
+                "part_id": "134E5D",
+                "part_type": "微型断路器",
+                "part_size": [
+                    63,
+                    145.59999934589723
+                ]
+            },
+            {
+                "part_id": "134E5C",
+                "part_type": "微型断路器",
+                "part_size": [
+                    63,
+                    145.59999934589723
+                ]
+            },
+            {
+                "part_id": "134E5B",
+                "part_type": "微型断路器",
+                "part_size": [
+                    54,
+                    135
+                ]
+            },
+            {
+                "part_id": "134E5A",
+                "part_type": "微型断路器",
+                "part_size": [
+                    18,
+                    135
+                ]
+            },
+            {
+                "part_id": "134E59",
+                "part_type": "微型断路器",
+                "part_size": [
+                    18,
+                    135
+                ]
+            },
+            {
+                "part_id": "134E58",
+                "part_type": "微型断路器",
+                "part_size": [
+                    18,
+                    135
+                ]
+            },
+            {
+                "part_id": "134E57",
+                "part_type": "浪涌保护器",
+                "part_size": [
+                    145.50276577705517,
+                    135.0499989837408
+                ]
+            },
+            {
+                "part_id": "134DF9",
+                "part_type": "地排",
+                "part_size": [
+                    530.000004499685,
+                    176.32938821963035
+                ]
+            }
+        ]
+    },
+    "arrange": {
+        "134E69": {
+            "position": [
+                310.2,
+                318.9
+            ],
+            "rotation": 0
+        },
+        "134E68": {
+            "position": [
+                417.9,
+                924.1
+            ],
+            "rotation": 0
+        },
+        "134E67": {
+            "position": [
+                96.8,
+                266.8
+            ],
+            "rotation": 0
+        },
+        "134E66": {
+            "position": [
+                499.4,
+                710.9
+            ],
+            "rotation": 0
+        },
+        "134E65": {
+            "position": [
+                427.9,
+                684.1
+            ],
+            "rotation": 0
+        },
+        "134E64": {
+            "position": [
+                90.9,
+                456.1
+            ],
+            "rotation": 0
+        },
+        "134E63": {
+            "position": [
+                367.2,
+                187.5
+            ],
+            "rotation": 0
+        },
+        "134E62": {
+            "position": [
+                217.3,
+                187.5
+            ],
+            "rotation": 0
+        },
+        "134E61": {
+            "position": [
+                4.9,
+                1095.8
+            ],
+            "rotation": 0
+        },
+        "134E5E": {
+            "position": [
+                238.9,
+                1095.8
+            ],
+            "rotation": 0
+        },
+        "134E5D": {
+            "position": [
+                301.9,
+                1095.8
+            ],
+            "rotation": 0
+        },
+        "134E5C": {
+            "position": [
+                202.9,
+                950.3
+            ],
+            "rotation": 0
+        },
+        "134E5B": {
+            "position": [
+                184.9,
+                1095.8
+            ],
+            "rotation": 0
+        },
+        "134E5A": {
+            "position": [
+                166.9,
+                1095.8
+            ],
+            "rotation": 0
+        },
+        "134E59": {
+            "position": [
+                148.9,
+                1095.8
+            ],
+            "rotation": 0
+        },
+        "134DF9": {
+            "position": [
+                34.9,
+                1291.5
+            ],
+            "rotation": 0
+        },
+        "134E60": {
+            "position": [
+                0.0,
+                270.0
+            ],
+            "rotation": 0
+        },
+        "134E5F": {
+            "position": [
+                0.0,
+                728.1
+            ],
+            "rotation": 0
+        },
+        "134E58": {
+            "position": [
+                0.0,
+                135.0
+            ],
+            "rotation": 0
+        },
+        "134E57": {
+            "position": [
+                0.0,
+                0.0
+            ],
+            "rotation": 0
+        }
+    }
+}

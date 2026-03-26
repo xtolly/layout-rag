@@ -1,0 +1,239 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1200.0
+    ],
+    "Parts": [
+      {
+        "ID": "6662A",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent63MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          293.0,
+          192.0
+        ]
+      },
+      {
+        "ID": "65C77",
+        "Type": "836532393e86500a1-11d1-40e2-8bf5-2336d4959ccf",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "65C76",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "65C75",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent25.1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          56.0,
+          84.0
+        ]
+      },
+      {
+        "ID": "65C74",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "652C1",
+        "Type": "1375176038ac7f47e1-851e-4820-9d33-86b7e8cb7d54",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "6490E",
+        "Type": "17943320754922c258-5b21-4bab-91c1-78fe313fa951",
+        "Size": [
+          75.0,
+          318.33591519529
+        ]
+      },
+      {
+        "ID": "6490D",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "6490C",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "6490B",
+        "Type": "Manufacturer光辉PartName微型断路器Series1PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          18.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "6490A",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "64909",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent25.1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          56.0,
+          84.0
+        ]
+      },
+      {
+        "ID": "64908",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "64907",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent65.1MaxCurrent95Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          85.0,
+          128.0
+        ]
+      },
+      {
+        "ID": "64906",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-95ShellFrameLimitingCurrentRemarkPartTypeMinCurrent17MaxCurrent104Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          70.000005814479664,
+          74.112894952530041
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "6662A",
+      "Pos": [
+        328.01816520153079,
+        150.0
+      ]
+    },
+    {
+      "ID": "65C77",
+      "Pos": [
+        131.0,
+        119.66102502768626
+      ]
+    },
+    {
+      "ID": "65C76",
+      "Pos": [
+        325.2412242667051,
+        442.0
+      ]
+    },
+    {
+      "ID": "65C75",
+      "Pos": [
+        325.6084385937429,
+        742.8014902578434
+      ]
+    },
+    {
+      "ID": "65C74",
+      "Pos": [
+        331.1084385937429,
+        826.8014902578434
+      ]
+    },
+    {
+      "ID": "652C1",
+      "Pos": [
+        131.0,
+        437.66102502768626
+      ]
+    },
+    {
+      "ID": "6490E",
+      "Pos": [
+        131.0,
+        756.33285541826626
+      ]
+    },
+    {
+      "ID": "6490D",
+      "Pos": [
+        427.2412242667051,
+        442.0
+      ]
+    },
+    {
+      "ID": "6490C",
+      "Pos": [
+        529.2412242667051,
+        442.0
+      ]
+    },
+    {
+      "ID": "6490B",
+      "Pos": [
+        631.2412242667051,
+        442.0
+      ]
+    },
+    {
+      "ID": "6490A",
+      "Pos": [
+        546.29230650299,
+        745.87895209318958
+      ]
+    },
+    {
+      "ID": "64909",
+      "Pos": [
+        390.00766106433,
+        742.8014902578434
+      ]
+    },
+    {
+      "ID": "64908",
+      "Pos": [
+        395.50766106433,
+        826.8014902578434
+      ]
+    },
+    {
+      "ID": "64907",
+      "Pos": [
+        451.7808132810751,
+        742.8014902578434
+      ]
+    },
+    {
+      "ID": "64906",
+      "Pos": [
+        459.28081037383527,
+        871.24504278157838
+      ]
+    }
+  ]
+}

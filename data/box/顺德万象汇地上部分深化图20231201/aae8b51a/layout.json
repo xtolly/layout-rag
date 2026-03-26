@@ -1,0 +1,89 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      500.0,
+      900.0
+    ],
+    "Parts": [
+      {
+        "ID": "33CE8",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "33CE7",
+        "Type": "Manufacturer光辉PartName剩余电流互感器Series一体式ShellFrame250LimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent250PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          125.0,
+          30.0
+        ]
+      },
+      {
+        "ID": "33CE6",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          122.0,
+          151.0
+        ]
+      },
+      {
+        "ID": "33CE5",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent125Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          122.0,
+          151.0
+        ]
+      },
+      {
+        "ID": "33CE4",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "33CE8",
+      "Pos": [
+        136.5,
+        150.0
+      ]
+    },
+    {
+      "ID": "33CE7",
+      "Pos": [
+        120.0,
+        320.0
+      ]
+    },
+    {
+      "ID": "33CE6",
+      "Pos": [
+        123.0,
+        520.0
+      ]
+    },
+    {
+      "ID": "33CE5",
+      "Pos": [
+        255.0,
+        520.0
+      ]
+    },
+    {
+      "ID": "33CE4",
+      "Pos": [
+        304.99999999953434,
+        184.75704545527697
+      ]
+    }
+  ]
+}

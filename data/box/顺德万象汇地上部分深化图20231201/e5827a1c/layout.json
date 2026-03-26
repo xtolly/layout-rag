@@ -1,0 +1,749 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      900.0,
+      1200.0
+    ],
+    "Parts": [
+      {
+        "ID": "5410F",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "5410E",
+        "Type": "Manufacturer光辉PartName电能表Series导轨式ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent500PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          144.0,
+          105.07633132400224
+        ]
+      },
+      {
+        "ID": "5410D",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "5410C",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "5410B",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "5410A",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent12.1MaxCurrent18Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "54109",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "54108",
+        "Type": "Manufacturer光辉PartName剩余电流互感器Series一体式ShellFrame250LimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent250PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          125.0,
+          30.0
+        ]
+      },
+      {
+        "ID": "54107",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent12.1MaxCurrent18Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "54106",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent12.1MaxCurrent18Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "54105",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent12.1MaxCurrent18Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "54104",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "54103",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "54102",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          117.0,
+          97.0
+        ]
+      },
+      {
+        "ID": "54101",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "54100",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series4PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          117.0,
+          97.0
+        ]
+      },
+      {
+        "ID": "540FF",
+        "Type": "Manufacturer光辉PartName剩余电流动作微型断路器Series1PNShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent32Poles1P+NMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          36.0,
+          85.0
+        ]
+      },
+      {
+        "ID": "540FD",
+        "Type": "UK5-HESI",
+        "Size": [
+          75.0,
+          8.5
+        ]
+      },
+      {
+        "ID": "540FC",
+        "Type": "A$C63630AF9",
+        "Size": [
+          69.300000000046566,
+          29.699999999953434
+        ]
+      },
+      {
+        "ID": "540FA",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540F8",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540F6",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540F4",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540F3",
+        "Type": "A$C7F7F6ED6",
+        "Size": [
+          45.0,
+          8.0
+        ]
+      },
+      {
+        "ID": "540F1",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540F0",
+        "Type": "A$C63630AF9",
+        "Size": [
+          69.300000000046566,
+          29.699999999953434
+        ]
+      },
+      {
+        "ID": "540EF",
+        "Type": "UK5-HESI",
+        "Size": [
+          75.0,
+          8.5
+        ]
+      },
+      {
+        "ID": "540EE",
+        "Type": "A$C63630AF9",
+        "Size": [
+          69.300000000046566,
+          29.699999999953434
+        ]
+      },
+      {
+        "ID": "540EC",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540EB",
+        "Type": "A$C7F7F6ED6",
+        "Size": [
+          45.0,
+          8.0
+        ]
+      },
+      {
+        "ID": "540EA",
+        "Type": "A$C63630AF9",
+        "Size": [
+          69.300000000046566,
+          29.699999999953434
+        ]
+      },
+      {
+        "ID": "540E8",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540E3",
+        "Type": "UK5-HESI",
+        "Size": [
+          75.0,
+          8.5
+        ]
+      },
+      {
+        "ID": "540E2",
+        "Type": "A$C63630AF9",
+        "Size": [
+          69.300000000046566,
+          29.699999999953434
+        ]
+      },
+      {
+        "ID": "540E0",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540DE",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540DC",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540DA",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540D9",
+        "Type": "A$C7F7F6ED6",
+        "Size": [
+          45.0,
+          8.0
+        ]
+      },
+      {
+        "ID": "540D7",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "540D6",
+        "Type": "A$C63630AF9",
+        "Size": [
+          69.300000000046566,
+          29.699999999953434
+        ]
+      },
+      {
+        "ID": "540C1",
+        "Type": "UK5-HESI",
+        "Size": [
+          75.0,
+          8.5
+        ]
+      },
+      {
+        "ID": "540C0",
+        "Type": "A$C63630AF9",
+        "Size": [
+          69.300000000046566,
+          29.699999999953434
+        ]
+      },
+      {
+        "ID": "540BE",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "54095",
+        "Type": "A$C7F7F6ED6",
+        "Size": [
+          45.0,
+          8.0
+        ]
+      },
+      {
+        "ID": "53F67",
+        "Type": "A$C63630AF9",
+        "Size": [
+          69.300000000046566,
+          29.699999999953434
+        ]
+      },
+      {
+        "ID": "53E72",
+        "Type": "A$C2AF01363",
+        "Size": [
+          45.0,
+          35.007325790997129
+        ]
+      },
+      {
+        "ID": "53E71",
+        "Type": "Manufacturer光辉PartName变频器Series15KWShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower11MaxPower15LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          135.0,
+          296.0
+        ]
+      },
+      {
+        "ID": "53E70",
+        "Type": "Manufacturer光辉PartName变频器Series15KWShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower11MaxPower15LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          135.0,
+          296.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "5410F",
+      "Pos": [
+        357.40832014451735,
+        194.67849019612186
+      ]
+    },
+    {
+      "ID": "5410E",
+      "Pos": [
+        527.82423922850285,
+        801.613240677747
+      ]
+    },
+    {
+      "ID": "5410D",
+      "Pos": [
+        680.49256870825775,
+        809.46468027197989
+      ]
+    },
+    {
+      "ID": "5410C",
+      "Pos": [
+        752.49256870825775,
+        809.46468027197989
+      ]
+    },
+    {
+      "ID": "5410B",
+      "Pos": [
+        423.90718935860787,
+        559.78581205580849
+      ]
+    },
+    {
+      "ID": "5410A",
+      "Pos": [
+        478.07933331246022,
+        808.457737188437
+      ]
+    },
+    {
+      "ID": "54109",
+      "Pos": [
+        321.90718935860787,
+        559.78581205580849
+      ]
+    },
+    {
+      "ID": "54108",
+      "Pos": [
+        334.40832014451735,
+        378.67849019612186
+      ]
+    },
+    {
+      "ID": "54107",
+      "Pos": [
+        326.32903043733677,
+        803.94554262788733
+      ]
+    },
+    {
+      "ID": "54106",
+      "Pos": [
+        383.3036880044383,
+        803.94554262788733
+      ]
+    },
+    {
+      "ID": "54105",
+      "Pos": [
+        433.07933331246022,
+        808.457737188437
+      ]
+    },
+    {
+      "ID": "54104",
+      "Pos": [
+        326.32903043733677,
+        878.94554262788733
+      ]
+    },
+    {
+      "ID": "54103",
+      "Pos": [
+        383.3036880044383,
+        878.94554262788733
+      ]
+    },
+    {
+      "ID": "54102",
+      "Pos": [
+        525.90718935860787,
+        559.78581205580849
+      ]
+    },
+    {
+      "ID": "54101",
+      "Pos": [
+        642.90718935860787,
+        559.78581205580849
+      ]
+    },
+    {
+      "ID": "54100",
+      "Pos": [
+        678.90718935860787,
+        559.78581205580849
+      ]
+    },
+    {
+      "ID": "540FF",
+      "Pos": [
+        795.90718935860787,
+        559.78581205580849
+      ]
+    },
+    {
+      "ID": "540FD",
+      "Pos": [
+        148.14469499373809,
+        216.06438473064918
+      ]
+    },
+    {
+      "ID": "540FC",
+      "Pos": [
+        150.9946949937148,
+        254.2643847304862
+      ]
+    },
+    {
+      "ID": "540FA",
+      "Pos": [
+        163.14467881742166,
+        456.38661672879243
+      ]
+    },
+    {
+      "ID": "540F8",
+      "Pos": [
+        163.14467881742166,
+        351.36463935585925
+      ]
+    },
+    {
+      "ID": "540F6",
+      "Pos": [
+        163.14467881742166,
+        526.40126831090311
+      ]
+    },
+    {
+      "ID": "540F4",
+      "Pos": [
+        163.14467881742166,
+        421.37929093796993
+      ]
+    },
+    {
+      "ID": "540F3",
+      "Pos": [
+        163.14467881713063,
+        343.36463935585925
+      ]
+    },
+    {
+      "ID": "540F1",
+      "Pos": [
+        163.14467881742166,
+        561.40859410172561
+      ]
+    },
+    {
+      "ID": "540F0",
+      "Pos": [
+        150.99467881710734,
+        313.66463935584761
+      ]
+    },
+    {
+      "ID": "540EF",
+      "Pos": [
+        148.00061607873067,
+        207.29953553306405
+      ]
+    },
+    {
+      "ID": "540EE",
+      "Pos": [
+        150.9946949937148,
+        224.56438473029993
+      ]
+    },
+    {
+      "ID": "540EC",
+      "Pos": [
+        163.14467881742166,
+        491.3939425200806
+      ]
+    },
+    {
+      "ID": "540EB",
+      "Pos": [
+        163.14467881713063,
+        596.41591989254812
+      ]
+    },
+    {
+      "ID": "540EA",
+      "Pos": [
+        150.9946949937148,
+        283.9643847302068
+      ]
+    },
+    {
+      "ID": "540E8",
+      "Pos": [
+        163.14467881742166,
+        386.37196514668176
+      ]
+    },
+    {
+      "ID": "540E3",
+      "Pos": [
+        148.28875773213804,
+        613.18076909013325
+      ]
+    },
+    {
+      "ID": "540E2",
+      "Pos": [
+        151.13875773211475,
+        651.38076908997027
+      ]
+    },
+    {
+      "ID": "540E0",
+      "Pos": [
+        163.28874155582162,
+        853.50300108827651
+      ]
+    },
+    {
+      "ID": "540DE",
+      "Pos": [
+        163.28874155582162,
+        748.48102371534333
+      ]
+    },
+    {
+      "ID": "540DC",
+      "Pos": [
+        163.28874155582162,
+        923.51765267038718
+      ]
+    },
+    {
+      "ID": "540DA",
+      "Pos": [
+        163.28874155582162,
+        818.495675297454
+      ]
+    },
+    {
+      "ID": "540D9",
+      "Pos": [
+        163.28874155553058,
+        740.48102371534333
+      ]
+    },
+    {
+      "ID": "540D7",
+      "Pos": [
+        163.28874155582162,
+        958.52497846120968
+      ]
+    },
+    {
+      "ID": "540D6",
+      "Pos": [
+        151.13874155550729,
+        710.78102371533168
+      ]
+    },
+    {
+      "ID": "540C1",
+      "Pos": [
+        148.14467881713063,
+        604.41591989254812
+      ]
+    },
+    {
+      "ID": "540C0",
+      "Pos": [
+        151.13875773211475,
+        621.680769089784
+      ]
+    },
+    {
+      "ID": "540BE",
+      "Pos": [
+        163.28874155582162,
+        888.51032687956467
+      ]
+    },
+    {
+      "ID": "54095",
+      "Pos": [
+        163.28874155553058,
+        993.53230425203219
+      ]
+    },
+    {
+      "ID": "53F67",
+      "Pos": [
+        151.13875773211475,
+        681.08076908969088
+      ]
+    },
+    {
+      "ID": "53E72",
+      "Pos": [
+        163.28874155582162,
+        783.48834950616583
+      ]
+    },
+    {
+      "ID": "53E71",
+      "Pos": [
+        530.06596694258042,
+        145.63552311103558
+      ]
+    },
+    {
+      "ID": "53E70",
+      "Pos": [
+        685.06596694258042,
+        145.63552311103558
+      ]
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1100.0
+    ],
+    "Parts": [
+      {
+        "ID": "12BFE",
+        "Type": "Manufacturer光辉PartName双电源自动转换开关Series400ShellFrameLimitingCurrentRemarkPartTypeMinCurrent250MaxCurrent400Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          355.0,
+          243.0
+        ]
+      },
+      {
+        "ID": "12BFD",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series250ShellFrameLimitingCurrentRemarkPartTypeMinCurrent100MaxCurrent250Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          107.0,
+          165.0
+        ]
+      },
+      {
+        "ID": "12BD1",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series250ShellFrameLimitingCurrentRemarkPartTypeMinCurrent100MaxCurrent250Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          107.0,
+          165.0
+        ]
+      },
+      {
+        "ID": "12BD0",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "12BCF",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "12BCE",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "12BCD",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "12BFE",
+      "Pos": [
+        103.5,
+        150.0
+      ]
+    },
+    {
+      "ID": "12BFD",
+      "Pos": [
+        110.0,
+        643.0
+      ]
+    },
+    {
+      "ID": "12BD1",
+      "Pos": [
+        227.0,
+        643.0
+      ]
+    },
+    {
+      "ID": "12BD0",
+      "Pos": [
+        344.0,
+        643.0
+      ]
+    },
+    {
+      "ID": "12BCF",
+      "Pos": [
+        445.99999989103526,
+        643.00000190734863
+      ]
+    },
+    {
+      "ID": "12BCE",
+      "Pos": [
+        517.99999989103526,
+        643.00000190734863
+      ]
+    },
+    {
+      "ID": "12BCD",
+      "Pos": [
+        499.99999999953434,
+        217.7570473626256
+      ]
+    }
+  ]
+}

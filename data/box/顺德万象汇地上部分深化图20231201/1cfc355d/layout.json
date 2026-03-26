@@ -1,0 +1,149 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      500.0,
+      800.0
+    ],
+    "Parts": [
+      {
+        "ID": "21823",
+        "Type": "210557232409c5d902-3fc1-4dcc-bf20-0762575079b4",
+        "Size": [
+          75.11322444450343,
+          276.20332498836797
+        ]
+      },
+      {
+        "ID": "21822",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "21821",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "21820",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "2181F",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "2181D",
+        "Type": "Manufacturer光辉PartName隔离开关Series100ShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent100Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          115.55480976984836,
+          124.0
+        ]
+      },
+      {
+        "ID": "2181C",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "2181B",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "21246",
+        "Type": "14991445330b1294a7-4e35-4855-9e75-6e313ee35ed6",
+        "Size": [
+          75.11322444450343,
+          276.20332498836797
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "21823",
+      "Pos": [
+        93.772170515032485,
+        405.79667501157383
+      ]
+    },
+    {
+      "ID": "21822",
+      "Pos": [
+        297.58635719225276,
+        527.45951589825563
+      ]
+    },
+    {
+      "ID": "21821",
+      "Pos": [
+        297.58635719225276,
+        602.45951589825563
+      ]
+    },
+    {
+      "ID": "21820",
+      "Pos": [
+        351.58635719225276,
+        527.45951589825563
+      ]
+    },
+    {
+      "ID": "2181F",
+      "Pos": [
+        351.58635719225276,
+        602.45951589825563
+      ]
+    },
+    {
+      "ID": "2181D",
+      "Pos": [
+        297.08635719225276,
+        120.45951589825563
+      ]
+    },
+    {
+      "ID": "2181C",
+      "Pos": [
+        293.08635719225276,
+        345.95951589825563
+      ]
+    },
+    {
+      "ID": "2181B",
+      "Pos": [
+        347.08635719225276,
+        345.95951589825563
+      ]
+    },
+    {
+      "ID": "21246",
+      "Pos": [
+        94.0,
+        129.79667501157383
+      ]
+    }
+  ]
+}

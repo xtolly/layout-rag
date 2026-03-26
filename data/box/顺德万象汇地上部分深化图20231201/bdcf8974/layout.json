@@ -1,0 +1,104 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      700.0,
+      1600.0
+    ],
+    "Parts": [
+      {
+        "ID": "31FB7",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series125ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent125Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          92.0,
+          150.0
+        ]
+      },
+      {
+        "ID": "31F74",
+        "Type": "Manufacturer光辉PartName塑壳断路器Series400ShellFrameLimitingCurrentRemarkPartTypeMinCurrent300MaxCurrent400Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          150.0,
+          257.0
+        ]
+      },
+      {
+        "ID": "31F73",
+        "Type": "Manufacturer光辉PartName电源监控Series宽度108ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0PolesMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          108.00000000046566,
+          94.242954544723034
+        ]
+      },
+      {
+        "ID": "31F72",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "31F71",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "31E2F",
+        "Type": "Manufacturer上海良信PartName双电源自动转换开关SeriesNDQ3ShellFrame630LimitingCurrentRemarkPartTypeMinCurrent315MaxCurrent630Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          412.0,
+          301.0
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "31FB7",
+      "Pos": [
+        224.0,
+        951.0
+      ]
+    },
+    {
+      "ID": "31F74",
+      "Pos": [
+        326.0,
+        951.0
+      ]
+    },
+    {
+      "ID": "31F73",
+      "Pos": [
+        104.00646359368693,
+        977.13103567715734
+      ]
+    },
+    {
+      "ID": "31F72",
+      "Pos": [
+        498.64297669770895,
+        983.43819913693
+      ]
+    },
+    {
+      "ID": "31F71",
+      "Pos": [
+        570.642976697709,
+        983.43819913693
+      ]
+    },
+    {
+      "ID": "31E2F",
+      "Pos": [
+        155.63207139365841,
+        403.93327177531319
+      ]
+    }
+  ]
+}

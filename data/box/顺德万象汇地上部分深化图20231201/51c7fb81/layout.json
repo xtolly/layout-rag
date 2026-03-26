@@ -1,0 +1,119 @@
+{
+  "input": {
+    "CabType": "配电箱",
+    "PanelType": "安装板",
+    "Size": [
+      500.0,
+      600.0
+    ],
+    "Parts": [
+      {
+        "ID": "12BC9",
+        "Type": "Manufacturer光辉PartName隔离开关Series100ShellFrameLimitingCurrentRemarkPartTypeMinCurrent16MaxCurrent100Poles4PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          115.55480976984836,
+          124.0
+        ]
+      },
+      {
+        "ID": "12AF2",
+        "Type": "Manufacturer上海良信PartName接触器SeriesNDC1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent12Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          75.0
+        ]
+      },
+      {
+        "ID": "128F7",
+        "Type": "Manufacturer上海良信PartName热继电器SeriesNDR2-38ShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent38Poles3PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          45.0,
+          65.0
+        ]
+      },
+      {
+        "ID": "128F6",
+        "Type": "Manufacturer光辉PartName微型断路器Series3PShellFrameLimitingCurrentRemarkPartTypeMinCurrent1MaxCurrent63Poles3PMinPower0MaxPower0LibType2DelFlgfalseUpdateDate",
+        "Size": [
+          54.0,
+          83.0
+        ]
+      },
+      {
+        "ID": "128F5",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "128F4",
+        "Type": "Manufacturer上海良信PartName电涌保护器SeriesNDU1ShellFrameLimitingCurrentRemarkPartTypeMinCurrent0MaxCurrent0Poles4PMinPower0MaxPower0LibType3DelFlgfalseUpdateDate2023-01-0100000",
+        "Size": [
+          72.000000217929482,
+          78.999996185302734
+        ]
+      },
+      {
+        "ID": "12310",
+        "Type": "436325760b32e9474-e428-47c0-a9e1-8ac56394262a",
+        "Size": [
+          75.11322444450343,
+          276.20332498836797
+        ]
+      }
+    ]
+  },
+  "output": [
+    {
+      "ID": "12BC9",
+      "Pos": [
+        251.07667335291626,
+        121.42431373626459
+      ]
+    },
+    {
+      "ID": "12AF2",
+      "Pos": [
+        255.82384615554474,
+        341.7027197801508
+      ]
+    },
+    {
+      "ID": "128F7",
+      "Pos": [
+        255.82384615554474,
+        416.7027197801508
+      ]
+    },
+    {
+      "ID": "128F6",
+      "Pos": [
+        300.82384615554474,
+        341.7027197801508
+      ]
+    },
+    {
+      "ID": "128F5",
+      "Pos": [
+        376.60319775750395,
+        153.43564160214737
+      ]
+    },
+    {
+      "ID": "128F4",
+      "Pos": [
+        377.72680021304404,
+        343.75750599842286
+      ]
+    },
+    {
+      "ID": "12310",
+      "Pos": [
+        97.962860315456055,
+        201.98382654995658
+      ]
+    }
+  ]
+}
