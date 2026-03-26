@@ -131,11 +131,11 @@ class LayoutService:
         # 1. 查找模板原始文件
         tpl_entry = next((e for e in self.store.entries if e["uuid"] == template_uuid), None)
         if not tpl_entry:
-            return project_data
+            return {"project_data": project_data, "template_data": None}
         
         tpl_path = tpl_entry.get("source_path")
         if not tpl_path or not os.path.exists(tpl_path):
-            return project_data
+            return {"project_data": project_data, "template_data": None}
             
         with open(tpl_path, 'r', encoding='utf-8') as f:
             tpl_data = json.load(f)
@@ -162,4 +162,7 @@ class LayoutService:
         if not project_data.get("features"):
             project_data["features"] = self.extractor.extract(project_data)
             
-        return project_data
+        return {
+            "template_data" : tpl_data,
+            "project_data" : project_data
+        }
