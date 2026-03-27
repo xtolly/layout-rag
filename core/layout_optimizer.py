@@ -120,30 +120,10 @@ class LayoutOptimizer:
         if not matched_parts:
             return project_data
             
-        # --- 拓扑硬约束预处理 (地排沉底与全局 Y 轴挤压) ---
-        margin = 10.0
-        bottom_keywords = ["地排"]
-        ground_busbars = [p for p in matched_parts if any(kw in p["type"] for kw in bottom_keywords)]
-
-        if ground_busbars:
-            max_gb_h = max(gb["h"] for gb in ground_busbars)
-            bottom_y_limit = max(margin, curr_size[1] - max_gb_h - margin)
-
-            for p in matched_parts:
-                if any(kw in p["type"] for kw in bottom_keywords):
-                    p["target_y"] = bottom_y_limit
-                    p["target_x"] = min(max(margin, p["target_x"]), curr_size[0] - p["w"] - margin)
-                    p["weight"] = 200 
-                else:
-                    max_allowed_y = bottom_y_limit - p["h"] - margin
-                    if p["target_y"] > max_allowed_y:
-                        p["target_y"] = max(margin, max_allowed_y)
-
         # 执行全局求解
-        project_data["arrange"] = self._solve_weighted_layout(matched_parts, curr_size[0], curr_size[1], bottom_keywords)
+        project_data["arrange"] = self._solve_weighted_layout(matched_parts, curr_size[0], curr_size[1])
         return project_data
-
-    def _solve_weighted_layout(self, all_parts, panel_w, panel_h, bottom_keywords=["地排"]):
+    def _solve_weighted_layout(self, all_parts, panel_w, panel_h):
         model = cp_model.CpModel()
         
         margin = 10.0
@@ -155,16 +135,12 @@ class LayoutOptimizer:
         x_vars, y_vars = {}, {}
         x_intervals, y_intervals = [], []
         cost_terms = []
-        ground_busbar_ids = set()
 
         # --- 阶段 1：变量定义与自身软硬约束 ---
         for p in all_parts:
             pid = p["id"]
             w = int(p["w"] * self.scale)
             h = int(p["h"] * self.scale)
-            
-            if any(kw in p.get("type", "") for kw in bottom_keywords):
-                ground_busbar_ids.add(pid)
 
             min_allowed_x = margin_scaled
             max_allowed_x = max(margin_scaled, max_x - w - margin_scaled)
@@ -205,16 +181,6 @@ class LayoutOptimizer:
             cost_terms.append(weight * dx)
             cost_terms.append(weight * dy * y_penalty_multiplier)
 
-        # --- 阶段 2：全局拓扑硬约束 (必须严格放在循环体外) ---
-        if ground_busbar_ids:
-            for gid in ground_busbar_ids:
-                for p in all_parts:
-                    pid = p["id"]
-                    if pid not in ground_busbar_ids:
-                        h_scaled = int(p["h"] * self.scale)
-                        # 其他所有元件底边必须小于等于地排顶边
-                        model.Add(y_vars[pid] + h_scaled <= y_vars[gid])
-
         # 全局无重叠约束
         model.AddNoOverlap2D(x_intervals, y_intervals)
         
@@ -240,6 +206,6 @@ class LayoutOptimizer:
                     "rotation": p.get("rotation", 0)
                 }
         else:
-            print(f"[严重错误] 面板尺寸过小，或新增的硬约束导致物理空间上无解！状态码: {status}")
+            print(f"[严重错误] 面板尺寸过小，状态码: {status}")
 
         return result_arrange
