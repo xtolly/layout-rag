@@ -800,76 +800,76 @@
                 };
 
                 const isOverlap = (p1, p2) => !(p1.position[0] + p1.part_size[0] <= p2.position[0] || p1.position[0] >= p2.position[0] + p2.part_size[0] || p1.position[1] + p1.part_size[1] <= p2.position[1] || p1.position[1] >= p2.position[1] + p2.part_size[1]);
-                
                 const resolveOverlaps = (movedPart) => {
-                    const queue = [{ source: movedPart, forceDir: null }]; 
-                    const movedSet = new Set([movedPart.part_id]);
-                    
+                    // 队列存储当前正在发力的元件：{ 发力源, 挤出方向 }
+                    const queue = [{ part: movedPart, dir: null }];
                     let count = 0;
-                    const maxIters = 500;
-                    const epsilon = 1e-2; // 1px 的碰撞容差，彻底消除“贴边并排”导致的浮点数精度误伤
-                    const overlapIgnore = 1;
-                    
-                    while (queue.length > 0 && count < maxIters) {
-                        count++; 
-                        const { source, forceDir } = queue.shift();
+                    const epsilon = 1e-4; // 屏蔽浮点运算导致的虚假碰撞 (0.0001)
+
+                    while (queue.length > 0 && count++ < 1000) {
+                        const { part: source, dir: sourceDir } = queue.shift();
                         
+                        // 缓存发力源的边界坐标，提升可读性与性能
+                        const sL = source.position[0];
+                        const sT = source.position[1];
+                        const sR = sL + source.part_size[0];
+                        const sB = sT + source.part_size[1];
+
                         for (let target of placedParts.value) {
-                            // 安全锁：如果目标已在本次连锁中移动过，忽略
-                            if (movedSet.has(target.part_id)) continue;
-                            
-                            const [sx, sy] = source.position; 
-                            const [sw, sh] = source.part_size;
-                            const [tx, ty] = target.position; 
-                            const [tw, th] = target.part_size;
-                            
-                            const overlapRight = (sx + sw) - tx; 
-                            const overlapLeft = (tx + tw) - sx; 
-                            const overlapDown = (sy + sh) - ty; 
-                            const overlapUp = (ty + th) - sy;
-                            
-                            // 核心修正 1：只要任意一个方向的重叠深度 <= epsilon，说明只是贴合或肉眼不可见的浮点偏差，不视为碰撞
-                            if (overlapRight <= epsilon || overlapLeft <= epsilon || overlapDown <= epsilon || overlapUp <= epsilon) {
+                            // 排除自身
+                            if (source.part_id === target.part_id) continue;
+
+                            // 缓存目标的边界坐标
+                            const tL = target.position[0];
+                            const tT = target.position[1];
+                            const tR = tL + target.part_size[0];
+                            const tB = tT + target.part_size[1];
+
+                            // 计算四个方向的物理重叠深度 (若 <= 0 则代表未接触)
+                            const oRight = sR - tL;
+                            const oLeft  = tR - sL;
+                            const oDown  = sB - tT;
+                            const oUp    = tB - sT;
+
+                            // 1. 浮点精度拦截：只要有任何一侧的重叠量小于等于极小值，说明是安全分离或完美贴合，直接跳过
+                            if (oRight <= epsilon || oLeft <= epsilon || oDown <= epsilon || oUp <= epsilon) {
                                 continue;
                             }
-                            
-                            let applyDir = forceDir;
-                            
-                            // 核心修正 2：修复盲目继承方向导致的“刮蹭连带”逻辑漏洞
-                            if (applyDir) {
-                                const overlapX = Math.min(overlapRight, overlapLeft);
-                                const overlapY = Math.min(overlapDown, overlapUp);
-                                
-                                // 如果元件在垂直（Y轴）方向移动，但它与目标的重叠主要是横向的（X轴重叠极小），说明只是擦肩而过，必须忽略
-                                if ((applyDir === 'UP' || applyDir === 'DOWN') && overlapX < overlapY && overlapX <= overlapIgnore) {
-                                    continue;
-                                }
-                                // 同理，横向移动时的上下刮蹭也忽略
-                                if ((applyDir === 'LEFT' || applyDir === 'RIGHT') && overlapY < overlapX && overlapY <= overlapIgnore) {
-                                    continue;
-                                }
-                            } else {
-                                // 首次元件主动发力，按重叠最小深度判断挤出方向
-                                const min = Math.min(overlapRight, overlapLeft, overlapDown, overlapUp);
-                                if (min === overlapRight) applyDir = 'RIGHT'; 
-                                else if (min === overlapLeft) applyDir = 'LEFT'; 
-                                else if (min === overlapDown) applyDir = 'DOWN'; 
-                                else if (min === overlapUp) applyDir = 'UP';
+
+                            let applyDir = sourceDir;
+
+                            // 2. 初始发力判定：仅对用户手动放置的那个元件计算最优逃逸方向
+                            if (!applyDir) {
+                                const minO = Math.min(oRight, oLeft, oDown, oUp);
+                                if (minO === oRight) applyDir = 'RIGHT';
+                                else if (minO === oLeft) applyDir = 'LEFT';
+                                else if (minO === oDown) applyDir = 'DOWN';
+                                else if (minO === oUp) applyDir = 'UP';
                             }
+
+                            // 3. 严格刮蹭拦截：严格按你的要求，只忽略 1px 的侧边触碰
+                            const oX = Math.min(oRight, oLeft);
+                            const oY = Math.min(oDown, oUp);
                             
-                            // 绝对边界对齐赋值
-                            if (applyDir === 'RIGHT') target.position[0] = sx + sw; 
-                            else if (applyDir === 'LEFT') target.position[0] = sx - tw; 
-                            else if (applyDir === 'DOWN') target.position[1] = sy + sh; 
-                            else if (applyDir === 'UP') target.position[1] = sy - th; 
-                            
-                            movedSet.add(target.part_id);
-                            queue.push({ source: target, forceDir: applyDir });
+                            if (applyDir === 'UP' || applyDir === 'DOWN') {
+                                if (oX <= 1) continue; // 垂直移动时，横向重叠 <= 1px 视为刮蹭
+                            } else if (applyDir === 'LEFT' || applyDir === 'RIGHT') {
+                                if (oY <= 1) continue; // 水平移动时，纵向重叠 <= 1px 视为刮蹭
+                            }
+
+                            // 4. 绝对边界推平：像推土机一样把前方元件对齐到自己的边缘
+                            if (applyDir === 'RIGHT') target.position[0] = sR;
+                            else if (applyDir === 'LEFT') target.position[0] = sL - target.part_size[0];
+                            else if (applyDir === 'DOWN') target.position[1] = sB;
+                            else if (applyDir === 'UP') target.position[1] = sT - target.part_size[1];
+
+                            // 目标被推走后，带着原本的方向继续进入队列扫荡
+                            queue.push({ part: target, dir: applyDir });
                         }
                     }
-                    
-                    if (count >= maxIters) {
-                        console.warn("触发最大迭代限制，可能存在极端密集的元件堆叠。");
+
+                    if (count >= 1000) {
+                        console.warn("触发极限迭代保护，元件可能已经超出画板。");
                     }
                 };
 
