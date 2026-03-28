@@ -182,7 +182,7 @@ class LayoutOptimizer:
             model.Add(dy >= y - ty_clamped)
             model.Add(dy >= ty_clamped - y)
             
-            y_penalty_multiplier = 20 
+            y_penalty_multiplier = 2
             cost_terms.append(weight * dx)
             cost_terms.append(weight * dy * y_penalty_multiplier)
 
@@ -193,8 +193,8 @@ class LayoutOptimizer:
         model.Minimize(cp_model.LinearExpr.Sum(cost_terms))
 
         solver = cp_model.CpSolver()
-        solver.parameters.max_time_in_seconds = 60.0
-        solver.parameters.num_workers = 4
+        solver.parameters.max_time_in_seconds = 20.0
+        solver.parameters.num_workers = 8
         
         status = solver.Solve(model)
 

@@ -108,8 +108,9 @@ class LayoutService:
             feature_diffs = self.get_feature_diff_list(query_features, t_features=tpl_features)
             
             # 评分模型
-            safe_distance = max(0.0, distance)
-            score = min(100, round(100 * math.exp(-safe_distance / 5.0)))
+            safe_distance = max(0.0, distance) + diff_info["extra"] * 0.1
+            score = min(100, round(100 * math.exp(-safe_distance / 4.0)))
+            
             
             templates.append({
                 "uuid": entry["uuid"],
@@ -120,6 +121,9 @@ class LayoutService:
                 "featureDiffs": feature_diffs,
                 "arrange": tpl_arrange
             })
+            
+        # 按照评分排序
+        templates.sort(key=lambda x: x["score"], reverse=True)
             
         return templates
 
