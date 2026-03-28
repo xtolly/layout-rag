@@ -13,3 +13,7 @@ dependencies = [
     "tqdm>=4.67.3",
     "uvicorn>=0.42.0",
 ]
+
+[[tool.uv.index]]
+name = "tencent"
+url = "https://mirrors.cloud.tencent.com/pypi/simple/"
