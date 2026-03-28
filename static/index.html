@@ -514,6 +514,8 @@
                 let panStartX = 0;
                 let panStartY = 0;
 
+                const epsilon = 1e-4; // 屏蔽浮点运算导致的虚假碰撞 (0.0001)
+
                 const history = ref([]);
                 const historyIndex = ref(-1);
                 const MAX_HISTORY = 50;
@@ -717,7 +719,7 @@
                 onUnmounted(() => { window.removeEventListener('keydown', handleKeydown); window.removeEventListener('keyup', handleKeyup); });
 
                 const hasInvalid = computed(() => placedParts.value.some(p => p.isInvalid));
-                const checkBounds = () => { placedParts.value.forEach(part => { const [x, y] = part.position; const [w, h] = part.part_size; const [pw, ph] = prjPanelSize.value; part.isInvalid = (x < 0 || y < 0 || x + w > pw || y + h > ph); }); };
+                const checkBounds = () => { placedParts.value.forEach(part => { const [x, y] = part.position; const [w, h] = part.part_size; const [pw, ph] = prjPanelSize.value; part.isInvalid = (x < 0 || y < 0 || x + w > (pw + epsilon) || y + h > (ph + epsilon) ); }); };
 
                 // ===== 拖拽微调核心逻辑 (移除了跨区拖拽，仅支持画板内移动) =====
                 const activeGuides = ref([]);
@@ -804,7 +806,6 @@
                     // 队列存储当前正在发力的元件：{ 发力源, 挤出方向 }
                     const queue = [{ part: movedPart, dir: null }];
                     let count = 0;
-                    const epsilon = 1e-4; // 屏蔽浮点运算导致的虚假碰撞 (0.0001)
 
                     while (queue.length > 0 && count++ < 1000) {
                         const { part: source, dir: sourceDir } = queue.shift();
