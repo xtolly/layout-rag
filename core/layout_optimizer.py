@@ -193,7 +193,7 @@ class LayoutOptimizer:
         model.Minimize(cp_model.LinearExpr.Sum(cost_terms))
 
         solver = cp_model.CpSolver()
-        solver.parameters.max_time_in_seconds = 10.0
+        solver.parameters.max_time_in_seconds = 60.0
         solver.parameters.num_workers = 4
         
         status = solver.Solve(model)
