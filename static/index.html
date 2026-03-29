@@ -8,304 +8,370 @@
     <script src="/static/tailwind.js"></script>
     <script src="/static/vue.global.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif; }
+
+        :root {
+            --color-primary: #4f46e5;
+            --color-primary-hover: #4338ca;
+            --color-primary-light: #eef2ff;
+            --color-surface: #ffffff;
+            --color-bg: #f8fafc;
+            --color-border: #e2e8f0;
+            --color-text: #0f172a;
+            --color-muted: #64748b;
+            --radius-card: 14px;
+            --radius-btn: 8px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.05);
+        }
+
         .layout-panel {
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 20px 20px;
         }
 
         .component-box {
-            transition: box-shadow 0.2s, opacity 0.2s;
+            transition: box-shadow 0.15s, transform 0.1s;
             user-select: none;
             box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             transform: translateZ(0);
             backface-visibility: hidden;
-            perspective: 1000px;
         }
-
         .component-box:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 20px rgba(0,0,0,.35);
             z-index: 20;
         }
-
-        .component-box>div {
-            transform: translateZ(0);
-        }
-
         .component-box.is-invalid {
             background-color: #ef4444 !important;
-            border: 2px dashed #991b1b;
+            border: 2px dashed #991b1b !important;
             color: white;
-            animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation: pulse-red 1.8s ease-in-out infinite;
         }
-
-        @keyframes pulse-red {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: .7;
-            }
-        }
+        @keyframes pulse-red { 0%,100%{opacity:1} 50%{opacity:.65} }
 
         .guide-line {
             position: absolute;
-            background-color: #3b82f6;
+            background: linear-gradient(90deg, #6366f1, #818cf8);
             z-index: 50;
             pointer-events: none;
+            opacity: .85;
         }
 
         .upload-zone {
-            border: 2px dashed #cbd5e1;
-            transition: all 0.3s;
+            border: 2px dashed #c7d2fe;
+            background: linear-gradient(145deg, #fafbff 0%, #f0f4ff 100%);
+            transition: all 0.25s ease;
+        }
+        .upload-zone:hover, .upload-zone.drag-over {
+            border-color: var(--color-primary);
+            background: linear-gradient(145deg, #eef2ff 0%, #e0e7ff 100%);
+            box-shadow: 0 0 0 4px #eef2ff;
         }
 
-        .upload-zone.drag-over {
-            border-color: #3b82f6;
-            background-color: #eff6ff;
+        .step-dot {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+            transition: all 0.25s;
+        }
+        .step-dot.active   { background: var(--color-primary); color: white; box-shadow: 0 0 0 4px #eef2ff; }
+        .step-dot.done     { background: #10b981; color: white; }
+        .step-dot.inactive { background: #e2e8f0; color: #94a3b8; }
+        .step-line { flex:1; height:2px; margin: 0 6px; border-radius:2px; transition: background 0.3s; }
+        .step-line.done   { background: #10b981; }
+        .step-line.inactive { background: #e2e8f0; }
+
+        .card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+        }
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: #a5b4fc;
+            transform: translateY(-1px);
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+            border-radius: var(--radius-btn);
+            padding: 8px 18px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.15s;
+            box-shadow: 0 1px 3px rgba(79,70,229,.3);
         }
+        .btn-primary:hover:not(:disabled) {
+            background: var(--color-primary-hover);
+            box-shadow: 0 4px 12px rgba(79,70,229,.4);
+            transform: translateY(-1px);
+        }
+        .btn-primary:disabled { background: #e2e8f0; color: #94a3b8; box-shadow: none; cursor: not-allowed; }
 
-        ::-webkit-scrollbar-track {
+        .btn-ghost {
             background: transparent;
+            color: var(--color-muted);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-btn);
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.15s;
         }
+        .btn-ghost:hover { background: #f8fafc; color: var(--color-text); border-color: #94a3b8; }
 
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
+        .toolbar-btn {
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.15s;
+            display:flex; align-items:center; justify-content:center;
         }
+        .toolbar-btn:hover:not(:disabled) { background: #f1f5f9; color: var(--color-primary); }
+        .toolbar-btn:disabled { color: #cbd5e1; cursor: not-allowed; }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        .feature-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #dde1e7; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .feature-scroll::-webkit-scrollbar { width: 4px; }
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 h-screen flex flex-col overflow-hidden">
+<body class="text-slate-800 h-screen flex flex-col overflow-hidden" style="background:#f8fafc">
     <div id="app" class="flex flex-col h-full">
-        <header class="bg-white shadow-sm px-6 py-4 flex justify-between items-center z-20 flex-shrink-0">
-            <div class="flex items-center">
-                <h1 class="text-xl font-bold text-gray-800 flex items-center">
-                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                        </path>
-                    </svg>
-                    智能元件布局系统
-                </h1>
+        <header class="bg-white border-b border-slate-200/80 px-6 flex justify-between items-center z-20 flex-shrink-0" style="height:58px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+            <!-- 左侧：Logo + 返回按钮 -->
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+                        <svg class="w-4.5 h-4.5 text-white" style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <span class="text-[17px] font-bold text-slate-800 tracking-tight">智能元件布局</span>
+                </div>
 
-                <button v-if="step === 3" @click="goBackToRecommend"
-                    class="ml-6 flex items-center px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded transition-colors border border-gray-200">
-                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                <button v-if="step === 3" @click="goBackToRecommend" class="btn-ghost flex items-center gap-1.5 text-sm">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
                     返回方案列表
                 </button>
             </div>
 
-            <div class="flex items-center space-x-4">
-                <div class="flex space-x-2 text-sm mr-4 items-center">
-                    <span :class="{'text-blue-600 font-bold': step === 1, 'text-gray-400': step !== 1}">1. 文件上传</span>
-                    <svg class="w-4 h-4 text-gray-300 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                    <span :class="{'text-blue-600 font-bold': step === 2, 'text-gray-400': step !== 2}">2. 智能推荐</span>
-                    <svg class="w-4 h-4 text-gray-300 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                    <span :class="{'text-blue-600 font-bold': step === 3, 'text-gray-400': step !== 3}">3. 画布微调</span>
+            <!-- 中：步骤指示器 -->
+            <div class="flex items-center">
+                <div class="flex items-center">
+                    <div class="step-dot" :class="step > 1 ? 'done' : (step === 1 ? 'active' : 'inactive')">
+                        <svg v-if="step > 1" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span v-else>1</span>
+                    </div>
+                    <span class="text-sm font-semibold ml-2 mr-3" :class="step === 1 ? 'text-indigo-600' : 'text-slate-400'">上传</span>
                 </div>
+                <div class="step-line" :class="step > 1 ? 'done' : 'inactive'"></div>
+                <div class="flex items-center">
+                    <div class="step-dot ml-3" :class="step > 2 ? 'done' : (step === 2 ? 'active' : 'inactive')">
+                        <svg v-if="step > 2" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span v-else>2</span>
+                    </div>
+                    <span class="text-sm font-semibold ml-2 mr-3" :class="step === 2 ? 'text-indigo-600' : 'text-slate-400'">推荐</span>
+                </div>
+                <div class="step-line" :class="step > 2 ? 'done' : 'inactive'"></div>
+                <div class="flex items-center">
+                    <div class="step-dot ml-3" :class="step === 3 ? 'active' : 'inactive'">
+                        <span>3</span>
+                    </div>
+                    <span class="text-sm font-semibold ml-2" :class="step === 3 ? 'text-indigo-600' : 'text-slate-400'">微调</span>
+                </div>
+            </div>
 
-                <div v-if="step === 3" class="flex items-center space-x-3">
-                    <div class="flex border border-gray-300 rounded overflow-hidden shadow-sm bg-white">
-                        <button @click="undo" :disabled="!canUndo" title="撤销 (Ctrl+Z)"
-                            class="px-3 py-1.5 transition-colors flex items-center justify-center border-r border-gray-300"
-                            :class="!canUndo ? 'text-gray-300 cursor-not-allowed bg-gray-50' : 'text-gray-600 hover:bg-gray-100 hover:text-blue-600'">
+            <!-- 右：操作区 -->
+            <div class="flex items-center gap-2">
+                <template v-if="step === 3">
+                    <div class="flex items-center border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
+                        <button @click="undo" :disabled="!canUndo" title="撤销 (Ctrl+Z)" class="toolbar-btn border-r border-slate-200"
+                            :class="!canUndo ? 'opacity-30 cursor-not-allowed' : ''">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
                             </svg>
                         </button>
-                        <button @click="redo" :disabled="!canRedo" title="重做 (Ctrl+Y)"
-                            class="px-3 py-1.5 transition-colors flex items-center justify-center"
-                            :class="!canRedo ? 'text-gray-300 cursor-not-allowed bg-gray-50' : 'text-gray-600 hover:bg-gray-100 hover:text-blue-600'">
+                        <button @click="redo" :disabled="!canRedo" title="重做 (Ctrl+Y)" class="toolbar-btn"
+                            :class="!canRedo ? 'opacity-30 cursor-not-allowed' : ''">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6"></path>
                             </svg>
                         </button>
                     </div>
-                    <button @click="submitLayout" :disabled="hasInvalid"
-                        class="px-4 py-2 rounded shadow transition-colors font-medium text-sm"
-                        :class="hasInvalid ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700'">
+                    <button @click="submitLayout" :disabled="hasInvalid" class="btn-primary">
                         完成并提交
                     </button>
-                </div>
+                </template>
             </div>
         </header>
 
         <main class="flex-1 flex overflow-hidden relative">
             <input type="file" ref="fileInput" accept=".json" class="hidden" @change="handleFileSelect">
 
-            <div v-if="isLoading" class="absolute inset-0 bg-white/80 z-50 flex flex-col items-center justify-center">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-                <p class="text-gray-600 font-medium">{{ loadingText }}</p>
+            <div v-if="isLoading" class="absolute inset-0 z-50 flex flex-col items-center justify-center" style="background:rgba(248,250,252,.85);backdrop-filter:blur(6px)">
+                <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);box-shadow:0 8px 24px rgba(79,70,229,.35)">
+                    <svg class="w-5 h-5 text-white animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                </div>
+                <p class="text-slate-700 font-semibold text-sm">{{ loadingText }}</p>
             </div>
 
-            <div v-if="step === 1" class="w-full h-full flex items-center justify-center bg-gray-50">
-                <div class="w-full max-w-2xl bg-white p-10 rounded-xl shadow-sm border border-gray-100 text-center">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-2">上传项目数据</h2>
-                    <p class="text-gray-500 mb-8">请上传包含 meta 信息的 JSON 布局需求文件</p>
+            <div v-if="step === 1" class="w-full h-full flex items-center justify-center" style="background:linear-gradient(160deg,#f0f4ff 0%,#f8fafc 60%,#fdf4ff 100%)">
+                <div class="w-full max-w-xl text-center px-4">
+                    <div class="w-14 h-14 rounded-2xl mx-auto mb-5 flex items-center justify-center" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);box-shadow:0 8px 24px rgba(79,70,229,.3)">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">上传项目数据</h2>
+                    <p class="text-slate-500 text-sm mb-8">请上传包含 <code class="bg-slate-100 text-indigo-600 px-1.5 py-0.5 rounded text-xs font-mono">meta</code> 信息的 JSON 布局需求文件</p>
 
-                    <div class="upload-zone rounded-xl p-12 flex flex-col items-center justify-center cursor-pointer relative"
+                    <div class="upload-zone rounded-2xl p-12 flex flex-col items-center justify-center cursor-pointer select-none"
                         :class="{'drag-over': isDragging}" @dragover.prevent="isDragging = true"
                         @dragleave.prevent="isDragging = false" @drop.prevent="handleFileDrop"
                         @click="triggerFileInput">
-                        <svg class="w-16 h-16 text-blue-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                            </path>
-                        </svg>
-                        <p class="text-lg font-medium text-gray-700 mb-1">点击选择文件，或将文件拖拽至此处</p>
-                        <p class="text-sm text-gray-400">仅支持 .json 格式文件</p>
+                        <div class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9"></path>
+                            </svg>
+                        </div>
+                        <p class="text-[15px] font-semibold text-slate-700 mb-1">拖拽文件到此处，或<span class="text-indigo-600">点击选择</span></p>
+                        <p class="text-xs text-slate-400">仅支持 .json 格式文件</p>
                     </div>
                 </div>
             </div>
 
-            <div v-if="step === 2" class="w-full h-full overflow-y-auto bg-gray-50 p-8">
+            <div v-if="step === 2" class="w-full h-full overflow-y-auto p-8" style="background:#f8fafc">
                 <div class="max-w-6xl mx-auto">
-                    <div class="flex justify-between items-end mb-6">
+                    <div class="flex justify-between items-center mb-8">
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-800">智能推荐方案</h2>
-                            <p class="text-gray-500 mt-1">系统提取了当前数据的 <span class="font-bold text-blue-600">{{
-                                    uploadedFeatures.length }}</span> 个核心特征，为您推荐以下布局结构</p>
+                            <h2 class="text-2xl font-bold text-slate-800">布局推荐方案</h2>
+                            <p class="text-slate-500 mt-1">已匹配 <span class="font-semibold text-indigo-600">{{ uploadedFeatures.length }}</span> 个核心特征，为您推荐最相似布局</p>
                         </div>
-                        <button @click="triggerFileInput"
-                            class="text-gray-500 hover:text-gray-800 underline text-sm flex items-center">
-                            重新上传文件
+                        <button @click="triggerFileInput" class="btn-ghost flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                            重新上传
                         </button>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
-                        <div v-for="(tpl, index) in recommendedTemplates" :key="tpl.uuid"
-                            class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md hover:border-blue-400 transition-all flex flex-col">
-                            <div class="p-4 border-b flex justify-between items-center bg-gray-50/50 cursor-pointer"
-                                @click="selectTemplate(tpl)">
-                                <h3 class="font-bold text-gray-800 text-lg group-hover:text-blue-600">推荐方案 {{ index + 1
-                                    }}</h3>
-                                <div
-                                    class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-bold border border-blue-100">
-                                    综合匹配度 {{ tpl.score }}%</div>
+                        <div v-for="(tpl, index) in recommendedTemplates" :key="tpl.uuid" class="card overflow-hidden flex flex-col">
+
+                            <!-- 卡片头部：方案信息 + 匹配分 -->
+                            <div class="px-6 pt-6 pb-5 cursor-pointer" @click="selectTemplate(tpl)">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">方案 {{ index + 1 }}</span>
+                                        <h3 class="font-bold text-slate-800 text-lg mt-0.5 leading-tight">参考模板 #{{ tpl.uuid ? tpl.uuid.substring(0, 6) : index }}</h3>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-3xl font-black leading-none" :class="tpl.score >= 80 ? 'text-emerald-600' : tpl.score >= 60 ? 'text-amber-500' : 'text-red-500'">{{ tpl.score }}<span class="text-base font-bold">%</span></div>
+                                        <div class="text-sm font-semibold text-slate-500 mt-1">匹配度</div>
+                                    </div>
+                                </div>
+                                <!-- 匹配度进度条 -->
+                                <div class="w-full bg-slate-100 rounded-full h-2 mb-5">
+                                    <div class="h-2 rounded-full transition-all" :style="{ width: tpl.score + '%' }"
+                                        :class="tpl.score >= 80 ? 'bg-emerald-500' : tpl.score >= 60 ? 'bg-amber-400' : 'bg-red-400'"></div>
+                                </div>
+
+                                <!-- 左右布局：左侧匹配状态，右侧预览 -->
+                                <div class="flex gap-3">
+                                    <!-- 匹配状态：3行竞排 -->
+                                    <div class="flex flex-col gap-2 flex-shrink-0">
+                                        <div class="bg-emerald-50 border border-emerald-100 rounded-xl px-3 py-2.5 flex flex-col items-center gap-0.5 w-[76px]">
+                                            <span class="text-xl font-black text-emerald-600 leading-none">{{ tpl.diffInfo.matched }}</span>
+                                            <span class="text-[10px] text-emerald-700 font-semibold whitespace-nowrap">匹配</span>
+                                        </div>
+                                        <div class="bg-amber-50 border border-amber-100 rounded-xl px-3 py-2.5 flex flex-col items-center gap-0.5 w-[76px]">
+                                            <span class="text-xl font-black text-amber-500 leading-none">{{ tpl.diffInfo.extra }}</span>
+                                            <span class="text-[10px] text-amber-700 font-semibold whitespace-nowrap">新增</span>
+                                        </div>
+                                        <div class="bg-red-50 border border-red-100 rounded-xl px-3 py-2.5 flex flex-col items-center gap-0.5 w-[76px]">
+                                            <span class="text-xl font-black text-red-500 leading-none">{{ tpl.diffInfo.missing }}</span>
+                                            <span class="text-[10px] text-red-700 font-semibold whitespace-nowrap">冗余</span>
+                                        </div>
+                                    </div>
+                                    <!-- 布局预览：flex居中，p-2小边距 -->
+                                    <div class="flex-1 rounded-xl overflow-hidden flex items-center justify-center p-2" style="background:#eef0f4">
+                                        <div class="relative flex-shrink-0 bg-white overflow-hidden shadow-sm"
+                                            :style="getPreviewPanelStyle(tpl.meta.panel_size)">
+                                            <div class="absolute inset-0 layout-panel opacity-60"></div>
+                                            <div class="absolute top-0 left-0" :style="getPreviewInnerStyle(tpl.meta.panel_size)">
+                                                <div v-for="(posObj, partId) in getPreviewParts(tpl)" :key="partId"
+                                                    class="absolute border border-black/20 overflow-hidden text-[7px] font-bold text-white flex items-center justify-center"
+                                                    :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
+                                                    {{ posObj.part_type.substring(0, 1) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="p-5 flex flex-col">
-                                <div class="flex mb-4 space-x-4 cursor-pointer" @click="selectTemplate(tpl)">
-                                    <div class="flex-1 space-y-3">
-                                        <div>
-                                            <p class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-2">
-                                                布局宏观差异</p>
-                                            <div class="flex items-center text-sm text-gray-600 mb-1"><span
-                                                    class="w-2 h-2 rounded-full bg-green-500 mr-2"></span>匹配极高元件: <span
-                                                    class="font-bold ml-1">{{ tpl.diffInfo.matched }}</span> 个</div>
-                                            <div class="flex items-center text-sm text-gray-600 mb-1"><span
-                                                    class="w-2 h-2 rounded-full bg-orange-400 mr-2"></span>需自动安插: <span
-                                                    class="font-bold ml-1">{{ tpl.diffInfo.extra }}</span> 个</div>
-                                            <div class="flex items-center text-sm text-gray-600"><span
-                                                    class="w-2 h-2 rounded-full bg-red-400 mr-2"></span>模板多余: <span
-                                                    class="font-bold ml-1">{{ tpl.diffInfo.missing }}</span> 个</div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="w-32 h-40 bg-gray-100 border border-gray-200 rounded relative shadow-inner overflow-hidden flex-shrink-0">
-                                        <div class="absolute layout-panel"
-                                            :style="getPreviewStyle(tpl.meta.panel_size, 128, 160)">
-                                            <div v-for="(posObj, partId) in getPreviewParts(tpl)" :key="partId"
-                                                class="absolute border border-black/30 opacity-70 overflow-hidden text-[6px] font-bold text-white flex items-center justify-center"
-                                                :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
-                                                {{ posObj.part_type.substring(0, 1) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mt-2 border-t border-gray-100 pt-3">
-                                    <button @click.stop="tpl.showFeatures = !tpl.showFeatures"
-                                        class="w-full flex justify-between items-center text-sm text-gray-500 hover:text-blue-600 font-medium py-1 px-2 rounded hover:bg-blue-50 transition-colors">
-                                        <span>
-                                            <svg class="w-4 h-4 inline-block mr-1 align-text-bottom" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-                                                </path>
-                                            </svg>
-                                            查看特征对比详情 ({{ tpl.featureDiffs ? tpl.featureDiffs.length : 0 }}项)
-                                        </span>
-                                        <svg class="w-4 h-4 transform transition-transform"
-                                            :class="{'rotate-180': tpl.showFeatures}" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7"></path>
+                            <!-- 特征展开 -->
+                            <div class="border-t border-slate-100 px-6 py-3">
+                                <button @click.stop="tpl.showFeatures = !tpl.showFeatures"
+                                    class="w-full flex justify-between items-center text-sm text-slate-500 hover:text-indigo-600 font-medium py-1 transition-colors">
+                                    <span class="flex items-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                                         </svg>
-                                    </button>
+                                        特征对比明细（{{ tpl.featureDiffs ? tpl.featureDiffs.length : 0 }} 项）
+                                    </span>
+                                    <svg class="w-4 h-4 transform transition-transform" :class="{'rotate-180': tpl.showFeatures}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </button>
 
-                                    <div v-show="tpl.showFeatures"
-                                        class="mt-3 bg-gray-50 border border-gray-200 rounded text-sm overflow-hidden">
-                                        <div
-                                            class="flex justify-between text-xs text-gray-400 font-bold bg-gray-100 px-3 py-2 border-b">
-                                            <span>特征项</span>
-                                            <span>此模板值 / 您的需求</span>
-                                        </div>
-                                        <div class="max-h-56 overflow-y-auto feature-scroll px-3 py-1">
-                                            <div v-for="(feat, fIdx) in (tpl.featureDiffs || [])" :key="fIdx"
-                                                class="flex justify-between items-center py-2 border-b border-gray-100 last:border-0 hover:bg-gray-100/50 transition-colors">
-                                                <div class="flex items-center flex-1 min-w-0 pr-4">
-                                                    <span class="w-2 h-2 rounded-full mr-2 flex-shrink-0" :class="{
-                                                            'bg-green-500': feat.status === 'green',
-                                                            'bg-yellow-400': feat.status === 'yellow',
-                                                            'bg-orange-500': feat.status === 'orange',
-                                                            'bg-red-500': feat.status === 'red'
-                                                        }" :title="feat.status"></span>
-                                                    <span class="text-gray-600 truncate" :title="feat.displayName">{{
-                                                        feat.displayName }}</span>
-                                                </div>
-                                                <div
-                                                    class="text-xs font-mono flex items-center justify-end flex-shrink-0">
-                                                    <span :class="{
-                                                            'text-gray-700': feat.status === 'green' || feat.status === 'yellow',
-                                                            'text-orange-600': feat.status === 'orange',
-                                                            'text-red-500 font-bold': feat.status === 'red'
-                                                        }">{{ formatValue(feat.templateValue) }}</span>
-                                                    <span class="text-gray-300 mx-1.5">/</span>
-                                                    <span class="text-gray-700">{{ formatValue(feat.uploadedValue)
-                                                        }}</span>
-                                                </div>
+                                <div v-show="tpl.showFeatures" class="mt-2 rounded-xl border border-slate-200 overflow-hidden">
+                                    <div class="flex justify-between text-xs text-slate-400 font-semibold bg-slate-50 px-4 py-2.5 border-b border-slate-200">
+                                        <span>特征项</span>
+                                        <span>模板值 / 需求值</span>
+                                    </div>
+                                    <div class="max-h-56 overflow-y-auto feature-scroll">
+                                        <div v-for="(feat, fIdx) in (tpl.featureDiffs || [])" :key="fIdx"
+                                            class="flex justify-between items-center px-4 py-2.5 border-b border-slate-100 last:border-0 hover:bg-slate-50/70 text-sm">
+                                            <div class="flex items-center gap-2 flex-1 min-w-0 pr-4">
+                                                <span class="w-2 h-2 rounded-full flex-shrink-0" :class="{
+                                                    'bg-emerald-500': feat.status === 'green',
+                                                    'bg-yellow-400': feat.status === 'yellow',
+                                                    'bg-orange-500': feat.status === 'orange',
+                                                    'bg-red-500': feat.status === 'red'
+                                                }"></span>
+                                                <span class="text-slate-600 truncate" :title="feat.displayName">{{ feat.displayName }}</span>
                                             </div>
-                                            <div v-if="!tpl.featureDiffs || tpl.featureDiffs.length === 0"
-                                                class="text-center text-gray-400 py-4 text-xs">
-                                                此模板未返回特征比对数据
+                                            <div class="font-mono flex items-center gap-1.5 flex-shrink-0 text-xs">
+                                                <span :class="{ 'text-slate-600': feat.status === 'green' || feat.status === 'yellow', 'text-orange-500': feat.status === 'orange', 'text-red-500 font-bold': feat.status === 'red' }">{{ formatValue(feat.templateValue) }}</span>
+                                                <span class="text-slate-300">/</span>
+                                                <span class="text-slate-600">{{ formatValue(feat.uploadedValue) }}</span>
                                             </div>
                                         </div>
+                                        <div v-if="!tpl.featureDiffs || tpl.featureDiffs.length === 0" class="text-center text-slate-400 py-5 text-sm">暂无特征比对数据</div>
                                     </div>
                                 </div>
-                                <div class="mt-4 pt-4 border-t border-dashed">
-                                    <button @click="selectTemplate(tpl)"
-                                        class="w-full py-2 bg-blue-50 text-blue-600 font-medium rounded hover:bg-blue-600 hover:text-white transition-colors">
-                                        应用此方案
-                                    </button>
-                                </div>
+                            </div>
+
+                            <!-- 应用按钮 -->
+                            <div class="px-6 pb-6 pt-3">
+                                <button @click="selectTemplate(tpl)" class="btn-primary w-full text-center text-[15px]">应用此方案</button>
                             </div>
                         </div>
                     </div>
@@ -315,31 +381,23 @@
             <template v-if="step === 3">
                 <div class="flex w-full h-full overflow-hidden">
 
-                    <section class="flex-1 border-r border-gray-300 bg-gray-100 overflow-hidden relative flex flex-col"
+                    <section class="flex-1 border-r border-slate-200 overflow-hidden relative flex flex-col" style="background:#eef0f5"
                         ref="tplCanvasContainer">
 
-                        <div
-                            class="bg-white border-b border-gray-200 px-4 py-2.5 flex justify-between items-center z-10 shadow-sm flex-shrink-0">
-                            <h2 class="font-bold text-gray-700 flex items-center text-sm">
-                                <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                    </path>
+                        <div class="bg-white border-b border-slate-200 px-4 flex justify-between items-center z-10 flex-shrink-0" style="height:44px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+                            <h2 class="font-semibold text-slate-500 flex items-center text-xs gap-2">
+                                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                 </svg>
-                                模板布局 (参考对照)
+                                模板参考
+                                <span class="bg-slate-100 text-slate-500 text-[10px] px-1.5 py-0.5 rounded-md font-normal">只读</span>
                             </h2>
-                            <div class="flex items-center space-x-2 text-xs text-gray-500">
-                                <span>比例: {{ Math.round(tplCanvasScale * 100) }}%</span>
-                                <button @click="resetView('tpl')"
-                                    class="p-1 text-gray-400 hover:text-blue-600 rounded transition-colors"
-                                    title="复位视角">
+                            <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                <span>{{ Math.round(tplCanvasScale * 100) }}%</span>
+                                <button @click="resetView('tpl')" class="toolbar-btn" title="复位视角">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4">
-                                        </path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
                                     </svg>
                                 </button>
                             </div>
@@ -377,41 +435,30 @@
                         </div>
                     </section>
 
-                    <section class="flex-1 bg-gray-200 overflow-hidden relative flex flex-col" ref="prjCanvasContainer">
+                    <section class="flex-1 overflow-hidden relative flex flex-col" style="background:#e8ecf3" ref="prjCanvasContainer">
 
-                        <div
-                            class="bg-white border-b border-gray-200 px-4 py-2.5 flex justify-between items-center z-10 shadow-sm flex-shrink-0">
-                            <h2 class="font-bold text-blue-600 flex items-center text-sm">
-                                <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                    </path>
+                        <div class="bg-white border-b border-slate-200 px-4 flex justify-between items-center z-10 flex-shrink-0" style="height:44px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+                            <h2 class="font-semibold text-indigo-600 flex items-center text-xs gap-2">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                 </svg>
-                                当前布局 (可编辑)
+                                当前布局
+                                <span class="bg-indigo-50 text-indigo-500 text-[10px] px-1.5 py-0.5 rounded-md font-normal">可编辑</span>
                             </h2>
-                            <div class="flex items-center space-x-4 text-xs select-none">
-                                <label class="flex items-center space-x-1.5 cursor-pointer text-gray-600">
-                                    <input type="checkbox" v-model="settings.autoSnap"
-                                        class="w-3.5 h-3.5 text-blue-600 rounded">
+                            <div class="flex items-center gap-4 text-[11px] select-none">
+                                <label class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700">
+                                    <input type="checkbox" v-model="settings.autoSnap" class="w-3.5 h-3.5 rounded accent-indigo-600">
                                     <span>自动吸附</span>
                                 </label>
-                                <label
-                                    class="flex items-center space-x-1.5 cursor-pointer text-gray-600 border-r border-gray-200 pr-4">
-                                    <input type="checkbox" v-model="settings.autoExtrude"
-                                        class="w-3.5 h-3.5 text-blue-600 rounded">
+                                <label class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700 border-r border-slate-200 pr-4">
+                                    <input type="checkbox" v-model="settings.autoExtrude" class="w-3.5 h-3.5 rounded accent-indigo-600">
                                     <span>防重叠挤出</span>
                                 </label>
-                                <div class="flex items-center space-x-2 text-gray-500">
-                                    <span class="cursor-help" title="在画布内滚动鼠标滚轮即可缩放；按住鼠标中键或空格键可拖拽平移。">🖱️ 比例: {{
-                                        Math.round(prjCanvasScale * 100) }}%</span>
-                                    <button @click="resetView('prj')"
-                                        class="p-1 text-gray-400 hover:text-blue-600 rounded transition-colors"
-                                        title="复位视角">
+                                <div class="flex items-center gap-2 text-slate-400">
+                                    <span class="cursor-help" title="滚轮缩放 · 中键/空格拖拽">{{ Math.round(prjCanvasScale * 100) }}%</span>
+                                    <button @click="resetView('prj')" class="toolbar-btn" title="复位视角">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4">
-                                            </path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
                                         </svg>
                                     </button>
                                 </div>
@@ -522,6 +569,12 @@
 
                 const formatValue = (val) => typeof val === 'number' ? Number(val.toFixed(2)) : val;
 
+                const getScoreBadgeClass = (score) => {
+                    if (score >= 80) return 'bg-green-50 text-green-700 border-green-200';
+                    if (score >= 60) return 'bg-yellow-50 text-yellow-700 border-yellow-200';
+                    return 'bg-red-50 text-red-600 border-red-200';
+                };
+
                 // 移除了 unplaced 相关的记录，现在只有 placedParts
                 const getCurrentStateStr = () => JSON.stringify({ placed: placedParts.value });
 
@@ -579,7 +632,24 @@
                 const getPreviewStyle = (size, maxWidth, maxHeight) => {
                     if (!size) return {};
                     const scale = Math.min(maxWidth / size[0], maxHeight / size[1]);
-                    return { width: size[0] + 'px', height: size[1] + 'px', transform: `scale(${scale})`, transformOrigin: 'top left', left: ((maxWidth - size[0] * scale) / 2) + 'px', top: ((maxHeight - size[1] * scale) / 2) + 'px' };
+                    const offsetX = (maxWidth - size[0] * scale) / 2;
+                    const offsetY = (maxHeight - size[1] * scale) / 2;
+                    return { width: size[0] + 'px', height: size[1] + 'px', transform: `scale(${scale})`, transformOrigin: 'top left', left: offsetX + 'px', top: offsetY + 'px' };
+                };
+
+                // 预览面板：左侧统计占 ~84px+gap，预览区 p-2 后可用宽约 200px，高约 185px
+                const getPreviewPanelStyle = (size) => {
+                    if (!size) return {};
+                    const maxW = 200, maxH = 185;
+                    const scale = Math.min(maxW / size[0], maxH / size[1]);
+                    return { width: Math.round(size[0] * scale) + 'px', height: Math.round(size[1] * scale) + 'px' };
+                };
+                // 预览内容：对 parts 原始坐标进行同比例缩放
+                const getPreviewInnerStyle = (size) => {
+                    if (!size) return {};
+                    const maxW = 200, maxH = 185;
+                    const scale = Math.min(maxW / size[0], maxH / size[1]);
+                    return { width: size[0] + 'px', height: size[1] + 'px', transform: `scale(${scale})`, transformOrigin: 'top left' };
                 };
 
                 const getPreviewParts = (tpl) => {
@@ -899,7 +969,8 @@
                     prjPanelSize, prjPanelType, placedParts, prjCanvasScale, prjPanX, prjPanY, prjCanvasContainer,
 
                     settings, formatValue, isPanning, isSpaceDown, activePanView,
-                    triggerFileInput, handleFileDrop, handleFileSelect, selectTemplate, getPreviewStyle, getPreviewParts, getColor,
+                    triggerFileInput, handleFileDrop, handleFileSelect, selectTemplate, getPreviewStyle, getPreviewPanelStyle, getPreviewInnerStyle, getPreviewParts, getColor,
+                    getScoreBadgeClass,
                     handleWheel, startPan, resetView,
                     startMove, panelRef, activeGuides, hasInvalid, submitLayout,
                     undo, redo, canUndo, canRedo, goBackToRecommend
