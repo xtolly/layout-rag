@@ -293,20 +293,20 @@
                                 </div>
 
                                 <!-- 左右布局：左侧匹配状态，右侧预览 -->
-                                <div class="flex gap-3">
-                                    <!-- 匹配状态：3行竞排 -->
+                                <div class="flex gap-3 items-stretch">
+                                    <!-- 匹配状态：3行等高拉伸 -->
                                     <div class="flex flex-col gap-2 flex-shrink-0">
-                                        <div class="bg-emerald-50 border border-emerald-100 rounded-xl px-3 py-2.5 flex flex-col items-center gap-0.5 w-[76px]">
+                                        <div class="bg-emerald-50 border border-emerald-100 rounded-xl px-3 flex flex-col items-center justify-center gap-0.5 w-[76px] flex-1">
                                             <span class="text-xl font-black text-emerald-600 leading-none">{{ tpl.diffInfo.matched }}</span>
                                             <span class="text-[10px] text-emerald-700 font-semibold whitespace-nowrap">匹配元件</span>
                                         </div>
-                                        <div class="bg-amber-50 border border-amber-100 rounded-xl px-3 py-2.5 flex flex-col items-center gap-0.5 w-[76px]">
-                                            <span class="text-xl font-black text-amber-500 leading-none">{{ tpl.diffInfo.extra }}</span>
-                                            <span class="text-[10px] text-amber-700 font-semibold whitespace-nowrap">新增元件</span>
+                                        <div class="bg-amber-50 border border-amber-100 rounded-xl px-3 flex flex-col items-center justify-center gap-0.5 w-[76px] flex-1">
+                                            <span class="text-xl font-black text-amber-500 leading-none">{{ tpl.diffInfo.missing }}</span>
+                                            <span class="text-[10px] text-amber-700 font-semibold whitespace-nowrap">冗余元件</span>
                                         </div>
-                                        <div class="bg-red-50 border border-red-100 rounded-xl px-3 py-2.5 flex flex-col items-center gap-0.5 w-[76px]">
-                                            <span class="text-xl font-black text-red-500 leading-none">{{ tpl.diffInfo.missing }}</span>
-                                            <span class="text-[10px] text-red-700 font-semibold whitespace-nowrap">冗余元件</span>
+                                        <div class="bg-red-50 border border-red-100 rounded-xl px-3 flex flex-col items-center justify-center gap-0.5 w-[76px] flex-1">
+                                            <span class="text-xl font-black text-red-500 leading-none">{{ tpl.diffInfo.extra }}</span>
+                                            <span class="text-[10px] text-red-700 font-semibold whitespace-nowrap">新增元件</span>
                                         </div>
                                     </div>
                                     <!-- 布局预览：flex居中，p-2小边距 -->
@@ -421,8 +421,10 @@
                                 <div class="layout-panel bg-white/70 shadow-lg ring-1 ring-gray-300 relative"
                                     :style="{ width: tplPanelSize[0] + 'px', height: tplPanelSize[1] + 'px' }">
                                     <div v-for="part in tplPlacedParts" :key="'tpl-'+part.part_id"
-                                        class="absolute border border-black/20 flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider opacity-90 pointer-events-none"
-                                        :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: getColor(part.part_type) }">
+                                        class="absolute border border-black/20 flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider opacity-90"
+                                        style="pointer-events:auto;cursor:default"
+                                        :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: getColor(part.part_type) }"
+                                        :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
                                         <span
                                             class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
                                             part.part_type }}</span>
