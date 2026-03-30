@@ -514,12 +514,26 @@
         const { createApp, ref, computed, reactive, onMounted, onUnmounted, nextTick } = Vue;
 
         const generateColors = () => {
+            // 使用黄金角 (≈137.5°) 均匀分布色相，确保相邻颜色差异最大化
+            const count = 32;
+            const goldenAngle = 137.508;
             const colors = [];
-            for (let i = 0; i < 30; i++) { colors.push(`hsl(${Math.floor((360 / 30) * i)}, 65%, 45%)`); }
+            for (let i = 0; i < count; i++) {
+                const hue = Math.floor((i * goldenAngle) % 360);
+                colors.push(`hsl(${hue}, 62%, 42%)`);
+            }
             return colors;
         };
         const PALETTE = generateColors();
-        const colorMap = new Map();
+
+        // 确定性哈希：相同 part_type 字符串永远返回相同颜色索引
+        const hashString = (str) => {
+            let h = 0;
+            for (let i = 0; i < str.length; i++) {
+                h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+            }
+            return Math.abs(h);
+        };
 
         const API_BASE_URL = 'http://localhost:8000/api';
 
@@ -605,8 +619,7 @@
 
                 const getColor = (type) => {
                     if (!type) return '#999';
-                    if (!colorMap.has(type)) colorMap.set(type, PALETTE[colorMap.size % PALETTE.length]);
-                    return colorMap.get(type);
+                    return PALETTE[hashString(type) % PALETTE.length];
                 };
 
                 const triggerFileInput = () => fileInput.value.click();
@@ -674,9 +687,12 @@
                 const selectTemplate = async (tpl) => {
                     isLoading.value = true; loadingText.value = '正在进行约束求解，请稍等...';
                     try {
+                        const otherTemplateUuids = recommendedTemplates.value
+                            .filter(candidate => candidate.uuid !== tpl.uuid)
+                            .map(candidate => candidate.uuid);
                         const response = await fetch(`${API_BASE_URL}/apply`, {
                             method: 'POST', headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ template_uuid: tpl.uuid, project_data: originalUploadJson.value })
+                            body: JSON.stringify({ template_uuid: tpl.uuid, other_template_uuids: otherTemplateUuids, project_data: originalUploadJson.value })
                         });
                         if (!response.ok) throw new Error(`应用接口请求失败: ${response.statusText}`);
 

@@ -1,7 +1,7 @@
 import os
 import json
 import math
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from core.feature_extractor import FeatureExtractor
 from core.vector_store import VectorStore
@@ -39,6 +39,36 @@ class LayoutService:
             return "red"
 
         return "green" if q_value == t_value else "red"
+
+    def _load_template_data(self, template_uuid: str) -> Optional[dict]:
+        tpl_entry = next((entry for entry in self.store.entries if entry.get("uuid") == template_uuid), None)
+        if not tpl_entry:
+            return None
+
+        tpl_path = tpl_entry.get("source_path")
+        if not tpl_path or not os.path.exists(tpl_path):
+            return None
+
+        with open(tpl_path, 'r', encoding='utf-8') as f:
+            tpl_data = json.load(f)
+
+        tpl_data.setdefault("uuid", template_uuid)
+        return tpl_data
+
+    def _load_other_templates(self, template_uuids: List[str], selected_uuid: str) -> List[dict]:
+        templates = []
+        seen = set()
+
+        for template_uuid in template_uuids or []:
+            if not template_uuid or template_uuid == selected_uuid or template_uuid in seen:
+                continue
+
+            seen.add(template_uuid)
+            tpl_data = self._load_template_data(template_uuid)
+            if tpl_data:
+                templates.append(tpl_data)
+
+        return templates
 
     def calculate_diff_info(self, query_parts: list, template_parts: list) -> dict:
         """计算零件组成差异"""
@@ -140,24 +170,22 @@ class LayoutService:
             
         return templates
 
-    def apply_layout_template(self, template_uuid: str, project_data: dict) -> dict:
+    def apply_layout_template(self, template_uuid: str, project_data: dict, other_template_uuids: List[str] | None = None) -> dict:
         """
         应用推荐方案的排版逻辑：寻找模板中类型一致且尺寸最接近的元件进行坐标迁移
         """
-        # 1. 查找模板原始文件
-        tpl_entry = next((e for e in self.store.entries if e["uuid"] == template_uuid), None)
-        if not tpl_entry:
+        tpl_data = self._load_template_data(template_uuid)
+        if not tpl_data:
             return {"project_data": project_data, "template_data": None}
-        
-        tpl_path = tpl_entry.get("source_path")
-        if not tpl_path or not os.path.exists(tpl_path):
-            return {"project_data": project_data, "template_data": None}
-            
-        with open(tpl_path, 'r', encoding='utf-8') as f:
-            tpl_data = json.load(f)
+
+        other_templates = self._load_other_templates(other_template_uuids or [], template_uuid)
             
         layout_optimizer = LayoutOptimizer()
-        project_data = layout_optimizer.apply_layout_template(tpl_data, project_data)
+        project_data = layout_optimizer.apply_layout_template(
+            tpl_data,
+            project_data,
+            fallback_templates=other_templates,
+        )
 
         # 导出调试数据：只保留 meta 与 arrange 
         # def dump_debug_file(data, filename):

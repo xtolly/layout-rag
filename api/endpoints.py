@@ -28,9 +28,10 @@ async def apply_template(
 ):
     """接口 2：应用选中的模板，为原数据填充排版坐标 arrange"""
     template_uuid = payload.get("template_uuid")
+    other_template_uuids = payload.get("other_template_uuids", [])
     project_data = payload.get("project_data", {})
     
-    updated_data = service.apply_layout_template(template_uuid, project_data)
+    updated_data = service.apply_layout_template(template_uuid, project_data, other_template_uuids)
     return updated_data
 
 @router.post("/submit")
