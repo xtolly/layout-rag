@@ -3,18 +3,18 @@ import json
 import math
 from typing import List, Dict, Optional
 
-from core.feature_extractor import FeatureExtractor
-from core.vector_store import VectorStore
-from config import get_feature_schema, load_part_types
-from core.layout_optimizer import LayoutOptimizer
+from layout_rag.config import get_feature_schema, load_part_color_payload, load_part_types
+from layout_rag.core.feature_extractor import FeatureExtractor
+from layout_rag.core.layout_optimizer import LayoutOptimizer
+from layout_rag.core.vector_store import VectorStore
 
 class LayoutService:
     def __init__(self, data_dir: str, vector_db_path: str):
-        self.schema_def = get_feature_schema(data_dir)
-        self.part_types = load_part_types(data_dir)
+        self.schema_def = get_feature_schema(str(data_dir))
+        self.part_types = load_part_types(str(data_dir))
         
         self.store = VectorStore(self.schema_def)
-        self.store.load_from_disk(vector_db_path)
+        self.store.load_from_disk(str(vector_db_path))
         self.extractor = FeatureExtractor(self.part_types, self.schema_def)
 
     @staticmethod
@@ -171,6 +171,9 @@ class LayoutService:
         templates.sort(key=lambda x: x["score"], reverse=True)
             
         return templates
+
+    def get_part_color_map(self) -> Dict[str, object]:
+        return load_part_color_payload()
 
     def apply_layout_template(self, template_uuid: str, project_data: dict, other_template_uuids: List[str] | None = None) -> dict:
         """

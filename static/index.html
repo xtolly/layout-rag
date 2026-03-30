@@ -627,30 +627,9 @@
 
     <script>
         const { createApp, ref, computed, reactive, onMounted, onUnmounted, nextTick } = Vue;
+        const DEFAULT_UNKNOWN_COLOR = 'hsl(215, 16%, 55%)';
 
-        const generateColors = () => {
-            // 使用黄金角 (≈137.5°) 均匀分布色相，确保相邻颜色差异最大化
-            const count = 32;
-            const goldenAngle = 137.508;
-            const colors = [];
-            for (let i = 0; i < count; i++) {
-                const hue = Math.floor((i * goldenAngle) % 360);
-                colors.push(`hsl(${hue}, 62%, 42%)`);
-            }
-            return colors;
-        };
-        const PALETTE = generateColors();
-
-        // 确定性哈希：相同 part_type 字符串永远返回相同颜色索引
-        const hashString = (str) => {
-            let h = 0;
-            for (let i = 0; i < str.length; i++) {
-                h = ((h << 5) - h + str.charCodeAt(i)) | 0;
-            }
-            return Math.abs(h);
-        };
-
-        const API_BASE_URL = 'http://localhost:8000/api';
+        const API_BASE_URL = `${window.location.origin}/api`;
 
         const App = {
             setup() {
@@ -662,6 +641,8 @@
                 const recommendedTemplates = ref([]);
                 const previewTemplate = ref(null);
                 const featureSchema = ref({});
+                const partColorMap = ref({});
+                const unknownPartColor = ref(DEFAULT_UNKNOWN_COLOR);
                 const uploadDataMeta = computed(() => originalUploadJson.value?.meta);
                 const totalFeatureCount = computed(() => {
                     const schemaCount = Object.keys(featureSchema.value || {}).length;
@@ -740,8 +721,23 @@
                 };
 
                 const getColor = (type) => {
-                    if (!type) return '#999';
-                    return PALETTE[hashString(type) % PALETTE.length];
+                    const normalizedType = typeof type === 'string' ? type.trim() : '';
+                    if (!normalizedType) return unknownPartColor.value;
+                    return partColorMap.value[normalizedType] || unknownPartColor.value;
+                };
+
+                const loadPartColorMap = async () => {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/part-color-map`);
+                        if (!response.ok) throw new Error(`颜色映射获取失败: ${response.statusText}`);
+                        const payload = await response.json();
+                        partColorMap.value = payload.partColorMap || {};
+                        unknownPartColor.value = payload.unknownColor || DEFAULT_UNKNOWN_COLOR;
+                    } catch (error) {
+                        console.warn('元件颜色映射加载失败:', error);
+                        partColorMap.value = {};
+                        unknownPartColor.value = DEFAULT_UNKNOWN_COLOR;
+                    }
                 };
 
                 const previewFeatureDiffs = computed(() => {
@@ -954,7 +950,11 @@
                     }
                 };
                 const handleKeyup = (e) => { if (e.code === 'Space') isSpaceDown.value = false; };
-                onMounted(() => { window.addEventListener('keydown', handleKeydown); window.addEventListener('keyup', handleKeyup); });
+                onMounted(() => {
+                    window.addEventListener('keydown', handleKeydown);
+                    window.addEventListener('keyup', handleKeyup);
+                    loadPartColorMap();
+                });
                 onUnmounted(() => { window.removeEventListener('keydown', handleKeydown); window.removeEventListener('keyup', handleKeyup); });
 
                 const hasInvalid = computed(() => placedParts.value.some(p => p.isInvalid));

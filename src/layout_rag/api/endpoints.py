@@ -12,6 +12,11 @@ async def get_schema(service=Depends(get_service)):
     """返回当前系统的特征定义元数据"""
     return service.schema_def
 
+@router.get("/part-color-map")
+async def get_part_color_map(service=Depends(get_service)):
+    """返回元件类型颜色映射及未知类型兜底颜色"""
+    return service.get_part_color_map()
+
 @router.post("/recommend")
 async def recommend_layout(
     project_data: Dict[str, Any] = Body(...),

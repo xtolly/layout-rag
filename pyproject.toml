@@ -1,7 +1,11 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "layout-rag"
 version = "0.1.0"
-description = "Add your description here"
+description = "基于历史模板检索与约束求解的电气柜元件布局推荐系统"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -13,6 +17,17 @@ dependencies = [
     "tqdm>=4.67.3",
     "uvicorn>=0.42.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [[tool.uv.index]]
 name = "tencent"

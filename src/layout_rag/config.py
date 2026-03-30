@@ -1,6 +1,23 @@
-import glob
 import json
-import os
+from pathlib import Path
+
+
+PACKAGE_ROOT = Path(__file__).resolve().parent
+SRC_ROOT = PACKAGE_ROOT.parent
+PROJECT_ROOT = SRC_ROOT.parent
+DATA_DIR = PROJECT_ROOT / "data" / "layouts"
+VECDB_DIR = PROJECT_ROOT / "vecdb"
+STATIC_DIR = PROJECT_ROOT / "static"
+VECTOR_STORE_PATH = VECDB_DIR / "vector_store.json"
+PART_COLOR_PATH = STATIC_DIR / "part.color"
+
+UNKNOWN_PART_COLOR = "hsl(215, 16%, 55%)"
+_COLOR_VARIANTS = (
+    (72, 38),
+    (64, 46),
+    (78, 32),
+    (58, 54),
+)
 
 # 定义特征的类型和权重
 # continuous: 连续物理量，使用 Z-score
@@ -57,17 +74,15 @@ DYNAMIC_FEATURE_SOURCES = {
     }
 }
 
-def iter_layout_samples(data_dir="data/layouts"):
-    search_pattern = os.path.join(data_dir, "*.json")
-
-    for file_path in glob.glob(search_pattern):
+def iter_layout_samples(data_dir=DATA_DIR):
+    for file_path in sorted(Path(data_dir).glob("*.json")):
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with file_path.open('r', encoding='utf-8') as f:
                 yield json.load(f)
         except (OSError, json.JSONDecodeError):
             continue
 
-def load_distinct_values(data_dir="data/layouts", source="meta", field=""):
+def load_distinct_values(data_dir=DATA_DIR, source="meta", field=""):
     values = set()
 
     for layout_sample in iter_layout_samples(data_dir):
@@ -84,11 +99,71 @@ def load_distinct_values(data_dir="data/layouts", source="meta", field=""):
 
     return sorted(values)
 
-def load_part_types(data_dir="data/layouts"):
+def load_part_types(data_dir=DATA_DIR):
     config = DYNAMIC_FEATURE_SOURCES["part_type_counts"]
     return load_distinct_values(data_dir, source=config["source"], field=config["field"])
 
-def load_meta_category_values(data_dir="data/layouts"):
+def generate_distinct_colors(count: int):
+    if count <= 0:
+        return []
+
+    golden_angle = 137.508
+    colors = []
+    for index in range(count):
+        saturation, lightness = _COLOR_VARIANTS[index % len(_COLOR_VARIANTS)]
+        hue = (index * golden_angle) % 360
+        colors.append(f"hsl({hue:.3f}, {saturation}%, {lightness}%)")
+
+    return colors
+
+def build_part_color_payload(part_types):
+    normalized_part_types = sorted({str(part_type).strip() for part_type in part_types if str(part_type).strip()})
+    colors = generate_distinct_colors(len(normalized_part_types))
+    part_color_map = {
+        part_type: colors[index]
+        for index, part_type in enumerate(normalized_part_types)
+    }
+    return {
+        "unknownColor": UNKNOWN_PART_COLOR,
+        "partColorMap": part_color_map,
+    }
+
+def save_part_color_payload(part_types, output_path=PART_COLOR_PATH):
+    payload = build_part_color_payload(part_types)
+    path = Path(output_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return payload
+
+def load_part_color_payload(file_path=PART_COLOR_PATH):
+    path = Path(file_path)
+    fallback_payload = {
+        "unknownColor": UNKNOWN_PART_COLOR,
+        "partColorMap": {},
+    }
+
+    if not path.exists():
+        return fallback_payload
+
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return fallback_payload
+
+    part_color_map = payload.get("partColorMap")
+    if not isinstance(part_color_map, dict):
+        part_color_map = {}
+
+    return {
+        "unknownColor": str(payload.get("unknownColor") or UNKNOWN_PART_COLOR),
+        "partColorMap": {
+            str(part_type): str(color)
+            for part_type, color in part_color_map.items()
+            if str(part_type).strip() and str(color).strip()
+        },
+    }
+
+def load_meta_category_values(data_dir=DATA_DIR):
     values_by_field = {}
 
     for feature_config in DYNAMIC_FEATURE_SOURCES.values():
@@ -103,7 +178,7 @@ def load_meta_category_values(data_dir="data/layouts"):
 
     return values_by_field
 
-def get_feature_schema(data_dir="data/layouts"):
+def get_feature_schema(data_dir=DATA_DIR):
     schema = {name: config.copy() for name, config in FEATURE_SCHEMA_DEF.items()}
     for feature_config in DYNAMIC_FEATURE_SOURCES.values():
         values = load_distinct_values(
