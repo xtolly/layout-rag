@@ -94,7 +94,7 @@ class LayoutService:
         return {"matched": matched, "extra": extra, "missing": missing}
 
     def get_feature_diff_list(self, q_features, t_features) -> List[Dict]:
-        """生成详细特征差异比对（带 4 级状态灯）"""
+        """生成详细特征差异比对（按特征权重降序排序）"""
         diff_list = []
         
         for f_name, f_info in self.schema_def.items():
@@ -103,11 +103,13 @@ class LayoutService:
                 
             display_name = f_info.get("display_name", f_name)
             f_type = f_info.get("type", "continuous")
+            weight = self._to_python_value(f_info.get("weight", 0))
             status = self._resolve_feature_status(qv, tv, f_type)
                 
             diff_list.append({
                 "name": f_name,
                 "type": f_type,
+                "weight": weight,
                 "dynamic": f_info.get("dynamic", False),
                 "source": f_info.get("source"),
                 "field": f_info.get("field"),
@@ -119,7 +121,7 @@ class LayoutService:
                 "status": status
             })
 
-        diff_list.sort(key=lambda item: (not item["dynamic"], item["name"]))
+        diff_list.sort(key=lambda item: (-item["weight"], not item["dynamic"], item["name"]))
         return diff_list
 
     def search_recommendations(self, project_data: dict, top_k: int = 10) -> list:
