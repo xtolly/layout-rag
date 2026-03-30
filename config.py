@@ -12,10 +12,10 @@ FEATURE_SCHEMA_DEF = {
     "panel_area": {"type": "continuous", "weight": 1.5, "display_name": "面板总面积"},
     "panel_aspect_ratio": {"type": "continuous", "weight": 2, "display_name": "面板纵横比"},
     
-    "total_parts": {"type": "count", "weight": 2.0, "display_name": "元器件总数"},
+    "total_parts": {"type": "count", "weight": 1.0, "display_name": "元器件总数"},
     "unique_types": {"type": "count", "weight": 2.0, "display_name": "元件种类数"},
-    "total_parts_area": {"type": "continuous", "weight": 2.0, "display_name": "元器件总面积"},
-    "fill_ratio": {"type": "continuous", "weight": 2.5, "display_name": "空间填充率"},
+    "total_parts_area": {"type": "continuous", "weight": 1.5, "display_name": "元器件总面积"},
+    "fill_ratio": {"type": "continuous", "weight": 1.5, "display_name": "空间填充率"},
     
     "avg_part_width": {"type": "continuous", "weight": 1.0, "display_name": "元件平均宽度"},
     "avg_part_height": {"type": "continuous", "weight": 1.0, "display_name": "元件平均高度"},
@@ -35,7 +35,7 @@ DYNAMIC_FEATURE_SOURCES = {
         "source": "parts",
         "field": "part_type",
         "feature_type": "count",
-        "weight": 2.0,
+        "weight": 1.0,
         "feature_name_template": "count_{value}",
         "display_name_template": "{value} 数量"
     },
