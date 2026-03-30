@@ -1,8 +1,7 @@
 import os
 import json
 import math
-import numpy as np
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict
 
 from core.feature_extractor import FeatureExtractor
 from core.vector_store import VectorStore
@@ -10,13 +9,36 @@ from config import get_feature_schema, load_part_types
 from core.layout_optimizer import LayoutOptimizer
 
 class LayoutService:
-    def __init__(self, txt_path: str, vector_db_path: str):
-        self.schema_def = get_feature_schema(txt_path)
-        self.part_types = load_part_types(txt_path)
+    def __init__(self, data_dir: str, vector_db_path: str):
+        self.schema_def = get_feature_schema(data_dir)
+        self.part_types = load_part_types(data_dir)
         
         self.store = VectorStore(self.schema_def)
         self.store.load_from_disk(vector_db_path)
-        self.extractor = FeatureExtractor(self.part_types)
+        self.extractor = FeatureExtractor(self.part_types, self.schema_def)
+
+    @staticmethod
+    def _to_python_value(value):
+        if hasattr(value, "item"):
+            return value.item()
+        return value
+
+    @staticmethod
+    def _resolve_feature_status(q_value, t_value, feature_type: str) -> str:
+        if feature_type in {"continuous", "count"}:
+            diff_abs = abs(q_value - t_value)
+            base_val = max(abs(q_value), abs(t_value), 0.001)
+            diff_ratio = diff_abs / base_val
+
+            if diff_abs < 1e-6:
+                return "green"
+            if diff_ratio <= 0.15:
+                return "yellow"
+            if diff_ratio <= 0.45:
+                return "orange"
+            return "red"
+
+        return "green" if q_value == t_value else "red"
 
     def calculate_diff_info(self, query_parts: list, template_parts: list) -> dict:
         """计算零件组成差异"""
@@ -35,8 +57,10 @@ class LayoutService:
         for pt in all_types:
             qc, tc = q_counts.get(pt, 0), t_counts.get(pt, 0)
             matched += min(qc, tc)
-            if qc > tc: extra += (qc - tc)
-            if tc > qc: missing += (tc - qc)
+            if qc > tc:
+                extra += (qc - tc)
+            if tc > qc:
+                missing += (tc - qc)
         return {"matched": matched, "extra": extra, "missing": missing}
 
     def get_feature_diff_list(self, q_features, t_features) -> List[Dict]:
@@ -44,40 +68,28 @@ class LayoutService:
         diff_list = []
         
         for f_name, f_info in self.schema_def.items():
-            qv = q_features.get(f_name, 0)
-            tv = t_features.get(f_name, 0)
-            
-            # 转为 Python 原生类型
-            if hasattr(qv, "item"): qv = qv.item()
-            if hasattr(tv, "item"): tv = tv.item()
-            
-            if f_name.startswith("count_") and qv == 0 and tv == 0:
-                continue
+            qv = self._to_python_value(q_features.get(f_name, 0))
+            tv = self._to_python_value(t_features.get(f_name, 0))
                 
             display_name = f_info.get("display_name", f_name)
             f_type = f_info.get("type", "continuous")
-            
-            # 计算差异等级
-            status = "green"
-            if f_type == "continuous" or f_type == "count":
-                diff_abs = abs(qv - tv)
-                base_val = max(abs(qv), abs(tv), 0.001)
-                diff_ratio = diff_abs / base_val
-                
-                if diff_abs < 1e-6: status = "green"
-                elif diff_ratio <= 0.15: status = "yellow"
-                elif diff_ratio <= 0.45: status = "orange"
-                else: status = "red"
-            else:
-                status = "green" if qv == tv else "red"
+            status = self._resolve_feature_status(qv, tv, f_type)
                 
             diff_list.append({
                 "name": f_name,
+                "type": f_type,
+                "dynamic": f_info.get("dynamic", False),
+                "source": f_info.get("source"),
+                "field": f_info.get("field"),
+                "sourceName": f_info.get("source_name"),
+                "featureValue": f_info.get("value"),
                 "displayName": display_name,
                 "uploadedValue": qv,
                 "templateValue": tv,
                 "status": status
             })
+
+        diff_list.sort(key=lambda item: (not item["dynamic"], item["name"]))
         return diff_list
 
     def search_recommendations(self, project_data: dict, top_k: int = 10) -> list:
@@ -114,6 +126,7 @@ class LayoutService:
             
             templates.append({
                 "uuid": entry["uuid"],
+                "name": tpl_data.get("name"),
                 "score": score,
                 "showFeatures": False,
                 "meta": tpl_meta,

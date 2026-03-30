@@ -263,7 +263,7 @@
                     <div class="flex justify-between items-center mb-8">
                         <div>
                             <h2 class="text-2xl font-bold text-slate-800">布局推荐方案</h2>
-                            <p class="text-slate-500 mt-1">已匹配 <span class="font-semibold text-indigo-600">{{ uploadedFeatures.length }}</span> 个核心特征，为您推荐最相似布局</p>
+                            <p class="text-slate-500 mt-1">基于 <span class="font-semibold text-indigo-600">{{ totalFeatureCount }}</span> 个特征，为您推荐最相似布局</p>
                         </div>
                         <button @click="triggerFileInput" class="btn-ghost flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
@@ -277,11 +277,11 @@
                             <!-- 卡片头部：方案信息 + 匹配分 -->
                             <div class="px-6 pt-6 pb-5 cursor-pointer" @click="selectTemplate(tpl)">
                                 <div class="flex justify-between items-center mb-4">
-                                    <div>
+                                    <div class="min-w-0 pr-4 flex-1">
                                         <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">方案 {{ index + 1 }}</span>
-                                        <h3 class="font-bold text-slate-800 text-lg mt-0.5 leading-tight">来源：#{{ tpl.uuid ? tpl.uuid.substring(0, 6) : index }}</h3>
+                                        <h3 class="font-bold text-slate-800 text-lg mt-0.5 leading-snug break-words whitespace-normal" :title="tpl.name || (tpl.uuid ? '#' + tpl.uuid.substring(0, 6) : String(index))">{{ tpl.name || (tpl.uuid ? '#' + tpl.uuid.substring(0, 6) : index) }}</h3>
                                     </div>
-                                    <div class="text-right">
+                                    <div class="text-right flex-shrink-0">
                                         <div class="text-3xl font-black leading-none" :class="tpl.score >= 80 ? 'text-emerald-600' : tpl.score >= 60 ? 'text-amber-500' : 'text-red-500'">{{ tpl.score }}<span class="text-base font-bold">%</span></div>
                                         <div class="text-sm font-semibold text-slate-500 mt-1">匹配度</div>
                                     </div>
@@ -531,8 +531,14 @@
 
                 const originalUploadJson = ref(null);
                 const recommendedTemplates = ref([]);
+                const featureSchema = ref({});
                 const uploadDataMeta = computed(() => originalUploadJson.value?.meta);
-                const uploadedFeatures = computed(() => originalUploadJson.value?.features || []);
+                const totalFeatureCount = computed(() => {
+                    const schemaCount = Object.keys(featureSchema.value || {}).length;
+                    if (schemaCount > 0) return schemaCount;
+                    const firstTemplate = recommendedTemplates.value?.[0];
+                    return firstTemplate?.featureDiffs?.length || 0;
+                });
 
                 // ===== 模板视图状态 =====
                 const tplPanelSize = ref([600, 1600]);
@@ -617,6 +623,11 @@
                             originalUploadJson.value = json;
                             isLoading.value = true;
                             loadingText.value = '正在进行特征匹配...';
+                            if (Object.keys(featureSchema.value).length === 0) {
+                                const schemaResponse = await fetch(`${API_BASE_URL}/schema`);
+                                if (!schemaResponse.ok) throw new Error(`特征定义获取失败: ${schemaResponse.statusText}`);
+                                featureSchema.value = await schemaResponse.json();
+                            }
                             const response = await fetch(`${API_BASE_URL}/recommend`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(json) });
                             if (!response.ok) throw new Error(`推荐接口请求失败: ${response.statusText}`);
                             const res = await response.json();
@@ -963,7 +974,7 @@
                 };
 
                 return {
-                    step, isLoading, loadingText, isDragging, fileInput, originalUploadJson, recommendedTemplates, uploadDataMeta, uploadedFeatures,
+                    step, isLoading, loadingText, isDragging, fileInput, originalUploadJson, recommendedTemplates, uploadDataMeta, totalFeatureCount,
 
                     // 模板视图暴露变量
                     tplPanelSize, tplPanelType, tplPlacedParts, tplCanvasScale, tplPanX, tplPanY, tplCanvasContainer,

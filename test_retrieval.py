@@ -8,14 +8,13 @@ from config import get_feature_schema, load_part_types
 
 def test_retrieval():
     # 1. 路径配置
-    txt_path = "data/part_name.txt"
     vector_db_path = "output/vector_store.json" # 这里保持json后缀，load_from_disk会自动去读对应的.npz
     data_dir = "data/layouts/"
     
     # 2. 加载配置与向量库
     print("正在加载配置与向量库...")
-    schema = get_feature_schema(txt_path)
-    part_types = load_part_types(txt_path)
+    schema = get_feature_schema(data_dir)
+    part_types = load_part_types(data_dir)
     
     store = VectorStore(schema)
     if not os.path.exists(vector_db_path):
@@ -23,7 +22,7 @@ def test_retrieval():
         return
     store.load_from_disk(vector_db_path)
     
-    extractor = FeatureExtractor(part_types)
+    extractor = FeatureExtractor(part_types, schema)
     
     # 3. 随机抽取一个历史案例作为 Query
     all_files = glob.glob(os.path.join(data_dir, "*.json"), recursive=True)

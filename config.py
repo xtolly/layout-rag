@@ -1,4 +1,5 @@
-import csv
+import glob
+import json
 import os
 
 # 定义特征的类型和权重
@@ -29,24 +30,100 @@ FEATURE_SCHEMA_DEF = {
     "large_part_ratio": {"type": "continuous", "weight": 1.0, "display_name": "大型元件占比"}
 }
 
-def load_part_types(file_path="data/part_name.txt"):
-    part_types = []
-    if not os.path.exists(file_path):
-        return part_types
-    with open(file_path, 'r', encoding='utf-8') as f:
-        for line in f:
-            t = line.strip()
-            if t:
-                part_types.append(t)
-    return list(set(part_types))
+DYNAMIC_FEATURE_SOURCES = {
+    "part_type_counts": {
+        "source": "parts",
+        "field": "part_type",
+        "feature_type": "count",
+        "weight": 2.0,
+        "feature_name_template": "count_{value}",
+        "display_name_template": "{value} 数量"
+    },
+    "cabinet_type_categories": {
+        "source": "meta",
+        "field": "cabinet_type",
+        "feature_type": "boolean",
+        "weight": 5.0,
+        "feature_name_template": "cabinet_type_{value}",
+        "display_name_template": "柜体类型:{value}"
+    },
+    "panel_type_categories": {
+        "source": "meta",
+        "field": "panel_type",
+        "feature_type": "boolean",
+        "weight": 5.0,
+        "feature_name_template": "panel_type_{value}",
+        "display_name_template": "面板类型:{value}"
+    }
+}
 
-def get_feature_schema(file_path="data/part_name.txt"):
-    schema = FEATURE_SCHEMA_DEF.copy()
-    part_types = load_part_types(file_path)
-    
-    # 动态注入类型计数特征
-    for pt in part_types:
-        feat_name = f"count_{pt}"
-        schema[feat_name] = {"type": "count", "weight": 2.5, "display_name": f"{pt} 数量"}
+def iter_layout_samples(data_dir="data/layouts"):
+    search_pattern = os.path.join(data_dir, "*.json")
+
+    for file_path in glob.glob(search_pattern):
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                yield json.load(f)
+        except (OSError, json.JSONDecodeError):
+            continue
+
+def load_distinct_values(data_dir="data/layouts", source="meta", field=""):
+    values = set()
+
+    for layout_sample in iter_layout_samples(data_dir):
+        meta = layout_sample.get("meta", {})
+        if source == "parts":
+            for item in meta.get("parts", []):
+                value = str(item.get(field, "")).strip()
+                if value:
+                    values.add(value)
+        else:
+            value = str(meta.get(field, "")).strip()
+            if value:
+                values.add(value)
+
+    return sorted(values)
+
+def load_part_types(data_dir="data/layouts"):
+    config = DYNAMIC_FEATURE_SOURCES["part_type_counts"]
+    return load_distinct_values(data_dir, source=config["source"], field=config["field"])
+
+def load_meta_category_values(data_dir="data/layouts"):
+    values_by_field = {}
+
+    for feature_config in DYNAMIC_FEATURE_SOURCES.values():
+        if feature_config["source"] != "meta" or feature_config["feature_type"] != "boolean":
+            continue
+        field = feature_config["field"]
+        values_by_field[field] = load_distinct_values(
+            data_dir,
+            source=feature_config["source"],
+            field=field
+        )
+
+    return values_by_field
+
+def get_feature_schema(data_dir="data/layouts"):
+    schema = {name: config.copy() for name, config in FEATURE_SCHEMA_DEF.items()}
+    for feature_config in DYNAMIC_FEATURE_SOURCES.values():
+        values = load_distinct_values(
+            data_dir,
+            source=feature_config["source"],
+            field=feature_config["field"]
+        )
+        for value in values:
+            feat_name = feature_config["feature_name_template"].format(value=value)
+            schema[feat_name] = {
+                "type": feature_config["feature_type"],
+                "weight": feature_config["weight"],
+                "display_name": feature_config["display_name_template"].format(value=value),
+                "dynamic": True,
+                "source": feature_config["source"],
+                "field": feature_config["field"],
+                "source_name": next(
+                    name for name, candidate in DYNAMIC_FEATURE_SOURCES.items() if candidate is feature_config
+                ),
+                "value": value
+            }
         
     return schema

@@ -12,11 +12,11 @@ from api.endpoints import router as api_router
 app = FastAPI(title="智能元件布局系统 API")
 
 # --- 资源初始化 ---
-TXT_PATH = "data/part_name.txt"
+DATA_DIR = "data/layouts"
 VECTOR_DB_PATH = "output/vector_store.json"
 
 # 将业务服务实例挂载到 app.state 中，以便 API 端点可以通过 Request 访问单例
-app.state.layout_service = LayoutService(TXT_PATH, VECTOR_DB_PATH)
+app.state.layout_service = LayoutService(DATA_DIR, VECTOR_DB_PATH)
 
 # --- 静态资源配置 ---
 if not os.path.exists("static"):

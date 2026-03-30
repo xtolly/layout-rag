@@ -1,8 +1,19 @@
 import numpy as np
 
 class FeatureExtractor:
-    def __init__(self, part_types):
+    def __init__(self, part_types, schema=None):
         self.part_types = part_types
+        self.categorical_feature_map = {
+            "cabinet_type": [],
+            "panel_type": []
+        }
+
+        if schema:
+            for feature_name in schema:
+                for field_name in self.categorical_feature_map:
+                    prefix = f"{field_name}_"
+                    if feature_name.startswith(prefix):
+                        self.categorical_feature_map[field_name].append(feature_name[len(prefix):])
 
     def extract(self, layout_json: dict) -> dict:
         """
@@ -54,6 +65,11 @@ class FeatureExtractor:
         features["has_双电源"] = 1.0 if any("双电源" in t for t in types_set) else 0.0
         features["has_地排"] = 1.0 if any("地排" in t for t in types_set) else 0.0
         features["has_零排"] = 1.0 if any("零排" in t for t in types_set) else 0.0
+
+        for field_name, values in self.categorical_feature_map.items():
+            current_value = str(meta.get(field_name, "")).strip()
+            for value in values:
+                features[f"{field_name}_{value}"] = 1.0 if current_value == value else 0.0
         
         large_parts_count = sum(1 for a in areas if a > 10000.0)
         features["large_part_ratio"] = large_parts_count / len(parts) if parts else 0

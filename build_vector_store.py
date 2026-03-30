@@ -2,11 +2,11 @@ import os
 import json
 import glob
 from config import get_feature_schema, load_part_types
+from core.feature_extractor import FeatureExtractor
 from core.vector_store import VectorStore
 
 def main():
     # 1. 路径配置
-    txt_path = "data/part_name.txt"
     # 修改 data_dir 为 layouts 目录
     data_dir = "data/layouts/"  
     output_path = "output/vector_store.json"
@@ -16,7 +16,9 @@ def main():
     # 2. 初始化环境
     print("加载特征 Schema 与配置提取器...")
     # 获取包含特征类型和权重的完整字典
-    schema = get_feature_schema(txt_path)
+    schema = get_feature_schema(data_dir)
+    part_types = load_part_types(data_dir)
+    extractor = FeatureExtractor(part_types, schema)
     
     # VectorStore 现直接通过 schema 进行初始化
     store = VectorStore(schema)
@@ -39,10 +41,8 @@ def main():
             filename = os.path.basename(file_path)
             project_id = filename.split('_')[-1].replace('.json', '')
             
-            # 提取特征 (已经在预处理时提取好了，直接取字段)
-            # layout_sample["features"] 是列表，需转回字典供 VectorStore 使用
-            features_list = layout_sample.get("features", [])
-            features_dict = {f["name"]: f["value"] for f in features_list}
+            # 始终从原始 meta 重新提取特征，避免使用历史遗留的旧 features 缓存
+            features_dict = extractor.extract(layout_sample)
             
             raw_data_list.append({
                 "uuid": layout_sample.get("uuid"),
