@@ -275,7 +275,7 @@
                         <div v-for="(tpl, index) in recommendedTemplates" :key="tpl.uuid" class="card overflow-hidden flex flex-col">
 
                             <!-- 卡片头部：方案信息 + 匹配分 -->
-                            <div class="px-6 pt-6 pb-5 cursor-pointer" @click="selectTemplate(tpl)">
+                            <div class="px-6 pt-6 pb-5 cursor-pointer" @click="openTemplatePreview(tpl)">
                                 <div class="flex justify-between items-center mb-4">
                                     <div class="min-w-0 pr-4 flex-1">
                                         <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">方案 {{ index + 1 }}</span>
@@ -371,9 +371,124 @@
 
                             <!-- 应用按钮 -->
                             <div class="px-6 pb-6 pt-3">
-                                <button @click="selectTemplate(tpl)" class="btn-primary w-full text-center text-[15px]">应用此方案</button>
+                                <button @click="applyTemplate(tpl)" class="btn-primary w-full text-center text-[15px]">应用此方案</button>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="previewTemplate" class="absolute inset-0 z-40 flex items-center justify-center p-6" style="background:rgba(15,23,42,.45);backdrop-filter:blur(6px)" @click.self="closeTemplatePreview">
+                <div class="relative w-full max-w-6xl h-[90vh] bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col">
+                    <div class="absolute top-4 right-4 z-20">
+                        <button @click="closeTemplatePreview" class="toolbar-btn bg-white/90 border border-slate-200 text-slate-400 hover:text-slate-700 hover:bg-white shadow-sm" title="关闭预览">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex-1 p-6 overflow-hidden" style="background:#f8fafc">
+                        <div class="h-full flex flex-col gap-4 min-h-0">
+                            <h3 class="text-2xl font-bold text-slate-800 leading-tight break-words flex-shrink-0">方案预览：{{ previewTemplate.name || (previewTemplate.uuid ? '#' + previewTemplate.uuid.substring(0, 6) : '未命名方案') }}</h3>
+                        <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px] gap-6 flex-1 min-h-0">
+                            <div class="card p-5 h-full flex flex-col overflow-hidden">
+                                <div class="flex items-center justify-between mb-4 flex-shrink-0 gap-4">
+                                    <div class="min-w-0">
+                                        <div class="flex items-center gap-3 text-sm text-slate-500 flex-wrap">
+                                            <span>面板尺寸: {{ previewTemplate.meta?.panel_size?.[0] || 0 }} × {{ previewTemplate.meta?.panel_size?.[1] || 0 }} mm</span>
+                                            <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
+                                                :class="previewTemplate.score >= 80 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : previewTemplate.score >= 60 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'">
+                                                匹配度 {{ previewTemplate.score }}%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rounded-2xl border border-slate-200 flex-1 relative overflow-hidden w-full h-full"
+                                    style="background:#eef0f5; min-height: 0;"
+                                    ref="previewCanvasContainer"
+                                    @wheel.prevent="e => handleWheel(e, 'preview')"
+                                    @mousedown="e => startPan(e, 'preview')"
+                                    :class="{ 'cursor-grab': activePanView !== 'preview', 'cursor-grabbing': isPanning && activePanView === 'preview' }">
+                                    <div class="absolute top-0 left-0"
+                                        :style="{ transform: `translate(${previewPanX}px, ${previewPanY}px) scale(${previewCanvasScale})`, transformOrigin: '0 0' }">
+                                        <div class="layout-panel bg-white shadow-lg ring-1 ring-slate-300 relative"
+                                            :style="{ width: previewPanelSize[0] + 'px', height: previewPanelSize[1] + 'px' }">
+                                            <div v-for="(posObj, partId) in getPreviewParts(previewTemplate)" :key="'modal-' + partId"
+                                                class="absolute border border-black/15 overflow-hidden text-white font-bold flex flex-col items-center justify-center text-center leading-tight px-1"
+                                                :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
+                                                <span class="text-[11px] break-words line-clamp-3">{{ posObj.part_type }}</span>
+                                                <span class="text-[10px] opacity-85 mt-1">{{ partId.substring(0, 6) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-4 h-full min-h-0">
+                                <div class="card p-5 flex-shrink-0">
+                                    <h4 class="text-base font-bold text-slate-800 mb-4">元件摘要</h4>
+                                    <div class="grid grid-cols-3 gap-3 text-center">
+                                        <div class="rounded-2xl border border-emerald-100 bg-emerald-50 px-3 py-4">
+                                            <div class="text-2xl font-black text-emerald-600 leading-none">{{ previewTemplate.diffInfo?.matched || 0 }}</div>
+                                            <div class="text-xs font-semibold text-emerald-700 mt-1">匹配元件</div>
+                                        </div>
+                                        <div class="rounded-2xl border border-amber-100 bg-amber-50 px-3 py-4">
+                                            <div class="text-2xl font-black text-amber-500 leading-none">{{ previewTemplate.diffInfo?.missing || 0 }}</div>
+                                            <div class="text-xs font-semibold text-amber-700 mt-1">冗余元件</div>
+                                        </div>
+                                        <div class="rounded-2xl border border-red-100 bg-red-50 px-3 py-4">
+                                            <div class="text-2xl font-black text-red-500 leading-none">{{ previewTemplate.diffInfo?.extra || 0 }}</div>
+                                            <div class="text-xs font-semibold text-red-700 mt-1">新增元件</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 flex-1 min-h-0 flex flex-col">
+                                    <div class="flex items-center justify-between gap-4 mb-3 flex-shrink-0">
+                                        <h4 class="text-base font-bold text-slate-800">特征对比</h4>
+                                        <button @click="previewOnlyDiffs = !previewOnlyDiffs"
+                                            type="button"
+                                            class="inline-flex items-center gap-2 text-sm text-slate-500 select-none"
+                                            :aria-pressed="previewOnlyDiffs ? 'true' : 'false'"
+                                            title="切换是否仅显示差异项">
+                                            <span>只看不同</span>
+                                            <span class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                                                :class="previewOnlyDiffs ? 'bg-indigo-600' : 'bg-slate-300'">
+                                                <span class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform"
+                                                    :class="previewOnlyDiffs ? 'translate-x-5' : 'translate-x-1'"></span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="flex items-center justify-between px-4 py-2.5 rounded-t-xl border border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-500 flex-shrink-0">
+                                        <span>特征项</span>
+                                        <span class="font-mono">模板值 / 当前值</span>
+                                    </div>
+                                    <div class="flex-1 min-h-0 overflow-y-auto feature-scroll rounded-b-xl border-x border-b border-slate-200">
+                                        <div v-for="(feat, idx) in previewFeatureDiffs" :key="'preview-feat-' + idx"
+                                            class="flex items-center justify-between px-4 py-2.5 border-b border-slate-100 last:border-0 text-sm hover:bg-slate-50">
+                                            <div class="flex items-center gap-2 min-w-0 pr-3">
+                                                <span class="w-2 h-2 rounded-full flex-shrink-0" :class="{
+                                                    'bg-emerald-500': feat.status === 'green',
+                                                    'bg-yellow-400': feat.status === 'yellow',
+                                                    'bg-orange-500': feat.status === 'orange',
+                                                    'bg-red-500': feat.status === 'red'
+                                                }"></span>
+                                                <span class="truncate text-slate-600" :title="feat.displayName">{{ feat.displayName }}</span>
+                                            </div>
+                                            <span class="font-mono text-xs text-slate-500 flex-shrink-0">{{ formatValue(feat.templateValue) }} / {{ formatValue(feat.uploadedValue) }}</span>
+                                        </div>
+                                        <div v-if="!previewFeatureDiffs.length" class="text-sm text-slate-400 py-6 text-center">{{ previewOnlyDiffs ? '当前没有差异项' : '暂无特征数据' }}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-4 border-t border-slate-200 bg-white flex justify-end gap-3 flex-shrink-0">
+                        <button @click="closeTemplatePreview" class="btn-ghost min-w-[108px]">关闭</button>
+                        <button @click="applyTemplate(previewTemplate)" class="btn-primary min-w-[132px]">应用此方案</button>
                     </div>
                 </div>
             </div>
@@ -545,6 +660,7 @@
 
                 const originalUploadJson = ref(null);
                 const recommendedTemplates = ref([]);
+                const previewTemplate = ref(null);
                 const featureSchema = ref({});
                 const uploadDataMeta = computed(() => originalUploadJson.value?.meta);
                 const totalFeatureCount = computed(() => {
@@ -562,6 +678,12 @@
                 const tplPanX = ref(0);
                 const tplPanY = ref(0);
                 const tplCanvasContainer = ref(null);
+                const previewPanelSize = computed(() => previewTemplate.value?.meta?.panel_size || [600, 1600]);
+                const previewCanvasScale = ref(1);
+                const previewPanX = ref(0);
+                const previewPanY = ref(0);
+                const previewCanvasContainer = ref(null);
+                const previewOnlyDiffs = ref(true);
 
                 // ===== 项目视图状态 =====
                 const prjPanelSize = ref([600, 1600]);
@@ -622,6 +744,12 @@
                     return PALETTE[hashString(type) % PALETTE.length];
                 };
 
+                const previewFeatureDiffs = computed(() => {
+                    const diffs = previewTemplate.value?.featureDiffs || [];
+                    if (!previewOnlyDiffs.value) return diffs;
+                    return diffs.filter(feat => feat.status !== 'green');
+                });
+
                 const triggerFileInput = () => fileInput.value.click();
                 const handleFileDrop = (e) => { isDragging.value = false; const files = e.dataTransfer.files; if (files.length > 0) processFile(files[0]); };
                 const handleFileSelect = (e) => { const files = e.target.files; if (files.length > 0) processFile(files[0]); e.target.value = ''; };
@@ -655,14 +783,6 @@
                     reader.readAsText(file);
                 };
 
-                const getPreviewStyle = (size, maxWidth, maxHeight) => {
-                    if (!size) return {};
-                    const scale = Math.min(maxWidth / size[0], maxHeight / size[1]);
-                    const offsetX = (maxWidth - size[0] * scale) / 2;
-                    const offsetY = (maxHeight - size[1] * scale) / 2;
-                    return { width: size[0] + 'px', height: size[1] + 'px', transform: `scale(${scale})`, transformOrigin: 'top left', left: offsetX + 'px', top: offsetY + 'px' };
-                };
-
                 // 预览面板：左侧统计占 ~84px+gap，预览区 p-2 后可用宽约 200px，高约 185px
                 const getPreviewPanelStyle = (size) => {
                     if (!size) return {};
@@ -684,9 +804,21 @@
                     return partsInfo;
                 };
 
-                const selectTemplate = async (tpl) => {
+                const openTemplatePreview = (tpl) => {
+                    previewTemplate.value = tpl;
+                    previewOnlyDiffs.value = true;
+                    nextTick(() => resetView('preview'));
+                };
+
+                const closeTemplatePreview = () => {
+                    previewTemplate.value = null;
+                    previewOnlyDiffs.value = true;
+                };
+
+                const applyTemplate = async (tpl) => {
                     isLoading.value = true; loadingText.value = '正在进行约束求解，请稍等...';
                     try {
+                        closeTemplatePreview();
                         const otherTemplateUuids = recommendedTemplates.value
                             .filter(candidate => candidate.uuid !== tpl.uuid)
                             .map(candidate => candidate.uuid);
@@ -739,11 +871,11 @@
                 };
 
                 // ===== 独立视图控制逻辑 =====
-                const resetSpecificView = (containerRef, sizeRef, scaleRef, panXRef, panYRef) => {
+                const resetSpecificView = (containerRef, sizeRef, scaleRef, panXRef, panYRef, padding = { x: 60, y: 120 }) => {
                     if (!containerRef.value) return;
                     const containerRect = containerRef.value.getBoundingClientRect();
-                    const availableW = containerRect.width - 60;
-                    const availableH = containerRect.height - 120;
+                    const availableW = containerRect.width - padding.x;
+                    const availableH = containerRect.height - padding.y;
                     const scale = Math.min(availableW / sizeRef.value[0], availableH / sizeRef.value[1]);
                     scaleRef.value = scale;
                     panXRef.value = (containerRect.width - sizeRef.value[0] * scale) / 2;
@@ -753,14 +885,16 @@
                 const resetView = (viewStr) => {
                     if (viewStr === 'tpl' || !viewStr) resetSpecificView(tplCanvasContainer, tplPanelSize, tplCanvasScale, tplPanX, tplPanY);
                     if (viewStr === 'prj' || !viewStr) resetSpecificView(prjCanvasContainer, prjPanelSize, prjCanvasScale, prjPanX, prjPanY);
+                    if (viewStr === 'preview' || !viewStr) resetSpecificView(previewCanvasContainer, previewPanelSize, previewCanvasScale, previewPanX, previewPanY, { x: 40, y: 40 });
                 };
 
                 const handleWheel = (e, viewStr) => {
                     const isTpl = viewStr === 'tpl';
-                    const scaleRef = isTpl ? tplCanvasScale : prjCanvasScale;
-                    const panXRef = isTpl ? tplPanX : prjPanX;
-                    const panYRef = isTpl ? tplPanY : prjPanY;
-                    const containerRef = isTpl ? tplCanvasContainer : prjCanvasContainer;
+                    const isPreview = viewStr === 'preview';
+                    const scaleRef = isTpl ? tplCanvasScale : (isPreview ? previewCanvasScale : prjCanvasScale);
+                    const panXRef = isTpl ? tplPanX : (isPreview ? previewPanX : prjPanX);
+                    const panYRef = isTpl ? tplPanY : (isPreview ? previewPanY : prjPanY);
+                    const containerRef = isTpl ? tplCanvasContainer : (isPreview ? previewCanvasContainer : prjCanvasContainer);
 
                     const zoomFactor = 1.1;
                     const direction = e.deltaY < 0 ? 1 : -1;
@@ -777,13 +911,18 @@
                 };
 
                 const startPan = (e, viewStr) => {
-                    if (e.button === 1 || (e.button === 0 && isSpaceDown.value)) {
+                    const allowPan = viewStr === 'preview'
+                        ? (e.button === 0 || e.button === 1)
+                        : (e.button === 1 || (e.button === 0 && isSpaceDown.value));
+
+                    if (allowPan) {
                         e.preventDefault();
                         isPanning.value = true;
                         activePanView.value = viewStr;
                         const isTpl = viewStr === 'tpl';
-                        panStartX = e.clientX - (isTpl ? tplPanX.value : prjPanX.value);
-                        panStartY = e.clientY - (isTpl ? tplPanY.value : prjPanY.value);
+                        const isPreview = viewStr === 'preview';
+                        panStartX = e.clientX - (isTpl ? tplPanX.value : (isPreview ? previewPanX.value : prjPanX.value));
+                        panStartY = e.clientY - (isTpl ? tplPanY.value : (isPreview ? previewPanY.value : prjPanY.value));
                         document.addEventListener('mousemove', onPanMove);
                         document.addEventListener('mouseup', endPan);
                     }
@@ -792,8 +931,9 @@
                 const onPanMove = (e) => {
                     if (!isPanning.value || !activePanView.value) return;
                     const isTpl = activePanView.value === 'tpl';
-                    const panXRef = isTpl ? tplPanX : prjPanX;
-                    const panYRef = isTpl ? tplPanY : prjPanY;
+                    const isPreview = activePanView.value === 'preview';
+                    const panXRef = isTpl ? tplPanX : (isPreview ? previewPanX : prjPanX);
+                    const panYRef = isTpl ? tplPanY : (isPreview ? previewPanY : prjPanY);
                     panXRef.value = e.clientX - panStartX;
                     panYRef.value = e.clientY - panStartY;
                 };
@@ -990,15 +1130,17 @@
                 };
 
                 return {
-                    step, isLoading, loadingText, isDragging, fileInput, originalUploadJson, recommendedTemplates, uploadDataMeta, totalFeatureCount,
+                    step, isLoading, loadingText, isDragging, fileInput, originalUploadJson, recommendedTemplates, previewTemplate, previewOnlyDiffs, uploadDataMeta, totalFeatureCount,
 
                     // 模板视图暴露变量
                     tplPanelSize, tplPanelType, tplPlacedParts, tplCanvasScale, tplPanX, tplPanY, tplCanvasContainer,
+                    previewPanelSize, previewCanvasScale, previewPanX, previewPanY, previewCanvasContainer,
                     // 项目视图暴露变量
                     prjPanelSize, prjPanelType, placedParts, prjCanvasScale, prjPanX, prjPanY, prjCanvasContainer,
 
                     settings, formatValue, isPanning, isSpaceDown, activePanView,
-                    triggerFileInput, handleFileDrop, handleFileSelect, selectTemplate, getPreviewStyle, getPreviewPanelStyle, getPreviewInnerStyle, getPreviewParts, getColor,
+                    triggerFileInput, handleFileDrop, handleFileSelect, openTemplatePreview, closeTemplatePreview, applyTemplate, getPreviewPanelStyle, getPreviewInnerStyle, getPreviewParts, getColor,
+                    previewFeatureDiffs,
                     getScoreBadgeClass,
                     handleWheel, startPan, resetView,
                     startMove, panelRef, activeGuides, hasInvalid, submitLayout,
