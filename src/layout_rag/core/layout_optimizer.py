@@ -213,7 +213,6 @@ class LayoutOptimizer:
         primary_types = set(anchors_by_type.keys())
 
         placement_cursors: dict[str, dict] = {}     # anchor_id → {x, y, row_max_h} 游标位置
-        used_fallback_ids: set[str] = set()
 
         # 按类型排序，确保同类型元件连续处理，从而链式复用同一个游标
         for part in sorted(unmatched, key=lambda p: p["type"]):
@@ -222,10 +221,8 @@ class LayoutOptimizer:
             # ── 优先级 2：备选模板补位 ──
             if ptype not in primary_types:
                 candidate = self._find_best_fallback_candidate(
-                    part, fallback_index.get(ptype, []), used_fallback_ids,
-                )
+                    part, fallback_index.get(ptype, []))
                 if candidate:
-                    used_fallback_ids.add(candidate["candidate_id"])
                     part["target_x"] = self._clamp_target(candidate["target_x"], part["w"], panel_size[0])
                     part["target_y"] = self._clamp_target(candidate["target_y"], part["h"], panel_size[1])
                     part["rotation"] = candidate.get("rotation", 0)
@@ -612,18 +609,13 @@ class LayoutOptimizer:
     @staticmethod
     def _find_best_fallback_candidate(
         part: dict,
-        candidates: list[dict],
-        used_ids: set[str],
+        candidates: list[dict]
     ) -> dict | None:
         """
-        从备选模板候选中找尺寸最接近且未被使用的。
-
-        同一候选只使用一次，确保缺失类型的多个元件分散参考不同模板位置。
+        从备选模板候选中找尺寸最接近的。
         """
         best, best_diff = None, math.inf
         for c in candidates:
-            if c["candidate_id"] in used_ids:
-                continue
             diff = LayoutOptimizer._compute_match_diff(part["w"], part["h"], c["w"], c["h"])
             if diff < best_diff:
                 best_diff = diff
