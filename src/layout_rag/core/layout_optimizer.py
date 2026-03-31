@@ -262,10 +262,10 @@ class LayoutOptimizer:
         沿同类型元件最密集的聚簇向右续排，X 溢出时折行，Y 溢出时钳位到底部。
 
         锚点选择策略（解决 "多余元件应和同类型放一起" 的问题）：
-          1. 优先复用已有游标 —— 若之前已有同类型锚点创建了游标，继续在其后追加，
-             保证同类型元件链式排布在同一区域。
+          1. 优先复用已有游标中尺寸最接近的 —— 若之前已有同类型锚点创建了游标，
+             选尺寸最接近当前元件的那个游标追加，使大元件跟大锚点、小元件跟小锚点。
           2. 若无已有游标，选择所在行同类型邻居最多的锚点（最密集聚簇），
-             而非仅按尺寸最近选取，避免多余元件散落到不相关的位置。
+             同等密度时选尺寸最接近的，避免多余元件散落到不相关的位置。
 
         游标结构 {x, y, row_max_h}：
           - x, y: 下一个元件的放置坐标
@@ -274,12 +274,15 @@ class LayoutOptimizer:
         """
         part_pw, part_ph = self._physical_size(part["w"], part["h"], part.get("rotation", 0))
 
-        # ── 策略 1：优先复用已有游标，确保同类型元件连续排列 ──
+        # ── 策略 1：复用已有游标中尺寸最接近的锚点 ──
         active_anchor = None
+        best_size_diff = math.inf
         for a in same_type_anchors:
             if a["id"] in cursors:
-                active_anchor = a
-                break
+                size_diff = (part["w"] - a["w"]) ** 2 + (part["h"] - a["h"]) ** 2
+                if size_diff < best_size_diff:
+                    best_size_diff = size_diff
+                    active_anchor = a
 
         # ── 策略 2：无已有游标时，选最密集聚簇中的锚点 ──
         if active_anchor is None:
