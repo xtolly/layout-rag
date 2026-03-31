@@ -294,17 +294,7 @@
             background: rgba(15, 23, 42, 0.3);
         }
 
-        /* Custom Animations */
-        .fade-up-enter-active,
-        .fade-up-leave-active {
-            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
 
-        .fade-up-enter-from,
-        .fade-up-leave-to {
-            opacity: 0;
-            transform: translateY(20px);
-        }
 
         /* Modern Gradient Text */
         .text-gradient {
@@ -399,7 +389,7 @@
             </div>
 
             <div v-if="step === 1"
-                class="w-full h-full flex items-center justify-center relative p-6 animate-[fadeInUp_0.4s_ease-out]">
+                class="w-full h-full flex items-center justify-center relative p-6">
                 <!-- 背景点缀 -->
                 <div
                     class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 pointer-events-none">
@@ -450,7 +440,7 @@
                 </div>
 
                 <div
-                    class="max-w-7xl mx-auto relative z-10 transition-all duration-500 ease-out translate-y-0 opacity-100 animate-[fadeInUp_0.6s_ease-out]">
+                    class="max-w-7xl mx-auto relative z-10 translate-y-0 opacity-100">
                     <div class="flex justify-between items-end mb-6 border-b border-slate-200/60 pb-6">
                         <div>
                             <h2 class="text-3xl font-display font-bold text-slate-800 tracking-tight">布局推荐方案</h2>
@@ -616,7 +606,6 @@
                 </div>
             </div>
 
-            <transition name="fade-up">
                 <div v-if="previewTemplate" class="absolute inset-0 z-50 flex items-center justify-center p-6"
                     style="background:rgba(15,23,42,.6);backdrop-filter:blur(16px)" @click.self="closeTemplatePreview">
                     <div
@@ -772,11 +761,10 @@
                         </div>
                     </div>
                 </div>
-            </transition>
 
             <template v-if="step === 3">
                 <div
-                    class="flex w-full h-full overflow-hidden transition-all duration-500 ease-in-out animate-[fade_0.4s_ease-out]">
+                    class="flex w-full h-full overflow-hidden">
 
                     <!-- 左侧：参考图 -->
                     <section

@@ -36,6 +36,7 @@ from ortools.sat.python import cp_model
 WEIGHT_PRIMARY = 1000   # 主模板精确映射
 WEIGHT_FALLBACK = 120   # 备选模板补位
 WEIGHT_CURSOR = 10      # 同类型游标续排
+WEIGHT_CURSOR_REL = 200 # 游标元件相对锚点的位置约束（解决锚点被挤走后游标脱节）
 WEIGHT_DEFAULT = 5      # 无参考兜底
 
 # 默认面板尺寸 (mm)，当模板或项目数据缺失时使用。
@@ -282,7 +283,7 @@ class LayoutOptimizer:
 
         # ── 策略 2：无已有游标时，选最密集聚簇中的锚点 ──
         if active_anchor is None:
-            active_anchor = self._find_cluster_anchor(part, same_type_anchors)
+            active_anchor = self._find_cluster_anchor(part, same_type_anchors, panel_size[1])
 
         anchor_id = active_anchor["id"]
         anchor_pw, anchor_ph = self._physical_size(
@@ -312,6 +313,9 @@ class LayoutOptimizer:
 
         part["target_x"] = x
         part["target_y"] = y
+        part["anchor_id"] = anchor_id
+        part["anchor_offset_x"] = x - active_anchor["target_x"]
+        part["anchor_offset_y"] = y - active_anchor["target_y"]
 
         # 推进游标，更新当前行最大高度
         cursor["x"] = x + part_pw
@@ -322,6 +326,7 @@ class LayoutOptimizer:
         self,
         part: dict,
         same_type_anchors: list[dict],
+        panel_h: float,
     ) -> dict:
         """
         在同类型锚点中，选择位于最密集水平行的那个。
@@ -337,7 +342,7 @@ class LayoutOptimizer:
             return same_type_anchors[0]
 
         _, part_ph = self._physical_size(part["w"], part["h"], part.get("rotation", 0))
-        y_tolerance = max(part_ph, 50.0)
+        y_tolerance = max(part_ph, panel_h * 0.03, 10.0)
 
         best = candidates[0]
         best_neighbors = -1
@@ -439,6 +444,24 @@ class LayoutOptimizer:
 
             cost_terms.append(w_coeff * dx)
             cost_terms.append(w_coeff * dy * self.y_penalty)
+
+            # ── 相对位置约束：游标元件跟随锚点移动 ──
+            anchor_id = p.get("anchor_id")
+            if anchor_id and anchor_id in x_vars:
+                expected_ox = int(p["anchor_offset_x"] * self.scale)
+                expected_oy = int(p["anchor_offset_y"] * self.scale)
+                anchor_x = x_vars[anchor_id]
+                anchor_y = y_vars[anchor_id]
+
+                rel_dx = model.NewIntVar(0, max_x_s, f"rel_dx_{pid}")
+                rel_dy = model.NewIntVar(0, max_y_s, f"rel_dy_{pid}")
+                model.Add(rel_dx >= (x - anchor_x) - expected_ox)
+                model.Add(rel_dx >= expected_ox - (x - anchor_x))
+                model.Add(rel_dy >= (y - anchor_y) - expected_oy)
+                model.Add(rel_dy >= expected_oy - (y - anchor_y))
+
+                cost_terms.append(WEIGHT_CURSOR_REL * rel_dx)
+                cost_terms.append(WEIGHT_CURSOR_REL * rel_dy * self.y_penalty)
 
         # ── 全局约束 ──
         model.AddNoOverlap2D(x_intervals, y_intervals)
