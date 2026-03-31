@@ -8,163 +8,347 @@
     <script src="/static/tailwind.js"></script>
     <script src="/static/vue.global.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-        * { font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif; }
+        * {
+            font-family: 'Outfit', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-display {
+            font-family: 'Space Grotesk', 'PingFang SC', sans-serif;
+            letter-spacing: -0.02em;
+        }
 
         :root {
             --color-primary: #4f46e5;
+            /* Refined blue-purple */
             --color-primary-hover: #4338ca;
-            --color-primary-light: #eef2ff;
-            --color-surface: #ffffff;
+            --color-primary-light: #e0e7ff;
+            --color-accent: #6366f1;
+            /* Lighter accent */
+            --color-surface: rgba(255, 255, 255, 0.9);
             --color-bg: #f8fafc;
-            --color-border: #e2e8f0;
+            --color-border: rgba(226, 232, 240, 0.8);
             --color-text: #0f172a;
             --color-muted: #64748b;
-            --radius-card: 14px;
-            --radius-btn: 8px;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-            --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
-            --shadow-lg: 0 10px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.05);
+            --radius-card: 20px;
+            --radius-btn: 12px;
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
+            --shadow-md: 0 12px 32px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04);
+            --shadow-lg: 0 24px 64px rgba(15, 23, 42, 0.12), 0 8px 16px rgba(15, 23, 42, 0.06);
+            --glass-blur: blur(12px);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            background-image:
+                radial-gradient(at 0% 0%, hsla(217, 100%, 96%, 1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(210, 100%, 97%, 1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(240, 100%, 95%, 1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(240, 50%, 98%, 1) 0px, transparent 50%);
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .layout-panel {
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-size: 24px 24px;
+            border-radius: 8px;
         }
 
         .component-box {
-            transition: box-shadow 0.15s, transform 0.1s;
+            transition: box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
             box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            transform: translateZ(0);
-            backface-visibility: hidden;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+
         .component-box:hover {
-            box-shadow: 0 6px 20px rgba(0,0,0,.35);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+            transform: translateY(-2px) scale(1.02);
             z-index: 20;
+            cursor: grab;
         }
+
+        .component-box:active {
+            transform: translateY(0) scale(0.98);
+            cursor: grabbing;
+        }
+
         .component-box.is-invalid {
             background-color: #ef4444 !important;
-            border: 2px dashed #991b1b !important;
+            border: 2px dashed #7f1d1d !important;
             color: white;
-            animation: pulse-red 1.8s ease-in-out infinite;
+            animation: pulse-error 2s ease-in-out infinite;
         }
-        @keyframes pulse-red { 0%,100%{opacity:1} 50%{opacity:.65} }
+
+        @keyframes pulse-error {
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+        }
 
         .guide-line {
             position: absolute;
-            background: linear-gradient(90deg, #6366f1, #818cf8);
+            background: var(--color-accent);
             z-index: 50;
             pointer-events: none;
-            opacity: .85;
+            opacity: 0.6;
         }
 
         .upload-zone {
-            border: 2px dashed #c7d2fe;
-            background: linear-gradient(145deg, #fafbff 0%, #f0f4ff 100%);
-            transition: all 0.25s ease;
+            position: relative;
+            border: 1px dashed #cbd5e1;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: var(--glass-blur);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
         }
-        .upload-zone:hover, .upload-zone.drag-over {
-            border-color: var(--color-primary);
-            background: linear-gradient(145deg, #eef2ff 0%, #e0e7ff 100%);
-            box-shadow: 0 0 0 4px #eef2ff;
+
+        .upload-zone::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .upload-zone:hover,
+        .upload-zone.drag-over {
+            border-color: var(--color-accent);
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
         }
 
         .step-dot {
-            width: 28px; height: 28px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: 700;
-            transition: all 0.25s;
+            width: 32px;
+            height: 32px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: 'Space Grotesk', sans-serif;
+            border: 1px solid transparent;
         }
-        .step-dot.active   { background: var(--color-primary); color: white; box-shadow: 0 0 0 4px #eef2ff; }
-        .step-dot.done     { background: #10b981; color: white; }
-        .step-dot.inactive { background: #e2e8f0; color: #94a3b8; }
-        .step-line { flex:1; height:2px; margin: 0 6px; border-radius:2px; transition: background 0.3s; }
-        .step-line.done   { background: #10b981; }
-        .step-line.inactive { background: #e2e8f0; }
+
+        .step-dot.active {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .step-dot.done {
+            background: #ffffff;
+            color: var(--color-primary);
+            border-color: var(--color-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-dot.inactive {
+            background: transparent;
+            color: var(--color-muted);
+            border-color: var(--color-border);
+        }
+
+        .step-line {
+            flex: 1;
+            height: 1px;
+            margin: 0 12px;
+            transition: background 0.4s;
+        }
+
+        .step-line.done {
+            background: var(--color-primary);
+            opacity: 0.2;
+        }
+
+        .step-line.inactive {
+            background: var(--color-border);
+        }
 
         .card {
             background: var(--color-surface);
+            backdrop-filter: var(--glass-blur);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-card);
             box-shadow: var(--shadow-sm);
-            transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         .card:hover {
             box-shadow: var(--shadow-md);
-            border-color: #a5b4fc;
-            transform: translateY(-1px);
+            border-color: rgba(15, 23, 42, 0.1);
+            transform: translateY(-4px);
         }
 
         .btn-primary {
-            background: var(--color-primary);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
             color: white;
             border-radius: var(--radius-btn);
-            padding: 8px 18px;
+            padding: 10px 24px;
             font-weight: 600;
             font-size: 14px;
-            transition: all 0.15s;
-            box-shadow: 0 1px 3px rgba(79,70,229,.3);
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
+
         .btn-primary:hover:not(:disabled) {
-            background: var(--color-primary-hover);
-            box-shadow: 0 4px 12px rgba(79,70,229,.4);
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, var(--color-primary-hover), var(--color-primary));
+            box-shadow: 0 8px 16px rgba(79, 70, 229, 0.4);
+            transform: translateY(-2px);
         }
-        .btn-primary:disabled { background: #e2e8f0; color: #94a3b8; box-shadow: none; cursor: not-allowed; }
+
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            background: #cbd5e1;
+            color: #f1f5f9;
+            box-shadow: none;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
 
         .btn-ghost {
-            background: transparent;
-            color: var(--color-muted);
-            border: 1px solid var(--color-border);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            color: var(--color-text);
+            border: 1px solid rgba(15, 23, 42, 0.08);
             border-radius: var(--radius-btn);
-            padding: 6px 14px;
-            font-size: 13px;
+            padding: 8px 16px;
+            font-size: 14px;
             font-weight: 500;
-            transition: all 0.15s;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.2s ease;
         }
-        .btn-ghost:hover { background: #f8fafc; color: var(--color-text); border-color: #94a3b8; }
+
+        .btn-ghost:hover {
+            background: #ffffff;
+            box-shadow: var(--shadow-sm);
+            border-color: rgba(15, 23, 42, 0.15);
+        }
 
         .toolbar-btn {
-            padding: 6px 10px;
-            border-radius: 6px;
-            transition: all 0.15s;
-            display:flex; align-items:center; justify-content:center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-muted);
         }
-        .toolbar-btn:hover:not(:disabled) { background: #f1f5f9; color: var(--color-primary); }
-        .toolbar-btn:disabled { color: #cbd5e1; cursor: not-allowed; }
 
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #dde1e7; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        .feature-scroll::-webkit-scrollbar { width: 4px; }
+        .toolbar-btn:hover:not(:disabled) {
+            background: rgba(15, 23, 42, 0.05);
+            color: var(--color-primary);
+        }
+
+        .toolbar-btn:disabled {
+            color: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(15, 23, 42, 0.15);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(15, 23, 42, 0.3);
+        }
+
+        /* Custom Animations */
+        .fade-up-enter-active,
+        .fade-up-leave-active {
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-up-enter-from,
+        .fade-up-leave-to {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Modern Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
     </style>
 </head>
 
 <body class="text-slate-800 h-screen flex flex-col overflow-hidden" style="background:#f8fafc">
     <div id="app" class="flex flex-col h-full">
-        <header class="bg-white border-b border-slate-200/80 px-6 flex justify-between items-center z-20 flex-shrink-0" style="height:58px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+        <header
+            class="bg-white/80 backdrop-blur-md border-b border-slate-200/50 px-6 flex justify-between items-center z-20 flex-shrink-0 relative transition-all"
+            style="height:64px;box-shadow:0 4px 24px -6px rgba(15,23,42,0.04)">
             <!-- 左侧：Logo + 返回按钮 -->
-            <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">
-                        <svg class="w-4.5 h-4.5 text-white" style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-center gap-5">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center relative overflow-hidden group"
+                        style="background:var(--color-primary); box-shadow:0 4px 12px rgba(15,23,42,0.15)">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <svg class="w-5 h-5 text-white transform group-hover:scale-110 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
-                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
                         </svg>
                     </div>
-                    <span class="text-[17px] font-bold text-slate-800 tracking-tight">智能元件布局</span>
+                    <span
+                        class="text-[18px] font-display font-semibold text-slate-800 tracking-tight select-none">智能元件布局系统</span>
                 </div>
 
-                <button v-if="step === 3" @click="goBackToRecommend" class="btn-ghost flex items-center gap-1.5 text-sm">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                <div v-if="step === 3" class="w-px h-6 bg-slate-200"></div>
+
+                <button v-if="step === 3" @click="goBackToRecommend"
+                    class="btn-ghost flex items-center gap-1.5 text-sm hover:-translate-x-0.5" title="返回上一步">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
-                    返回方案列表
+                    方案列表
                 </button>
             </div>
 
@@ -172,25 +356,32 @@
             <div class="flex items-center">
                 <div class="flex items-center">
                     <div class="step-dot" :class="step > 1 ? 'done' : (step === 1 ? 'active' : 'inactive')">
-                        <svg v-if="step > 1" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <svg v-if="step > 1" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
                         <span v-else>1</span>
                     </div>
-                    <span class="text-sm font-semibold ml-2 mr-3" :class="step === 1 ? 'text-indigo-600' : 'text-slate-400'">上传</span>
+                    <span class="text-sm font-semibold ml-2 mr-3"
+                        :class="step === 1 ? 'text-indigo-600' : 'text-slate-400'">上传</span>
                 </div>
                 <div class="step-line" :class="step > 1 ? 'done' : 'inactive'"></div>
                 <div class="flex items-center">
                     <div class="step-dot ml-3" :class="step > 2 ? 'done' : (step === 2 ? 'active' : 'inactive')">
-                        <svg v-if="step > 2" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <svg v-if="step > 2" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
                         <span v-else>2</span>
                     </div>
-                    <span class="text-sm font-semibold ml-2 mr-3" :class="step === 2 ? 'text-indigo-600' : 'text-slate-400'">推荐</span>
+                    <span class="text-sm font-semibold ml-2 mr-3"
+                        :class="step === 2 ? 'text-indigo-600' : 'text-slate-400'">推荐</span>
                 </div>
                 <div class="step-line" :class="step > 2 ? 'done' : 'inactive'"></div>
                 <div class="flex items-center">
                     <div class="step-dot ml-3" :class="step === 3 ? 'active' : 'inactive'">
                         <span>3</span>
                     </div>
-                    <span class="text-sm font-semibold ml-2" :class="step === 3 ? 'text-indigo-600' : 'text-slate-400'">微调</span>
+                    <span class="text-sm font-semibold ml-2"
+                        :class="step === 3 ? 'text-indigo-600' : 'text-slate-400'">微调</span>
                 </div>
             </div>
 
@@ -198,16 +389,19 @@
             <div class="flex items-center gap-2">
                 <template v-if="step === 3">
                     <div class="flex items-center border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
-                        <button @click="undo" :disabled="!canUndo" title="撤销 (Ctrl+Z)" class="toolbar-btn border-r border-slate-200"
+                        <button @click="undo" :disabled="!canUndo" title="撤销 (Ctrl+Z)"
+                            class="toolbar-btn border-r border-slate-200"
                             :class="!canUndo ? 'opacity-30 cursor-not-allowed' : ''">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
                             </svg>
                         </button>
                         <button @click="redo" :disabled="!canRedo" title="重做 (Ctrl+Y)" class="toolbar-btn"
                             :class="!canRedo ? 'opacity-30 cursor-not-allowed' : ''">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6"></path>
                             </svg>
                         </button>
                     </div>
@@ -221,102 +415,163 @@
         <main class="flex-1 flex overflow-hidden relative">
             <input type="file" ref="fileInput" accept=".json" class="hidden" @change="handleFileSelect">
 
-            <div v-if="isLoading" class="absolute inset-0 z-50 flex flex-col items-center justify-center" style="background:rgba(248,250,252,.85);backdrop-filter:blur(6px)">
-                <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);box-shadow:0 8px 24px rgba(79,70,229,.35)">
+            <div v-if="isLoading" class="absolute inset-0 z-50 flex flex-col items-center justify-center"
+                style="background:rgba(248,250,252,.85);backdrop-filter:blur(6px)">
+                <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
+                    style="background:linear-gradient(135deg,#4f46e5,#7c3aed);box-shadow:0 8px 24px rgba(79,70,229,.35)">
                     <svg class="w-5 h-5 text-white animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                     </svg>
                 </div>
                 <p class="text-slate-700 font-semibold text-sm">{{ loadingText }}</p>
             </div>
 
-            <div v-if="step === 1" class="w-full h-full flex items-center justify-center" style="background:linear-gradient(160deg,#f0f4ff 0%,#f8fafc 60%,#fdf4ff 100%)">
-                <div class="w-full max-w-xl text-center px-4">
-                    <div class="w-14 h-14 rounded-2xl mx-auto mb-5 flex items-center justify-center" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);box-shadow:0 8px 24px rgba(79,70,229,.3)">
-                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div v-if="step === 1"
+                class="w-full h-full flex items-center justify-center relative p-6 animate-[fadeInUp_0.4s_ease-out]">
+                <!-- 背景点缀 -->
+                <div
+                    class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 pointer-events-none">
+                </div>
+                <div
+                    class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 pointer-events-none">
+                </div>
+
+                <div class="card w-full max-w-2xl text-center px-10 py-12 relative z-10 transition-transform">
+                    <div class="w-16 h-16 rounded-[20px] mx-auto mb-6 flex items-center justify-center text-white"
+                        style="background:linear-gradient(135deg,var(--color-primary),var(--color-accent));box-shadow:0 12px 24px -6px rgba(79,70,229,0.3)">
+                        <svg class="w-8 h-8 transform -translate-y-0.5" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                            </path>
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">上传项目数据</h2>
-                    <p class="text-slate-500 text-sm mb-8">请上传包含 <code class="bg-slate-100 text-indigo-600 px-1.5 py-0.5 rounded text-xs font-mono">meta</code> 信息的 JSON 布局需求文件</p>
+                    <h2 class="text-3xl font-display font-bold text-slate-800 mb-3 tracking-tight">导入需求数据</h2>
+                    <p class="text-slate-500 text-sm mb-10 font-medium">请上传包含 <code
+                            class="bg-slate-100 border border-slate-200 text-slate-700 px-2 py-0.5 rounded-md text-xs font-mono">meta</code>
+                        及相关元件约束的 JSON 文件以内网解析</p>
 
-                    <div class="upload-zone rounded-2xl p-12 flex flex-col items-center justify-center cursor-pointer select-none"
+                    <div class="upload-zone rounded-3xl p-14 flex flex-col items-center justify-center cursor-pointer select-none group"
                         :class="{'drag-over': isDragging}" @dragover.prevent="isDragging = true"
                         @dragleave.prevent="isDragging = false" @drop.prevent="handleFileDrop"
                         @click="triggerFileInput">
-                        <div class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9"></path>
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-blue-50/80 text-blue-500 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-blue-100 transition-all duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2">
+                                </path>
                             </svg>
                         </div>
-                        <p class="text-[15px] font-semibold text-slate-700 mb-1">拖拽文件到此处，或<span class="text-indigo-600">点击选择</span></p>
-                        <p class="text-xs text-slate-400">仅支持 .json 格式文件</p>
+                        <p class="text-lg font-display font-semibold text-slate-700 mb-2">拖拽文件到此处，或 <span
+                                class="text-blue-600 group-hover:underline cursor-pointer">点击选择</span></p>
+                        <p class="text-sm text-slate-400 font-medium tracking-wide">支持规范的 JSON 数据格式 (最大 20MB)</p>
                     </div>
                 </div>
             </div>
 
-            <div v-if="step === 2" class="w-full h-full overflow-y-auto p-8" style="background:#f8fafc">
-                <div class="max-w-6xl mx-auto">
-                    <div class="flex justify-between items-center mb-8">
+            <div v-if="step === 2" class="w-full h-full overflow-y-auto p-8 relative"
+                style="background:var(--color-bg)">
+                <!-- 装饰性背景层 -->
+                <div
+                    class="fixed top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-50/50 to-transparent pointer-events-none">
+                </div>
+
+                <div
+                    class="max-w-7xl mx-auto relative z-10 transition-all duration-500 ease-out translate-y-0 opacity-100 animate-[fadeInUp_0.6s_ease-out]">
+                    <div class="flex justify-between items-end mb-6 border-b border-slate-200/60 pb-6">
                         <div>
-                            <h2 class="text-2xl font-bold text-slate-800">布局推荐方案</h2>
-                            <p class="text-slate-500 mt-1">基于 <span class="font-semibold text-indigo-600">{{ totalFeatureCount }}</span> 个特征，为您推荐最相似布局</p>
+                            <h2 class="text-3xl font-display font-bold text-slate-800 tracking-tight">布局推荐方案</h2>
+                            <p class="text-slate-500 mt-2 font-medium">智能匹配 <span
+                                    class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">{{ totalFeatureCount
+                                    }}</span> 项关键特征，为您推荐以下布局：</p>
                         </div>
-                        <button @click="triggerFileInput" class="btn-ghost flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                        <button @click="triggerFileInput" class="btn-ghost flex items-center gap-2 group">
+                            <svg class="w-4 h-4 transform group-hover:-rotate-12 transition-transform" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            </svg>
                             重新上传
                         </button>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
-                        <div v-for="(tpl, index) in recommendedTemplates" :key="tpl.uuid" class="card overflow-hidden flex flex-col">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
+                        <div v-for="(tpl, index) in recommendedTemplates" :key="tpl.uuid"
+                            class="card overflow-hidden flex flex-col group cursor-pointer relative h-full"
+                            style="transform-style:preserve-3d" @click="openTemplatePreview(tpl)">
+                            <!-- 悬浮发光层 -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-blue-600/0 via-blue-600/0 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                            </div>
 
                             <!-- 卡片头部：方案信息 + 匹配分 -->
-                            <div class="px-6 pt-6 pb-5 cursor-pointer" @click="openTemplatePreview(tpl)">
-                                <div class="flex justify-between items-center mb-4">
+                            <div class="px-7 pt-7 pb-6 relative z-10">
+                                <div class="flex justify-between items-center mb-5">
                                     <div class="min-w-0 pr-4 flex-1">
-                                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">方案 {{ index + 1 }}</span>
-                                        <h3 class="font-bold text-slate-800 text-lg mt-0.5 leading-snug break-words whitespace-normal" :title="tpl.name || (tpl.uuid ? '#' + tpl.uuid.substring(0, 6) : String(index))">{{ tpl.name || (tpl.uuid ? '#' + tpl.uuid.substring(0, 6) : index) }}</h3>
+                                        <span
+                                            class="text-[11px] font-semibold text-slate-400 uppercase tracking-[0.15em] drop-shadow-sm">Option
+                                            0{{ index + 1 }}</span>
+                                        <h3 class="font-display font-bold text-slate-800 text-xl mt-1 leading-snug break-words whitespace-normal group-hover:text-blue-600 transition-colors line-clamp-2 h-[3.5rem]"
+                                            :title="tpl.name || (tpl.uuid ? '#' + tpl.uuid.substring(0, 6) : String(index))">
+                                            {{ tpl.name || (tpl.uuid ? '#' + tpl.uuid.substring(0, 6) : index) }}</h3>
                                     </div>
-                                    <div class="text-right flex-shrink-0">
-                                        <div class="text-3xl font-black leading-none" :class="tpl.score >= 80 ? 'text-emerald-600' : tpl.score >= 60 ? 'text-amber-500' : 'text-red-500'">{{ tpl.score }}<span class="text-base font-bold">%</span></div>
-                                        <div class="text-sm font-semibold text-slate-500 mt-1">匹配度</div>
+                                    <div class="text-right flex-shrink-0 flex flex-col items-end">
+                                        <div class="text-4xl font-display font-black leading-none drop-shadow-sm transition-transform group-hover:scale-105"
+                                            :class="tpl.score >= 80 ? 'text-emerald-500' : tpl.score >= 60 ? 'text-amber-500' : 'text-red-500'">
+                                            {{ tpl.score }}<span class="text-lg font-bold">%</span></div>
+                                        <div class="text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-wider">
+                                            匹配度</div>
                                     </div>
                                 </div>
+
                                 <!-- 匹配度进度条 -->
-                                <div class="w-full bg-slate-100 rounded-full h-2 mb-5">
-                                    <div class="h-2 rounded-full transition-all" :style="{ width: tpl.score + '%' }"
-                                        :class="tpl.score >= 80 ? 'bg-emerald-500' : tpl.score >= 60 ? 'bg-amber-400' : 'bg-red-400'"></div>
+                                <div class="w-full bg-slate-100 rounded-full h-1.5 mb-6 overflow-hidden">
+                                    <div class="h-1.5 rounded-full transition-all duration-1000 ease-out"
+                                        :style="{ width: tpl.score + '%' }"
+                                        :class="tpl.score >= 80 ? 'bg-gradient-to-r from-emerald-400 to-emerald-500' : tpl.score >= 60 ? 'bg-gradient-to-r from-amber-300 to-amber-400' : 'bg-gradient-to-r from-red-400 to-red-500'">
+                                    </div>
                                 </div>
 
                                 <!-- 左右布局：左侧匹配状态，右侧预览 -->
-                                <div class="flex gap-3 items-stretch">
+                                <div class="flex gap-4 items-stretch">
                                     <!-- 匹配状态：3行等高拉伸 -->
-                                    <div class="flex flex-col gap-2 flex-shrink-0">
-                                        <div class="bg-emerald-50 border border-emerald-100 rounded-xl px-3 flex flex-col items-center justify-center gap-0.5 w-[76px] flex-1">
-                                            <span class="text-xl font-black text-emerald-600 leading-none">{{ tpl.diffInfo.matched }}</span>
-                                            <span class="text-[10px] text-emerald-700 font-semibold whitespace-nowrap">匹配元件</span>
+                                    <div class="flex flex-col gap-2.5 flex-shrink-0">
+                                        <div
+                                            class="bg-gradient-to-b from-emerald-50 to-white/50 border border-emerald-100/60 rounded-xl px-4 flex flex-col items-center justify-center gap-1 w-20 flex-1 shadow-[0_2px_4px_rgba(16,185,129,0.02)]">
+                                            <span
+                                                class="text-2xl font-display font-bold text-emerald-600 leading-none">{{
+                                                tpl.diffInfo.matched }}</span>
+                                            <span
+                                                class="text-[10px] text-emerald-600/80 font-bold tracking-wide">匹配元件</span>
                                         </div>
-                                        <div class="bg-amber-50 border border-amber-100 rounded-xl px-3 flex flex-col items-center justify-center gap-0.5 w-[76px] flex-1">
-                                            <span class="text-xl font-black text-amber-500 leading-none">{{ tpl.diffInfo.missing }}</span>
-                                            <span class="text-[10px] text-amber-700 font-semibold whitespace-nowrap">冗余元件</span>
+                                        <div
+                                            class="bg-gradient-to-b from-amber-50 to-white/50 border border-amber-100/60 rounded-xl px-4 flex flex-col items-center justify-center gap-1 w-20 flex-1 shadow-[0_2px_4px_rgba(245,158,11,0.02)]">
+                                            <span class="text-2xl font-display font-bold text-amber-500 leading-none">{{
+                                                tpl.diffInfo.missing }}</span>
+                                            <span
+                                                class="text-[10px] text-amber-600/80 font-bold tracking-wide">冗余元件</span>
                                         </div>
-                                        <div class="bg-red-50 border border-red-100 rounded-xl px-3 flex flex-col items-center justify-center gap-0.5 w-[76px] flex-1">
-                                            <span class="text-xl font-black text-red-500 leading-none">{{ tpl.diffInfo.extra }}</span>
-                                            <span class="text-[10px] text-red-700 font-semibold whitespace-nowrap">新增元件</span>
+                                        <div
+                                            class="bg-gradient-to-b from-red-50 to-white/50 border border-red-100/60 rounded-xl px-4 flex flex-col items-center justify-center gap-1 w-20 flex-1 shadow-[0_2px_4px_rgba(239,68,68,0.02)]">
+                                            <span class="text-2xl font-display font-bold text-red-500 leading-none">{{
+                                                tpl.diffInfo.extra }}</span>
+                                            <span
+                                                class="text-[10px] text-red-600/80 font-bold tracking-wide">新增元件</span>
                                         </div>
                                     </div>
-                                    <!-- 布局预览：flex居中，p-2小边距 -->
-                                    <div class="flex-1 rounded-xl overflow-hidden flex items-center justify-center p-2" style="background:#eef0f4">
-                                        <div class="relative flex-shrink-0 bg-white overflow-hidden shadow-sm"
+                                    <!-- 布局预览 -->
+                                    <div class="flex-1 rounded-2xl overflow-hidden flex items-center justify-center p-3 border border-slate-100 shadow-[inset_0_2px_12px_rgba(0,0,0,0.02)] group-hover:shadow-[inset_0_2px_12px_rgba(0,0,0,0.04)] transition-all"
+                                        style="background:#f4f7fa">
+                                        <div class="relative flex-shrink-0 bg-white overflow-hidden shadow-sm rounded border border-slate-200"
                                             :style="getPreviewPanelStyle(tpl.meta.panel_size)">
-                                            <div class="absolute inset-0 layout-panel opacity-60"></div>
-                                            <div class="absolute top-0 left-0" :style="getPreviewInnerStyle(tpl.meta.panel_size)">
+                                            <div class="absolute inset-0 layout-panel opacity-40"></div>
+                                            <div class="absolute top-0 left-0"
+                                                :style="getPreviewInnerStyle(tpl.meta.panel_size)">
                                                 <div v-for="(posObj, partId) in getPreviewParts(tpl)" :key="partId"
-                                                    class="absolute border border-black/20 overflow-hidden text-[7px] font-bold text-white flex items-center justify-center"
+                                                    class="absolute border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] overflow-hidden text-[7px] font-bold text-white flex items-center justify-center"
                                                     :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
                                                     {{ posObj.part_type.substring(0, 1) }}
                                                 </div>
@@ -326,23 +581,30 @@
                                 </div>
                             </div>
 
-                            <!-- 特征展开 -->
-                            <div class="border-t border-slate-100 px-6 py-3">
+                            <!-- 特征展开 (阻止卡片跳转冒泡) -->
+                            <div class="border-t border-slate-100/80 bg-slate-50/50 px-7 py-3 relative z-10"
+                                @click.stop>
                                 <button @click.stop="tpl.showFeatures = !tpl.showFeatures"
                                     class="w-full flex justify-between items-center text-sm text-slate-500 hover:text-indigo-600 font-medium py-1 transition-colors">
                                     <span class="flex items-center gap-2">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                         </svg>
                                         特征对比明细（{{ tpl.featureDiffs ? tpl.featureDiffs.length : 0 }} 项）
                                     </span>
-                                    <svg class="w-4 h-4 transform transition-transform" :class="{'rotate-180': tpl.showFeatures}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    <svg class="w-4 h-4 transform transition-transform"
+                                        :class="{'rotate-180': tpl.showFeatures}" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
 
-                                <div v-show="tpl.showFeatures" class="mt-2 rounded-xl border border-slate-200 overflow-hidden">
-                                    <div class="flex justify-between text-xs text-slate-400 font-semibold bg-slate-50 px-4 py-2.5 border-b border-slate-200">
+                                <div v-show="tpl.showFeatures"
+                                    class="mt-2 rounded-xl border border-slate-200 overflow-hidden">
+                                    <div
+                                        class="flex justify-between text-xs text-slate-400 font-semibold bg-slate-50 px-4 py-2.5 border-b border-slate-200">
                                         <span>特征项</span>
                                         <span>模板值 / 需求值</span>
                                     </div>
@@ -356,163 +618,221 @@
                                                     'bg-orange-500': feat.status === 'orange',
                                                     'bg-red-500': feat.status === 'red'
                                                 }"></span>
-                                                <span class="text-slate-600 truncate" :title="feat.displayName">{{ feat.displayName }}</span>
+                                                <span class="text-slate-600 truncate" :title="feat.displayName">{{
+                                                    feat.displayName }}</span>
                                             </div>
                                             <div class="font-mono flex items-center gap-1.5 flex-shrink-0 text-xs">
-                                                <span :class="{ 'text-slate-600': feat.status === 'green' || feat.status === 'yellow', 'text-orange-500': feat.status === 'orange', 'text-red-500 font-bold': feat.status === 'red' }">{{ formatValue(feat.templateValue) }}</span>
+                                                <span
+                                                    :class="{ 'text-slate-600': feat.status === 'green' || feat.status === 'yellow', 'text-orange-500': feat.status === 'orange', 'text-red-500 font-bold': feat.status === 'red' }">{{
+                                                    formatValue(feat.templateValue) }}</span>
                                                 <span class="text-slate-300">/</span>
-                                                <span class="text-slate-600">{{ formatValue(feat.uploadedValue) }}</span>
+                                                <span class="text-slate-600">{{ formatValue(feat.uploadedValue)
+                                                    }}</span>
                                             </div>
                                         </div>
-                                        <div v-if="!tpl.featureDiffs || tpl.featureDiffs.length === 0" class="text-center text-slate-400 py-5 text-sm">暂无特征比对数据</div>
+                                        <div v-if="!tpl.featureDiffs || tpl.featureDiffs.length === 0"
+                                            class="text-center text-slate-400 py-5 text-sm">暂无特征比对数据</div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- 应用按钮 -->
-                            <div class="px-6 pb-6 pt-3">
-                                <button @click="applyTemplate(tpl)" class="btn-primary w-full text-center text-[15px]">应用此方案</button>
+                            <div class="px-6 pb-6 pt-3 mt-auto relative z-10 bg-slate-50/50" @click.stop>
+                                <button @click.stop="applyTemplate(tpl)"
+                                    class="btn-primary w-full text-center text-[15px]">应用此方案</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div v-if="previewTemplate" class="absolute inset-0 z-40 flex items-center justify-center p-6" style="background:rgba(15,23,42,.45);backdrop-filter:blur(6px)" @click.self="closeTemplatePreview">
-                <div class="relative w-full max-w-6xl h-[90vh] bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col">
-                    <div class="absolute top-4 right-4 z-20">
-                        <button @click="closeTemplatePreview" class="toolbar-btn bg-white/90 border border-slate-200 text-slate-400 hover:text-slate-700 hover:bg-white shadow-sm" title="关闭预览">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="flex-1 p-6 overflow-hidden" style="background:#f8fafc">
-                        <div class="h-full flex flex-col gap-4 min-h-0">
-                            <h3 class="text-2xl font-bold text-slate-800 leading-tight break-words flex-shrink-0">方案预览：{{ previewTemplate.name || (previewTemplate.uuid ? '#' + previewTemplate.uuid.substring(0, 6) : '未命名方案') }}</h3>
-                        <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px] gap-6 flex-1 min-h-0">
-                            <div class="card p-5 h-full flex flex-col overflow-hidden">
-                                <div class="flex items-center justify-between mb-4 flex-shrink-0 gap-4">
-                                    <div class="min-w-0">
-                                        <div class="flex items-center gap-3 text-sm text-slate-500 flex-wrap">
-                                            <span>面板尺寸: {{ previewTemplate.meta?.panel_size?.[0] || 0 }} × {{ previewTemplate.meta?.panel_size?.[1] || 0 }} mm</span>
-                                            <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
-                                                :class="previewTemplate.score >= 80 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : previewTemplate.score >= 60 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'">
-                                                匹配度 {{ previewTemplate.score }}%
-                                            </span>
-                                        </div>
-                                    </div>
+            <transition name="fade-up">
+                <div v-if="previewTemplate" class="absolute inset-0 z-50 flex items-center justify-center p-6"
+                    style="background:rgba(15,23,42,.6);backdrop-filter:blur(16px)" @click.self="closeTemplatePreview">
+                    <div
+                        class="relative w-full max-w-7xl h-[92vh] bg-white/95 backdrop-blur-3xl rounded-[24px] border border-slate-200/50 shadow-[0_32px_80px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col transform transition-all">
+                        <div class="absolute top-5 right-5 z-20">
+                            <button @click="closeTemplatePreview"
+                                class="toolbar-btn bg-white/80 backdrop-blur border border-slate-200 rounded-full w-10 h-10 p-0 text-slate-500 hover:text-slate-800 hover:bg-slate-100 shadow-sm"
+                                title="关闭预览">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div
+                            class="flex-1 pt-6 px-8 pb-3 overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100/50">
+                            <div class="h-full flex flex-col gap-4 min-h-0">
+                                <div class="flex-shrink-0 flex items-center gap-4">
+                                    <div class="w-2 h-8 rounded-full bg-blue-500"></div>
+                                    <h3 class="text-3xl font-display font-bold text-slate-800 leading-tight">{{
+                                        previewTemplate.name || (previewTemplate.uuid ? '#' +
+                                        previewTemplate.uuid.substring(0, 6) : '未命名方案') }}</h3>
                                 </div>
-                                <div class="rounded-2xl border border-slate-200 flex-1 relative overflow-hidden w-full h-full"
-                                    style="background:#eef0f5; min-height: 0;"
-                                    ref="previewCanvasContainer"
-                                    @wheel.prevent="e => handleWheel(e, 'preview')"
-                                    @mousedown="e => startPan(e, 'preview')"
-                                    :class="{ 'cursor-grab': activePanView !== 'preview', 'cursor-grabbing': isPanning && activePanView === 'preview' }">
-                                    <div class="absolute top-0 left-0"
-                                        :style="{ transform: `translate(${previewPanX}px, ${previewPanY}px) scale(${previewCanvasScale})`, transformOrigin: '0 0' }">
-                                        <div class="layout-panel bg-white shadow-lg ring-1 ring-slate-300 relative"
-                                            :style="{ width: previewPanelSize[0] + 'px', height: previewPanelSize[1] + 'px' }">
-                                            <div v-for="(posObj, partId) in getPreviewParts(previewTemplate)" :key="'modal-' + partId"
-                                                class="absolute border border-black/15 overflow-hidden text-white font-bold flex flex-col items-center justify-center text-center leading-tight px-1"
-                                                :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
-                                                <span class="text-[11px] break-words line-clamp-3">{{ posObj.part_type }}</span>
-                                                <span class="text-[10px] opacity-85 mt-1">{{ partId.substring(0, 6) }}</span>
+                                <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_380px] gap-8 flex-1 min-h-0">
+                                    <div class="card p-5 h-full flex flex-col overflow-hidden">
+                                        <div class="flex items-center justify-between mb-4 flex-shrink-0 gap-4">
+                                            <div class="min-w-0">
+                                                <div class="flex items-center gap-3 text-sm text-slate-500 flex-wrap">
+                                                    <span>面板尺寸: {{ previewTemplate.meta?.panel_size?.[0] || 0 }} × {{
+                                                        previewTemplate.meta?.panel_size?.[1] || 0 }} mm</span>
+                                                    <span
+                                                        class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
+                                                        :class="previewTemplate.score >= 80 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : previewTemplate.score >= 60 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'">
+                                                        匹配度 {{ previewTemplate.score }}%
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="rounded-2xl border border-slate-200 flex-1 relative overflow-hidden w-full h-full"
+                                            style="background:#eef0f5; min-height: 0;" ref="previewCanvasContainer"
+                                            @wheel.prevent="e => handleWheel(e, 'preview')"
+                                            @mousedown="e => startPan(e, 'preview')"
+                                            :class="{ 'cursor-grab': activePanView !== 'preview', 'cursor-grabbing': isPanning && activePanView === 'preview' }">
+                                            <div class="absolute top-0 left-0"
+                                                :style="{ transform: `translate(${previewPanX}px, ${previewPanY}px) scale(${previewCanvasScale})`, transformOrigin: '0 0' }">
+                                                <div class="layout-panel bg-white shadow-lg ring-1 ring-slate-300 relative"
+                                                    :style="{ width: previewPanelSize[0] + 'px', height: previewPanelSize[1] + 'px' }">
+                                                    <div v-for="(posObj, partId) in getPreviewParts(previewTemplate)"
+                                                        :key="'modal-' + partId"
+                                                        class="absolute border border-black/15 rounded-[4px] shadow-sm overflow-hidden text-white font-bold flex flex-col items-center justify-center text-center leading-tight px-1"
+                                                        :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
+                                                        <span class="text-[11px] break-words line-clamp-3">{{
+                                                            posObj.part_type }}</span>
+                                                        <span class="text-[10px] opacity-85 mt-1">{{ partId.substring(0,
+                                                            6) }}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="flex flex-col gap-4 h-full min-h-0">
-                                <div class="card p-5 flex-shrink-0">
-                                    <h4 class="text-base font-bold text-slate-800 mb-4">元件摘要</h4>
-                                    <div class="grid grid-cols-3 gap-3 text-center">
-                                        <div class="rounded-2xl border border-emerald-100 bg-emerald-50 px-3 py-4">
-                                            <div class="text-2xl font-black text-emerald-600 leading-none">{{ previewTemplate.diffInfo?.matched || 0 }}</div>
-                                            <div class="text-xs font-semibold text-emerald-700 mt-1">匹配元件</div>
+                                    <div class="flex flex-col gap-4 h-full min-h-0">
+                                        <div class="card p-5 flex-shrink-0">
+                                            <h4 class="text-base font-bold text-slate-800 mb-4">元件摘要</h4>
+                                            <div class="grid grid-cols-3 gap-3 text-center">
+                                                <div
+                                                    class="bg-gradient-to-b from-emerald-50 to-white/50 border border-emerald-100/60 rounded-xl px-3 py-4 flex flex-col items-center justify-center gap-1 shadow-[0_2px_4px_rgba(16,185,129,0.02)]">
+                                                    <div
+                                                        class="text-2xl font-display font-bold text-emerald-600 leading-none">
+                                                        {{ previewTemplate.diffInfo?.matched || 0 }}</div>
+                                                    <div
+                                                        class="text-[11px] text-emerald-600/80 font-bold tracking-wide uppercase">
+                                                        匹配元件</div>
+                                                </div>
+                                                <div
+                                                    class="bg-gradient-to-b from-amber-50 to-white/50 border border-amber-100/60 rounded-xl px-3 py-4 flex flex-col items-center justify-center gap-1 shadow-[0_2px_4px_rgba(245,158,11,0.02)]">
+                                                    <div
+                                                        class="text-2xl font-display font-bold text-amber-500 leading-none">
+                                                        {{ previewTemplate.diffInfo?.missing || 0 }}</div>
+                                                    <div
+                                                        class="text-[11px] text-amber-600/80 font-bold tracking-wide uppercase">
+                                                        冗余元件</div>
+                                                </div>
+                                                <div
+                                                    class="bg-gradient-to-b from-red-50 to-white/50 border border-red-100/60 rounded-xl px-3 py-4 flex flex-col items-center justify-center gap-1 shadow-[0_2px_4px_rgba(239,68,68,0.02)]">
+                                                    <div
+                                                        class="text-2xl font-display font-bold text-red-500 leading-none">
+                                                        {{ previewTemplate.diffInfo?.extra || 0 }}</div>
+                                                    <div
+                                                        class="text-[11px] text-red-600/80 font-bold tracking-wide uppercase">
+                                                        新增元件</div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="rounded-2xl border border-amber-100 bg-amber-50 px-3 py-4">
-                                            <div class="text-2xl font-black text-amber-500 leading-none">{{ previewTemplate.diffInfo?.missing || 0 }}</div>
-                                            <div class="text-xs font-semibold text-amber-700 mt-1">冗余元件</div>
-                                        </div>
-                                        <div class="rounded-2xl border border-red-100 bg-red-50 px-3 py-4">
-                                            <div class="text-2xl font-black text-red-500 leading-none">{{ previewTemplate.diffInfo?.extra || 0 }}</div>
-                                            <div class="text-xs font-semibold text-red-700 mt-1">新增元件</div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="card p-5 flex-1 min-h-0 flex flex-col">
-                                    <div class="flex items-center justify-between gap-4 mb-3 flex-shrink-0">
-                                        <h4 class="text-base font-bold text-slate-800">特征对比</h4>
-                                        <button @click="previewOnlyDiffs = !previewOnlyDiffs"
-                                            type="button"
-                                            class="inline-flex items-center gap-2 text-sm text-slate-500 select-none"
-                                            :aria-pressed="previewOnlyDiffs ? 'true' : 'false'"
-                                            title="切换是否仅显示差异项">
-                                            <span>只看不同</span>
-                                            <span class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
-                                                :class="previewOnlyDiffs ? 'bg-indigo-600' : 'bg-slate-300'">
-                                                <span class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform"
-                                                    :class="previewOnlyDiffs ? 'translate-x-5' : 'translate-x-1'"></span>
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="flex items-center justify-between px-4 py-2.5 rounded-t-xl border border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-500 flex-shrink-0">
-                                        <span>特征项</span>
-                                        <span class="font-mono">模板值 / 当前值</span>
-                                    </div>
-                                    <div class="flex-1 min-h-0 overflow-y-auto feature-scroll rounded-b-xl border-x border-b border-slate-200">
-                                        <div v-for="(feat, idx) in previewFeatureDiffs" :key="'preview-feat-' + idx"
-                                            class="flex items-center justify-between px-4 py-2.5 border-b border-slate-100 last:border-0 text-sm hover:bg-slate-50">
-                                            <div class="flex items-center gap-2 min-w-0 pr-3">
-                                                <span class="w-2 h-2 rounded-full flex-shrink-0" :class="{
+                                        <div class="card p-5 flex-1 min-h-0 flex flex-col">
+                                            <div class="flex items-center justify-between gap-4 mb-3 flex-shrink-0">
+                                                <h4 class="text-base font-bold text-slate-800">特征对比</h4>
+                                                <button @click="previewOnlyDiffs = !previewOnlyDiffs" type="button"
+                                                    class="inline-flex items-center gap-2 text-sm text-slate-500 select-none"
+                                                    :aria-pressed="previewOnlyDiffs ? 'true' : 'false'"
+                                                    title="切换是否仅显示差异项">
+                                                    <span>只看不同</span>
+                                                    <span
+                                                        class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                                                        :class="previewOnlyDiffs ? 'bg-indigo-600' : 'bg-slate-300'">
+                                                        <span
+                                                            class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform"
+                                                            :class="previewOnlyDiffs ? 'translate-x-5' : 'translate-x-1'"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div
+                                                class="flex items-center justify-between px-4 py-2.5 rounded-t-xl border border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-500 flex-shrink-0">
+                                                <span>特征项</span>
+                                                <span class="font-mono">模板值 / 当前值</span>
+                                            </div>
+                                            <div
+                                                class="flex-1 min-h-0 overflow-y-auto feature-scroll rounded-b-xl border-x border-b border-slate-200">
+                                                <div v-for="(feat, idx) in previewFeatureDiffs"
+                                                    :key="'preview-feat-' + idx"
+                                                    class="flex items-center justify-between px-4 py-2.5 border-b border-slate-100 last:border-0 text-sm hover:bg-slate-50">
+                                                    <div class="flex items-center gap-2 min-w-0 pr-3">
+                                                        <span class="w-2 h-2 rounded-full flex-shrink-0" :class="{
                                                     'bg-emerald-500': feat.status === 'green',
                                                     'bg-yellow-400': feat.status === 'yellow',
                                                     'bg-orange-500': feat.status === 'orange',
                                                     'bg-red-500': feat.status === 'red'
                                                 }"></span>
-                                                <span class="truncate text-slate-600" :title="feat.displayName">{{ feat.displayName }}</span>
+                                                        <span class="truncate text-slate-600"
+                                                            :title="feat.displayName">{{ feat.displayName }}</span>
+                                                    </div>
+                                                    <span class="font-mono text-xs text-slate-500 flex-shrink-0">{{
+                                                        formatValue(feat.templateValue) }} / {{
+                                                        formatValue(feat.uploadedValue) }}</span>
+                                                </div>
+                                                <div v-if="!previewFeatureDiffs.length"
+                                                    class="text-sm text-slate-400 py-6 text-center">{{ previewOnlyDiffs
+                                                    ? '当前没有差异项' : '暂无特征数据' }}</div>
                                             </div>
-                                            <span class="font-mono text-xs text-slate-500 flex-shrink-0">{{ formatValue(feat.templateValue) }} / {{ formatValue(feat.uploadedValue) }}</span>
                                         </div>
-                                        <div v-if="!previewFeatureDiffs.length" class="text-sm text-slate-400 py-6 text-center">{{ previewOnlyDiffs ? '当前没有差异项' : '暂无特征数据' }}</div>
+
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+
+                        <div
+                            class="px-8 py-5 border-t border-slate-200/60 bg-white/80 backdrop-blur-md flex justify-end gap-4 flex-shrink-0 relative z-10">
+                            <button @click="closeTemplatePreview" class="btn-ghost min-w-[120px]">关闭</button>
+                            <button @click="applyTemplate(previewTemplate)"
+                                class="btn-primary min-w-[140px]">应用此方案</button>
                         </div>
                     </div>
-
-                    <div class="px-6 py-4 border-t border-slate-200 bg-white flex justify-end gap-3 flex-shrink-0">
-                        <button @click="closeTemplatePreview" class="btn-ghost min-w-[108px]">关闭</button>
-                        <button @click="applyTemplate(previewTemplate)" class="btn-primary min-w-[132px]">应用此方案</button>
-                    </div>
                 </div>
-            </div>
+            </transition>
 
             <template v-if="step === 3">
-                <div class="flex w-full h-full overflow-hidden">
+                <div
+                    class="flex w-full h-full overflow-hidden transition-all duration-500 ease-in-out animate-[fade_0.4s_ease-out]">
 
-                    <section class="flex-1 border-r border-slate-200 overflow-hidden relative flex flex-col" style="background:#eef0f5"
-                        ref="tplCanvasContainer">
+                    <!-- 左侧：参考图 -->
+                    <section
+                        class="flex-1 border-r border-slate-200/80 overflow-hidden relative flex flex-col shadow-inner"
+                        style="background:#eef0f5" ref="tplCanvasContainer">
 
-                        <div class="bg-white border-b border-slate-200 px-4 flex justify-between items-center z-10 flex-shrink-0" style="height:44px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-                            <h2 class="font-semibold text-slate-500 flex items-center text-xs gap-2">
-                                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        <div class="bg-white/80 backdrop-blur-md border-b border-slate-200/60 px-5 flex justify-between items-center z-10 flex-shrink-0"
+                            style="height:48px;">
+                            <h2 class="font-display font-semibold text-slate-500 flex items-center text-[13px] gap-2">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
                                 模板参考
-                                <span class="bg-slate-100 text-slate-500 text-[10px] px-1.5 py-0.5 rounded-md font-normal">只读</span>
+                                <span
+                                    class="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded uppercase tracking-widest font-bold">只读</span>
                             </h2>
                             <div class="flex items-center gap-2 text-[11px] text-slate-400">
                                 <span>{{ Math.round(tplCanvasScale * 100) }}%</span>
                                 <button @click="resetView('tpl')" class="toolbar-btn" title="复位视角">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                                     </svg>
                                 </button>
                             </div>
@@ -536,7 +856,7 @@
                                 <div class="layout-panel bg-white/70 shadow-lg ring-1 ring-gray-300 relative"
                                     :style="{ width: tplPanelSize[0] + 'px', height: tplPanelSize[1] + 'px' }">
                                     <div v-for="part in tplPlacedParts" :key="'tpl-'+part.part_id"
-                                        class="absolute border border-black/20 flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider opacity-90"
+                                        class="absolute border border-black/20 rounded-[4px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider opacity-90"
                                         style="pointer-events:auto;cursor:default"
                                         :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: getColor(part.part_type) }"
                                         :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
@@ -552,30 +872,40 @@
                         </div>
                     </section>
 
-                    <section class="flex-1 overflow-hidden relative flex flex-col" style="background:#e8ecf3" ref="prjCanvasContainer">
+                    <section class="flex-1 overflow-hidden relative flex flex-col shadow-inner"
+                        style="background:#f1f5f9" ref="prjCanvasContainer">
 
-                        <div class="bg-white border-b border-slate-200 px-4 flex justify-between items-center z-10 flex-shrink-0" style="height:44px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-                            <h2 class="font-semibold text-indigo-600 flex items-center text-xs gap-2">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        <div class="bg-white/90 backdrop-blur-md border-b border-slate-200/60 px-5 flex justify-between items-center z-10 flex-shrink-0"
+                            style="height:48px;">
+                            <h2 class="font-display font-semibold text-blue-600 flex items-center text-[13px] gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
-                                当前布局
-                                <span class="bg-indigo-50 text-indigo-500 text-[10px] px-1.5 py-0.5 rounded-md font-normal">可编辑</span>
+                                当前项目
+                                <span
+                                    class="bg-blue-50 text-blue-600 border border-blue-100/50 text-[10px] px-2 py-0.5 rounded uppercase tracking-widest font-bold">可编辑</span>
                             </h2>
                             <div class="flex items-center gap-4 text-[11px] select-none">
-                                <label class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700">
-                                    <input type="checkbox" v-model="settings.autoSnap" class="w-3.5 h-3.5 rounded accent-indigo-600">
+                                <label
+                                    class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700">
+                                    <input type="checkbox" v-model="settings.autoSnap"
+                                        class="w-3.5 h-3.5 rounded accent-indigo-600">
                                     <span>自动吸附</span>
                                 </label>
-                                <label class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700 border-r border-slate-200 pr-4">
-                                    <input type="checkbox" v-model="settings.autoExtrude" class="w-3.5 h-3.5 rounded accent-indigo-600">
+                                <label
+                                    class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700 border-r border-slate-200 pr-4">
+                                    <input type="checkbox" v-model="settings.autoExtrude"
+                                        class="w-3.5 h-3.5 rounded accent-indigo-600">
                                     <span>防重叠挤出</span>
                                 </label>
                                 <div class="flex items-center gap-2 text-slate-400">
-                                    <span class="cursor-help" title="滚轮缩放 · 中键/空格拖拽">{{ Math.round(prjCanvasScale * 100) }}%</span>
+                                    <span class="cursor-help" title="滚轮缩放 · 中键/空格拖拽">{{ Math.round(prjCanvasScale * 100)
+                                        }}%</span>
                                     <button @click="resetView('prj')" class="toolbar-btn" title="复位视角">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                                         </svg>
                                     </button>
                                 </div>
@@ -958,7 +1288,7 @@
                 onUnmounted(() => { window.removeEventListener('keydown', handleKeydown); window.removeEventListener('keyup', handleKeyup); });
 
                 const hasInvalid = computed(() => placedParts.value.some(p => p.isInvalid));
-                const checkBounds = () => { placedParts.value.forEach(part => { const [x, y] = part.position; const [w, h] = part.part_size; const [pw, ph] = prjPanelSize.value; part.isInvalid = (x < 0 || y < 0 || x + w > (pw + epsilon) || y + h > (ph + epsilon) ); }); };
+                const checkBounds = () => { placedParts.value.forEach(part => { const [x, y] = part.position; const [w, h] = part.part_size; const [pw, ph] = prjPanelSize.value; part.isInvalid = (x < 0 || y < 0 || x + w > (pw + epsilon) || y + h > (ph + epsilon)); }); };
 
                 // ===== 拖拽微调核心逻辑 (移除了跨区拖拽，仅支持画板内移动) =====
                 const activeGuides = ref([]);
@@ -1048,7 +1378,7 @@
 
                     while (queue.length > 0 && count++ < 1000) {
                         const { part: source, dir: sourceDir } = queue.shift();
-                        
+
                         // 缓存发力源的边界坐标，提升可读性与性能
                         const sL = source.position[0];
                         const sT = source.position[1];
@@ -1067,9 +1397,9 @@
 
                             // 计算四个方向的物理重叠深度 (若 <= 0 则代表未接触)
                             const oRight = sR - tL;
-                            const oLeft  = tR - sL;
-                            const oDown  = sB - tT;
-                            const oUp    = tB - sT;
+                            const oLeft = tR - sL;
+                            const oDown = sB - tT;
+                            const oUp = tB - sT;
 
                             // 1. 浮点精度拦截：只要有任何一侧的重叠量小于等于极小值，说明是安全分离或完美贴合，直接跳过
                             if (oRight <= epsilon || oLeft <= epsilon || oDown <= epsilon || oUp <= epsilon) {
@@ -1090,7 +1420,7 @@
                             // 3. 严格刮蹭拦截：严格按你的要求，只忽略 1px 的侧边触碰
                             const oX = Math.min(oRight, oLeft);
                             const oY = Math.min(oDown, oUp);
-                            
+
                             if (applyDir === 'UP' || applyDir === 'DOWN') {
                                 if (oX <= 1) continue; // 垂直移动时，横向重叠 <= 1px 视为刮蹭
                             } else if (applyDir === 'LEFT' || applyDir === 'RIGHT') {
