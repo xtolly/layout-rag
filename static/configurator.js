@@ -15,7 +15,7 @@ const API = `${window.location.origin}/api`;
 // ── 枚举选项 ──────────────────────────────────────────────────
 const CABINET_USE_OPTIONS   = ['进线柜','出线柜','电容补偿柜','计量柜','联络柜'];
 const CABINET_MODEL_OPTIONS = ['GCK','GCS','MNS','GGD'];
-const PANEL_TYPE_OPTIONS    = ['默认面板','抽屉面板'];
+const PANEL_TYPE_OPTIONS    = ['默认面板','抽屉面板','占位面板'];
 const WIRING_METHOD_OPTIONS = ['上进上出','上进下出','下进上出','下进下出'];
 const OPERATION_METHOD_OPTIONS = ['手动机构','电动操作','抽屉式'];
 
