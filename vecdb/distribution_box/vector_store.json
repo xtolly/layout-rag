@@ -1,0 +1,1873 @@
+{
+  "version": 5,
+  "schema": {
+    "panel_width": {
+      "type": "continuous",
+      "weight": 2.0,
+      "display_name": "面板宽度"
+    },
+    "panel_height": {
+      "type": "continuous",
+      "weight": 2.0,
+      "display_name": "面板高度"
+    },
+    "panel_area": {
+      "type": "continuous",
+      "weight": 1.5,
+      "display_name": "面板总面积"
+    },
+    "panel_aspect_ratio": {
+      "type": "continuous",
+      "weight": 2.0,
+      "display_name": "面板纵横比"
+    },
+    "total_parts": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "元器件总数"
+    },
+    "unique_types": {
+      "type": "count",
+      "weight": 2.0,
+      "display_name": "元件种类数"
+    },
+    "total_parts_area": {
+      "type": "continuous",
+      "weight": 1.5,
+      "display_name": "元器件总面积"
+    },
+    "fill_ratio": {
+      "type": "continuous",
+      "weight": 1.5,
+      "display_name": "空间填充率"
+    },
+    "avg_part_width": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件平均宽度"
+    },
+    "avg_part_height": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件平均高度"
+    },
+    "max_part_width": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件最大宽度"
+    },
+    "max_part_height": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件最大高度"
+    },
+    "width_std": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件宽度标准差"
+    },
+    "height_std": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件高度标准差"
+    },
+    "has_双电源": {
+      "type": "boolean",
+      "weight": 0.5,
+      "display_name": "含双电源开关"
+    },
+    "has_地排": {
+      "type": "boolean",
+      "weight": 0.5,
+      "display_name": "含地排"
+    },
+    "has_零排": {
+      "type": "boolean",
+      "weight": 0.5,
+      "display_name": "含零排"
+    },
+    "large_part_ratio": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "大型元件占比"
+    },
+    "count_余压控制器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "余压控制器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "余压控制器"
+    },
+    "count_分线端子": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "分线端子 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "分线端子"
+    },
+    "count_双电源自动转换开关": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "双电源自动转换开关 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "双电源自动转换开关"
+    },
+    "count_变压器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "变压器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "变压器"
+    },
+    "count_变频器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "变频器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "变频器"
+    },
+    "count_后备保护断路器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "后备保护断路器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "后备保护断路器"
+    },
+    "count_地排": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "地排 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "地排"
+    },
+    "count_塑壳断路器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "塑壳断路器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "塑壳断路器"
+    },
+    "count_微型断路器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "微型断路器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "微型断路器"
+    },
+    "count_接线端子": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "接线端子 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "接线端子"
+    },
+    "count_接触器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "接触器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "接触器"
+    },
+    "count_控制与保护开关": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "控制与保护开关 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "控制与保护开关"
+    },
+    "count_时控开关": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "时控开关 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "时控开关"
+    },
+    "count_时间继电器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "时间继电器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "时间继电器"
+    },
+    "count_智能照明控制模块": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "智能照明控制模块 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "智能照明控制模块"
+    },
+    "count_母线排": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "母线排 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "母线排"
+    },
+    "count_浪涌保护器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "浪涌保护器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "浪涌保护器"
+    },
+    "count_火灾监控探测器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "火灾监控探测器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "火灾监控探测器"
+    },
+    "count_热继电器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "热继电器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "热继电器"
+    },
+    "count_熔断器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "熔断器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "熔断器"
+    },
+    "count_电流互感器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "电流互感器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "电流互感器"
+    },
+    "count_电源模块": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "电源模块 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "电源模块"
+    },
+    "count_电源监控": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "电源监控 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "电源监控"
+    },
+    "count_电能表": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "电能表 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "电能表"
+    },
+    "count_端子堵头": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "端子堵头 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "端子堵头"
+    },
+    "count_继电器+接线端子": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "继电器+接线端子 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "继电器+接线端子"
+    },
+    "count_隔离开关": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "隔离开关 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "隔离开关"
+    },
+    "count_零排": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "零排 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "零排"
+    },
+    "cabinet_type_配电柜": {
+      "type": "boolean",
+      "weight": 5.0,
+      "display_name": "柜体类型:配电柜",
+      "dynamic": true,
+      "source": "meta",
+      "field": "cabinet_type",
+      "source_name": "cabinet_type_categories",
+      "value": "配电柜"
+    },
+    "panel_type_安装板": {
+      "type": "boolean",
+      "weight": 5.0,
+      "display_name": "面板类型:安装板",
+      "dynamic": true,
+      "source": "meta",
+      "field": "panel_type",
+      "source_name": "panel_type_categories",
+      "value": "安装板"
+    }
+  },
+  "params": {
+    "cont_min": [
+      400.0,
+      500.0,
+      200000.0,
+      0.2727272727272727,
+      25704.79589657765,
+      0.04086428510132911,
+      20.458361715165665,
+      59.64854866873867,
+      54.0,
+      124.0,
+      6.571719713952242,
+      8.177819678488731,
+      0.0
+    ],
+    "cont_range": [
+      800.0,
+      1703.1087495172396,
+      2440000.0,
+      0.7272727272727273,
+      715270.8807708677,
+      0.380144622096083,
+      130.54163835755512,
+      115.1869508201531,
+      676.0,
+      307.7377033053199,
+      120.43808385246966,
+      85.50443147057487,
+      1.0
+    ],
+    "count_max_log": [
+      4.48863636973214,
+      2.772588722239781,
+      1.3862943611198906,
+      1.6094379124341003,
+      1.0986122886681098,
+      1.0986122886681098,
+      1.791759469228055,
+      0.6931471805599453,
+      0.6931471805599453,
+      2.995732273553991,
+      4.007333185232471,
+      3.1354942159291497,
+      2.4849066497880004,
+      1.6094379124341003,
+      0.6931471805599453,
+      3.044522437723423,
+      1.3862943611198906,
+      1.0986122886681098,
+      1.9459101490553132,
+      0.6931471805599453,
+      2.4849066497880004,
+      2.5649493574615367,
+      1.3862943611198906,
+      0.6931471805599453,
+      0.6931471805599453,
+      2.5649493574615367,
+      2.8903717578961645,
+      2.5649493574615367,
+      1.0986122886681098,
+      1.0986122886681098
+    ]
+  },
+  "entries": [
+    {
+      "uuid": "ef29f756-682b-437e-9544-8298e6efc9d0",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_001817ba.json"
+    },
+    {
+      "uuid": "52015593-f234-4f3c-aebe-6792e02a3d74",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_009e1b0b.json"
+    },
+    {
+      "uuid": "565a47bb-2da9-4101-acb8-ae8f881c8736",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_0646e9cd.json"
+    },
+    {
+      "uuid": "392bf572-f2e2-4dcc-9bef-a58a489db7e8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_06e1c856.json"
+    },
+    {
+      "uuid": "b870f6ce-a549-4bf2-9885-94fa3843d4c9",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_0e3f1383.json"
+    },
+    {
+      "uuid": "95ef02a4-320e-47cf-8a97-59b36370f9b9",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_158f3567.json"
+    },
+    {
+      "uuid": "9e4fe9d5-70ba-4d05-8c52-999c0e343699",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_17e6367f.json"
+    },
+    {
+      "uuid": "ee132f95-907e-43fe-8aa1-434f26f5dbf8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_202bca5d.json"
+    },
+    {
+      "uuid": "89752e11-a400-42d8-8683-6562a1078116",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_2158b788.json"
+    },
+    {
+      "uuid": "25086e13-1353-4f3e-b3ad-963db638c991",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_2518250f.json"
+    },
+    {
+      "uuid": "b2a63e48-938a-464d-9498-313fd9d8e128",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_26251107.json"
+    },
+    {
+      "uuid": "10605959-ce95-4237-8881-753add79bd99",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_2cdb7dd4.json"
+    },
+    {
+      "uuid": "cf1b5563-6696-432c-87fa-05fb34d4b9f9",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_2d1435d6.json"
+    },
+    {
+      "uuid": "58decead-a870-4304-9390-cc016d603dc1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_2e35eced.json"
+    },
+    {
+      "uuid": "305045ed-8b35-4d1a-bcab-7f585515e364",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_2e83659f.json"
+    },
+    {
+      "uuid": "780c00c4-3b1c-4ab8-8522-7c8071fc8dfc",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_3c65bc6a.json"
+    },
+    {
+      "uuid": "f1bbe42a-02c9-4012-9ac7-7f4b250aa890",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_3dd7dbc3.json"
+    },
+    {
+      "uuid": "5fc78664-a712-4dde-8731-eee952c17a7a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_3f88b465.json"
+    },
+    {
+      "uuid": "52319ab6-148c-4cf0-b6ef-32948510e5db",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_4307b2fc.json"
+    },
+    {
+      "uuid": "9efbf450-7910-4948-b1bc-5776cfe0eff3",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_43fc0ed0.json"
+    },
+    {
+      "uuid": "a2c277cd-fafa-4b42-9cfa-fd72f1bada9b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_44ef4000.json"
+    },
+    {
+      "uuid": "f0a7da66-dba0-4e48-b50b-9a94b73f9b29",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_470de5bc.json"
+    },
+    {
+      "uuid": "00c0ad2e-cfa2-43f8-8594-06df0c07e910",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_512083df.json"
+    },
+    {
+      "uuid": "2eb157cf-4ebe-468f-9ef4-1e0b0afd9007",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_592e627a.json"
+    },
+    {
+      "uuid": "f73bd572-9c96-471a-a58c-02163f9fed2c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_5e1a9c8c.json"
+    },
+    {
+      "uuid": "b4f2d779-99fb-41aa-a4c3-c762ee97ff5a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_6192e9b9.json"
+    },
+    {
+      "uuid": "b4f63d5a-e854-4fa2-aeb2-2cb9b2270db2",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_679c06b4.json"
+    },
+    {
+      "uuid": "4ca0690a-71df-4341-b443-ba90a731ace0",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_687ba275.json"
+    },
+    {
+      "uuid": "08605f99-e70f-483c-b509-c0d88548b34f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_697a3f0e.json"
+    },
+    {
+      "uuid": "a6a82905-b7a2-4658-8ee8-e859cde10e20",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_6ca507df.json"
+    },
+    {
+      "uuid": "7dee75da-e904-49d4-884f-ae39f0b01a6a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_6f912a74.json"
+    },
+    {
+      "uuid": "14c5c887-fbca-41a0-babb-227a27540aa9",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_72a79011.json"
+    },
+    {
+      "uuid": "1ad3a347-7c05-441a-8026-15cca010d81b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_74e5c9c6.json"
+    },
+    {
+      "uuid": "6fdf2158-9988-466c-ae59-e948c716421e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_77c59f04.json"
+    },
+    {
+      "uuid": "72eb504b-7cdb-4693-969d-8a5f93aaeeea",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_7a6226c1.json"
+    },
+    {
+      "uuid": "5641aec2-1566-48ee-9b49-25e2ff85df23",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_7b8c6bf4.json"
+    },
+    {
+      "uuid": "68410f6d-1a41-43f1-8b8b-1a07e321883a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_7cdf348b.json"
+    },
+    {
+      "uuid": "e8177b25-25e2-4bba-b399-3d58cec1ac5b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_7dc1db74.json"
+    },
+    {
+      "uuid": "4f39f436-a83e-48a0-b2e9-53fc4bb652e8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_81458a4e.json"
+    },
+    {
+      "uuid": "f486b78f-46ea-46d1-9c4a-51de4f209c41",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_819b9fd6.json"
+    },
+    {
+      "uuid": "b243ff39-2217-4d45-ae97-f9654d8443a3",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_83db2e12.json"
+    },
+    {
+      "uuid": "da8f8d67-fe05-4e55-98e3-8b4b434ad573",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_86cc9d01.json"
+    },
+    {
+      "uuid": "bea7f1ef-468e-46e6-a9ac-1a10588d6bf7",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_90798b18.json"
+    },
+    {
+      "uuid": "72c0c19c-e88d-4f9c-baa7-feaeb6f96319",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_a7ef9047.json"
+    },
+    {
+      "uuid": "e8ae4290-f836-4829-a9a9-c8db9e3f187d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_a85b6c2f.json"
+    },
+    {
+      "uuid": "53a4a7e3-585e-4b45-889b-79428bf0bd63",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_a9a6039e.json"
+    },
+    {
+      "uuid": "f0f5edff-c15d-4ab2-846a-758f1d71d699",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_aceff62d.json"
+    },
+    {
+      "uuid": "b81c559d-d545-41e0-91b7-2e6933dc3d40",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_ad9d3337.json"
+    },
+    {
+      "uuid": "09661730-8036-454d-8bd6-9bbf242871c1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_b02ddb6b.json"
+    },
+    {
+      "uuid": "3935e55c-c4df-4ccb-b5c6-3e721454150e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_b16f70a7.json"
+    },
+    {
+      "uuid": "52113fb7-19b3-4bc1-b24d-7ac405e5370f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_b71c9882.json"
+    },
+    {
+      "uuid": "0be56660-49c3-4f5d-975e-eda95f4f08cc",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_bbc6376e.json"
+    },
+    {
+      "uuid": "8ad8646e-9bbc-48f8-b09b-4663b5bf2842",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_bf8a38b2.json"
+    },
+    {
+      "uuid": "d6a970d7-6cc3-421f-b82d-a29e1fbc65a4",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_ca47a848.json"
+    },
+    {
+      "uuid": "9d3fd281-b839-4b1b-b94c-603a795b4060",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_cc5373b7.json"
+    },
+    {
+      "uuid": "94f27a1c-75cb-4ed8-b802-722c5b5dfba0",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_d17a0f4b.json"
+    },
+    {
+      "uuid": "7ab0cf45-8967-45e1-a707-6bfb3f9d10d0",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_d5bbd1aa.json"
+    },
+    {
+      "uuid": "8e5e59cd-a3da-45ca-9ca3-df039aea9cff",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_d793b501.json"
+    },
+    {
+      "uuid": "d56f0401-eace-4d94-9dc9-60e49d339e73",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_e07f3daa.json"
+    },
+    {
+      "uuid": "fcc7b5e5-3f54-4c72-a77e-3d40f132ea3c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_e2717c1d.json"
+    },
+    {
+      "uuid": "af737f82-3b6a-4049-816f-fefcd8c159df",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_e8394a21.json"
+    },
+    {
+      "uuid": "1ea17e7d-1da1-43d3-9f3f-3104d80ab712",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_eea53b96.json"
+    },
+    {
+      "uuid": "f9c69506-c3a1-4922-8a6d-cca5ffc19f81",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_f01d16db.json"
+    },
+    {
+      "uuid": "1b4feae1-bbba-42ed-a381-6060bc0e4739",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_f2f8b277.json"
+    },
+    {
+      "uuid": "19c1c594-6ee7-4c2e-b5ea-4d88f898d202",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_f51e136f.json"
+    },
+    {
+      "uuid": "8495befe-a8d9-4ed5-8ae9-e2f674ee893a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_f7b393b3.json"
+    },
+    {
+      "uuid": "06b8e305-599d-45a8-a83a-ff43a6c58561",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_fd79f395.json"
+    },
+    {
+      "uuid": "bf4dc606-f90d-45dd-bf37-02b870b3af90",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_049d8a33.json"
+    },
+    {
+      "uuid": "df15a85a-3603-4872-90fb-0a6259c5caa7",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_07a93eb0.json"
+    },
+    {
+      "uuid": "70b8c013-ca8c-4c31-8eed-7b535770e106",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_199923cd.json"
+    },
+    {
+      "uuid": "74126607-18d4-4e32-8854-21c9efff1253",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_3e114803.json"
+    },
+    {
+      "uuid": "45c30dc2-0eef-4ef1-af34-b72589ca9a0c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_5a2efa43.json"
+    },
+    {
+      "uuid": "76c07600-1119-4986-97ab-2942d59d0698",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_6ac29dc2.json"
+    },
+    {
+      "uuid": "be690363-1856-42cf-9e8d-6a4bf886eacc",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_74aaaf17.json"
+    },
+    {
+      "uuid": "491af50d-9303-4ad1-97ef-538d8650da5d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_87222c92.json"
+    },
+    {
+      "uuid": "ace4a2c9-3392-49c2-9a6a-f26cf2a6ae54",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_8e2075bf.json"
+    },
+    {
+      "uuid": "9f943cb6-49ef-4f80-929f-7138f6325c83",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_905faa6e.json"
+    },
+    {
+      "uuid": "66c11d5a-ad3f-4ea7-ad08-10f7f1693eb0",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_968091af.json"
+    },
+    {
+      "uuid": "0f12cb31-65f7-4323-b33a-81f045354d62",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_9804bad9.json"
+    },
+    {
+      "uuid": "602f8516-e5c4-4dc2-8d8b-b596b480181d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_a91ebbf6.json"
+    },
+    {
+      "uuid": "4f36420d-5ca4-4db0-8e51-a4db117de7d5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_e4b12edc.json"
+    },
+    {
+      "uuid": "df6d2d75-ba65-42a5-82f0-be22a7e4f6de",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_e4b30655.json"
+    },
+    {
+      "uuid": "efb24181-d064-4406-9785-530980c81e1e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_2b93fb56.json"
+    },
+    {
+      "uuid": "89b1ced7-d58e-4577-ac49-486d8a6ab218",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_5ad9083b.json"
+    },
+    {
+      "uuid": "42336bed-1f8c-40d5-a3cc-6c41fcf1db65",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_6f60e95a.json"
+    },
+    {
+      "uuid": "9ca75921-03ae-4faf-b51f-c79388a585eb",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_7f6897d4.json"
+    },
+    {
+      "uuid": "67cc53f7-e58f-4a1f-9eaf-b0c51ffd28ea",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_8c375607.json"
+    },
+    {
+      "uuid": "056fd188-7dde-469b-8a37-eac30607f228",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_949e2678.json"
+    },
+    {
+      "uuid": "41d575e9-a208-46b1-bca9-087f91c58e37",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_a2a29e25.json"
+    },
+    {
+      "uuid": "a579be15-6927-4c6b-8038-3f9f295df954",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_cbbc98fa.json"
+    },
+    {
+      "uuid": "5f263b8d-7ddb-4120-a83e-9c98b9fe07ae",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_e86fbfe4.json"
+    },
+    {
+      "uuid": "d81c413b-cd2d-4cbf-ba8e-9c496782ad3e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\明湖智谷22CT11_fd2f26e8.json"
+    },
+    {
+      "uuid": "87460930-12da-4f19-acf3-3b0236afd1ba",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_003bb897.json"
+    },
+    {
+      "uuid": "09612a5b-d7bb-4b33-a439-464d7d4e716a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_0152e29d.json"
+    },
+    {
+      "uuid": "cf528495-524f-49d8-8bbf-3affdfaef8ae",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_01fb92be.json"
+    },
+    {
+      "uuid": "0a8433a9-c6d8-43b2-b843-7e46b35be066",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_032eb600.json"
+    },
+    {
+      "uuid": "17407273-14f7-4190-81c9-39000685629f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_056f9fdb.json"
+    },
+    {
+      "uuid": "3a68b220-49d3-46e3-bfb9-a8c75e27e1b8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_06635316.json"
+    },
+    {
+      "uuid": "9587aef7-bc0d-4555-b29f-d66ed7e66321",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_075a254d.json"
+    },
+    {
+      "uuid": "ff8ece03-32c2-44f6-b79b-f4dedde3478a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_07a22d9c.json"
+    },
+    {
+      "uuid": "cef42ccc-e439-4aeb-806d-313e79762178",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_07dbc17c.json"
+    },
+    {
+      "uuid": "ec15bd22-d131-4705-8d3e-c05a04412c5e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_0b3ac5a1.json"
+    },
+    {
+      "uuid": "d8be0fb9-85d8-44eb-b780-f43433ab467d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_0eb90c7a.json"
+    },
+    {
+      "uuid": "adfefae8-b94e-479d-8aec-e4a857dad013",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_0ecc62c5.json"
+    },
+    {
+      "uuid": "dfc61ac5-179a-49f4-b7ad-8afe99b948ab",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_0f017077.json"
+    },
+    {
+      "uuid": "ee60619d-fd8b-4b47-a6ac-30f75b895f66",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_0f534330.json"
+    },
+    {
+      "uuid": "3dbbfa4b-2122-4a26-a4e7-5aafeb8ed664",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_11fb478c.json"
+    },
+    {
+      "uuid": "3333e003-6ea7-4aac-936d-bdcccbd4f25a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_11fc56b1.json"
+    },
+    {
+      "uuid": "43e0454e-1adb-4b11-8f05-c1e457319b1e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_1209cb5a.json"
+    },
+    {
+      "uuid": "bb6cf4cd-6601-4b3c-8dbf-c86c7000f796",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_14bdee58.json"
+    },
+    {
+      "uuid": "bdcf0da8-15e4-4966-b28d-200380853e94",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_15e8b36d.json"
+    },
+    {
+      "uuid": "a4ae7975-dbd4-4e19-8b81-c0cf65a55ef6",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_17d971e4.json"
+    },
+    {
+      "uuid": "af7d1e40-8646-42dc-a4b5-703cdb97fe4e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_1c2434da.json"
+    },
+    {
+      "uuid": "39613096-b68a-4fb7-ad8c-78b90b51a0aa",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_1c7a37dd.json"
+    },
+    {
+      "uuid": "a6338a7f-afed-4671-96cf-8b491aa4c6c6",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_1cbf48eb.json"
+    },
+    {
+      "uuid": "074ce391-cb68-41a6-8c1c-4a59a9082432",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_1cfc355d.json"
+    },
+    {
+      "uuid": "92fc8cf5-75d3-4512-ab15-61fb880ffe6b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_1da939d8.json"
+    },
+    {
+      "uuid": "391a61cd-b08b-4efd-9f94-91e7b641e14a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_1dca8498.json"
+    },
+    {
+      "uuid": "2026880b-bdad-43bd-8531-2000aa727cc0",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_1f7933c8.json"
+    },
+    {
+      "uuid": "5c2acd19-324d-4aae-bd73-aa29e9207814",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_238ff5df.json"
+    },
+    {
+      "uuid": "87a9806e-2615-476a-b374-fb504530fcf8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_24c004f1.json"
+    },
+    {
+      "uuid": "dd4063e9-45cb-4d3b-b88f-0f3fe9e9f5ce",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_263ac419.json"
+    },
+    {
+      "uuid": "fd851249-c609-4e9e-95fe-4aed94f4c552",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_26d9419d.json"
+    },
+    {
+      "uuid": "5de8955d-8a19-49bc-a59b-1758edcaaedd",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_281f4613.json"
+    },
+    {
+      "uuid": "34810b78-338b-45e0-9491-c8c1afd35011",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_2835a357.json"
+    },
+    {
+      "uuid": "378ce21b-0cc3-43bd-b5f9-4ee33005b623",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_291a8f04.json"
+    },
+    {
+      "uuid": "b334984e-57f9-484e-be86-e9c51bf137ad",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_2921279a.json"
+    },
+    {
+      "uuid": "1d4a9991-c42c-434d-b500-efc388b5e54a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_2a1b7b7f.json"
+    },
+    {
+      "uuid": "b0630898-8420-4ee5-b273-8496b397b6d1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_2a984808.json"
+    },
+    {
+      "uuid": "0627f2aa-9c6b-4419-84cd-4f0153b6dd51",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_2d31239e.json"
+    },
+    {
+      "uuid": "dff595fc-6817-4f60-bbce-265d6a8f5f0e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_2f65447a.json"
+    },
+    {
+      "uuid": "5d16daab-b141-4331-9070-99430345fcee",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_2fdeed18.json"
+    },
+    {
+      "uuid": "48348ae2-50be-4c04-837e-6702229aafe2",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_304ac0e8.json"
+    },
+    {
+      "uuid": "c02efefd-b60c-4017-a9f2-fd0faff7b26a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_3123df59.json"
+    },
+    {
+      "uuid": "3548da7a-7bd1-4f62-89a7-15244b6eaea5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_31f87058.json"
+    },
+    {
+      "uuid": "511d05b1-fa34-4272-b9be-ea82f36e9f47",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_322c7f85.json"
+    },
+    {
+      "uuid": "00bd9718-9ac3-47d1-8110-3b93198f2763",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_33d6056e.json"
+    },
+    {
+      "uuid": "38e4c26e-e879-4565-9e3c-ddf322f1c1ca",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_3418e42b.json"
+    },
+    {
+      "uuid": "c9ea8c8f-d739-4404-b18b-1ccfb47a0f76",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_34b58b01.json"
+    },
+    {
+      "uuid": "99b8d1d8-9a68-4d17-8a17-30414ac570a7",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_3510a609.json"
+    },
+    {
+      "uuid": "bf07c87c-88f4-4e77-ad63-069313f4d90d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_3662198a.json"
+    },
+    {
+      "uuid": "a2c995ec-59bc-48b0-a118-db14706e10f8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_36ad0ef9.json"
+    },
+    {
+      "uuid": "b5f052f3-50d9-4f1e-a459-244f336df4a8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_36df4768.json"
+    },
+    {
+      "uuid": "c4398bb4-e6b9-407d-a12b-a607f1e44069",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_37ba4c56.json"
+    },
+    {
+      "uuid": "31d8cce5-477e-46b1-97a9-3110a79576e5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_37e7bd1f.json"
+    },
+    {
+      "uuid": "1bc8ff13-ce76-4ac8-9845-6687d57de677",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_38d6c80a.json"
+    },
+    {
+      "uuid": "037979a6-26f7-4b28-8101-638e507d6d4a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_38ed74fe.json"
+    },
+    {
+      "uuid": "273d3765-4130-49b3-a575-6cd26d115383",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_3ad8106e.json"
+    },
+    {
+      "uuid": "634236d3-119f-405f-a58e-35bf93acb307",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_3c2bcc97.json"
+    },
+    {
+      "uuid": "a452aa88-0d89-46ed-bc6c-a434a1c07f76",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_3c5205c9.json"
+    },
+    {
+      "uuid": "16e5e711-ee74-454f-b22d-565f08ed2969",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_3c6a10af.json"
+    },
+    {
+      "uuid": "ced6bb1e-c164-4a63-bac7-ee6f655d3e7f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_40fb64d6.json"
+    },
+    {
+      "uuid": "114f5b13-8588-42d3-86ec-794d8be6c3bd",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_438c5edc.json"
+    },
+    {
+      "uuid": "8b3489b3-ffe3-4f2a-8147-1bc2dd6e96c1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_45b2ec48.json"
+    },
+    {
+      "uuid": "7b6b78ce-4a8a-448e-bc72-af10c21976b2",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_45ed1a64.json"
+    },
+    {
+      "uuid": "62349e34-9fb5-47ef-b056-8d7f86c25b25",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_46e95428.json"
+    },
+    {
+      "uuid": "8e6d7bba-c7f3-475f-9d8f-0e199dd61f95",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_47b096de.json"
+    },
+    {
+      "uuid": "e0da0f20-1747-4618-b3c3-c007f614f0fb",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_47dbb09f.json"
+    },
+    {
+      "uuid": "6efaaa28-1754-47b3-a827-c320204662d1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_480498d9.json"
+    },
+    {
+      "uuid": "74218411-96e9-4c7b-b48c-42ec309c7ba5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_48676da4.json"
+    },
+    {
+      "uuid": "154da243-b339-49ce-aac0-aac419f8d2cb",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_490358fb.json"
+    },
+    {
+      "uuid": "547f72ae-7909-4a0a-b6a5-d1c92ee73b91",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_4908b410.json"
+    },
+    {
+      "uuid": "703cad86-0a6b-4e38-83f6-94edfde96ca0",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_4a2f55b2.json"
+    },
+    {
+      "uuid": "c8b2506a-f10a-49d7-ad03-f6ef18a37b3b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_4bdba602.json"
+    },
+    {
+      "uuid": "486c92f6-682b-49d0-941c-c7e51f7d4194",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_4c28844d.json"
+    },
+    {
+      "uuid": "e1ce235b-d93d-4dc8-92e1-39d2e4ad6786",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_4f23709d.json"
+    },
+    {
+      "uuid": "dbb8b134-f9aa-4670-b982-eec1872c1097",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_4fe6e71b.json"
+    },
+    {
+      "uuid": "abe6cea5-cc81-4aa9-b334-12603f26fab1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_50b5bf32.json"
+    },
+    {
+      "uuid": "facdf5ff-0346-4eb7-9873-372c793347dd",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_50c1d02c.json"
+    },
+    {
+      "uuid": "d36e5ff0-fc2e-4d75-a688-cc2b86de4d3f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_511b7f27.json"
+    },
+    {
+      "uuid": "b9c43ffd-8abd-4472-8d8f-d7ec5f26b5c1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_51c7fb81.json"
+    },
+    {
+      "uuid": "1e7ffc51-cf09-4de2-8415-fd1724fef1d5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_53b90a4f.json"
+    },
+    {
+      "uuid": "3a9ff6a3-0936-4d5f-8203-979491b0a831",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_57ee3315.json"
+    },
+    {
+      "uuid": "c7f0fb1a-266e-487c-b6b1-2d9a91a8115b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_588985e3.json"
+    },
+    {
+      "uuid": "deadca6a-927a-42cc-b3a6-23a939c9312c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_599fd544.json"
+    },
+    {
+      "uuid": "ef883e96-959b-488c-ac09-c62b25cb660d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_5ac56015.json"
+    },
+    {
+      "uuid": "002184a2-c30a-4fdb-a453-1533177f09ca",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_5ce58532.json"
+    },
+    {
+      "uuid": "ca0a5f78-bb19-44bb-8a51-e55d30f9821d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_5e5cdf88.json"
+    },
+    {
+      "uuid": "7055a9bf-6c39-4589-8975-296fa8acbe0f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_5f058a20.json"
+    },
+    {
+      "uuid": "99e426d0-85d9-4dc9-8bbf-1f833103103e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_5fb18fcc.json"
+    },
+    {
+      "uuid": "30dd8c71-2d93-49f8-bbce-cf1b13ae09e3",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_600394df.json"
+    },
+    {
+      "uuid": "c0c9f1b9-65ca-4997-9c5a-2b612476af82",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_604f12af.json"
+    },
+    {
+      "uuid": "c0c93ec8-705e-4119-bc07-771da2f6f778",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_60a3e82e.json"
+    },
+    {
+      "uuid": "bfd81ae2-4eaa-4765-905c-f052e2a22765",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_60ce3646.json"
+    },
+    {
+      "uuid": "26c82e34-6db3-4b06-937b-6439ded61741",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_626f381d.json"
+    },
+    {
+      "uuid": "7a274a7e-5a08-4517-9221-7ab2307ef806",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_63a1c21c.json"
+    },
+    {
+      "uuid": "7b36ef56-2155-4c5b-9f0a-a792d2f5edff",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_6512d0d4.json"
+    },
+    {
+      "uuid": "4a031e61-6cb5-4bf1-9106-3ff6766a6b64",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_6622ae18.json"
+    },
+    {
+      "uuid": "0139eaab-e85d-46c5-8f9f-d06e28d00323",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_667a281e.json"
+    },
+    {
+      "uuid": "b5c815d4-46f1-47a3-92b6-b0a4abd3c64b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_67275263.json"
+    },
+    {
+      "uuid": "f9e10f29-e972-4c41-ad2c-12e5da2b2fee",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_681fea8c.json"
+    },
+    {
+      "uuid": "736822bd-2c1c-4447-bf34-cd641e831862",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_6b2ea304.json"
+    },
+    {
+      "uuid": "c8b54647-1973-4bab-bd35-09d3072f929b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_6bd47c68.json"
+    },
+    {
+      "uuid": "86225d5e-1ba9-4c4f-a1c9-c0b5b6dc7579",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_6bd702e3.json"
+    },
+    {
+      "uuid": "239009ea-328c-4fcb-b2f9-9cd9e63251a8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_6d728eb6.json"
+    },
+    {
+      "uuid": "a9629d4d-3c67-43c6-984a-1265e63d45d2",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_6dd6be88.json"
+    },
+    {
+      "uuid": "5262717e-1607-4922-bae8-dce87ceab7a5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_6fbaa6f9.json"
+    },
+    {
+      "uuid": "451a2066-e511-451c-ab1d-028e1a585300",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_708b42e0.json"
+    },
+    {
+      "uuid": "aef810a6-6f94-43de-b9f6-b15b88af2384",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_71023416.json"
+    },
+    {
+      "uuid": "cda32277-8bf4-4a03-a6dc-0101399e31f5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_722c5d8d.json"
+    },
+    {
+      "uuid": "8b17d26d-f5ec-4f78-ac96-a5ba595b6651",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_7245a7d6.json"
+    },
+    {
+      "uuid": "60d56088-0b5c-4e7d-9f5c-8f1d84e81d2a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_725a6684.json"
+    },
+    {
+      "uuid": "96b0bfc8-3626-4b48-a901-9e8383c16d35",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_72e02873.json"
+    },
+    {
+      "uuid": "8864cac7-8dc7-4354-aa8d-bbb89a8ffb51",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_73398c89.json"
+    },
+    {
+      "uuid": "f943d064-9801-445b-8b19-1d8e667ad373",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_73cfa753.json"
+    },
+    {
+      "uuid": "066b94ec-5bb1-4104-8109-50b0e5c2932a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_73f4eaa0.json"
+    },
+    {
+      "uuid": "6e212112-a17e-4d43-b2c7-8785dbec8991",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_73f5675b.json"
+    },
+    {
+      "uuid": "cc16beeb-ce1a-4d9a-97e9-e13f2572935f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_7472fdd8.json"
+    },
+    {
+      "uuid": "af80088c-816b-420e-98bd-2d1e1b76b80c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_7613fbcb.json"
+    },
+    {
+      "uuid": "f898141e-f0c5-4934-9470-704d497ec79b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_763979f8.json"
+    },
+    {
+      "uuid": "261b8666-b875-4163-bf28-33f399a0a359",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_7810ca67.json"
+    },
+    {
+      "uuid": "7a84a8c5-9afb-4b17-9a13-9a7f1c32ce0e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_7991975a.json"
+    },
+    {
+      "uuid": "e981dad5-4c08-46f1-b97d-2c48c8519036",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_7b3d707d.json"
+    },
+    {
+      "uuid": "c821264f-0891-4c28-b1ef-557bb0336af3",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_7c7816a8.json"
+    },
+    {
+      "uuid": "8b5c295a-3932-4dfa-8de7-37b594ebc324",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_7d4348a9.json"
+    },
+    {
+      "uuid": "0f600454-4ca2-44e8-a93d-3e27a076296f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_7fc543f9.json"
+    },
+    {
+      "uuid": "6119f810-735f-4977-b5c4-baa194734b1c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_817cecfe.json"
+    },
+    {
+      "uuid": "e1f86b8c-9f6f-4e24-a4ab-b8e2e6eb9faa",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_83cde4e0.json"
+    },
+    {
+      "uuid": "174eab11-8062-4fec-9a83-898bada6a1d6",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_83e89c63.json"
+    },
+    {
+      "uuid": "10a1ab55-0bc4-49f1-b4fc-989d62e3ca25",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_843b3ca9.json"
+    },
+    {
+      "uuid": "e06a7d2e-e6be-49d5-be19-11635145a4a5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_846d7c54.json"
+    },
+    {
+      "uuid": "d5146977-f82d-4e01-86b4-9373812ba8e1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_86e76fd5.json"
+    },
+    {
+      "uuid": "c82e2d7c-470b-4f54-b384-740121020929",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_89a2a455.json"
+    },
+    {
+      "uuid": "4fa789b4-7ad9-4838-99cb-e6567c915d4f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_8bee5ecd.json"
+    },
+    {
+      "uuid": "9ef023aa-d421-4b32-aa68-2377d0c15e42",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_8ca621e8.json"
+    },
+    {
+      "uuid": "4d174184-ed6d-4224-9795-786ed5493f4c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_8d988f1a.json"
+    },
+    {
+      "uuid": "9a537800-1de6-4cc9-93f9-4a865feb39bb",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_904c95c0.json"
+    },
+    {
+      "uuid": "3650133c-5cd7-4932-9a3f-c0ed05a88a90",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_90f119c2.json"
+    },
+    {
+      "uuid": "86b21912-bc5f-4f98-a427-82a02b0ea918",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_91fcaa67.json"
+    },
+    {
+      "uuid": "42b9a217-8a18-4003-b25d-a7da0032af28",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_9665cf86.json"
+    },
+    {
+      "uuid": "df3d3e14-641a-42fa-935d-c15faec9c107",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_983a7f67.json"
+    },
+    {
+      "uuid": "5b84e215-f6ff-42a3-a944-85081c525de9",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_990806f2.json"
+    },
+    {
+      "uuid": "c640b19e-7a69-4c8c-ad06-0c58ac42514b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_993eed3a.json"
+    },
+    {
+      "uuid": "eb8dc25b-1cd9-4e64-9348-a33cb811dac8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_99a5d7c9.json"
+    },
+    {
+      "uuid": "24f3a0a5-fd14-48b9-83a6-9fc129a47335",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_99d20360.json"
+    },
+    {
+      "uuid": "08777c8f-834c-4135-94c2-1af35fbaaa96",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_9df2e999.json"
+    },
+    {
+      "uuid": "9636741a-3c0e-4284-9219-72e1678ffb93",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_9fe0bda8.json"
+    },
+    {
+      "uuid": "522ed5ac-7895-4b0d-b382-b101a251c9aa",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_a0210f78.json"
+    },
+    {
+      "uuid": "d255c647-12ce-4d50-92d9-318e3d3735e4",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_a377c607.json"
+    },
+    {
+      "uuid": "4cd032ac-ad00-467d-a6a8-0808cd882a57",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_a40286dc.json"
+    },
+    {
+      "uuid": "0d0a88a2-ad6a-4e20-bad1-05e529f5115c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_a4cc14ea.json"
+    },
+    {
+      "uuid": "c74562b3-b19f-40ee-a2b6-21d3fa6053c0",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_a8814caf.json"
+    },
+    {
+      "uuid": "0594b791-668e-4ef3-96dc-4cdbecd3414d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_a884fa42.json"
+    },
+    {
+      "uuid": "5783560d-33b9-4ece-88ea-47c5c4e5dc4b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_a96dd024.json"
+    },
+    {
+      "uuid": "2f5d4b2d-e259-4814-afb3-fb9ac7b19730",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_a9ed57b8.json"
+    },
+    {
+      "uuid": "6180e110-b59d-49f8-93ef-bdb109d10d7e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_aa39c7a0.json"
+    },
+    {
+      "uuid": "0232cf63-513a-4870-8834-a933f357bbf4",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_aae8b51a.json"
+    },
+    {
+      "uuid": "3572acd9-9a5c-4288-95fd-0fd3671c191c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_abc8245e.json"
+    },
+    {
+      "uuid": "5e37780d-8c6f-4c1e-9972-61cc8b06aaa2",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_afbea6cf.json"
+    },
+    {
+      "uuid": "11a4bbb2-d9c3-4447-9662-e8afec112d10",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b0cb5821.json"
+    },
+    {
+      "uuid": "0194bec5-e0a8-41df-8f3a-9f67495c779b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b0ce23e8.json"
+    },
+    {
+      "uuid": "59e0ed10-e48a-4b56-86f5-41cdaf8f3df3",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b1751df0.json"
+    },
+    {
+      "uuid": "6c77650a-33f6-4c4c-bd15-b8d17342b198",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b21bd5db.json"
+    },
+    {
+      "uuid": "08e00fad-d5ce-4e29-89bd-90df8a339661",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b4164e5b.json"
+    },
+    {
+      "uuid": "08b14125-1c2c-4569-8c79-800c63c8189d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b45b8450.json"
+    },
+    {
+      "uuid": "8fb6ab45-ca82-4dbd-942a-8fdd0c23cb76",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b46b9992.json"
+    },
+    {
+      "uuid": "83d17cdf-2315-46f6-80b9-d3c3a2b0a3b4",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b51aae86.json"
+    },
+    {
+      "uuid": "43aa95fa-e2db-49b4-87e5-15a5db710579",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b59d913c.json"
+    },
+    {
+      "uuid": "66d43f6f-e8a4-460e-af50-1a02df515591",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b6217461.json"
+    },
+    {
+      "uuid": "4c1d8e17-872e-4ee2-ad7e-e75841a52a98",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b8360d78.json"
+    },
+    {
+      "uuid": "3f444af3-2496-4b6c-8e41-c55fe22b023a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b8aa2dce.json"
+    },
+    {
+      "uuid": "9256fef2-df43-43e7-be58-59f0eb8eab32",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_b9d6ad58.json"
+    },
+    {
+      "uuid": "5c89d08e-0647-4b99-871c-2038a2900874",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_bb831cbf.json"
+    },
+    {
+      "uuid": "5c9aeee8-1afd-4468-8b99-a932346f31c9",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_bc5726c0.json"
+    },
+    {
+      "uuid": "819acd89-df33-468e-809b-49442f496948",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_bcef9522.json"
+    },
+    {
+      "uuid": "19ee2e62-b131-49d3-af7a-acd4026e8406",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_bdcf8974.json"
+    },
+    {
+      "uuid": "8ac67931-2aa8-49f3-a951-e6b49e03dd4b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_bddda439.json"
+    },
+    {
+      "uuid": "f8404d81-1e46-4e78-b26f-0a13444d9bad",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_bdebf52d.json"
+    },
+    {
+      "uuid": "f87c405f-4ae1-4a3e-95ad-26ffa4fc18c5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_be0cbae0.json"
+    },
+    {
+      "uuid": "2ebd5b81-bdea-4e13-854c-cd23bf58d706",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_becb63e1.json"
+    },
+    {
+      "uuid": "a8da3978-7710-4e31-b0c7-0536ef28e678",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_bfa9c4c0.json"
+    },
+    {
+      "uuid": "41464bfd-9f2d-4287-a23a-318eda47d6be",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c0a13741.json"
+    },
+    {
+      "uuid": "231ad26d-d57b-48d8-b64f-1b576da3c9a1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c14a316c.json"
+    },
+    {
+      "uuid": "34b505ba-2a8f-4ad9-bba4-c8af849adb0d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c1582a2c.json"
+    },
+    {
+      "uuid": "15502947-d104-4400-86a9-52c74e8dea0f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c344ddd0.json"
+    },
+    {
+      "uuid": "6b968e29-7059-4dcb-bc48-0fee972f2542",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c451135c.json"
+    },
+    {
+      "uuid": "6823c928-21d9-4dec-b5d2-3b9ee9c961df",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c5acc369.json"
+    },
+    {
+      "uuid": "74cbc64c-4999-464c-ad4c-747ead87957a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c6012160.json"
+    },
+    {
+      "uuid": "7c975e2b-9101-4f3f-be57-d62d85074796",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c6e664f4.json"
+    },
+    {
+      "uuid": "28d9027b-2db8-4eb5-b5ac-9bd50bf41341",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c6fe710a.json"
+    },
+    {
+      "uuid": "a2a90d61-1000-4c26-a091-f14a6913fa7c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c775c599.json"
+    },
+    {
+      "uuid": "d03b291e-0827-4538-9674-f1013bc67377",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c8bf6853.json"
+    },
+    {
+      "uuid": "f6040eea-cb9a-4833-a402-9d38c97a3f75",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_c9252d57.json"
+    },
+    {
+      "uuid": "5954b8fd-c019-4e1c-bcf2-99cbdf227bc7",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ca6158aa.json"
+    },
+    {
+      "uuid": "5e3d037e-843c-4d17-95dd-5715ddd3d96b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_cbcdf9f4.json"
+    },
+    {
+      "uuid": "89fada80-c39b-4c0f-85e9-22814bafc590",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ce3f648e.json"
+    },
+    {
+      "uuid": "941ad2f8-5275-4bba-9c83-2af7e559e424",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ced48fc6.json"
+    },
+    {
+      "uuid": "45f013e0-2446-46c3-ac1a-71134a07ba45",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_cee7bd1f.json"
+    },
+    {
+      "uuid": "16065266-5c5e-4862-a819-a76707e7c1e8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_cf3ea2fc.json"
+    },
+    {
+      "uuid": "e0ca69ee-65a5-43d6-a0e0-bf300dff688c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d09531f6.json"
+    },
+    {
+      "uuid": "049db076-02b6-480d-9088-c29b09b2682d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d270d4b0.json"
+    },
+    {
+      "uuid": "731231fd-5177-416a-9981-d56f58417cf6",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d3426ecb.json"
+    },
+    {
+      "uuid": "dc79c61d-6ffa-4abf-bcf3-17727fd5041b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d3ef774f.json"
+    },
+    {
+      "uuid": "1ebee8ee-2d07-491b-a41e-794a7ecf4e64",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d4101634.json"
+    },
+    {
+      "uuid": "403c3a31-3eba-4175-b134-91d744c911f7",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d5ac6520.json"
+    },
+    {
+      "uuid": "e83e6468-ca3c-44cd-a5cc-04c487ed1654",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d745d34d.json"
+    },
+    {
+      "uuid": "4fcb220a-c903-4f2d-92fd-ff417f0328de",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d7eb03ad.json"
+    },
+    {
+      "uuid": "c36fc0fc-2a43-4a6c-93cb-15895bf8a62b",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d85442dc.json"
+    },
+    {
+      "uuid": "61593e4d-40f1-4899-91aa-430488c3d50e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_d9332d5d.json"
+    },
+    {
+      "uuid": "8bad3b0b-89b3-44a8-9185-5104d2984011",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_da59b995.json"
+    },
+    {
+      "uuid": "d2e0013c-8edc-45bd-82b8-ccd59a6033e5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_dadcf2f8.json"
+    },
+    {
+      "uuid": "440ba471-bb3a-403f-8ab9-c61c0789bcdb",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_db91da08.json"
+    },
+    {
+      "uuid": "cc3418f0-2434-4e1c-8da8-89fdd7401f47",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_dc24201b.json"
+    },
+    {
+      "uuid": "34321733-ffa8-4e70-ac39-be219023b845",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_dc669b2c.json"
+    },
+    {
+      "uuid": "18622dd5-7786-4483-bef1-37fa91ad31c5",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_de962b52.json"
+    },
+    {
+      "uuid": "38bde79f-20f2-4b97-86e6-a660ba683987",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_e06235d0.json"
+    },
+    {
+      "uuid": "b7343b46-37b6-4a5e-8c35-3bd9ef6d8493",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_e0aa81ac.json"
+    },
+    {
+      "uuid": "c82fb80d-9fbe-46b3-99da-534e7770222a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_e25421fd.json"
+    },
+    {
+      "uuid": "117e2d33-ce98-4e3f-b67f-fb37ab7a8867",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_e2db2cfb.json"
+    },
+    {
+      "uuid": "41c03f01-9ea7-4d34-aa79-3f32538dd59f",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_e49afcf9.json"
+    },
+    {
+      "uuid": "76535e3e-dbb5-469a-91ee-d15c69c8dc87",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_e5827a1c.json"
+    },
+    {
+      "uuid": "f7849949-e195-4df3-adb8-075d55f12658",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_e8a97a92.json"
+    },
+    {
+      "uuid": "e4c254f7-41f9-42a5-924e-2a7c3f816436",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ea2e2c08.json"
+    },
+    {
+      "uuid": "9dd04da5-9008-4ac3-b4c3-adb4eebb5c8c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_eab99ead.json"
+    },
+    {
+      "uuid": "ec72d062-3c9b-4cb2-a6c4-391ef4b472c2",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_eb720a14.json"
+    },
+    {
+      "uuid": "38ad1665-897f-4f0c-bf1d-7b9f5b0195c9",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_eb926f93.json"
+    },
+    {
+      "uuid": "2faa657e-197d-4103-9892-c65f755fc58c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ebad86b8.json"
+    },
+    {
+      "uuid": "9917137e-9fa2-45ed-80df-98c776a051d1",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ebdf4005.json"
+    },
+    {
+      "uuid": "5a70dc0e-ef08-49d7-9279-fedcad796676",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ec445ab6.json"
+    },
+    {
+      "uuid": "944672d3-8cfb-4132-9c51-f6f5461e78a6",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ec59aee6.json"
+    },
+    {
+      "uuid": "5016f1f4-9afd-451b-b36d-eaf30942c472",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ec6dcbe8.json"
+    },
+    {
+      "uuid": "098f389b-c46d-4164-80cc-7f6ccd9d77c4",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_eda53035.json"
+    },
+    {
+      "uuid": "44dbbc2f-a764-4ea3-b608-7e0db17f4bd4",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_edd6adb4.json"
+    },
+    {
+      "uuid": "10295102-6ecf-4cf5-9b79-d4940fe04484",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ee7cce79.json"
+    },
+    {
+      "uuid": "dfd891b0-a31b-48f0-953a-bf3f21462594",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_eecb39a9.json"
+    },
+    {
+      "uuid": "ade5c838-6435-4e97-934b-705821cd4d0c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ef2a2aa8.json"
+    },
+    {
+      "uuid": "23cada8e-962e-48ac-ae35-38658ce5040c",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f13d8390.json"
+    },
+    {
+      "uuid": "520a62a2-c3b7-47d9-a35e-9a55c9281288",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f1a53b25.json"
+    },
+    {
+      "uuid": "fadf95f9-667c-4d49-8a82-88a9b3797287",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f2289f72.json"
+    },
+    {
+      "uuid": "9e17739a-f6bc-49e8-84f5-8373129d0c64",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f22acbb3.json"
+    },
+    {
+      "uuid": "619d078a-2a25-4600-9088-542cdbca8672",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f294d6aa.json"
+    },
+    {
+      "uuid": "2f48794e-93f4-4dcd-bad8-1bcc0f779fc7",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f2d40ff7.json"
+    },
+    {
+      "uuid": "8502f34a-25e8-4656-9d71-e97f11ac9396",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f329fbed.json"
+    },
+    {
+      "uuid": "fbe4e2a6-fe13-4d28-a7a9-f97930601581",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f36a2aa5.json"
+    },
+    {
+      "uuid": "fcf60582-1910-436a-ae1e-04e729bfec18",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f438fa5b.json"
+    },
+    {
+      "uuid": "91f5e2d8-ef1d-49d7-be41-1a705c2c0f28",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f50a3f0e.json"
+    },
+    {
+      "uuid": "7eb3da26-72d2-4014-b2a2-0dc4ea06ae14",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f5c3d677.json"
+    },
+    {
+      "uuid": "795bb2cf-5d0f-493c-92af-24b0b58f1053",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f894d5a1.json"
+    },
+    {
+      "uuid": "98037f50-bd71-41c9-aec0-cc1c33f94ffe",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f8adf419.json"
+    },
+    {
+      "uuid": "6cf0043c-c5a6-4daf-8a5b-3380e1173cb2",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f9d46680.json"
+    },
+    {
+      "uuid": "f6814cfb-224e-4ad3-bdbb-67c738e5c067",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_f9d74f9e.json"
+    },
+    {
+      "uuid": "6f69a4f7-9958-4277-a2ab-f419b8f40b0d",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fa6a8402.json"
+    },
+    {
+      "uuid": "12ac50b7-f325-4c24-825c-1c8ef2197894",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fa7a7c95.json"
+    },
+    {
+      "uuid": "ef77fe82-c556-466b-8cc7-72eeb1968e89",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fb744470.json"
+    },
+    {
+      "uuid": "97b10631-1c9c-4e53-8f0a-451e491b9e56",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fbf2883a.json"
+    },
+    {
+      "uuid": "7b262273-1fb6-470a-8316-6108c8269165",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fc01e7b6.json"
+    },
+    {
+      "uuid": "dccaf8e1-274f-4215-aa4b-00d6c5277b51",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fc2521d0.json"
+    },
+    {
+      "uuid": "ff3617ed-d4f1-4414-b401-d461df0b0001",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fc58ed92.json"
+    },
+    {
+      "uuid": "ac18e1d9-4b73-479b-9e83-af186814d624",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fd8ab585.json"
+    },
+    {
+      "uuid": "a649c939-7b59-4176-bd04-d4137c2fb3a0",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fdf73be1.json"
+    },
+    {
+      "uuid": "4164931c-6631-449f-b6f6-d3a24e61fcc7",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fe0a94fe.json"
+    },
+    {
+      "uuid": "b0abb475-f516-4ef4-a71d-d92960e0bcfd",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_fe4ae300.json"
+    },
+    {
+      "uuid": "7a448380-b701-486e-9880-5f84c1c1109e",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\distribution_box\\顺德万象汇地上部分深化图20231201_ff4ad1f4.json"
+    }
+  ]
+}

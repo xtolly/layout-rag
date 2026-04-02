@@ -1,5 +1,5 @@
 """
-布局优化器 —— 基于模板映射 + CP-SAT 约束求解的电气柜元件自动排版。
+布局优化器 —— 基于模板映射 + CP-SAT 约束求解的元件自动排版。
 
 整体流程分为 **坐标映射** 和 **约束求解** 两个阶段：
 
@@ -29,48 +29,59 @@ import math
 from collections import defaultdict
 from ortools.sat.python import cp_model
 
+from layout_rag.domain.base import BusinessDomain
+
 
 # ---------------------------------------------------------------------------
 # 权重常量：数值越大，求解器越倾向保持该元件的期望位置不变。
 # ---------------------------------------------------------------------------
-WEIGHT_PRIMARY = 1000   # 主模板精确映射
-WEIGHT_FALLBACK = 120   # 备选模板补位
-WEIGHT_CURSOR = 10      # 同类型游标续排
-WEIGHT_CURSOR_REL = 200 # 游标元件相对锚点的位置约束（解决锚点被挤走后游标脱节）
-WEIGHT_DEFAULT = 5      # 无参考兜底
-
-# 默认面板尺寸 (mm)，当模板或项目数据缺失时使用。
-_DEFAULT_PANEL_SIZE = [600, 1600]
+WEIGHT_PRIMARY    = 1000   # 主模板精确映射
+WEIGHT_FALLBACK   = 120    # 备选模板补位
+WEIGHT_CURSOR     = 10     # 同类型游标续排
+WEIGHT_CURSOR_REL = 200    # 游标元件相对锚点的位置约束（解决锚点被挤走后游标脱节）
+WEIGHT_DEFAULT    = 5      # 无参考兜底
 
 
 class LayoutOptimizer:
     """
-    电气柜面板布局优化器。
+    通用面板布局优化器。
 
     将参考模板的排版方案迁移到当前项目：先将模板中同类型、尺寸相近的元件坐标
     映射到当前面板，再通过 CP-SAT 约束求解器在满足不重叠和边距约束的前提下，
     求出与期望位置偏差最小的最终布局。
 
+    业务相关的约束参数（边距、间距、Y 轴惩罚、求解超时等）
+    统一由外部传入，不在此类中硬编码。
+
     Args:
+        domain:          业务领域实例，提供默认面板尺寸等配置。
         precision_scale: 浮点坐标转整数的缩放因子（CP-SAT 仅支持整数）。
-                         默认 1.0 表示精度 1mm。
+                         默认 1 表示精度 1mm。
         margin:          面板四周保留的最小边距 (mm)。
         element_gap:     任意两个元件之间的最小间距 (mm)。
         y_penalty:       Y 轴偏移的惩罚倍数。>1 时让求解器优先水平位移而非垂直位移，
                          使同一行的元件尽量保持在同一水平线上。
+        solver_time_limit:  CP-SAT 求解超时时间（秒）。
+        solver_num_workers: CP-SAT 并行线程数。
     """
 
     def __init__(
         self,
-        precision_scale: int = 1,
-        margin: float = 10.0,
-        element_gap: float = 0,
-        y_penalty: int = 10,
+        domain: BusinessDomain,
+        precision_scale: int   = 1,
+        margin: float          = 10.0,
+        element_gap: float     = 0.0,
+        y_penalty: int         = 10,
+        solver_time_limit: float = 20.0,
+        solver_num_workers: int  = 8,
     ):
+        self.domain = domain
         self.scale = precision_scale
         self.margin = margin
         self.element_gap = element_gap
         self.y_penalty = y_penalty
+        self.solver_time_limit = solver_time_limit
+        self.solver_num_workers = solver_num_workers
 
     # ===================================================================
     #  公共方法
@@ -94,11 +105,12 @@ class LayoutOptimizer:
         Returns:
             更新了 ``arrange`` 字段的 project_data。
         """
+        default_panel = self.domain.default_panel_size
         curr_parts = project_data.get("meta", {}).get("parts", [])
-        curr_size = project_data.get("meta", {}).get("panel_size", _DEFAULT_PANEL_SIZE)
-        tpl_parts = template_data.get("meta", {}).get("parts", [])
+        curr_size  = project_data.get("meta", {}).get("panel_size", default_panel)
+        tpl_parts  = template_data.get("meta", {}).get("parts", [])
         tpl_arrange = template_data.get("arrange", {})
-        tpl_size = template_data.get("meta", {}).get("panel_size", _DEFAULT_PANEL_SIZE)
+        tpl_size   = template_data.get("meta", {}).get("panel_size", default_panel)
 
         # 坐标缩放因子：模板面板 → 当前面板
         scale_x, scale_y = self._compute_scale(curr_size, tpl_size)
@@ -159,7 +171,7 @@ class LayoutOptimizer:
             reverse=True,
         )
 
-        matched: list[dict] = []
+        matched: list[dict]  = []
         unmatched: list[dict] = []
         used_tpl_ids: set[str] = set()
 
@@ -167,7 +179,6 @@ class LayoutOptimizer:
             part_type = cp["part_type"]
             cw, ch = cp.get("part_size", [0, 0])
 
-            # 在同类型模板元件中找尺寸最接近的
             best_tp = self._find_best_match(
                 cw, ch, tpl_by_type.get(part_type, []), used_tpl_ids,
             )
@@ -180,7 +191,7 @@ class LayoutOptimizer:
                 info["target_x"] = self._clamp_target(arrange["position"][0] * scale_x, cw, panel_size[0])
                 info["target_y"] = self._clamp_target(arrange["position"][1] * scale_y, ch, panel_size[1])
                 info["rotation"] = arrange.get("rotation", 0)
-                info["weight"] = WEIGHT_PRIMARY
+                info["weight"]   = WEIGHT_PRIMARY
                 matched.append(info)
             else:
                 unmatched.append(info)
@@ -206,15 +217,13 @@ class LayoutOptimizer:
           - 若主模板中已有同类型锚点 → 游标续排（向右追加，溢出折行）
           - 都没有 → 放到面板底部边距内兜底
         """
-        # 按类型索引已匹配元件，作为游标续排的锚点参考
         anchors_by_type: dict[str, list[dict]] = defaultdict(list)
         for p in matched:
             anchors_by_type[p["type"]].append(p)
         primary_types = set(anchors_by_type.keys())
 
-        placement_cursors: dict[str, dict] = {}     # anchor_id → {x, y, row_max_h} 游标位置
+        placement_cursors: dict[str, dict] = {}
 
-        # 按类型排序，确保同类型元件连续处理，从而链式复用同一个游标
         for part in sorted(unmatched, key=lambda p: p["type"]):
             ptype = part["type"]
 
@@ -226,7 +235,7 @@ class LayoutOptimizer:
                     part["target_x"] = self._clamp_target(candidate["target_x"], part["w"], panel_size[0])
                     part["target_y"] = self._clamp_target(candidate["target_y"], part["h"], panel_size[1])
                     part["rotation"] = candidate.get("rotation", 0)
-                    part["weight"] = WEIGHT_FALLBACK
+                    part["weight"]   = WEIGHT_FALLBACK
                     matched.append(part)
                     anchors_by_type[ptype].append(part)
                     continue
@@ -242,7 +251,7 @@ class LayoutOptimizer:
             # ── 优先级 4：默认兜底 ──
             part["target_x"] = self.margin
             part["target_y"] = max(self.margin, panel_size[1] - part["h"] - self.margin)
-            part["weight"] = WEIGHT_DEFAULT
+            part["weight"]   = WEIGHT_DEFAULT
             matched.append(part)
             anchors_by_type[ptype].append(part)
 
@@ -258,16 +267,13 @@ class LayoutOptimizer:
         """
         沿同类型元件最密集的聚簇向右续排，X 溢出时折行，Y 溢出时钳位到底部。
 
-        锚点选择策略（解决 "多余元件应和同类型放一起" 的问题）：
-          1. 优先复用已有游标中尺寸最接近的 —— 若之前已有同类型锚点创建了游标，
-             选尺寸最接近当前元件的那个游标追加，使大元件跟大锚点、小元件跟小锚点。
-          2. 若无已有游标，选择所在行同类型邻居最多的锚点（最密集聚簇），
-             同等密度时选尺寸最接近的，避免多余元件散落到不相关的位置。
+        锚点选择策略：
+          1. 优先复用已有游标中尺寸最接近的。
+          2. 若无已有游标，选择所在行同类型邻居最多的锚点（最密集聚簇）。
 
         游标结构 {x, y, row_max_h}：
-          - x, y: 下一个元件的放置坐标
-          - row_max_h: 当前行已放置元件（含锚点）的最大物理高度，
-                       折行时用它递增 Y，避免与高矮不一的元件重叠。
+          - x, y:       下一个元件的放置坐标
+          - row_max_h:  当前行已放置元件的最大物理高度，折行时用它递增 Y。
         """
         part_pw, part_ph = self._physical_size(part["w"], part["h"], part.get("rotation", 0))
 
@@ -290,36 +296,35 @@ class LayoutOptimizer:
             active_anchor["w"], active_anchor["h"], active_anchor.get("rotation", 0),
         )
 
-        # 初始化游标：锚点右侧边缘开始，row_max_h 设为锚点高度
+        # 初始化游标：锚点右侧边缘开始
         if anchor_id not in cursors:
             cursors[anchor_id] = {
-                "x": active_anchor["target_x"] + anchor_pw,
-                "y": active_anchor["target_y"],
+                "x":         active_anchor["target_x"] + anchor_pw,
+                "y":         active_anchor["target_y"],
                 "row_max_h": anchor_ph,
             }
 
         cursor = cursors[anchor_id]
         x, y = cursor["x"], cursor["y"]
 
-        # X 溢出 → 折行：Y 递增当前行最大高度
+        # X 溢出 → 折行
         if x + part_pw > panel_size[0] - self.margin:
             x = self.margin
             y += cursor["row_max_h"] + self.element_gap
-            cursor["row_max_h"] = 0  # 新行重置
+            cursor["row_max_h"] = 0
 
         # Y 溢出 → 钳位到面板底部可行域
         if y + part_ph > panel_size[1] - self.margin:
             y = max(self.margin, panel_size[1] - part_ph - self.margin)
 
-        part["target_x"] = x
-        part["target_y"] = y
-        part["anchor_id"] = anchor_id
+        part["target_x"]       = x
+        part["target_y"]       = y
+        part["anchor_id"]      = anchor_id
         part["anchor_offset_x"] = x - active_anchor["target_x"]
         part["anchor_offset_y"] = y - active_anchor["target_y"]
 
-        # 推进游标，更新当前行最大高度
-        cursor["x"] = x + part_pw
-        cursor["y"] = y
+        cursor["x"]         = x + part_pw
+        cursor["y"]         = y
         cursor["row_max_h"] = max(cursor["row_max_h"], part_ph)
 
     def _find_cluster_anchor(
@@ -330,9 +335,6 @@ class LayoutOptimizer:
     ) -> dict:
         """
         在同类型锚点中，选择位于最密集水平行的那个。
-
-        通过统计每个锚点在 Y 方向上的同类邻居数量来判断聚簇密度，
-        优先选邻居最多的（最大聚簇），同等密度时选尺寸最接近的。
         """
         if len(same_type_anchors) <= 1:
             return same_type_anchors[0]
@@ -345,14 +347,12 @@ class LayoutOptimizer:
         y_tolerance = max(part_ph, panel_h * 0.03, 10.0)
 
         best = candidates[0]
-        best_neighbors = -1
-        best_size_diff = math.inf
+        best_neighbors  = -1
+        best_size_diff  = math.inf
 
         for anchor in candidates:
             ay = anchor["target_y"]
-            neighbors = sum(
-                1 for a in candidates if abs(a["target_y"] - ay) <= y_tolerance
-            )
+            neighbors = sum(1 for a in candidates if abs(a["target_y"] - ay) <= y_tolerance)
             size_diff = (part["w"] - anchor["w"]) ** 2 + (part["h"] - anchor["h"]) ** 2
 
             if neighbors > best_neighbors or (
@@ -380,10 +380,9 @@ class LayoutOptimizer:
         模型设计：
           • 变量：每个元件的 (x, y) 左上角坐标
           • 硬约束：
-            - 边距约束：x ∈ [margin, panel_w - w - margin]，y 同理
-            - 不重叠：通过 NoOverlap2D 保证膨胀后的矩形（含 element_gap）不交叉
-          • 目标函数：最小化 ∑ weight_i * (|x_i - tx_i| + y_penalty * |y_i - ty_i|)
-            用 L1 范数代替 L2 以保持线性可解性。
+            - 边距：x ∈ [margin, panel_w - w - margin]，y 同理
+            - 不重叠：NoOverlap2D（膨胀矩形含 element_gap）
+          • 目标：最小化 ∑ weight_i * (|x_i - tx_i| + y_penalty * |y_i - ty_i|)
 
         Raises:
             ValueError: 面板尺寸不足以放下所有元件时抛出。
@@ -391,15 +390,15 @@ class LayoutOptimizer:
         model = cp_model.CpModel()
 
         margin_s = int(self.margin * self.scale)
-        gap_s = int(self.element_gap * self.scale)
-        max_x_s = int(panel_w * self.scale)
-        max_y_s = int(panel_h * self.scale)
+        gap_s    = int(self.element_gap * self.scale)
+        max_x_s  = int(panel_w * self.scale)
+        max_y_s  = int(panel_h * self.scale)
 
-        x_vars: dict[str, cp_model.IntVar] = {}
-        y_vars: dict[str, cp_model.IntVar] = {}
+        x_vars:      dict[str, cp_model.IntVar] = {}
+        y_vars:      dict[str, cp_model.IntVar] = {}
         x_intervals: list[cp_model.IntervalVar] = []
         y_intervals: list[cp_model.IntervalVar] = []
-        cost_terms: list = []
+        cost_terms:  list = []
 
         for p in all_parts:
             pid = p["id"]
@@ -407,7 +406,6 @@ class LayoutOptimizer:
             w_s = int(pw * self.scale)
             h_s = int(ph * self.scale)
 
-            # ── 变量域 ──
             x_lo, x_hi = margin_s, max(margin_s, max_x_s - w_s - margin_s)
             y_lo, y_hi = margin_s, max(margin_s, max_y_s - h_s - margin_s)
 
@@ -421,20 +419,16 @@ class LayoutOptimizer:
             x_vars[pid] = x
             y_vars[pid] = y
 
-            # ── 膨胀 Interval（实现元件间距）──
             x_intervals.append(model.NewIntervalVar(x, w_s + gap_s, x + w_s + gap_s, f"xi_{pid}"))
             y_intervals.append(model.NewIntervalVar(y, h_s + gap_s, y + h_s + gap_s, f"yi_{pid}"))
 
-            # ── 目标项：加权 L1 距离 ──
             tx = min(max(int(p["target_x"] * self.scale), x_lo), x_hi)
             ty = min(max(int(p["target_y"] * self.scale), y_lo), y_hi)
             w_coeff = p["weight"]
 
-            # Hint 引导求解初值，加速收敛
             model.AddHint(x, tx)
             model.AddHint(y, ty)
 
-            # |x - tx| 的线性化：dx >= x - tx, dx >= tx - x
             dx = model.NewIntVar(0, max_x_s, f"dx_{pid}")
             dy = model.NewIntVar(0, max_y_s, f"dy_{pid}")
             model.Add(dx >= x - tx)
@@ -445,7 +439,7 @@ class LayoutOptimizer:
             cost_terms.append(w_coeff * dx)
             cost_terms.append(w_coeff * dy * self.y_penalty)
 
-            # ── 相对位置约束：游标元件跟随锚点移动 ──
+            # 游标元件跟随锚点移动约束
             anchor_id = p.get("anchor_id")
             if anchor_id and anchor_id in x_vars:
                 expected_ox = int(p["anchor_offset_x"] * self.scale)
@@ -463,14 +457,12 @@ class LayoutOptimizer:
                 cost_terms.append(WEIGHT_CURSOR_REL * rel_dx)
                 cost_terms.append(WEIGHT_CURSOR_REL * rel_dy * self.y_penalty)
 
-        # ── 全局约束 ──
         model.AddNoOverlap2D(x_intervals, y_intervals)
 
-        # ── 求解 ──
         model.Minimize(cp_model.LinearExpr.Sum(cost_terms))
         solver = cp_model.CpSolver()
-        solver.parameters.max_time_in_seconds = 20.0
-        solver.parameters.num_workers = 8
+        solver.parameters.max_time_in_seconds = self.solver_time_limit
+        solver.parameters.num_workers         = self.solver_num_workers
         status = solver.Solve(model)
 
         if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
@@ -490,7 +482,7 @@ class LayoutOptimizer:
         }
 
     # ===================================================================
-    #  内部工具方法
+    #  内部工具方法（业务无关）
     # ===================================================================
 
     @staticmethod
@@ -514,18 +506,16 @@ class LayoutOptimizer:
         """
         衡量两个元件的尺寸差异度（越小越匹配）。
 
-        使用归一化相对误差，使不同绝对尺寸的元件之间可以公平比较：
-          1. 宽高的相对误差平方和 — 惩罚尺寸偏离
-          2. 宽高比差的平方 — 惩罚形状差异，防止面积接近但形状迥异的误匹配
-
-        两项权重通过 ratio_weight 平衡，默认 4.0 表示形状一致性略重于尺寸接近度。
+        使用归一化相对误差 + 宽高比差的加权组合：
+          - 宽高的相对误差平方和 — 惩罚尺寸偏离
+          - 宽高比差的平方 — 惩罚形状差异
         """
         base_w = max(abs(tpl_w), abs(curr_w), 1.0)
         base_h = max(abs(tpl_h), abs(curr_h), 1.0)
         rel_size_sq = ((curr_w - tpl_w) / base_w) ** 2 + ((curr_h - tpl_h) / base_h) ** 2
 
         curr_ratio = curr_w / curr_h if curr_h > 0 else 1.0
-        tpl_ratio = tpl_w / tpl_h if tpl_h > 0 else 1.0
+        tpl_ratio  = tpl_w  / tpl_h  if tpl_h  > 0 else 1.0
         ratio_diff_sq = (curr_ratio - tpl_ratio) ** 2
 
         ratio_weight = 4.0
@@ -543,10 +533,10 @@ class LayoutOptimizer:
         """从原始 part dict 构建内部标准化的 part_info 字典。"""
         cw, ch = cp.get("part_size", [0, 0])
         return {
-            "id": cp["part_id"],
-            "type": cp["part_type"],
-            "w": cw,
-            "h": ch,
+            "id":       cp["part_id"],
+            "type":     cp["part_type"],
+            "w":        cw,
+            "h":        ch,
             "rotation": 0,
         }
 
@@ -575,18 +565,17 @@ class LayoutOptimizer:
         curr_size: list[float],
     ) -> dict[str, list[dict]]:
         """
-        将备选模板按 part_type 建立索引。
-
-        每个候选包含等比缩放后的 target 坐标，用于在主模板缺失该类型时提供参考位置。
+        将备选模板按 part_type 建立索引，坐标等比缩放到当前面板。
         """
+        default_panel = self.domain.default_panel_size
         index: dict[str, list[dict]] = defaultdict(list)
 
         for tpl in fallback_templates:
-            tpl_parts = tpl.get("meta", {}).get("parts", [])
+            tpl_parts  = tpl.get("meta", {}).get("parts", [])
             tpl_arrange = tpl.get("arrange", {})
-            tpl_size = tpl.get("meta", {}).get("panel_size", _DEFAULT_PANEL_SIZE)
-            sx, sy = self._compute_scale(curr_size, tpl_size)
-            tpl_uuid = tpl.get("uuid", "")
+            tpl_size   = tpl.get("meta", {}).get("panel_size", default_panel)
+            sx, sy     = self._compute_scale(curr_size, tpl_size)
+            tpl_uuid   = tpl.get("uuid", "")
 
             for tp in tpl_parts:
                 part_id = tp.get("part_id")
@@ -597,8 +586,8 @@ class LayoutOptimizer:
                 tw, th = tp.get("part_size", [0, 0])
                 index[tp.get("part_type")].append({
                     "candidate_id": f"{tpl_uuid}:{part_id}",
-                    "w": tw,
-                    "h": th,
+                    "w":        tw,
+                    "h":        th,
                     "target_x": self._clamp_target(arrange["position"][0] * sx, tw, curr_size[0]),
                     "target_y": self._clamp_target(arrange["position"][1] * sy, th, curr_size[1]),
                     "rotation": arrange.get("rotation", 0),
@@ -609,11 +598,9 @@ class LayoutOptimizer:
     @staticmethod
     def _find_best_fallback_candidate(
         part: dict,
-        candidates: list[dict]
+        candidates: list[dict],
     ) -> dict | None:
-        """
-        从备选模板候选中找尺寸最接近的。
-        """
+        """从备选模板候选中找尺寸最接近的。"""
         best, best_diff = None, math.inf
         for c in candidates:
             diff = LayoutOptimizer._compute_match_diff(part["w"], part["h"], c["w"], c["h"])

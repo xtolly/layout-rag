@@ -44,7 +44,7 @@ def _write_layout(file_path: Path, layout: dict) -> None:
 
 @pytest.fixture()
 def sample_layout_dataset(tmp_path: Path) -> dict:
-    data_dir = tmp_path / "layouts"
+    data_dir = tmp_path / "templates"
     data_dir.mkdir()
 
     layout_a = _make_layout(

@@ -12,7 +12,7 @@
 
 ## 功能概览
 
-- 布局样本建库：扫描 data/layouts 下的历史布局 JSON，提取特征并构建向量库
+- 布局样本建库：扫描 templates 下的历史布局 JSON，提取特征并构建向量库
 - 相似模板推荐：按照连续特征、计数特征、布尔特征的加权距离进行召回排序
 - 模板布局迁移：优先匹配同类型且尺寸最接近的元件坐标
 - 兜底布局求解：对无法直接映射的元件使用备选模板、游标续排和 CP-SAT 约束求解
@@ -45,7 +45,7 @@ layout-rag/
 |   `-- test_retrieval.py
 |-- data/
 |   |-- box/
-|   `-- layouts/
+|-- templates/
 |-- vecdb/
 |   |-- vector_store.json
 |   `-- vector_store.json.npz
@@ -62,7 +62,8 @@ layout-rag/
 - src/layout_rag：应用源码，按 api / services / core 分层
 - scripts：一次性或运维类脚本
 - tests：测试与检索验证脚本
-- data：原始样本与布局 JSON 数据集
+- data：原始样本
+- templates：布局 JSON 数据集
 - vecdb：生成的向量库产物
 - static：前端静态资源
 
@@ -73,7 +74,7 @@ layout-rag/
 FeatureExtractor 从布局 JSON 的 meta 节点提取两类特征：
 
 - 固定特征：面板尺寸、元件数量、面积、宽高统计、结构布尔特征
-- 动态特征：按 data/layouts 中出现过的 part_type、cabinet_type、panel_type 自动扩展
+- 动态特征：按 templates 中出现过的 part_type、cabinet_type、panel_type 自动扩展
 
 动态特征定义位于 src/layout_rag/config.py。每次新增数据类型或调整 schema 后，都应重新建库。
 
@@ -106,7 +107,7 @@ LayoutOptimizer 的流程如下：
 
 ## 数据格式
 
-历史布局样本位于 data/layouts，基本结构如下：
+历史布局样本位于 templates，基本结构如下：
 
 ```json
 {
@@ -258,7 +259,7 @@ uv run pytest tests/test_retrieval.py
 ## 开发建议
 
 - 修改 src/layout_rag/config.py 中的 schema 或动态特征逻辑后，必须重建 vecdb/vector_store.json
-- 如果新增了 part_type、cabinet_type 或 panel_type，建库前先确保样本 JSON 已落到 data/layouts
+- 如果新增了 part_type、cabinet_type 或 panel_type，建库前先确保样本 JSON 已落到 templates
 - vecdb 目录下的向量库属于构建产物，建议在数据或特征变化后重新生成
 - 当前前端为静态页面，适合原型验证；如果后续演进，可将 static 独立为单独前端工程
 

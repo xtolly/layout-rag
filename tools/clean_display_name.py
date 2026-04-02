@@ -19,7 +19,7 @@ def main():
     print("开始清理冗余配置字段...")
     
     # 1. 处理布局 JSON 文件夹
-    data_dir = r"d:\Documents\Code\ai\layout-rag\data\layouts"
+    data_dir = r"d:\Documents\Code\ai\layout-rag\templates"
     json_files = glob.glob(os.path.join(data_dir, "*.json"))
     
     modified_count = 0
