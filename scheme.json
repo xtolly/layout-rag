@@ -1,0 +1,35 @@
+{
+    "cabinets": [
+        {
+            "cabinet_id": "uuid",
+            "order": 1,
+            "cabinet_name": "柜编号",
+            "cabinet_use": "进线柜/出线柜/电容补偿柜/计量柜/联络柜",
+            "cabinet_model": "GCK/GCS/MNS/GGD",
+            "wiring_method": "上进上出/上进下出/下进上出/下进下出",
+            "cabinet_width": 800,
+            "cabinet_height": 2200,
+            "panels": [
+                {
+                    "panel_id": "uuid",
+                    "order": 1,
+                    "panel_type": "默认面板/抽屉面板",
+                    "operation_method": "手动机构/电动操作/抽屉式",
+                    "panel_width": 600,
+                    "panel_height": 800,
+                    "parts": [
+                        {
+                            "part_id": "uuid",
+                            "order": 1,
+                            "part_type": "元件类型",
+                            "part_model": "元件型号",
+                            "part_number": 1,
+                            "part_width": 60,
+                            "part_height": 80
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

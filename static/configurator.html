@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能选配系统</title>
+    <script src="/static/tailwind.js"></script>
+    <script src="/static/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+    <link rel="stylesheet" href="/static/app.css">
+    <style>
+        /* ── 布局 ── */
+        .config-sidebar  { min-width: 180px; }
+        .panel-col       { min-width: 180px; }
+        .chat-panel      { min-width: 48px; }
+
+        /* ── 拖拽条 ── */
+        .resize-handle {
+            width: 5px; cursor: col-resize; position: relative; flex-shrink: 0;
+            background: transparent; transition: background 0.15s;
+        }
+        .resize-handle:hover, .resize-handle:active { background: rgba(99,102,241,0.15); }
+        .resize-handle::after {
+            content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+            width:3px; height:24px; border-radius:2px; background:rgba(148,163,184,0.3); transition:background 0.15s;
+        }
+        .resize-handle:hover::after { background:rgba(99,102,241,0.5); }
+
+        /* ── 列表项 ── */
+        .panel-list-item { transition: all 0.2s cubic-bezier(0.16,1,0.3,1); }
+        .panel-list-item.active { background:rgba(79,70,229,0.08); border-color:#a5b4fc; }
+        .cabinet-card { transition: all 0.25s cubic-bezier(0.16,1,0.3,1); }
+        .cabinet-card.active { border-color:#6366f1; box-shadow:0 0 0 3px rgba(99,102,241,0.12); }
+        .cabinet-card:not(.active) { border-color:#cbd5e1; }
+        .panel-list-item:not(.active) { border-color:#cbd5e1; }
+
+        /* ── 通用 ── */
+        .tag { display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600; }
+        .section-label { font-size:13px;font-weight:800;color:#334155;margin-bottom:8px;display:block; }
+        .input-field { background:rgba(255,255,255,0.7);border:1px solid var(--color-border);border-radius:10px;padding:8px 12px;font-size:14px;width:100%;transition:all 0.2s;outline:none; }
+        .input-field:focus { border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(79,70,229,0.1);background:#fff; }
+        select.input-field { cursor:pointer; }
+        .stat-chip { background:rgba(79,70,229,0.07);border:1px solid rgba(79,70,229,0.12);border-radius:10px;padding:2px 10px;font-size:12px;font-weight:600;color:var(--color-primary); }
+        .empty-hint { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--color-muted);padding:48px 16px;text-align:center; }
+        .empty-hint svg { opacity:0.3; }
+        .color-dot { width:10px;height:10px;border-radius:50%;flex-shrink:0; }
+
+        /* ── 弹窗动画 ── */
+        .modal-backdrop { animation:fadeIn 0.15s ease; }
+        .modal-box { animation:slideUp 0.22s cubic-bezier(0.16,1,0.3,1); }
+        @keyframes fadeIn  { from{opacity:0}  to{opacity:1} }
+        @keyframes slideUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+
+        /* ── Toast ── */
+        .toast { animation:toastIn 0.25s cubic-bezier(0.16,1,0.3,1); }
+        @keyframes toastIn { from{opacity:0;transform:translateY(8px) scale(0.97)} to{opacity:1;transform:none} }
+
+        /* ── 聊天界面 ── */
+        .chat-bubble-user { background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;border-radius:18px 18px 4px 18px; }
+        .chat-bubble-ai   { background:#fff;border:1px solid rgba(226,232,240,0.8);border-radius:18px 18px 18px 4px;color:#1e293b; }
+        .chat-bubble-tool { background:rgba(79,70,229,0.06);border:1px solid rgba(99,102,241,0.2);border-radius:12px;font-size:12px; }
+        .typing-dot { animation:bounce 1.2s infinite; }
+        .typing-dot:nth-child(2){ animation-delay:0.2s; }
+        .typing-dot:nth-child(3){ animation-delay:0.4s; }
+        @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+        .chat-input-box { border:1px solid var(--color-border);border-radius:16px;background:#fff;transition:all 0.2s; }
+        .chat-input-box:focus-within { border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,0.1); }
+        .chat-input-box textarea { resize:none;outline:none;background:transparent;font-size:14px; }
+
+        /* ── API KEY 配置条 ── */
+        .api-config-bar { background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:12px; }
+
+        /* ── 元件行 ── */
+        .part-row { transition:background 0.15s; }
+        .part-row:hover { background:rgba(79,70,229,0.03); }
+
+        /* ── Markdown 渲染 ── */
+        .md-body { line-height:1.6; }
+        .md-body p { margin:0.4em 0; }
+        .md-body ul,.md-body ol { padding-left:1.4em;margin:0.4em 0; }
+        .md-body li { margin:0.15em 0; }
+        .md-body code { background:rgba(99,102,241,0.08);padding:1px 4px;border-radius:4px;font-size:0.88em; }
+        .md-body pre { background:#f1f5f9;border-radius:8px;padding:10px 12px;overflow-x:auto;margin:0.5em 0; }
+        .md-body pre code { background:none;padding:0; }
+        .md-body h1,.md-body h2,.md-body h3 { font-weight:700;margin:0.6em 0 0.3em; }
+        .md-body h1 { font-size:1.15em; }
+        .md-body h2 { font-size:1.05em; }
+        .md-body h3 { font-size:0.95em; }
+        .md-body table { border-collapse:collapse;margin:0.5em 0;font-size:0.9em; }
+        .md-body th,.md-body td { border:1px solid #e2e8f0;padding:4px 8px; }
+        .md-body th { background:#f8fafc;font-weight:600; }
+        .md-body blockquote { border-left:3px solid #a5b4fc;padding-left:10px;margin:0.5em 0;color:#64748b; }
+        .md-body strong { font-weight:700; }
+    </style>
+</head>
+
+<body class="text-slate-800 h-screen flex flex-col overflow-hidden">
+<div id="app" class="flex flex-col h-full">
+
+    <!-- ══ 顶部导航 ══ -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/50 px-5 flex justify-between items-center z-20 flex-shrink-0"
+        style="height:60px;box-shadow:0 4px 24px -6px rgba(15,23,42,0.04)">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
+                style="background:var(--color-primary);box-shadow:0 4px 12px rgba(79,70,229,0.3)">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                        d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+                </svg>
+            </div>
+            <div>
+                <span class="font-display font-semibold text-slate-800 tracking-tight">智能选配系统</span>
+                <span class="ml-2 text-xs text-slate-400">配电柜方案设计</span>
+            </div>
+            <div class="flex items-center gap-1.5 ml-3 pl-3 border-l border-slate-200">
+                <span class="stat-chip">{{ totalCabinets }} 柜</span>
+                <span class="stat-chip">{{ totalPanels }} 面板</span>
+                <span class="stat-chip">{{ totalParts }} 元件</span>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button v-if="selectedPanel" @click="exportPanelData" class="btn-ghost flex items-center gap-1.5 text-sm" title="导出当前面板结构">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                导出面板
+            </button>
+
+            <button @click="exportJson" class="btn-ghost flex items-center gap-1.5 text-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                导出方案
+            </button>
+
+            <!-- JSON角落按钮 -->
+            <div class="relative group">
+                <button class="toolbar-btn w-8 h-8 p-0 rounded-lg" title="JSON 导入/查看">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    </svg>
+                </button>
+                <div class="absolute right-0 top-10 bg-white border border-slate-200 rounded-2xl shadow-xl p-1.5 w-40 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all z-50">
+                    <button @click="openJsonModal" class="w-full text-left px-3 py-2 text-sm rounded-xl hover:bg-slate-50 flex items-center gap-2 text-slate-600">
+                        查看/编辑 JSON
+                    </button>
+                    <button @click="triggerJsonFileInput" class="w-full text-left px-3 py-2 text-sm rounded-xl hover:bg-slate-50 flex items-center gap-2 text-slate-600">
+                        导入 JSON 文件
+                    </button>
+                </div>
+            </div>
+
+            <button @click="sendToLayout" class="btn-primary text-sm px-4 py-2 flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                去布局排版
+            </button>
+        </div>
+    </header>
+
+    <!-- ══ 主体：三栏 + AI聊天 ══ -->
+    <main class="flex-1 flex overflow-hidden">
+
+        <!-- ── 左栏：箱柜 ── -->
+        <aside class="config-sidebar border-r border-slate-300 flex flex-col bg-slate-50/80 backdrop-blur overflow-hidden flex-shrink-0"
+            :style="{ width: cabinetWidth + 'px' }">
+            <div class="px-3 py-2.5 border-b border-slate-200 flex justify-between items-center bg-slate-100/80">
+                <span class="section-label mb-0" style="color:#374151">箱柜列表</span>
+                <button @click="openAddCabinet" class="toolbar-btn w-6 h-6 p-0 hover:text-indigo-600" title="添加箱柜">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-2.5 space-y-1.5">
+                <div v-if="!scheme.cabinets.length" class="empty-hint py-10">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                    <p class="text-sm">暂无箱柜</p>
+                </div>
+                <div v-for="cab in sortedCabinets" :key="cab.cabinet_id"
+                    class="cabinet-card rounded-xl border p-2.5 cursor-pointer"
+                    :class="selectedCabinetId===cab.cabinet_id ? 'active bg-indigo-50/60' : 'border-slate-200 bg-white hover:border-slate-300'"
+                    @click="selectCabinet(cab.cabinet_id)">
+                    <div class="flex items-start justify-between gap-1">
+                        <div class="flex-1 min-w-0">
+                            <div class="font-display font-bold text-slate-800 text-sm truncate">{{ cab.cabinet_name || '未命名' }}</div>
+                        </div>
+                        <div class="flex items-center gap-0 flex-shrink-0" @click.stop>
+                            <button @click="openEditCabinet(cab)" class="toolbar-btn w-7 h-7 p-0" title="编辑">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                </svg>
+                            </button>
+                            <button @click="duplicateCabinet(cab)" class="toolbar-btn w-7 h-7 p-0" title="复制">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                </svg>
+                            </button>
+                            <button @click="removeCabinet(cab.cabinet_id)" class="toolbar-btn w-7 h-7 p-0 hover:text-red-500" title="删除">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-[11px] text-slate-400 mt-1 flex gap-2 whitespace-nowrap overflow-hidden">
+                        <span>{{ getCabinetStats(cab).panels }} 面板</span>
+                        <span>·</span>
+                        <span>{{ getCabinetStats(cab).parts }} 元件</span>
+                        <span>·</span>
+                        <span>{{ cab.cabinet_width }}×{{ cab.cabinet_height }}mm</span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-2">
+                        <span class="tag" style="background:rgba(79,70,229,0.1);color:#4f46e5">{{ cab.cabinet_use }}</span>
+                        <span v-if="cab.cabinet_model" class="tag" style="background:rgba(15,23,42,0.06);color:#475569">{{ cab.cabinet_model }}</span>
+                        <span class="tag" v-if="cab.wiring_method" style="background:rgba(16,185,129,0.1);color:#059669">{{ cab.wiring_method }}</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 拖拽条：箱柜 ↔ 面板 -->
+        <div class="resize-handle" @mousedown="startResize($event, 'cabinet')"></div>
+
+        <!-- ── 中栏：面板 ── -->
+        <section class="panel-col border-r border-slate-300 flex flex-col bg-slate-50/60 backdrop-blur overflow-hidden flex-shrink-0"
+            :style="{ width: panelWidth + 'px' }">
+            <div class="px-3 py-2.5 border-b border-slate-200 flex justify-between items-center bg-slate-100/80">
+                <span class="section-label mb-0 truncate" style="color:#374151">
+                    {{ selectedCabinet ? (selectedCabinet.cabinet_name||'面板列表') : '面板列表' }}
+                </span>
+                <button v-if="selectedCabinet" @click="openAddPanel(selectedCabinet.cabinet_id)" class="toolbar-btn w-6 h-6 p-0 hover:text-indigo-600" title="添加面板">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-2.5 space-y-1.5">
+                <div v-if="!selectedCabinet" class="empty-hint py-10">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/>
+                    </svg>
+                    <p class="text-sm">请先选择箱柜</p>
+                </div>
+                <div v-else-if="!selectedCabinet.panels.length" class="empty-hint py-10">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/>
+                    </svg>
+                    <p class="text-sm">暂无面板</p>
+                </div>
+                <div v-for="panel in sortedPanels" :key="panel.panel_id" class="panel-list-item cursor-pointer p-3 border rounded-2xl bg-white"
+                    :class="selectedPanelId===panel.panel_id ? 'active shadow-md border-indigo-300' : 'hover:border-slate-300'"
+                    @click="selectPanel(panel.panel_id)">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1 min-w-0">
+                            <div class="font-semibold text-sm text-slate-800">{{ panel.panel_type }}</div>
+                            <div class="text-xs text-slate-400">{{ panel.panel_width }}×{{ panel.panel_height }} mm</div>
+                        </div>
+                        <div class="flex gap-0 flex-shrink-0" @click.stop>
+                            <button @click="openEditPanel(selectedCabinet.cabinet_id, panel)" class="toolbar-btn w-7 h-7 p-0">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                </svg>
+                            </button>
+                            <button @click="removePanel(selectedCabinet.cabinet_id, panel.panel_id)" class="toolbar-btn w-7 h-7 p-0 hover:text-red-500">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 mt-1.5">
+                        <span class="text-xs text-slate-500">{{ getPanelPartCount(panel) }} 元件</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 拖拽条：面板 ↔ 元件 -->
+        <div class="resize-handle" @mousedown="startResize($event, 'panel')"></div>
+
+        <!-- ── 中右栏：元件 ── -->
+        <section class="flex-1 flex flex-col overflow-hidden border-r border-slate-200/60" style="background:var(--color-bg)">
+            <!-- 无选择 -->
+            <div v-if="!selectedPanel" class="flex-1 flex items-center justify-center">
+                <div class="text-center space-y-3">
+                    <div class="w-16 h-16 rounded-3xl mx-auto flex items-center justify-center" style="background:linear-gradient(135deg,rgba(79,70,229,0.1),rgba(99,102,241,0.05))">
+                        <svg class="w-8 h-8 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-slate-600">{{ selectedCabinet ? '当前箱柜无面板' :'选择面板开始配置' }}</h3>
+                        <p class="text-slate-400 text-sm mt-1">{{ selectedCabinet ? '请先在左侧为该箱柜添加面板' : '或在右侧与 AI 对话自动生成方案' }}</p>
+                    </div>
+                    <button v-if="selectedCabinet" @click="openAddPanel(selectedCabinet.cabinet_id)" class="btn-primary text-sm px-4 py-1.5">创建面板</button>
+                    <button v-else @click="openAddCabinet" class="btn-primary text-sm">添加箱柜</button>
+                </div>
+            </div>
+
+            <!-- 有面板选中 -->
+            <template v-if="selectedPanel">
+                <div class="bg-white/80 backdrop-blur border-b border-slate-200/60 px-5 flex items-center justify-between flex-shrink-0" style="height:50px">
+                    <div class="flex items-center gap-2">
+                        <span class="font-display font-bold text-slate-800 text-sm">{{ selectedPanel.panel_type }}</span>
+                        <span class="text-xs text-slate-400">{{ selectedPanel.panel_width }}×{{ selectedPanel.panel_height }} mm</span>
+                        <span class="stat-chip">{{ getPanelPartCount(selectedPanel) }} 元件</span>
+                    </div>
+                    <button @click="openAddPart(selectedCabinet.cabinet_id, selectedPanel.panel_id)" class="btn-primary text-sm px-3 py-1.5 flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        添加元件
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-5">
+                    <div v-if="!selectedPanel.parts.length" class="empty-hint">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                        </svg>
+                        <p class="text-sm">此面板暂无元件</p>
+                        <button @click="openAddPart(selectedCabinet.cabinet_id, selectedPanel.panel_id)" class="btn-primary text-sm px-4 py-1.5">添加元件</button>
+                    </div>
+                    <div v-else class="space-y-1.5">
+                        <div class="grid gap-x-3 px-3 py-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-200"
+                            style="grid-template-columns:1fr 1fr 50px 90px 60px">
+                            <span>类型</span><span>型号</span><span class="text-center">数量</span><span class="text-center">尺寸(W×H)</span><span></span>
+                        </div>
+                        <div v-for="part in sortedParts" :key="part.part_id"
+                            class="part-row grid gap-x-3 items-center px-3 py-2.5 rounded-xl border border-slate-100 bg-white/70"
+                            style="grid-template-columns:1fr 1fr 50px 90px 60px">
+                            <div class="font-semibold text-slate-700 text-sm truncate">{{ part.part_type||'—' }}</div>
+                            <div class="text-slate-500 text-sm truncate">{{ part.part_model||'—' }}</div>
+                            <div class="text-center"><span class="inline-flex items-center justify-center w-7 h-6 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">{{ part.part_number }}</span></div>
+                            <div class="text-xs text-slate-400 font-mono text-center">{{ part.part_width }}×{{ part.part_height }}</div>
+                            <div class="flex items-center justify-end gap-0.5">
+                                <button @click="openEditPart(selectedCabinet.cabinet_id, selectedPanel.panel_id, part)" class="toolbar-btn w-6 h-6 p-0">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                                </button>
+                                <button @click="removePart(selectedCabinet.cabinet_id, selectedPanel.panel_id, part.part_id)" class="toolbar-btn w-6 h-6 p-0 hover:text-red-500">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex justify-end text-xs text-slate-400 pt-2 pr-2">
+                            共 <strong class="text-slate-600 mx-1">{{ selectedPanel.parts.length }}</strong> 种 /
+                            <strong class="text-slate-600 mx-1">{{ getPanelPartCount(selectedPanel) }}</strong> 个元件
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </section>
+
+        <!-- 拖拽条：元件 ↔ AI聊天 -->
+        <div v-if="!chatCollapsed" class="resize-handle" @mousedown="startResize($event, 'chat')"></div>
+
+        <!-- ── 右栏：AI 聊天 ── -->
+        <aside class="chat-panel border-l border-slate-200/60 flex flex-col bg-white/80 backdrop-blur overflow-hidden flex-shrink-0"
+            :style="{ width: chatCollapsed ? '48px' : chatWidth + 'px', minWidth: chatCollapsed ? '48px' : '180px' }">
+            <!-- 聊天头 -->
+            <div class="px-4 py-3 border-b border-slate-100 flex-shrink-0"
+                style="background:linear-gradient(135deg,rgba(79,70,229,0.05),rgba(99,102,241,0.02))">
+                <div class="flex items-center gap-2">
+                    <!-- 折叠/展开按钮 -->
+                    <button @click="toggleChat" class="toolbar-btn w-7 h-7 p-0 flex-shrink-0" :title="chatCollapsed ? '展开 AI 助手' : '收起 AI 助手'">
+                        <svg class="w-4 h-4 transition-transform" :style="chatCollapsed ? 'transform:rotate(180deg)' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    <template v-if="!chatCollapsed">
+                    <div class="w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0"
+                        style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+                        <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.347.346A3.99 3.99 0 0115 19.465V21a2 2 0 01-2 2H11a2 2 0 01-2-2v-1.535a3.99 3.99 0 01-1.172-2.762l-.346-.346z"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-display font-semibold text-slate-800 text-sm">AI 选配助手</div>
+                        <div class="text-[11px] flex items-center gap-1 text-emerald-500">
+                            <span class="w-1.5 h-1.5 rounded-full inline-block bg-emerald-400"></span>
+                            Qwen · 就绪
+                        </div>
+                    </div>
+                    <button @click="clearChatSession" class="toolbar-btn text-xs px-2 py-1 rounded border border-slate-200 hover:border-indigo-300 hover:text-indigo-600 flex-shrink-0" title="新建会话">
+                        新建会话
+                    </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- 消息区 -->
+            <div v-if="!chatCollapsed" class="flex-1 overflow-y-auto p-3 space-y-3" ref="chatScrollEl">
+                <!-- 欢迎消息 -->
+                <div v-if="!chatMessages.length" class="text-center py-6 space-y-3">
+                    <div class="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center"
+                        style="background:linear-gradient(135deg,rgba(79,70,229,0.1),rgba(99,102,241,0.05))">
+                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-slate-400 px-4">描述您的配电需求，AI 将自动生成方案并填充到左侧选配界面</p>
+                    <div class="space-y-1.5">
+                        <button v-for="hint in quickHints" :key="hint" @click="sendQuickHint(hint)"
+                            class="block w-full text-left text-xs text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl px-3 py-2 transition-colors">
+                            {{ hint }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 消息列表 -->
+                <div v-for="(msg, idx) in chatMessages" :key="idx">
+                    <!-- 用户消息 -->
+                    <div v-if="msg.role==='user'" class="flex justify-end">
+                        <div class="max-w-[85%] space-y-1.5">
+                            <div v-if="msg.image" class="flex justify-end">
+                                <img :src="msg.image" class="max-h-40 rounded-xl border border-white/30 shadow-sm">
+                            </div>
+                            <div v-if="msg.content" class="chat-bubble-user px-3.5 py-2.5 text-sm shadow-sm">{{ msg.content }}</div>
+                        </div>
+                    </div>
+
+                    <!-- AI 消息 -->
+                    <div v-else-if="msg.role==='ai'" class="flex items-start gap-2">
+                        <div class="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
+                            style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+                            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0 flex flex-col gap-1.5">
+                            <div v-if="msg.thinking" class="chat-bubble-tool px-3.5 py-2 text-[11px] text-slate-500 max-w-[95%] whitespace-pre-wrap border border-slate-200 border-dashed bg-slate-50/80 rounded-xl">
+                                <div class="font-semibold mb-1 flex items-center gap-1 opacity-70">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>思考过程
+                                </div>
+                                <div class="opacity-80">{{ msg.thinking }}</div>
+                            </div>
+                            <div v-if="msg.content" class="chat-bubble-ai px-3.5 py-2.5 text-sm max-w-[88%] shadow-sm md-body" v-html="renderMd(msg.content)"></div>
+                        </div>
+                    </div>
+
+                    <!-- 工具动作卡片 -->
+                    <div v-else-if="msg.role==='action'" class="chat-bubble-tool px-3 py-2 mx-2">
+                        <div class="flex items-center gap-1.5 text-indigo-600 font-semibold mb-0.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {{ msg.content }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 打字中 -->
+                <div v-if="chatLoading" class="flex items-start gap-2">
+                    <div class="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
+                        style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+                        <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <div class="chat-bubble-ai px-4 py-3">
+                        <div class="flex items-center gap-1">
+                            <span class="typing-dot w-2 h-2 rounded-full bg-slate-400 inline-block"></span>
+                            <span class="typing-dot w-2 h-2 rounded-full bg-slate-400 inline-block"></span>
+                            <span class="typing-dot w-2 h-2 rounded-full bg-slate-400 inline-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 输入区 -->
+            <div v-if="!chatCollapsed" class="p-3 border-t border-slate-100 flex-shrink-0">
+                <!-- 图片上传预览 -->
+                <div v-if="chatImagePreview" class="mb-2 relative inline-block">
+                    <img :src="chatImagePreview" class="h-16 rounded-xl object-cover border border-slate-200">
+                    <button @click="clearChatImage" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs">×</button>
+                </div>
+                <div class="chat-input-box flex items-end gap-2 px-3 py-2">
+                    <button @click="triggerChatImage" class="toolbar-btn w-7 h-7 p-0 flex-shrink-0" title="上传图片">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </button>
+                    <textarea v-model="chatInput" rows="1" class="flex-1 py-1 text-sm"
+                        placeholder="描述配电需求，或粘贴/上传图片..."
+                        @keydown.enter.exact.prevent="sendChat"
+                        @paste="handlePaste"
+                        @input="autoResize"
+                        ref="chatTextarea"
+                        style="max-height:120px;overflow-y:auto"></textarea>
+                    <button @click="sendChat" :disabled="(!chatInput.trim() && !chatImagePreview) || chatLoading"
+                        class="flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all"
+                        :class="(chatInput.trim()||chatImagePreview) && !chatLoading ? 'text-white hover:opacity-90' : 'bg-slate-100 text-slate-300'"
+                        :style="(chatInput.trim()||chatImagePreview) && !chatLoading ? 'background:linear-gradient(135deg,#4f46e5,#6366f1)' : ''">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                        </svg>
+                    </button>
+                </div>
+                <input type="file" ref="chatImageInput" accept="image/*" class="hidden" @change="handleChatImage">
+                <input type="file" ref="jsonFileInput" accept=".json" class="hidden" @change="handleJsonFile">
+                <p class="text-[10px] text-slate-300 text-center mt-1">Enter 发送 · Shift+Enter 换行 · Ctrl+V 粘贴图片</p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- ══ 全局加载遮罩 ══ -->
+    <div v-if="isLoading" class="fixed inset-0 z-[100] flex flex-col items-center justify-center modal-backdrop"
+        style="background:rgba(248,250,252,.85);backdrop-filter:blur(6px)">
+        <div class="w-10 h-10 rounded-2xl flex items-center justify-center mb-3"
+            style="background:linear-gradient(135deg,#4f46e5,#7c3aed);box-shadow:0 8px 24px rgba(79,70,229,.35)">
+            <svg class="w-4 h-4 text-white animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+        </div>
+        <p class="text-slate-700 font-semibold text-sm">{{ loadingText }}</p>
+    </div>
+
+    <!-- Toast -->
+    <transition name="fade">
+        <div v-if="toast.show"
+            class="toast fixed bottom-5 left-1/2 -translate-x-1/2 z-[200] px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-semibold"
+            :class="toast.type==='error'?'bg-red-500 text-white':toast.type==='warn'?'bg-amber-400 text-white':'bg-slate-800 text-white'">
+            {{ toast.msg }}
+        </div>
+    </transition>
+
+    <!-- ── 箱柜弹窗 ── -->
+    <div v-if="cabinetModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
+        style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)" @click.self="cabinetModal.show=false">
+        <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-200/60">
+            <div class="px-7 pt-7 pb-2">
+                <h3 class="font-display font-bold text-xl text-slate-800">{{ cabinetModal.isNew?'添加箱柜':'编辑箱柜' }}</h3>
+            </div>
+            <div class="px-7 py-5 space-y-4">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="section-label">柜编号 *</label>
+                        <input v-model="cabinetModal.cabinet.cabinet_name" class="input-field" placeholder="如 1AL">
+                    </div>
+                    <div>
+                        <label class="section-label">箱柜用途 *</label>
+                        <select v-model="cabinetModal.cabinet.cabinet_use" class="input-field">
+                            <option v-for="o in CABINET_USE_OPTIONS" :key="o" :value="o">{{ o }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="section-label">箱柜型号</label>
+                    <div class="grid grid-cols-4 gap-2 mb-3">
+                        <button v-for="m in CABINET_MODEL_OPTIONS" :key="m"
+                            @click="cabinetModal.cabinet.cabinet_model = (cabinetModal.cabinet.cabinet_model === m ? '' : m)"
+                            class="py-2 rounded-xl border text-[11px] font-semibold transition-all"
+                            :class="cabinetModal.cabinet.cabinet_model===m ? 'border-indigo-400 bg-indigo-50 text-indigo-700' : 'border-slate-200 text-slate-500 hover:border-slate-300'">
+                            {{ m }}
+                        </button>
+                    </div>
+                    <label class="section-label">进出线方式</label>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button v-for="w in WIRING_METHOD_OPTIONS" :key="w"
+                            @click="cabinetModal.cabinet.wiring_method = (cabinetModal.cabinet.wiring_method === w ? '' : w)"
+                            class="py-2 rounded-xl border text-[11px] font-semibold transition-all"
+                            :class="cabinetModal.cabinet.wiring_method===w ? 'border-emerald-400 bg-emerald-50 text-emerald-700' : 'border-slate-200 text-slate-500 hover:border-slate-300'">
+                            {{ w }}
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="section-label">柜宽 (mm)</label>
+                        <input v-model.number="cabinetModal.cabinet.cabinet_width" type="number" min="400" class="input-field">
+                    </div>
+                    <div>
+                        <label class="section-label">柜高 (mm)</label>
+                        <input v-model.number="cabinetModal.cabinet.cabinet_height" type="number" min="800" class="input-field">
+                    </div>
+                </div>
+            </div>
+            <div class="px-7 pb-7 flex justify-end gap-3">
+                <button @click="cabinetModal.show=false" class="btn-ghost">取消</button>
+                <button @click="saveCabinetModal" class="btn-primary">{{ cabinetModal.isNew?'添加':'保存' }}</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── 面板弹窗 ── -->
+    <div v-if="panelModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
+        style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)" @click.self="panelModal.show=false">
+        <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-sm border border-slate-200/60">
+            <div class="px-7 pt-7 pb-2">
+                <h3 class="font-display font-bold text-xl text-slate-800">{{ panelModal.isNew?'添加面板':'编辑面板' }}</h3>
+            </div>
+            <div class="px-7 py-5 space-y-4">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="section-label">面板类型 *</label>
+                        <select v-model="panelModal.panel.panel_type" class="input-field">
+                            <option v-for="t in PANEL_TYPE_OPTIONS" :key="t" :value="t">{{ t }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="section-label">操作方式</label>
+                        <select v-model="panelModal.panel.operation_method" class="input-field">
+                            <option value="">未指定</option>
+                            <option v-for="opt in OPERATION_METHOD_OPTIONS" :key="opt" :value="opt">{{ opt }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="section-label">宽度 (mm)</label>
+                        <input v-model.number="panelModal.panel.panel_width" type="number" min="100" class="input-field">
+                    </div>
+                    <div>
+                        <label class="section-label">高度 (mm)</label>
+                        <input v-model.number="panelModal.panel.panel_height" type="number" min="100" class="input-field">
+                    </div>
+                </div>
+            </div>
+            <div class="px-7 pb-7 flex justify-end gap-3">
+                <button @click="panelModal.show=false" class="btn-ghost">取消</button>
+                <button @click="savePanelModal" class="btn-primary">{{ panelModal.isNew?'添加':'保存' }}</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── 元件弹窗 ── -->
+    <div v-if="partModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
+        style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)" @click.self="partModal.show=false">
+        <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-200/60">
+            <div class="px-7 pt-7 pb-2">
+                <h3 class="font-display font-bold text-xl text-slate-800">{{ partModal.isNew?'添加元件':'编辑元件' }}</h3>
+            </div>
+            <div class="px-7 py-5 space-y-4">
+                <div>
+                    <label class="section-label">元件类型 *</label>
+                    <select v-model="partModal.part.part_type" class="input-field">
+                        <option value="">请选择类型</option>
+                        <option v-for="t in PART_TYPE_OPTIONS" :key="t" :value="t">{{ t }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="section-label">型号 / 规格</label>
+                    <input v-model="partModal.part.part_model" class="input-field" placeholder="如：DZ47-60 D20">
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="section-label">数量</label>
+                        <input v-model.number="partModal.part.part_number" type="number" min="1" class="input-field">
+                    </div>
+                    <div>
+                        <label class="section-label">宽 (mm)</label>
+                        <input v-model.number="partModal.part.part_width" type="number" min="1" class="input-field">
+                    </div>
+                    <div>
+                        <label class="section-label">高 (mm)</label>
+                        <input v-model.number="partModal.part.part_height" type="number" min="1" class="input-field">
+                    </div>
+                </div>
+            </div>
+            <div class="px-7 pb-7 flex justify-end gap-3">
+                <button @click="partModal.show=false" class="btn-ghost">取消</button>
+                <button @click="savePartModal" class="btn-primary">{{ partModal.isNew?'添加':'保存' }}</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── JSON 弹窗 ── -->
+    <div v-if="jsonModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
+        style="background:rgba(15,23,42,.55);backdrop-filter:blur(8px)" @click.self="jsonModal.show=false">
+        <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-2xl border border-slate-200/60">
+            <div class="px-7 pt-6 pb-4 flex items-center justify-between border-b border-slate-100">
+                <h3 class="font-display font-bold text-lg text-slate-800">方案 JSON</h3>
+                <button @click="jsonModal.show=false" class="toolbar-btn w-8 h-8 p-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="px-7 py-4">
+                <textarea v-model="jsonModal.raw" rows="18"
+                    class="w-full font-mono text-xs rounded-xl border border-slate-200 bg-slate-50 p-4 resize-none focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                    spellcheck="false"></textarea>
+            </div>
+            <div class="px-7 pb-6 flex justify-end gap-3">
+                <button @click="jsonModal.show=false" class="btn-ghost">关闭</button>
+                <button @click="importJsonFromText" class="btn-primary">导入此 JSON</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/configurator.js"></script>
+</body>
+</html>

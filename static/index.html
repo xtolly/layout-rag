@@ -7,310 +7,19 @@
     <title>智能元件布局系统</title>
     <script src="/static/tailwind.js"></script>
     <script src="/static/vue.global.js"></script>
-    <style>
-        @import url('/static/fonts.css');
-
-        * {
-            font-family: 'Outfit', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        .font-display {
-            font-family: 'Space Grotesk', 'PingFang SC', sans-serif;
-            letter-spacing: -0.02em;
-        }
-
-        :root {
-            --color-primary: #4f46e5;
-            /* Refined blue-purple */
-            --color-primary-hover: #4338ca;
-            --color-primary-light: #e0e7ff;
-            --color-accent: #6366f1;
-            /* Lighter accent */
-            --color-surface: rgba(255, 255, 255, 0.9);
-            --color-bg: #f8fafc;
-            --color-border: rgba(226, 232, 240, 0.8);
-            --color-text: #0f172a;
-            --color-muted: #64748b;
-            --radius-card: 20px;
-            --radius-btn: 12px;
-            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
-            --shadow-md: 0 12px 32px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04);
-            --shadow-lg: 0 24px 64px rgba(15, 23, 42, 0.12), 0 8px 16px rgba(15, 23, 42, 0.06);
-            --glass-blur: blur(12px);
-        }
-
-        body {
-            background-color: var(--color-bg);
-            background-image:
-                radial-gradient(at 0% 0%, hsla(217, 100%, 96%, 1) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, hsla(210, 100%, 97%, 1) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, hsla(240, 100%, 95%, 1) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, hsla(240, 50%, 98%, 1) 0px, transparent 50%);
-            background-attachment: fixed;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .layout-panel {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 24px 24px;
-            border-radius: 8px;
-        }
-
-        .component-box {
-            transition: box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            user-select: none;
-            box-sizing: border-box;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .component-box:hover {
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-            transform: translateY(-2px) scale(1.02);
-            z-index: 20;
-            cursor: grab;
-        }
-
-        .component-box:active {
-            transform: translateY(0) scale(0.98);
-            cursor: grabbing;
-        }
-
-        .component-box.is-invalid {
-            background-color: #ef4444 !important;
-            border: 2px dashed #7f1d1d !important;
-            color: white;
-            animation: pulse-error 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-error {
-
-            0%,
-            100% {
-                opacity: 1;
-                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
-            }
-
-            50% {
-                opacity: 0.8;
-                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-            }
-        }
-
-        .guide-line {
-            position: absolute;
-            background: var(--color-accent);
-            z-index: 50;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        .upload-zone {
-            position: relative;
-            border: 1px dashed #cbd5e1;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: var(--glass-blur);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
-        }
-
-        .upload-zone::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        .upload-zone:hover,
-        .upload-zone.drag-over {
-            border-color: var(--color-accent);
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
-        }
-
-        .step-dot {
-            width: 32px;
-            height: 32px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 700;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            font-family: 'Space Grotesk', sans-serif;
-            border: 1px solid transparent;
-        }
-
-        .step-dot.active {
-            background: var(--color-primary);
-            color: white;
-            box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .step-dot.done {
-            background: #ffffff;
-            color: var(--color-primary);
-            border-color: var(--color-border);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .step-dot.inactive {
-            background: transparent;
-            color: var(--color-muted);
-            border-color: var(--color-border);
-        }
-
-        .step-line {
-            flex: 1;
-            height: 1px;
-            margin: 0 12px;
-            transition: background 0.4s;
-        }
-
-        .step-line.done {
-            background: var(--color-primary);
-            opacity: 0.2;
-        }
-
-        .step-line.inactive {
-            background: var(--color-border);
-        }
-
-        .card {
-            background: var(--color-surface);
-            backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-card);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-md);
-            border-color: rgba(15, 23, 42, 0.1);
-            transform: translateY(-4px);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-            color: white;
-            border-radius: var(--radius-btn);
-            padding: 10px 24px;
-            font-weight: 600;
-            font-size: 14px;
-            font-family: 'Space Grotesk', sans-serif;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            background: linear-gradient(135deg, var(--color-primary-hover), var(--color-primary));
-            box-shadow: 0 8px 16px rgba(79, 70, 229, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .btn-primary:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        .btn-primary:disabled {
-            background: #cbd5e1;
-            color: #f1f5f9;
-            box-shadow: none;
-            cursor: not-allowed;
-            border-color: transparent;
-        }
-
-        .btn-ghost {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(4px);
-            color: var(--color-text);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            border-radius: var(--radius-btn);
-            padding: 8px 16px;
-            font-size: 14px;
-            font-weight: 500;
-            font-family: 'Space Grotesk', sans-serif;
-            transition: all 0.2s ease;
-        }
-
-        .btn-ghost:hover {
-            background: #ffffff;
-            box-shadow: var(--shadow-sm);
-            border-color: rgba(15, 23, 42, 0.15);
-        }
-
-        .toolbar-btn {
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-muted);
-        }
-
-        .toolbar-btn:hover:not(:disabled) {
-            background: rgba(15, 23, 42, 0.05);
-            color: var(--color-primary);
-        }
-
-        .toolbar-btn:disabled {
-            color: #cbd5e1;
-            cursor: not-allowed;
-        }
-
-        ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(15, 23, 42, 0.15);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(15, 23, 42, 0.3);
-        }
-
-
-
-        /* Modern Gradient Text */
-        .text-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/app.css">
 </head>
 
 <body class="text-slate-800 h-screen flex flex-col overflow-hidden" style="background:#f8fafc">
     <div id="app" class="flex flex-col h-full">
+
+        <!-- ══════════════════════════════════════════════════════
+             顶部导航栏
+        ══════════════════════════════════════════════════════ -->
         <header
             class="bg-white/80 backdrop-blur-md border-b border-slate-200/50 px-6 flex justify-between items-center z-20 flex-shrink-0 relative transition-all"
             style="height:64px;box-shadow:0 4px 24px -6px rgba(15,23,42,0.04)">
+
             <!-- 左侧：Logo + 返回按钮 -->
             <div class="flex items-center gap-5">
                 <div class="flex items-center gap-3">
@@ -342,10 +51,7 @@
                 </button>
             </div>
 
-            <!-- 中：原步骤指示器（已移除） -->
-            <div class="flex items-center"></div>
-
-            <!-- 右：操作区 -->
+            <!-- 右侧：工具栏（Step 3 才显示） -->
             <div class="flex items-center gap-2">
                 <template v-if="step === 3">
                     <div class="flex items-center border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
@@ -372,9 +78,13 @@
             </div>
         </header>
 
+        <!-- ══════════════════════════════════════════════════════
+             主内容区
+        ══════════════════════════════════════════════════════ -->
         <main class="flex-1 flex overflow-hidden relative">
             <input type="file" ref="fileInput" accept=".json" class="hidden" @change="handleFileSelect">
 
+            <!-- 全局加载遮罩 -->
             <div v-if="isLoading" class="absolute inset-0 z-50 flex flex-col items-center justify-center"
                 style="background:rgba(248,250,252,.85);backdrop-filter:blur(6px)">
                 <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
@@ -388,9 +98,10 @@
                 <p class="text-slate-700 font-semibold text-sm">{{ loadingText }}</p>
             </div>
 
+            <!-- ══ Step 1：上传文件 ══ -->
             <div v-if="step === 1"
                 class="w-full h-full flex items-center justify-center relative p-6">
-                <!-- 背景点缀 -->
+                <!-- 背景光晕 -->
                 <div
                     class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 pointer-events-none">
                 </div>
@@ -398,7 +109,7 @@
                     class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 pointer-events-none">
                 </div>
 
-                <div class="card w-full max-w-2xl text-center px-10 py-12 relative z-10 transition-transform">
+                <div class="card w-full max-w-2xl text-center px-10 py-12 relative z-10">
                     <div class="w-16 h-16 rounded-[20px] mx-auto mb-6 flex items-center justify-center text-white"
                         style="background:linear-gradient(135deg,var(--color-primary),var(--color-accent));box-shadow:0 12px 24px -6px rgba(79,70,229,0.3)">
                         <svg class="w-8 h-8 transform -translate-y-0.5" fill="none" stroke="currentColor"
@@ -432,15 +143,15 @@
                 </div>
             </div>
 
+            <!-- ══ Step 2：推荐列表 ══ -->
             <div v-if="step === 2" class="w-full h-full overflow-y-auto p-8 relative"
                 style="background:var(--color-bg)">
-                <!-- 装饰性背景层 -->
                 <div
                     class="fixed top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-50/50 to-transparent pointer-events-none">
                 </div>
 
-                <div
-                    class="max-w-7xl mx-auto relative z-10 translate-y-0 opacity-100">
+                <div class="max-w-7xl mx-auto relative z-10">
+                    <!-- 页头 -->
                     <div class="flex justify-between items-end mb-6 border-b border-slate-200/60 pb-6">
                         <div>
                             <h2 class="text-3xl font-display font-bold text-slate-800 tracking-tight">布局推荐方案</h2>
@@ -458,21 +169,23 @@
                         </button>
                     </div>
 
+                    <!-- 推荐卡片网格 -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
                         <div v-for="(tpl, index) in recommendedTemplates" :key="tpl.uuid"
                             class="card overflow-hidden flex flex-col group cursor-pointer relative h-full"
                             style="transform-style:preserve-3d" @click="openTemplatePreview(tpl)">
-                            <!-- 悬浮发光层 -->
+
+                            <!-- 悬浮光效 -->
                             <div
                                 class="absolute inset-0 bg-gradient-to-tr from-blue-600/0 via-blue-600/0 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                             </div>
 
-                            <!-- 卡片头部：方案信息 + 匹配分 -->
+                            <!-- 卡片头：方案信息 + 匹配分 -->
                             <div class="px-7 pt-7 pb-6 relative z-10">
                                 <div class="flex justify-between items-center mb-5">
                                     <div class="min-w-0 pr-4 flex-1">
                                         <span
-                                            class="text-[11px] font-semibold text-slate-400 uppercase tracking-[0.15em] drop-shadow-sm">Option
+                                            class="text-[11px] font-semibold text-slate-400 uppercase tracking-[0.15em]">Option
                                             0{{ index + 1 }}</span>
                                         <h3 class="font-display font-bold text-slate-800 text-xl mt-1 leading-snug break-words whitespace-normal group-hover:text-blue-600 transition-colors line-clamp-2 h-[3.5rem]"
                                             :title="tpl.name || (tpl.uuid ? '#' + tpl.uuid.substring(0, 6) : String(index))">
@@ -495,35 +208,32 @@
                                     </div>
                                 </div>
 
-                                <!-- 左右布局：左侧匹配状态，右侧预览 -->
+                                <!-- 元件统计 + 缩略预览 -->
                                 <div class="flex gap-4 items-stretch">
-                                    <!-- 匹配状态：3行等高拉伸 -->
+                                    <!-- 元件统计 -->
                                     <div class="flex flex-col gap-2.5 flex-shrink-0">
                                         <div
-                                            class="bg-gradient-to-b from-emerald-50 to-white/50 border border-emerald-100/60 rounded-xl px-4 flex flex-col items-center justify-center gap-1 w-20 flex-1 shadow-[0_2px_4px_rgba(16,185,129,0.02)]">
+                                            class="bg-gradient-to-b from-emerald-50 to-white/50 border border-emerald-100/60 rounded-xl px-4 flex flex-col items-center justify-center gap-1 w-20 flex-1">
                                             <span
                                                 class="text-2xl font-display font-bold text-emerald-600 leading-none">{{
                                                 tpl.diffInfo.matched }}</span>
-                                            <span
-                                                class="text-[10px] text-emerald-600/80 font-bold tracking-wide">匹配元件</span>
+                                            <span class="text-[10px] text-emerald-600/80 font-bold">匹配元件</span>
                                         </div>
                                         <div
-                                            class="bg-gradient-to-b from-amber-50 to-white/50 border border-amber-100/60 rounded-xl px-4 flex flex-col items-center justify-center gap-1 w-20 flex-1 shadow-[0_2px_4px_rgba(245,158,11,0.02)]">
+                                            class="bg-gradient-to-b from-amber-50 to-white/50 border border-amber-100/60 rounded-xl px-4 flex flex-col items-center justify-center gap-1 w-20 flex-1">
                                             <span class="text-2xl font-display font-bold text-amber-500 leading-none">{{
                                                 tpl.diffInfo.missing }}</span>
-                                            <span
-                                                class="text-[10px] text-amber-600/80 font-bold tracking-wide">冗余元件</span>
+                                            <span class="text-[10px] text-amber-600/80 font-bold">冗余元件</span>
                                         </div>
                                         <div
-                                            class="bg-gradient-to-b from-red-50 to-white/50 border border-red-100/60 rounded-xl px-4 flex flex-col items-center justify-center gap-1 w-20 flex-1 shadow-[0_2px_4px_rgba(239,68,68,0.02)]">
+                                            class="bg-gradient-to-b from-red-50 to-white/50 border border-red-100/60 rounded-xl px-4 flex flex-col items-center justify-center gap-1 w-20 flex-1">
                                             <span class="text-2xl font-display font-bold text-red-500 leading-none">{{
                                                 tpl.diffInfo.extra }}</span>
-                                            <span
-                                                class="text-[10px] text-red-600/80 font-bold tracking-wide">新增元件</span>
+                                            <span class="text-[10px] text-red-600/80 font-bold">新增元件</span>
                                         </div>
                                     </div>
-                                    <!-- 布局预览 -->
-                                    <div class="flex-1 rounded-2xl overflow-hidden flex items-center justify-center p-3 border border-slate-100 shadow-[inset_0_2px_12px_rgba(0,0,0,0.02)] group-hover:shadow-[inset_0_2px_12px_rgba(0,0,0,0.04)] transition-all"
+                                    <!-- 缩略预览 -->
+                                    <div class="flex-1 rounded-2xl overflow-hidden flex items-center justify-center p-3 border border-slate-100 shadow-[inset_0_2px_12px_rgba(0,0,0,0.02)] transition-all"
                                         style="background:#f4f7fa">
                                         <div class="relative flex-shrink-0 bg-white overflow-hidden shadow-sm rounded border border-slate-200"
                                             :style="getPreviewPanelStyle(tpl.meta.panel_size)">
@@ -541,7 +251,7 @@
                                 </div>
                             </div>
 
-                            <!-- 特征展开 (阻止卡片跳转冒泡) -->
+                            <!-- 特征展开面板 -->
                             <div class="border-t border-slate-100/80 bg-slate-50/50 px-7 py-3 relative z-10"
                                 @click.stop>
                                 <button @click.stop="tpl.showFeatures = !tpl.showFeatures"
@@ -561,22 +271,21 @@
                                     </svg>
                                 </button>
 
-                                <div v-show="tpl.showFeatures"
-                                    class="mt-2 rounded-xl border border-slate-200 overflow-hidden">
+                                <div v-show="tpl.showFeatures" class="mt-2 rounded-xl border border-slate-200 overflow-hidden">
                                     <div
                                         class="flex justify-between text-xs text-slate-400 font-semibold bg-slate-50 px-4 py-2.5 border-b border-slate-200">
                                         <span>特征项</span>
                                         <span>模板值 / 需求值</span>
                                     </div>
-                                    <div class="max-h-56 overflow-y-auto feature-scroll">
+                                    <div class="max-h-56 overflow-y-auto">
                                         <div v-for="(feat, fIdx) in (tpl.featureDiffs || [])" :key="fIdx"
                                             class="flex justify-between items-center px-4 py-2.5 border-b border-slate-100 last:border-0 hover:bg-slate-50/70 text-sm">
                                             <div class="flex items-center gap-2 flex-1 min-w-0 pr-4">
                                                 <span class="w-2 h-2 rounded-full flex-shrink-0" :class="{
                                                     'bg-emerald-500': feat.status === 'green',
-                                                    'bg-yellow-400': feat.status === 'yellow',
-                                                    'bg-orange-500': feat.status === 'orange',
-                                                    'bg-red-500': feat.status === 'red'
+                                                    'bg-yellow-400':  feat.status === 'yellow',
+                                                    'bg-orange-500':  feat.status === 'orange',
+                                                    'bg-red-500':     feat.status === 'red'
                                                 }"></span>
                                                 <span class="text-slate-600 truncate" :title="feat.displayName">{{
                                                     feat.displayName }}</span>
@@ -606,167 +315,169 @@
                 </div>
             </div>
 
-                <div v-if="previewTemplate" class="absolute inset-0 z-50 flex items-center justify-center p-6"
-                    style="background:rgba(15,23,42,.6);backdrop-filter:blur(16px)" @click.self="closeTemplatePreview">
-                    <div
-                        class="relative w-full max-w-7xl h-[92vh] bg-white/95 backdrop-blur-3xl rounded-[24px] border border-slate-200/50 shadow-[0_32px_80px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col transform transition-all">
-                        <div class="absolute top-5 right-5 z-20">
-                            <button @click="closeTemplatePreview"
-                                class="toolbar-btn bg-white/80 backdrop-blur border border-slate-200 rounded-full w-10 h-10 p-0 text-slate-500 hover:text-slate-800 hover:bg-slate-100 shadow-sm"
-                                title="关闭预览">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div
-                            class="flex-1 pt-6 px-8 pb-3 overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100/50">
-                            <div class="h-full flex flex-col gap-4 min-h-0">
-                                <div class="flex-shrink-0 flex items-center gap-4">
-                                    <div class="w-2 h-8 rounded-full bg-blue-500"></div>
-                                    <h3 class="text-3xl font-display font-bold text-slate-800 leading-tight">{{
-                                        previewTemplate.name || (previewTemplate.uuid ? '#' +
-                                        previewTemplate.uuid.substring(0, 6) : '未命名方案') }}</h3>
-                                </div>
-                                <div class="flex flex-col xl:flex-row gap-6 xl:gap-8 flex-1 min-h-0 xl:overflow-hidden overflow-y-auto pr-1">
-                                    <div class="card p-5 xl:h-full flex flex-col overflow-hidden shrink-0 xl:shrink xl:flex-1 min-h-[400px] xl:min-h-0">
-                                        <div class="flex items-center justify-between mb-4 flex-shrink-0 gap-4">
-                                            <div class="min-w-0">
-                                                <div class="flex items-center gap-3 text-sm text-slate-500 flex-wrap">
-                                                    <span>面板尺寸: {{ previewTemplate.meta?.panel_size?.[0] || 0 }} × {{
-                                                        previewTemplate.meta?.panel_size?.[1] || 0 }} mm</span>
-                                                    <span
-                                                        class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
-                                                        :class="previewTemplate.score >= 80 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : previewTemplate.score >= 60 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'">
-                                                        匹配度 {{ previewTemplate.score }}%
-                                                    </span>
-                                                </div>
-                                            </div>
+            <!-- ══ Step 2 附属：模板全屏预览弹窗 ══ -->
+            <div v-if="previewTemplate" class="absolute inset-0 z-50 flex items-center justify-center p-6"
+                style="background:rgba(15,23,42,.6);backdrop-filter:blur(16px)" @click.self="closeTemplatePreview">
+                <div
+                    class="relative w-full max-w-7xl h-[92vh] bg-white/95 backdrop-blur-3xl rounded-[24px] border border-slate-200/50 shadow-[0_32px_80px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col">
+
+                    <!-- 关闭按钮 -->
+                    <div class="absolute top-5 right-5 z-20">
+                        <button @click="closeTemplatePreview"
+                            class="toolbar-btn bg-white/80 backdrop-blur border border-slate-200 rounded-full w-10 h-10 p-0 text-slate-500 hover:text-slate-800 hover:bg-slate-100 shadow-sm"
+                            title="关闭预览">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- 内容区 -->
+                    <div class="flex-1 pt-6 px-8 pb-3 overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100/50">
+                        <div class="h-full flex flex-col gap-4 min-h-0">
+                            <!-- 标题 -->
+                            <div class="flex-shrink-0 flex items-center gap-4">
+                                <div class="w-2 h-8 rounded-full bg-blue-500"></div>
+                                <h3 class="text-3xl font-display font-bold text-slate-800 leading-tight">{{
+                                    previewTemplate.name || (previewTemplate.uuid ? '#' +
+                                    previewTemplate.uuid.substring(0, 6) : '未命名方案') }}</h3>
+                            </div>
+
+                            <div
+                                class="flex flex-col xl:flex-row gap-6 xl:gap-8 flex-1 min-h-0 xl:overflow-hidden overflow-y-auto pr-1">
+                                <!-- 左：画板预览 -->
+                                <div
+                                    class="card p-5 xl:h-full flex flex-col overflow-hidden shrink-0 xl:shrink xl:flex-1 min-h-[400px] xl:min-h-0">
+                                    <div class="flex items-center justify-between mb-4 flex-shrink-0 gap-4">
+                                        <div class="flex items-center gap-3 text-sm text-slate-500 flex-wrap">
+                                            <span>面板尺寸: {{ previewTemplate.meta?.panel_size?.[0] || 0 }} × {{
+                                                previewTemplate.meta?.panel_size?.[1] || 0 }} mm</span>
+                                            <span
+                                                class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
+                                                :class="previewTemplate.score >= 80 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : previewTemplate.score >= 60 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'">
+                                                匹配度 {{ previewTemplate.score }}%
+                                            </span>
                                         </div>
-                                        <div class="rounded-2xl border border-slate-200 flex-1 relative overflow-hidden w-full h-full"
-                                            style="background:#eef0f5; min-height: 0;" ref="previewCanvasContainer"
-                                            @wheel.prevent="e => handleWheel(e, 'preview')"
-                                            @mousedown="e => startPan(e, 'preview')"
-                                            :class="{ 'cursor-grab': activePanView !== 'preview', 'cursor-grabbing': isPanning && activePanView === 'preview' }">
-                                            <div class="absolute top-0 left-0"
-                                                :style="{ transform: `translate(${previewPanX}px, ${previewPanY}px) scale(${previewCanvasScale})`, transformOrigin: '0 0' }">
-                                                <div class="layout-panel bg-white shadow-lg ring-1 ring-slate-300 relative"
-                                                    :style="{ width: previewPanelSize[0] + 'px', height: previewPanelSize[1] + 'px' }">
-                                                    <div v-for="(posObj, partId) in getPreviewParts(previewTemplate)"
-                                                        :key="'modal-' + partId"
-                                                        class="absolute border border-black/15 rounded-[4px] shadow-sm overflow-hidden text-white font-bold flex flex-col items-center justify-center text-center leading-tight px-1"
-                                                        :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
-                                                        <span class="text-[11px] break-words line-clamp-3">{{
-                                                            posObj.part_type }}</span>
-                                                        <span class="text-[10px] opacity-85 mt-1">{{ partId.substring(0,
-                                                            6) }}</span>
-                                                    </div>
+                                    </div>
+                                    <div class="rounded-2xl border border-slate-200 flex-1 relative overflow-hidden"
+                                        style="background:#eef0f5; min-height: 0;" ref="previewCanvasContainer"
+                                        @wheel.prevent="e => handleWheel(e, 'preview')"
+                                        @mousedown="e => startPan(e, 'preview')"
+                                        :class="{ 'cursor-grab': activePanView !== 'preview', 'cursor-grabbing': isPanning && activePanView === 'preview' }">
+                                        <div class="absolute top-0 left-0"
+                                            :style="{ transform: `translate(${previewPanX}px, ${previewPanY}px) scale(${previewCanvasScale})`, transformOrigin: '0 0' }">
+                                            <div class="layout-panel bg-white shadow-lg ring-1 ring-slate-300 relative"
+                                                :style="{ width: previewPanelSize[0] + 'px', height: previewPanelSize[1] + 'px' }">
+                                                <div v-for="(posObj, partId) in getPreviewParts(previewTemplate)"
+                                                    :key="'modal-' + partId"
+                                                    class="absolute border border-black/15 rounded-[4px] shadow-sm overflow-hidden text-white font-bold flex flex-col items-center justify-center text-center leading-tight px-1"
+                                                    :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
+                                                    <span class="text-[11px] break-words line-clamp-3">{{
+                                                        posObj.part_type }}</span>
+                                                    <span class="text-[10px] opacity-85 mt-1">{{ partId.substring(0,
+                                                        6) }}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="flex flex-col gap-4 shrink-0 w-full xl:w-[380px] xl:h-full min-h-[500px] xl:min-h-0 pb-6 xl:pb-0">
-                                        <div class="card p-5 flex-shrink-0">
-                                            <h4 class="text-base font-bold text-slate-800 mb-4">元件摘要</h4>
-                                            <div class="grid grid-cols-3 gap-3 text-center">
-                                                <div
-                                                    class="bg-gradient-to-b from-emerald-50 to-white/50 border border-emerald-100/60 rounded-xl px-3 py-4 flex flex-col items-center justify-center gap-1 shadow-[0_2px_4px_rgba(16,185,129,0.02)]">
-                                                    <div
-                                                        class="text-2xl font-display font-bold text-emerald-600 leading-none">
-                                                        {{ previewTemplate.diffInfo?.matched || 0 }}</div>
-                                                    <div
-                                                        class="text-[11px] text-emerald-600/80 font-bold tracking-wide uppercase">
-                                                        匹配元件</div>
-                                                </div>
-                                                <div
-                                                    class="bg-gradient-to-b from-amber-50 to-white/50 border border-amber-100/60 rounded-xl px-3 py-4 flex flex-col items-center justify-center gap-1 shadow-[0_2px_4px_rgba(245,158,11,0.02)]">
-                                                    <div
-                                                        class="text-2xl font-display font-bold text-amber-500 leading-none">
-                                                        {{ previewTemplate.diffInfo?.missing || 0 }}</div>
-                                                    <div
-                                                        class="text-[11px] text-amber-600/80 font-bold tracking-wide uppercase">
-                                                        冗余元件</div>
-                                                </div>
-                                                <div
-                                                    class="bg-gradient-to-b from-red-50 to-white/50 border border-red-100/60 rounded-xl px-3 py-4 flex flex-col items-center justify-center gap-1 shadow-[0_2px_4px_rgba(239,68,68,0.02)]">
-                                                    <div
-                                                        class="text-2xl font-display font-bold text-red-500 leading-none">
-                                                        {{ previewTemplate.diffInfo?.extra || 0 }}</div>
-                                                    <div
-                                                        class="text-[11px] text-red-600/80 font-bold tracking-wide uppercase">
-                                                        新增元件</div>
-                                                </div>
+                                <!-- 右：元件摘要 + 特征对比 -->
+                                <div
+                                    class="flex flex-col gap-4 shrink-0 w-full xl:w-[380px] xl:h-full min-h-[500px] xl:min-h-0 pb-6 xl:pb-0">
+                                    <!-- 元件摘要 -->
+                                    <div class="card p-5 flex-shrink-0">
+                                        <h4 class="text-base font-bold text-slate-800 mb-4">元件摘要</h4>
+                                        <div class="grid grid-cols-3 gap-3 text-center">
+                                            <div
+                                                class="bg-gradient-to-b from-emerald-50 to-white/50 border border-emerald-100/60 rounded-xl px-3 py-4 flex flex-col items-center gap-1">
+                                                <div class="text-2xl font-display font-bold text-emerald-600 leading-none">
+                                                    {{ previewTemplate.diffInfo?.matched || 0 }}</div>
+                                                <div class="text-[11px] text-emerald-600/80 font-bold uppercase">匹配元件</div>
+                                            </div>
+                                            <div
+                                                class="bg-gradient-to-b from-amber-50 to-white/50 border border-amber-100/60 rounded-xl px-3 py-4 flex flex-col items-center gap-1">
+                                                <div class="text-2xl font-display font-bold text-amber-500 leading-none">
+                                                    {{ previewTemplate.diffInfo?.missing || 0 }}</div>
+                                                <div class="text-[11px] text-amber-600/80 font-bold uppercase">冗余元件</div>
+                                            </div>
+                                            <div
+                                                class="bg-gradient-to-b from-red-50 to-white/50 border border-red-100/60 rounded-xl px-3 py-4 flex flex-col items-center gap-1">
+                                                <div class="text-2xl font-display font-bold text-red-500 leading-none">
+                                                    {{ previewTemplate.diffInfo?.extra || 0 }}</div>
+                                                <div class="text-[11px] text-red-600/80 font-bold uppercase">新增元件</div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="card p-5 flex-1 min-h-0 flex flex-col">
-                                            <div class="flex items-center justify-between gap-4 mb-3 flex-shrink-0">
-                                                <h4 class="text-base font-bold text-slate-800">特征对比</h4>
-                                                <button @click="previewOnlyDiffs = !previewOnlyDiffs" type="button"
-                                                    class="inline-flex items-center gap-2 text-sm text-slate-500 select-none"
-                                                    :aria-pressed="previewOnlyDiffs ? 'true' : 'false'"
-                                                    title="切换是否仅显示差异项">
-                                                    <span>只看不同</span>
+                                    <!-- 特征对比 -->
+                                    <div class="card p-5 flex-1 min-h-0 flex flex-col">
+                                        <div class="flex items-center justify-between gap-4 mb-3 flex-shrink-0">
+                                            <h4 class="text-base font-bold text-slate-800">特征对比</h4>
+                                            <button @click="previewOnlyDiffs = !previewOnlyDiffs" type="button"
+                                                class="inline-flex items-center gap-2 text-sm text-slate-500 select-none"
+                                                :aria-pressed="previewOnlyDiffs ? 'true' : 'false'"
+                                                title="切换是否仅显示差异项">
+                                                <span>只看不同</span>
+                                                <span
+                                                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                                                    :class="previewOnlyDiffs ? 'bg-indigo-600' : 'bg-slate-300'">
                                                     <span
-                                                        class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
-                                                        :class="previewOnlyDiffs ? 'bg-indigo-600' : 'bg-slate-300'">
-                                                        <span
-                                                            class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform"
-                                                            :class="previewOnlyDiffs ? 'translate-x-5' : 'translate-x-1'"></span>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <div
-                                                class="flex items-center justify-between px-4 py-2.5 rounded-t-xl border border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-500 flex-shrink-0">
-                                                <span>特征项</span>
-                                                <span class="font-mono">模板值 / 当前值</span>
-                                            </div>
-                                            <div
-                                                class="flex-1 min-h-0 overflow-y-auto feature-scroll rounded-b-xl border-x border-b border-slate-200">
-                                                <div v-for="(feat, idx) in previewFeatureDiffs"
-                                                    :key="'preview-feat-' + idx"
-                                                    class="flex items-center justify-between px-4 py-2.5 border-b border-slate-100 last:border-0 text-sm hover:bg-slate-50">
-                                                    <div class="flex items-center gap-2 min-w-0 pr-3">
-                                                        <span class="w-2 h-2 rounded-full flex-shrink-0" :class="{
-                                                    'bg-emerald-500': feat.status === 'green',
-                                                    'bg-yellow-400': feat.status === 'yellow',
-                                                    'bg-orange-500': feat.status === 'orange',
-                                                    'bg-red-500': feat.status === 'red'
-                                                }"></span>
-                                                        <span class="truncate text-slate-600"
-                                                            :title="feat.displayName">{{ feat.displayName }}</span>
-                                                    </div>
-                                                    <span class="font-mono text-xs text-slate-500 flex-shrink-0">{{
-                                                        formatValue(feat.templateValue) }} / {{
-                                                        formatValue(feat.uploadedValue) }}</span>
-                                                </div>
-                                                <div v-if="!previewFeatureDiffs.length"
-                                                    class="text-sm text-slate-400 py-6 text-center">{{ previewOnlyDiffs
-                                                    ? '当前没有差异项' : '暂无特征数据' }}</div>
-                                            </div>
+                                                        class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform"
+                                                        :class="previewOnlyDiffs ? 'translate-x-5' : 'translate-x-1'"></span>
+                                                </span>
+                                            </button>
                                         </div>
-
+                                        <div
+                                            class="flex items-center justify-between px-4 py-2.5 rounded-t-xl border border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-500 flex-shrink-0">
+                                            <span>特征项</span>
+                                            <span class="font-mono">模板值 / 当前值</span>
+                                        </div>
+                                        <div
+                                            class="flex-1 min-h-0 overflow-y-auto rounded-b-xl border-x border-b border-slate-200">
+                                            <div v-for="(feat, idx) in previewFeatureDiffs"
+                                                :key="'preview-feat-' + idx"
+                                                class="flex items-center justify-between px-4 py-2.5 border-b border-slate-100 last:border-0 text-sm hover:bg-slate-50">
+                                                <div class="flex items-center gap-2 min-w-0 pr-3">
+                                                    <span class="w-2 h-2 rounded-full flex-shrink-0" :class="{
+                                                        'bg-emerald-500': feat.status === 'green',
+                                                        'bg-yellow-400':  feat.status === 'yellow',
+                                                        'bg-orange-500':  feat.status === 'orange',
+                                                        'bg-red-500':     feat.status === 'red'
+                                                    }"></span>
+                                                    <span class="truncate text-slate-600"
+                                                        :title="feat.displayName">{{ feat.displayName }}</span>
+                                                </div>
+                                                <span class="font-mono text-xs text-slate-500 flex-shrink-0">{{
+                                                    formatValue(feat.templateValue) }} / {{
+                                                    formatValue(feat.uploadedValue) }}</span>
+                                            </div>
+                                            <div v-if="!previewFeatureDiffs.length"
+                                                class="text-sm text-slate-400 py-6 text-center">{{ previewOnlyDiffs
+                                                ? '当前没有差异项' : '暂无特征数据' }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div
-                            class="px-8 py-5 border-t border-slate-200/60 bg-white/80 backdrop-blur-md flex justify-end gap-4 flex-shrink-0 relative z-10">
-                            <button @click="closeTemplatePreview" class="btn-ghost min-w-[120px]">关闭</button>
-                            <button @click="applyTemplate(previewTemplate)"
-                                class="btn-primary min-w-[140px]">应用此方案</button>
-                        </div>
+                    <!-- 底部操作栏 -->
+                    <div
+                        class="px-8 py-5 border-t border-slate-200/60 bg-white/80 backdrop-blur-md flex justify-end gap-4 flex-shrink-0">
+                        <button @click="closeTemplatePreview" class="btn-ghost min-w-[120px]">关闭</button>
+                        <button @click="applyTemplate(previewTemplate)"
+                            class="btn-primary min-w-[140px]">应用此方案</button>
                     </div>
                 </div>
+            </div>
 
+            <!-- ══ Step 3：双画板编辑 ══ -->
             <template v-if="step === 3">
-                <div
-                    class="flex w-full h-full overflow-hidden">
+                <div class="flex w-full h-full overflow-hidden">
 
-                    <!-- 左侧：参考图 -->
+                    <!-- 左侧：模板参考画板（只读） -->
                     <section
                         class="flex-1 border-r border-slate-200/80 overflow-hidden relative flex flex-col shadow-inner"
                         style="background:#eef0f5" ref="tplCanvasContainer">
@@ -803,8 +514,7 @@
                                 :style="{ transform: `translate(${tplPanX}px, ${tplPanY}px) scale(${tplCanvasScale})`, transformOrigin: '0 0' }">
                                 <div class="absolute bottom-full left-0 mb-4 w-full flex justify-between items-end"
                                     :style="{ transform: `scale(${1/tplCanvasScale})`, transformOrigin: 'bottom left' }">
-                                    <h2
-                                        class="text-2xl font-bold text-gray-500 tracking-wide pointer-events-none whitespace-nowrap">
+                                    <h2 class="text-2xl font-bold text-gray-500 tracking-wide pointer-events-none whitespace-nowrap">
                                         {{ tplPanelType }}
                                         <span
                                             class="text-base font-medium text-gray-400 ml-3 bg-gray-50 px-2 py-1 rounded shadow-sm border pointer-events-auto">尺寸:
@@ -821,8 +531,7 @@
                                         <span
                                             class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
                                             part.part_type }}</span>
-                                        <span
-                                            class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
+                                        <span class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
                                             part.part_id }}</span>
                                     </div>
                                 </div>
@@ -830,6 +539,7 @@
                         </div>
                     </section>
 
+                    <!-- 右侧：项目画板（可编辑） -->
                     <section class="flex-1 overflow-hidden relative flex flex-col shadow-inner"
                         style="background:#f1f5f9" ref="prjCanvasContainer">
 
@@ -845,8 +555,7 @@
                                     class="bg-blue-50 text-blue-600 border border-blue-100/50 text-[10px] px-2 py-0.5 rounded uppercase tracking-widest font-bold">可编辑</span>
                             </h2>
                             <div class="flex items-center gap-4 text-[11px] select-none">
-                                <label
-                                    class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700">
+                                <label class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700">
                                     <input type="checkbox" v-model="settings.autoSnap"
                                         class="w-3.5 h-3.5 rounded accent-indigo-600">
                                     <span>自动吸附</span>
@@ -877,8 +586,7 @@
                                 :style="{ transform: `translate(${prjPanX}px, ${prjPanY}px) scale(${prjCanvasScale})`, transformOrigin: '0 0' }">
                                 <div class="absolute bottom-full left-0 mb-4 w-full flex justify-between items-end"
                                     :style="{ transform: `scale(${1/prjCanvasScale})`, transformOrigin: 'bottom left' }">
-                                    <h2
-                                        class="text-2xl font-bold text-gray-800 tracking-wide pointer-events-none whitespace-nowrap">
+                                    <h2 class="text-2xl font-bold text-gray-800 tracking-wide pointer-events-none whitespace-nowrap">
                                         {{ prjPanelType }}
                                         <span
                                             class="text-base font-medium text-gray-500 ml-3 bg-white px-2 py-1 rounded shadow-sm border pointer-events-auto">尺寸:
@@ -898,8 +606,7 @@
                                         <span
                                             class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
                                             part.part_type }}</span>
-                                        <span
-                                            class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
+                                        <span class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
                                             part.part_id }}</span>
                                     </div>
                                     <div v-for="(line, index) in activeGuides" :key="'guide-'+index" class="guide-line"
@@ -913,532 +620,7 @@
         </main>
     </div>
 
-    <script>
-        const { createApp, ref, computed, reactive, onMounted, onUnmounted, nextTick } = Vue;
-        const DEFAULT_UNKNOWN_COLOR = 'hsl(215, 16%, 55%)';
-
-        const API_BASE_URL = `${window.location.origin}/api`;
-
-        const App = {
-            setup() {
-                const step = ref(1);
-                const isLoading = ref(false);
-                const loadingText = ref('');
-
-                const originalUploadJson = ref(null);
-                const recommendedTemplates = ref([]);
-                const previewTemplate = ref(null);
-                const featureSchema = ref({});
-                const partColorMap = ref({});
-                const unknownPartColor = ref(DEFAULT_UNKNOWN_COLOR);
-                const uploadDataMeta = computed(() => originalUploadJson.value?.meta);
-                const totalFeatureCount = computed(() => {
-                    const schemaCount = Object.keys(featureSchema.value || {}).length;
-                    if (schemaCount > 0) return schemaCount;
-                    const firstTemplate = recommendedTemplates.value?.[0];
-                    return firstTemplate?.featureDiffs?.length || 0;
-                });
-
-                // ===== 模板视图状态 =====
-                const tplPanelSize = ref([600, 1600]);
-                const tplPanelType = ref("安装板");
-                const tplPlacedParts = ref([]);
-                const tplCanvasScale = ref(1);
-                const tplPanX = ref(0);
-                const tplPanY = ref(0);
-                const tplCanvasContainer = ref(null);
-                const previewPanelSize = computed(() => previewTemplate.value?.meta?.panel_size || [600, 1600]);
-                const previewCanvasScale = ref(1);
-                const previewPanX = ref(0);
-                const previewPanY = ref(0);
-                const previewCanvasContainer = ref(null);
-                const previewOnlyDiffs = ref(true);
-
-                // ===== 项目视图状态 =====
-                const prjPanelSize = ref([600, 1600]);
-                const prjPanelType = ref("安装板");
-                const placedParts = ref([]);
-                const prjCanvasScale = ref(1);
-                const prjPanX = ref(0);
-                const prjPanY = ref(0);
-                const prjCanvasContainer = ref(null);
-                const panelRef = ref(null);
-
-                // ===== 全局视图与交互状态 =====
-                const settings = reactive({ autoSnap: true, autoExtrude: true });
-                const isDragging = ref(false);
-                const fileInput = ref(null);
-                const isPanning = ref(false);
-                const isSpaceDown = ref(false);
-                const activePanView = ref(null); // 'tpl' 或 'prj'
-                let panStartX = 0;
-                let panStartY = 0;
-
-                const epsilon = 1e-4; // 屏蔽浮点运算导致的虚假碰撞 (0.0001)
-
-                const history = ref([]);
-                const historyIndex = ref(-1);
-                const MAX_HISTORY = 50;
-
-                const formatValue = (val) => typeof val === 'number' ? Number(val.toFixed(2)) : val;
-
-                const getScoreBadgeClass = (score) => {
-                    if (score >= 80) return 'bg-green-50 text-green-700 border-green-200';
-                    if (score >= 60) return 'bg-yellow-50 text-yellow-700 border-yellow-200';
-                    return 'bg-red-50 text-red-600 border-red-200';
-                };
-
-                // 移除了 unplaced 相关的记录，现在只有 placedParts
-                const getCurrentStateStr = () => JSON.stringify({ placed: placedParts.value });
-
-                const saveHistory = () => {
-                    const currentStateStr = getCurrentStateStr();
-                    if (historyIndex.value >= 0 && currentStateStr === JSON.stringify(history.value[historyIndex.value])) return;
-                    if (historyIndex.value < history.value.length - 1) history.value = history.value.slice(0, historyIndex.value + 1);
-                    history.value.push(JSON.parse(currentStateStr));
-                    if (history.value.length > MAX_HISTORY) history.value.shift(); else historyIndex.value++;
-                };
-
-                const canUndo = computed(() => historyIndex.value > 0);
-                const canRedo = computed(() => historyIndex.value < history.value.length - 1);
-                const undo = () => { if (!canUndo.value) return; historyIndex.value--; restoreState(history.value[historyIndex.value]); };
-                const redo = () => { if (!canRedo.value) return; historyIndex.value++; restoreState(history.value[historyIndex.value]); };
-                const restoreState = (state) => {
-                    placedParts.value = JSON.parse(JSON.stringify(state.placed));
-                    checkBounds();
-                };
-
-                const getColor = (type) => {
-                    const normalizedType = typeof type === 'string' ? type.trim() : '';
-                    if (!normalizedType) return unknownPartColor.value;
-                    return partColorMap.value[normalizedType] || unknownPartColor.value;
-                };
-
-                const loadPartColorMap = async () => {
-                    try {
-                        const response = await fetch(`${API_BASE_URL}/part-color-map`);
-                        if (!response.ok) throw new Error(`颜色映射获取失败: ${response.statusText}`);
-                        const payload = await response.json();
-                        partColorMap.value = payload.partColorMap || {};
-                        unknownPartColor.value = payload.unknownColor || DEFAULT_UNKNOWN_COLOR;
-                    } catch (error) {
-                        console.warn('元件颜色映射加载失败:', error);
-                        partColorMap.value = {};
-                        unknownPartColor.value = DEFAULT_UNKNOWN_COLOR;
-                    }
-                };
-
-                const previewFeatureDiffs = computed(() => {
-                    const diffs = previewTemplate.value?.featureDiffs || [];
-                    if (!previewOnlyDiffs.value) return diffs;
-                    return diffs.filter(feat => feat.status !== 'green');
-                });
-
-                const triggerFileInput = () => fileInput.value.click();
-                const handleFileDrop = (e) => { isDragging.value = false; const files = e.dataTransfer.files; if (files.length > 0) processFile(files[0]); };
-                const handleFileSelect = (e) => { const files = e.target.files; if (files.length > 0) processFile(files[0]); e.target.value = ''; };
-
-                const processFile = (file) => {
-                    if (!file.name.endsWith('.json')) return alert('仅支持上传 JSON 文件');
-                    const reader = new FileReader();
-                    reader.onload = async (e) => {
-                        try {
-                            const json = JSON.parse(e.target.result);
-                            if (!json.meta || !json.meta.parts) throw new Error('JSON 格式缺少 meta 或 parts 节点');
-                            originalUploadJson.value = json;
-                            isLoading.value = true;
-                            loadingText.value = '正在进行特征匹配...';
-                            if (Object.keys(featureSchema.value).length === 0) {
-                                const schemaResponse = await fetch(`${API_BASE_URL}/schema`);
-                                if (!schemaResponse.ok) throw new Error(`特征定义获取失败: ${schemaResponse.statusText}`);
-                                featureSchema.value = await schemaResponse.json();
-                            }
-                            const response = await fetch(`${API_BASE_URL}/recommend`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(json) });
-                            if (!response.ok) throw new Error(`推荐接口请求失败: ${response.statusText}`);
-                            const res = await response.json();
-                            recommendedTemplates.value = res.templates;
-                            step.value = 2;
-                        } catch (err) {
-                            alert('操作失败: ' + err.message);
-                        } finally {
-                            isLoading.value = false;
-                        }
-                    };
-                    reader.readAsText(file);
-                };
-
-                // 预览面板：左侧统计占 ~84px+gap，预览区 p-2 后可用宽约 200px，高约 185px
-                const getPreviewPanelStyle = (size) => {
-                    if (!size) return {};
-                    const maxW = 200, maxH = 185;
-                    const scale = Math.min(maxW / size[0], maxH / size[1]);
-                    return { width: Math.round(size[0] * scale) + 'px', height: Math.round(size[1] * scale) + 'px' };
-                };
-                // 预览内容：对 parts 原始坐标进行同比例缩放
-                const getPreviewInnerStyle = (size) => {
-                    if (!size) return {};
-                    const maxW = 200, maxH = 185;
-                    const scale = Math.min(maxW / size[0], maxH / size[1]);
-                    return { width: size[0] + 'px', height: size[1] + 'px', transform: `scale(${scale})`, transformOrigin: 'top left' };
-                };
-
-                const getPreviewParts = (tpl) => {
-                    const partsInfo = {};
-                    tpl.meta.parts.forEach(p => { if (tpl.arrange && tpl.arrange[p.part_id]) partsInfo[p.part_id] = { part_type: p.part_type, part_size: p.part_size, position: tpl.arrange[p.part_id].position }; });
-                    return partsInfo;
-                };
-
-                const openTemplatePreview = (tpl) => {
-                    previewTemplate.value = tpl;
-                    previewOnlyDiffs.value = true;
-                    nextTick(() => resetView('preview'));
-                };
-
-                const closeTemplatePreview = () => {
-                    previewTemplate.value = null;
-                    previewOnlyDiffs.value = true;
-                };
-
-                const applyTemplate = async (tpl) => {
-                    isLoading.value = true; loadingText.value = '正在进行约束求解，请稍等...';
-                    try {
-                        closeTemplatePreview();
-                        const otherTemplateUuids = recommendedTemplates.value
-                            .filter(candidate => candidate.uuid !== tpl.uuid)
-                            .map(candidate => candidate.uuid);
-                        const response = await fetch(`${API_BASE_URL}/apply`, {
-                            method: 'POST', headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ template_uuid: tpl.uuid, other_template_uuids: otherTemplateUuids, project_data: originalUploadJson.value })
-                        });
-                        if (!response.ok) throw new Error(`应用接口请求失败: ${response.statusText}`);
-
-                        const jsonRes = await response.json();
-                        const tplData = jsonRes.template_data;
-                        const prjData = jsonRes.project_data;
-                        originalUploadJson.value = prjData;
-
-                        // 初始化模板视图数据
-                        tplPanelSize.value = tplData.meta.panel_size || [600, 1600];
-                        tplPanelType.value = tplData.meta.panel_type || "安装板";
-                        const tParts = [];
-                        tplData.meta.parts.forEach(p => {
-                            const arr = tplData.arrange ? tplData.arrange[p.part_id] : null;
-                            if (arr) tParts.push({ part_id: p.part_id, part_type: p.part_type, part_size: p.part_size, position: arr.position });
-                        });
-                        tplPlacedParts.value = tParts;
-
-                        // 初始化项目视图数据（所有元件视为已布置）
-                        prjPanelSize.value = prjData.meta.panel_size || [600, 1600];
-                        prjPanelType.value = prjData.meta.panel_type || "安装板";
-                        const pParts = [];
-                        prjData.meta.parts.forEach(p => {
-                            const arr = prjData.arrange ? prjData.arrange[p.part_id] : null;
-                            // 后端如果遗漏位置，默认放至 [0,0]
-                            const position = arr ? arr.position : [0, 0];
-                            pParts.push({ part_id: p.part_id, part_type: p.part_type, part_size: p.part_size, position: position, isInvalid: false });
-                        });
-                        placedParts.value = pParts;
-
-                        step.value = 3;
-                        checkBounds(); history.value = []; historyIndex.value = -1; saveHistory();
-                        nextTick(() => { resetView('tpl'); resetView('prj'); });
-                    } catch (err) {
-                        alert("布局获取失败: " + err.message);
-                    } finally {
-                        isLoading.value = false;
-                    }
-                };
-
-                const goBackToRecommend = () => {
-                    if (canUndo.value && !confirm('当前项目布局已有修改，返回将丢失这些修改，是否继续？')) return;
-                    step.value = 2;
-                };
-
-                // ===== 独立视图控制逻辑 =====
-                const resetSpecificView = (containerRef, sizeRef, scaleRef, panXRef, panYRef, padding = { x: 60, y: 120 }) => {
-                    if (!containerRef.value) return;
-                    const containerRect = containerRef.value.getBoundingClientRect();
-                    const availableW = containerRect.width - padding.x;
-                    const availableH = containerRect.height - padding.y;
-                    const scale = Math.min(availableW / sizeRef.value[0], availableH / sizeRef.value[1]);
-                    scaleRef.value = scale;
-                    panXRef.value = (containerRect.width - sizeRef.value[0] * scale) / 2;
-                    panYRef.value = (containerRect.height - sizeRef.value[1] * scale) / 2;
-                };
-
-                const resetView = (viewStr) => {
-                    if (viewStr === 'tpl' || !viewStr) resetSpecificView(tplCanvasContainer, tplPanelSize, tplCanvasScale, tplPanX, tplPanY);
-                    if (viewStr === 'prj' || !viewStr) resetSpecificView(prjCanvasContainer, prjPanelSize, prjCanvasScale, prjPanX, prjPanY);
-                    if (viewStr === 'preview' || !viewStr) resetSpecificView(previewCanvasContainer, previewPanelSize, previewCanvasScale, previewPanX, previewPanY, { x: 40, y: 40 });
-                };
-
-                const handleWheel = (e, viewStr) => {
-                    const isTpl = viewStr === 'tpl';
-                    const isPreview = viewStr === 'preview';
-                    const scaleRef = isTpl ? tplCanvasScale : (isPreview ? previewCanvasScale : prjCanvasScale);
-                    const panXRef = isTpl ? tplPanX : (isPreview ? previewPanX : prjPanX);
-                    const panYRef = isTpl ? tplPanY : (isPreview ? previewPanY : prjPanY);
-                    const containerRef = isTpl ? tplCanvasContainer : (isPreview ? previewCanvasContainer : prjCanvasContainer);
-
-                    const zoomFactor = 1.1;
-                    const direction = e.deltaY < 0 ? 1 : -1;
-                    let newScale = scaleRef.value * (direction > 0 ? zoomFactor : 1 / zoomFactor);
-                    newScale = Math.max(0.1, Math.min(newScale, 5));
-
-                    const containerRect = containerRef.value.getBoundingClientRect();
-                    const mouseX = e.clientX - containerRect.left;
-                    const mouseY = e.clientY - containerRect.top;
-
-                    panXRef.value = mouseX - (mouseX - panXRef.value) * (newScale / scaleRef.value);
-                    panYRef.value = mouseY - (mouseY - panYRef.value) * (newScale / scaleRef.value);
-                    scaleRef.value = newScale;
-                };
-
-                const startPan = (e, viewStr) => {
-                    const allowPan = viewStr === 'preview'
-                        ? (e.button === 0 || e.button === 1)
-                        : (e.button === 1 || (e.button === 0 && isSpaceDown.value));
-
-                    if (allowPan) {
-                        e.preventDefault();
-                        isPanning.value = true;
-                        activePanView.value = viewStr;
-                        const isTpl = viewStr === 'tpl';
-                        const isPreview = viewStr === 'preview';
-                        panStartX = e.clientX - (isTpl ? tplPanX.value : (isPreview ? previewPanX.value : prjPanX.value));
-                        panStartY = e.clientY - (isTpl ? tplPanY.value : (isPreview ? previewPanY.value : prjPanY.value));
-                        document.addEventListener('mousemove', onPanMove);
-                        document.addEventListener('mouseup', endPan);
-                    }
-                };
-
-                const onPanMove = (e) => {
-                    if (!isPanning.value || !activePanView.value) return;
-                    const isTpl = activePanView.value === 'tpl';
-                    const isPreview = activePanView.value === 'preview';
-                    const panXRef = isTpl ? tplPanX : (isPreview ? previewPanX : prjPanX);
-                    const panYRef = isTpl ? tplPanY : (isPreview ? previewPanY : prjPanY);
-                    panXRef.value = e.clientX - panStartX;
-                    panYRef.value = e.clientY - panStartY;
-                };
-
-                const endPan = () => {
-                    isPanning.value = false;
-                    activePanView.value = null;
-                    document.removeEventListener('mousemove', onPanMove);
-                    document.removeEventListener('mouseup', endPan);
-                };
-
-                const handleKeydown = (e) => {
-                    if (step.value !== 3) return;
-                    if (e.code === 'Space') { isSpaceDown.value = true; e.preventDefault(); }
-                    if (e.ctrlKey || e.metaKey) {
-                        if (e.key === 'z' || e.key === 'Z') { e.preventDefault(); if (e.shiftKey) redo(); else undo(); }
-                        else if (e.key === 'y' || e.key === 'Y') { e.preventDefault(); redo(); }
-                    }
-                };
-                const handleKeyup = (e) => { if (e.code === 'Space') isSpaceDown.value = false; };
-                onMounted(() => {
-                    window.addEventListener('keydown', handleKeydown);
-                    window.addEventListener('keyup', handleKeyup);
-                    loadPartColorMap();
-                });
-                onUnmounted(() => { window.removeEventListener('keydown', handleKeydown); window.removeEventListener('keyup', handleKeyup); });
-
-                const hasInvalid = computed(() => placedParts.value.some(p => p.isInvalid));
-                const checkBounds = () => { placedParts.value.forEach(part => { const [x, y] = part.position; const [w, h] = part.part_size; const [pw, ph] = prjPanelSize.value; part.isInvalid = (x < 0 || y < 0 || x + w > (pw + epsilon) || y + h > (ph + epsilon)); }); };
-
-                // ===== 拖拽微调核心逻辑 (移除了跨区拖拽，仅支持画板内移动) =====
-                const activeGuides = ref([]);
-                let currentDragPart = null;
-                let dragOffset = [0, 0];
-
-                const startMove = (e, part) => {
-                    if (isSpaceDown.value || e.button !== 0) return;
-                    e.stopPropagation();
-                    currentDragPart = part;
-                    const rect = panelRef.value.getBoundingClientRect();
-                    dragOffset = [((e.clientX - rect.left) / prjCanvasScale.value) - part.position[0], ((e.clientY - rect.top) / prjCanvasScale.value) - part.position[1]];
-                    document.addEventListener('mousemove', onMovePart);
-                    document.addEventListener('mouseup', endMovePart);
-                };
-
-                const getViewportGuides = (dragPart) => {
-                    const guides = { xEdges: [], xCenters: [], yEdges: [], yCenters: [] };
-                    const [pw, ph] = prjPanelSize.value;
-                    guides.xEdges.push(0, pw); guides.xCenters.push(pw / 2);
-                    guides.yEdges.push(0, ph); guides.yCenters.push(ph / 2);
-
-                    if (!prjCanvasContainer.value) return guides;
-                    const containerRect = prjCanvasContainer.value.getBoundingClientRect();
-                    const scale = prjCanvasScale.value;
-                    const buffer = 50 / scale;
-                    const vLeft = -prjPanX.value / scale - buffer;
-                    const vTop = -prjPanY.value / scale - buffer;
-                    const vRight = (containerRect.width - prjPanX.value) / scale + buffer;
-                    const vBottom = (containerRect.height - prjPanY.value) / scale + buffer;
-
-                    placedParts.value.forEach(p => {
-                        if (p.part_id === dragPart.part_id) return;
-                        const [px, py] = p.position; const [pW, pH] = p.part_size;
-                        if (px + pW >= vLeft && px <= vRight && py + pH >= vTop && py <= vBottom) {
-                            guides.xEdges.push(px, px + pW); guides.xCenters.push(px + pW / 2);
-                            guides.yEdges.push(py, py + pH); guides.yCenters.push(py + pH / 2);
-                        }
-                    });
-                    guides.xEdges = [...new Set(guides.xEdges)]; guides.xCenters = [...new Set(guides.xCenters)];
-                    guides.yEdges = [...new Set(guides.yEdges)]; guides.yCenters = [...new Set(guides.yCenters)];
-                    return guides;
-                };
-
-                const onMovePart = (e) => {
-                    if (!currentDragPart) return;
-                    const rect = panelRef.value.getBoundingClientRect();
-                    const scale = prjCanvasScale.value;
-                    let targetX = ((e.clientX - rect.left) / scale) - dragOffset[0];
-                    let targetY = ((e.clientY - rect.top) / scale) - dragOffset[1];
-                    activeGuides.value = [];
-
-                    if (settings.autoSnap) {
-                        const guides = getViewportGuides(currentDragPart);
-                        const [w, h] = currentDragPart.part_size;
-                        const snapThreshold = 10 / scale;
-                        const myXEdges = [targetX, targetX + w]; const myXCenter = targetX + w / 2;
-                        const myYEdges = [targetY, targetY + h]; const myYCenter = targetY + h / 2;
-
-                        let bestSnapX = { delta: snapThreshold, linePos: null }; let bestSnapY = { delta: snapThreshold, linePos: null };
-                        guides.xEdges.forEach(gx => { myXEdges.forEach(mx => { const diff = gx - mx; if (Math.abs(diff) < Math.abs(bestSnapX.delta)) bestSnapX = { delta: diff, linePos: gx }; }); });
-                        guides.xCenters.forEach(gxc => { const diff = gxc - myXCenter; if (Math.abs(diff) < Math.abs(bestSnapX.delta)) bestSnapX = { delta: diff, linePos: gxc }; });
-                        guides.yEdges.forEach(gy => { myYEdges.forEach(my => { const diff = gy - my; if (Math.abs(diff) < Math.abs(bestSnapY.delta)) bestSnapY = { delta: diff, linePos: gy }; }); });
-                        guides.yCenters.forEach(gyc => { const diff = gyc - myYCenter; if (Math.abs(diff) < Math.abs(bestSnapY.delta)) bestSnapY = { delta: diff, linePos: gyc }; });
-
-                        if (bestSnapX.linePos !== null) { targetX += bestSnapX.delta; activeGuides.value.push({ style: `left: ${bestSnapX.linePos}px; top: 0; bottom: 0; width: 1px; transform: scaleX(${1 / scale}); transform-origin: left;` }); }
-                        if (bestSnapY.linePos !== null) { targetY += bestSnapY.delta; activeGuides.value.push({ style: `top: ${bestSnapY.linePos}px; left: 0; right: 0; height: 1px; transform: scaleY(${1 / scale}); transform-origin: top;` }); }
-                    }
-                    currentDragPart.position = [Math.round(targetX), Math.round(targetY)];
-                };
-
-                const endMovePart = (e) => {
-                    document.removeEventListener('mousemove', onMovePart);
-                    document.removeEventListener('mouseup', endMovePart);
-                    activeGuides.value = [];
-                    if (currentDragPart) {
-                        if (settings.autoExtrude) resolveOverlaps(currentDragPart);
-                        checkBounds(); saveHistory(); currentDragPart = null;
-                    }
-                };
-
-                const isOverlap = (p1, p2) => !(p1.position[0] + p1.part_size[0] <= p2.position[0] || p1.position[0] >= p2.position[0] + p2.part_size[0] || p1.position[1] + p1.part_size[1] <= p2.position[1] || p1.position[1] >= p2.position[1] + p2.part_size[1]);
-                const resolveOverlaps = (movedPart) => {
-                    // 队列存储当前正在发力的元件：{ 发力源, 挤出方向 }
-                    const queue = [{ part: movedPart, dir: null }];
-                    let count = 0;
-
-                    while (queue.length > 0 && count++ < 1000) {
-                        const { part: source, dir: sourceDir } = queue.shift();
-
-                        // 缓存发力源的边界坐标，提升可读性与性能
-                        const sL = source.position[0];
-                        const sT = source.position[1];
-                        const sR = sL + source.part_size[0];
-                        const sB = sT + source.part_size[1];
-
-                        for (let target of placedParts.value) {
-                            // 排除自身
-                            if (source.part_id === target.part_id) continue;
-
-                            // 缓存目标的边界坐标
-                            const tL = target.position[0];
-                            const tT = target.position[1];
-                            const tR = tL + target.part_size[0];
-                            const tB = tT + target.part_size[1];
-
-                            // 计算四个方向的物理重叠深度 (若 <= 0 则代表未接触)
-                            const oRight = sR - tL;
-                            const oLeft = tR - sL;
-                            const oDown = sB - tT;
-                            const oUp = tB - sT;
-
-                            // 1. 浮点精度拦截：只要有任何一侧的重叠量小于等于极小值，说明是安全分离或完美贴合，直接跳过
-                            if (oRight <= epsilon || oLeft <= epsilon || oDown <= epsilon || oUp <= epsilon) {
-                                continue;
-                            }
-
-                            let applyDir = sourceDir;
-
-                            // 2. 初始发力判定：仅对用户手动放置的那个元件计算最优逃逸方向
-                            if (!applyDir) {
-                                const minO = Math.min(oRight, oLeft, oDown, oUp);
-                                if (minO === oRight) applyDir = 'RIGHT';
-                                else if (minO === oLeft) applyDir = 'LEFT';
-                                else if (minO === oDown) applyDir = 'DOWN';
-                                else if (minO === oUp) applyDir = 'UP';
-                            }
-
-                            // 3. 严格刮蹭拦截：严格按你的要求，只忽略 1px 的侧边触碰
-                            const oX = Math.min(oRight, oLeft);
-                            const oY = Math.min(oDown, oUp);
-
-                            if (applyDir === 'UP' || applyDir === 'DOWN') {
-                                if (oX <= 1) continue; // 垂直移动时，横向重叠 <= 1px 视为刮蹭
-                            } else if (applyDir === 'LEFT' || applyDir === 'RIGHT') {
-                                if (oY <= 1) continue; // 水平移动时，纵向重叠 <= 1px 视为刮蹭
-                            }
-
-                            // 4. 绝对边界推平：像推土机一样把前方元件对齐到自己的边缘
-                            if (applyDir === 'RIGHT') target.position[0] = sR;
-                            else if (applyDir === 'LEFT') target.position[0] = sL - target.part_size[0];
-                            else if (applyDir === 'DOWN') target.position[1] = sB;
-                            else if (applyDir === 'UP') target.position[1] = sT - target.part_size[1];
-
-                            // 目标被推走后，带着原本的方向继续进入队列扫荡
-                            queue.push({ part: target, dir: applyDir });
-                        }
-                    }
-
-                    if (count >= 1000) {
-                        console.warn("触发极限迭代保护，元件可能已经超出画板。");
-                    }
-                };
-
-                const submitLayout = async () => {
-                    if (hasInvalid.value) return alert('存在超出边界的无效元件，无法提交！');
-                    const outputJson = JSON.parse(JSON.stringify(originalUploadJson.value));
-                    if (!outputJson.arrange) outputJson.arrange = {};
-                    // 不再包含 unplacedParts，因为所有元件默认都在 placedParts 中
-                    placedParts.value.forEach(p => { outputJson.arrange[p.part_id] = { position: p.position, rotation: 0 }; });
-
-                    try {
-                        isLoading.value = true; loadingText.value = '正在提交最终布局数据...';
-                        const response = await fetch(`${API_BASE_URL}/submit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(outputJson) });
-                        if (!response.ok) throw new Error(`提交失败: ${response.statusText}`);
-                        console.log("最终提交的JSON:", outputJson);
-                        alert("布局提交成功！完整的 JSON 数据已传输至后端并打印至控制台 (F12)。");
-                    } catch (err) { alert(err.message); } finally { isLoading.value = false; }
-                };
-
-                return {
-                    step, isLoading, loadingText, isDragging, fileInput, originalUploadJson, recommendedTemplates, previewTemplate, previewOnlyDiffs, uploadDataMeta, totalFeatureCount,
-
-                    // 模板视图暴露变量
-                    tplPanelSize, tplPanelType, tplPlacedParts, tplCanvasScale, tplPanX, tplPanY, tplCanvasContainer,
-                    previewPanelSize, previewCanvasScale, previewPanX, previewPanY, previewCanvasContainer,
-                    // 项目视图暴露变量
-                    prjPanelSize, prjPanelType, placedParts, prjCanvasScale, prjPanX, prjPanY, prjCanvasContainer,
-
-                    settings, formatValue, isPanning, isSpaceDown, activePanView,
-                    triggerFileInput, handleFileDrop, handleFileSelect, openTemplatePreview, closeTemplatePreview, applyTemplate, getPreviewPanelStyle, getPreviewInnerStyle, getPreviewParts, getColor,
-                    previewFeatureDiffs,
-                    getScoreBadgeClass,
-                    handleWheel, startPan, resetView,
-                    startMove, panelRef, activeGuides, hasInvalid, submitLayout,
-                    undo, redo, canUndo, canRedo, goBackToRecommend
-                };
-            }
-        };
-
-        createApp(App).mount('#app');
-    </script>
+    <script src="/static/app.js"></script>
 </body>
 
 </html>

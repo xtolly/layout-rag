@@ -33,13 +33,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- 根路由 (前端入口) ---
+# --- 根路由 → 选配系统首页 ---
 @app.get("/")
-async def get_index():
+async def get_configurator():
+    return FileResponse(STATIC_DIR / "configurator.html")
+
+# --- 布局排版系统 ---
+@app.get("/layout")
+async def get_layout():
     return FileResponse(STATIC_DIR / "index.html")
+
+from layout_rag.api.agent_endpoints import agent_router
 
 # --- API 路由挂载 ---
 app.include_router(api_router, prefix="/api")
+app.include_router(agent_router, prefix="/api")
+
 
 if __name__ == "__main__":
     # 服务将运行在 http://localhost:8000
