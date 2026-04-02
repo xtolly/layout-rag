@@ -1,0 +1,297 @@
+{
+  "version": 5,
+  "schema": {
+    "panel_width": {
+      "type": "continuous",
+      "weight": 2.0,
+      "display_name": "面板宽度"
+    },
+    "panel_height": {
+      "type": "continuous",
+      "weight": 2.0,
+      "display_name": "面板高度"
+    },
+    "panel_area": {
+      "type": "continuous",
+      "weight": 1.5,
+      "display_name": "面板总面积"
+    },
+    "panel_aspect_ratio": {
+      "type": "continuous",
+      "weight": 2.0,
+      "display_name": "面板纵横比"
+    },
+    "total_parts": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "元器件总数"
+    },
+    "unique_types": {
+      "type": "count",
+      "weight": 2.0,
+      "display_name": "元件种类数"
+    },
+    "total_parts_area": {
+      "type": "continuous",
+      "weight": 1.5,
+      "display_name": "元器件总面积"
+    },
+    "fill_ratio": {
+      "type": "continuous",
+      "weight": 1.5,
+      "display_name": "空间填充率"
+    },
+    "avg_part_width": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件平均宽度"
+    },
+    "avg_part_height": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件平均高度"
+    },
+    "max_part_width": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件最大宽度"
+    },
+    "max_part_height": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件最大高度"
+    },
+    "width_std": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件宽度标准差"
+    },
+    "height_std": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "元件高度标准差"
+    },
+    "large_part_ratio": {
+      "type": "continuous",
+      "weight": 1.0,
+      "display_name": "大型元件占比"
+    },
+    "count_万能式断路器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "万能式断路器 数量",
+      "dynamic": true,
+      "source": "schema",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "万能式断路器"
+    },
+    "count_塑壳式断路器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "塑壳式断路器 数量",
+      "dynamic": true,
+      "source": "schema",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "塑壳式断路器"
+    },
+    "count_指示灯": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "指示灯 数量",
+      "dynamic": true,
+      "source": "schema",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "指示灯"
+    },
+    "count_电压表": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "电压表 数量",
+      "dynamic": true,
+      "source": "schema",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "电压表"
+    },
+    "count_电流互感器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "电流互感器 数量",
+      "dynamic": true,
+      "source": "schema",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "电流互感器"
+    },
+    "count_电流表": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "电流表 数量",
+      "dynamic": true,
+      "source": "schema",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "电流表"
+    },
+    "count_电能表": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "电能表 数量",
+      "dynamic": true,
+      "source": "schema",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "电能表"
+    },
+    "cabinet_use_出线柜": {
+      "type": "boolean",
+      "weight": 5.0,
+      "display_name": "箱柜用途:出线柜",
+      "dynamic": true,
+      "source": "schema",
+      "field": "cabinet_use",
+      "source_name": "cabinet_use_categories",
+      "value": "出线柜"
+    },
+    "cabinet_use_进线柜": {
+      "type": "boolean",
+      "weight": 5.0,
+      "display_name": "箱柜用途:进线柜",
+      "dynamic": true,
+      "source": "schema",
+      "field": "cabinet_use",
+      "source_name": "cabinet_use_categories",
+      "value": "进线柜"
+    },
+    "cabinet_model_GGD": {
+      "type": "boolean",
+      "weight": 4.0,
+      "display_name": "箱柜型号:GGD",
+      "dynamic": true,
+      "source": "schema",
+      "field": "cabinet_model",
+      "source_name": "cabinet_model_categories",
+      "value": "GGD"
+    },
+    "cabinet_wiring_method_上进上出": {
+      "type": "boolean",
+      "weight": 3.0,
+      "display_name": "进出线方式:上进上出",
+      "dynamic": true,
+      "source": "schema",
+      "field": "cabinet_wiring_method",
+      "source_name": "cabinet_wiring_method_categories",
+      "value": "上进上出"
+    },
+    "cabinet_wiring_method_上进下出": {
+      "type": "boolean",
+      "weight": 3.0,
+      "display_name": "进出线方式:上进下出",
+      "dynamic": true,
+      "source": "schema",
+      "field": "cabinet_wiring_method",
+      "source_name": "cabinet_wiring_method_categories",
+      "value": "上进下出"
+    },
+    "panel_type_抽屉面板": {
+      "type": "boolean",
+      "weight": 5.0,
+      "display_name": "面板类型:抽屉面板",
+      "dynamic": true,
+      "source": "schema",
+      "field": "panel_type",
+      "source_name": "panel_type_categories",
+      "value": "抽屉面板"
+    },
+    "panel_type_默认面板": {
+      "type": "boolean",
+      "weight": 5.0,
+      "display_name": "面板类型:默认面板",
+      "dynamic": true,
+      "source": "schema",
+      "field": "panel_type",
+      "source_name": "panel_type_categories",
+      "value": "默认面板"
+    },
+    "panel_operation_method_手动机构": {
+      "type": "boolean",
+      "weight": 3.0,
+      "display_name": "操作方式:手动机构",
+      "dynamic": true,
+      "source": "schema",
+      "field": "panel_operation_method",
+      "source_name": "panel_operation_method_categories",
+      "value": "手动机构"
+    },
+    "panel_operation_method_抽屉式": {
+      "type": "boolean",
+      "weight": 3.0,
+      "display_name": "操作方式:抽屉式",
+      "dynamic": true,
+      "source": "schema",
+      "field": "panel_operation_method",
+      "source_name": "panel_operation_method_categories",
+      "value": "抽屉式"
+    }
+  },
+  "params": {
+    "cont_min": [
+      800.0,
+      300.0,
+      240000.0,
+      0.36363636363636365,
+      50900.0,
+      0.08232954545454546,
+      70.0,
+      106.0,
+      140.0,
+      250.0,
+      36.87817782917155,
+      71.9444229944198,
+      0.1
+    ],
+    "cont_range": [
+      1.0,
+      1900.0,
+      1520000.0,
+      2.3030303030303028,
+      94000.0,
+      0.12975378787878789,
+      11.0,
+      2.0,
+      140.0,
+      100.0,
+      33.186078393241885,
+      12.45936838961697,
+      0.1
+    ],
+    "count_max_log": [
+      2.3978952727983707,
+      1.9459101490553132,
+      0.6931471805599453,
+      0.6931471805599453,
+      1.3862943611198906,
+      0.6931471805599453,
+      1.3862943611198906,
+      0.6931471805599453,
+      0.6931471805599453
+    ]
+  },
+  "entries": [
+    {
+      "uuid": "8b62fddc-7936-4d97-845b-744f1447bbe7",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\lowvoltage_cabinet\\出线柜-GGD-抽屉面板-800x300.json"
+    },
+    {
+      "uuid": "f99da6da-008d-4c36-9ae0-bf2466555cd8",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\lowvoltage_cabinet\\出线柜-GGD-抽屉面板-800x550.json"
+    },
+    {
+      "uuid": "e393a023-0645-4f0f-a65f-01db521cf14a",
+      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\lowvoltage_cabinet\\进线柜-GGD-默认面板-800x2200.json"
+    }
+  ]
+}

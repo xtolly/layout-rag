@@ -32,13 +32,16 @@ class FeatureExtractor:
         self.domain = domain
         self.part_types = part_types
 
-        # 从 schema 中推断出所有 "meta boolean" 动态特征的字段 → 枚举值列表映射
-        # 例如: {"cabinet_type": ["A型", "B型"], "panel_type": ["主面板", "副面板"]}
+        # 从 schema 中推断出所有 boolean 动态特征的字段 → 枚举值列表映射
+        # key: field_name, value: list of enum values
         self.categorical_feature_map: dict[str, list[str]] = {}
+        # 同时记录每个字段对应的 source（"meta" | "schema"），用于提取时路由
+        self.categorical_feature_source: dict[str, str] = {}
         for src_cfg in domain.dynamic_feature_sources.values():
-            if src_cfg["source"] == "meta" and src_cfg["feature_type"] == "boolean":
+            if src_cfg["feature_type"] == "boolean" and src_cfg["source"] == "scheme":
                 field = src_cfg["field"]
                 self.categorical_feature_map.setdefault(field, [])
+                self.categorical_feature_source[field] = "scheme"
 
         if schema:
             for feature_name in schema:
@@ -61,9 +64,10 @@ class FeatureExtractor:
           5. 分类 meta 特征（动态 boolean，如 cabinet_type_XXX）
           6. 大型元件比例
         """
-        meta = layout_json.get("meta", {})
-        panel_size = meta.get("panel_size", [0.0, 0.0])
-        parts = meta.get("parts", [])
+        # 全局统一使用 scheme 节点
+        scheme = layout_json.get("scheme", {})
+        panel_size = scheme.get("panel_size", [0.0, 0.0])
+        parts      = scheme.get("parts",      [])
 
         panel_w, panel_h = float(panel_size[0]), float(panel_size[1])
         panel_area = panel_w * panel_h
@@ -102,11 +106,11 @@ class FeatureExtractor:
             features[f"count_{pt}"] = count
 
         # ── 4. 业务结构特征（委托给 domain）──
-        features.update(self.domain.extract_structural_features(parts, meta))
+        features.update(self.domain.extract_structural_features(parts, scheme))
 
-        # ── 5. 分类 meta 特征（动态 boolean）──
+        # ── 5. 分类特征（scheme boolean）──
         for field_name, values in self.categorical_feature_map.items():
-            current_value = str(meta.get(field_name, "")).strip()
+            current_value = str(scheme.get(field_name, "")).strip()
             for value in values:
                 features[f"{field_name}_{value}"] = 1.0 if current_value == value else 0.0
 

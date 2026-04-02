@@ -59,25 +59,28 @@ def iter_layout_samples(data_dir=DATA_DIR):
             continue
 
 
-def load_distinct_values(data_dir=DATA_DIR, source="meta", field=""):
+def load_distinct_values(data_dir=DATA_DIR, source="scheme", field=""):
     """
     扫描所有布局样本，收集指定字段的所有不重复值。
 
     Args:
         data_dir: 布局 JSON 文件目录
-        source:   "meta" 表示从 meta 节点取值；"parts" 表示从 meta.parts 列表取值
+        source:   数据来源节点：
+                    "scheme"       → layout_json["scheme"][field]
+                    "parts"        → layout_json["scheme"]["parts"][*][field]
         field:    目标字段名
     """
     values = set()
     for layout_sample in iter_layout_samples(data_dir):
-        meta = layout_sample.get("meta", {})
+        scheme = layout_sample.get("scheme", {})
+
         if source == "parts":
-            for item in meta.get("parts", []):
+            for item in scheme.get("parts", []):
                 value = str(item.get(field, "")).strip()
                 if value:
                     values.add(value)
-        else:
-            value = str(meta.get(field, "")).strip()
+        else:  # source == "scheme" or fallback
+            value = str(scheme.get(field, "")).strip()
             if value:
                 values.add(value)
     return sorted(values)

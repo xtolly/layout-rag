@@ -1,0 +1,191 @@
+{
+    "name": "进线柜-GGD-默认面板-800x2200",
+    "uuid": "e393a023-0645-4f0f-a65f-01db521cf14a",
+    "scheme": {
+        "cabinet_name": "1AL",
+        "cabinet_use": "进线柜",
+        "cabinet_model": "GGD",
+        "cabinet_wiring_method": "上进上出",
+        "panel_id": "cc818252-3efb-450b-84c8-1e138d6dff45",
+        "panel_type": "默认面板",
+        "panel_operation_method": "手动机构",
+        "panel_size": [
+            800,
+            2200
+        ],
+        "parts": [
+            {
+                "parent_id": "e5ff81fc-8517-4ad6-83bc-3ed55f6e8861",
+                "part_id": "2ef024b6-a20c-40ec-8480-ec312fc46e7f",
+                "part_type": "万能式断路器",
+                "part_model": "DW15-1600",
+                "part_size": [
+                    280,
+                    350
+                ]
+            },
+            {
+                "parent_id": "3548f32f-e719-4765-ac47-f7a01b463277",
+                "part_id": "4b13d102-2ac9-441c-a9c1-e3209c1e2728",
+                "part_type": "电流互感器",
+                "part_model": "LMK-0.66",
+                "part_size": [
+                    60,
+                    80
+                ]
+            },
+            {
+                "parent_id": "3548f32f-e719-4765-ac47-f7a01b463277",
+                "part_id": "76f5cf34-eceb-428d-a1c7-523c76f980ab",
+                "part_type": "电流互感器",
+                "part_model": "LMK-0.66",
+                "part_size": [
+                    60,
+                    80
+                ]
+            },
+            {
+                "parent_id": "3548f32f-e719-4765-ac47-f7a01b463277",
+                "part_id": "e6384291-60aa-43d4-821c-e7c6e224546a",
+                "part_type": "电流互感器",
+                "part_model": "LMK-0.66",
+                "part_size": [
+                    60,
+                    80
+                ]
+            },
+            {
+                "parent_id": "e19c1760-66b6-40f2-bfe2-f844c2c5399f",
+                "part_id": "c486d637-7311-4b3a-b8c0-edf0ec71aa2f",
+                "part_type": "电能表",
+                "part_model": "DT862",
+                "part_size": [
+                    100,
+                    120
+                ]
+            },
+            {
+                "parent_id": "c37009f2-6122-4ec2-9ac9-cf51961486f0",
+                "part_id": "af86a29c-1312-446d-819f-6b4a284fe3e2",
+                "part_type": "电压表",
+                "part_model": "45L1-V",
+                "part_size": [
+                    80,
+                    100
+                ]
+            },
+            {
+                "parent_id": "59112991-4b03-479f-839a-c252150c7f1b",
+                "part_id": "aca36ef2-c3fc-4c83-8261-f1804615e2b5",
+                "part_type": "电流表",
+                "part_model": "45L1-A",
+                "part_size": [
+                    80,
+                    100
+                ]
+            },
+            {
+                "parent_id": "cac3f7ac-671f-49d5-a529-49fb9e4befde",
+                "part_id": "7045559c-462f-4530-8268-81d2f1162d5e",
+                "part_type": "指示灯",
+                "part_model": "AD16-22",
+                "part_size": [
+                    30,
+                    50
+                ]
+            },
+            {
+                "parent_id": "cac3f7ac-671f-49d5-a529-49fb9e4befde",
+                "part_id": "edf6970a-7f30-4044-8c09-4dcd85a8d62c",
+                "part_type": "指示灯",
+                "part_model": "AD16-22",
+                "part_size": [
+                    30,
+                    50
+                ]
+            },
+            {
+                "parent_id": "cac3f7ac-671f-49d5-a529-49fb9e4befde",
+                "part_id": "1c11b9c4-cd59-4dd6-8c74-4182cafed75a",
+                "part_type": "指示灯",
+                "part_model": "AD16-22",
+                "part_size": [
+                    30,
+                    50
+                ]
+            }
+        ]
+    },
+    "arrange": {
+        "2ef024b6-a20c-40ec-8480-ec312fc46e7f": {
+            "position": [
+                260,
+                201
+            ],
+            "rotation": 0
+        },
+        "4b13d102-2ac9-441c-a9c1-e3209c1e2728": {
+            "position": [
+                288,
+                650
+            ],
+            "rotation": 0
+        },
+        "76f5cf34-eceb-428d-a1c7-523c76f980ab": {
+            "position": [
+                380,
+                650
+            ],
+            "rotation": 0
+        },
+        "e6384291-60aa-43d4-821c-e7c6e224546a": {
+            "position": [
+                480,
+                655
+            ],
+            "rotation": 0
+        },
+        "c486d637-7311-4b3a-b8c0-edf0ec71aa2f": {
+            "position": [
+                360,
+                56
+            ],
+            "rotation": 0
+        },
+        "af86a29c-1312-446d-819f-6b4a284fe3e2": {
+            "position": [
+                158,
+                640
+            ],
+            "rotation": 0
+        },
+        "aca36ef2-c3fc-4c83-8261-f1804615e2b5": {
+            "position": [
+                55,
+                640
+            ],
+            "rotation": 0
+        },
+        "7045559c-462f-4530-8268-81d2f1162d5e": {
+            "position": [
+                348,
+                770
+            ],
+            "rotation": 0
+        },
+        "edf6970a-7f30-4044-8c09-4dcd85a8d62c": {
+            "position": [
+                288,
+                770
+            ],
+            "rotation": 0
+        },
+        "1c11b9c4-cd59-4dd6-8c74-4182cafed75a": {
+            "position": [
+                440,
+                770
+            ],
+            "rotation": 0
+        }
+    }
+}

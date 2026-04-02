@@ -58,7 +58,7 @@ const App = {
         const partColorMap           = ref({});
         const unknownPartColor       = ref(DEFAULT_UNKNOWN_COLOR);
 
-        const uploadDataMeta     = computed(() => originalUploadJson.value?.meta);
+        const uploadDataMeta     = computed(() => originalUploadJson.value?.scheme);
         const totalFeatureCount  = computed(() => {
             const schemaCount = Object.keys(featureSchema.value || {}).length;
             if (schemaCount > 0) return schemaCount;
@@ -75,7 +75,7 @@ const App = {
         const tplCanvasContainer = ref(null);
 
         // ── 预览模态画板状态 ──────────────────────────────────
-        const previewPanelSize       = computed(() => previewTemplate.value?.meta?.panel_size || [600, 1600]);
+        const previewPanelSize       = computed(() => previewTemplate.value?.scheme?.panel_size || previewTemplate.value?.meta?.panel_size || [600, 1600]);
         const previewCanvasScale     = ref(1);
         const previewPanX            = ref(0);
         const previewPanY            = ref(0);
@@ -91,6 +91,14 @@ const App = {
         const prjPanY            = ref(0);
         const prjCanvasContainer = ref(null);
         const panelRef           = ref(null);
+
+        // ── 建库模式状态 ──────────────────────────────────────
+        const isBuildTemplateMode = ref(false);
+        const buildTemplateSource = ref(null);
+
+        // ── 选配布局模式状态 ──────────────────────────────────
+        const isLayoutPanelMode = ref(false);
+        const layoutPanelSource = ref(null);
 
         // ── 全局交互状态 ──────────────────────────────────────
         const settings     = reactive({ autoSnap: true, autoExtrude: true });
@@ -161,7 +169,7 @@ const App = {
             reader.onload = async (ev) => {
                 try {
                     const json = JSON.parse(ev.target.result);
-                    if (!json.meta || !json.meta.parts) throw new Error('JSON 格式缺少 meta 或 parts 节点');
+                    if (!json.scheme || !json.scheme.parts) throw new Error('JSON 格式缺少 scheme 或 parts 节点');
                     originalUploadJson.value = json;
                     isLoading.value = true;
                     loadingText.value = '正在进行特征匹配...';
@@ -201,10 +209,13 @@ const App = {
 
         const getPreviewParts = (tpl) => {
             const info = {};
-            tpl.meta.parts.forEach(p => {
-                if (tpl.arrange?.[p.part_id])
-                    info[p.part_id] = { part_type: p.part_type, part_size: p.part_size, position: tpl.arrange[p.part_id].position };
-            });
+            const schemeData = tpl.scheme || tpl.meta || {};
+            if (schemeData.parts) {
+                schemeData.parts.forEach(p => {
+                    if (tpl.arrange?.[p.part_id])
+                        info[p.part_id] = { part_type: p.part_type, part_size: p.part_size, position: tpl.arrange[p.part_id].position };
+                });
+            }
             return info;
         };
 
@@ -304,6 +315,32 @@ const App = {
             window.addEventListener('keydown', handleKeydown);
             window.addEventListener('keyup', handleKeyup);
             loadPartColorMap();
+
+            // 解析 URL 参数，如果是建库模式
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('mode') === 'buildTemplate') {
+                const data = sessionStorage.getItem('buildTemplateData');
+                if (data) {
+                    try {
+                        const tplJson = JSON.parse(data);
+                        initBuildTemplateMode(tplJson);
+                    } catch(e) {
+                        console.error('Failed to parse buildTemplateData', e);
+                        alert('建库数据解析失败');
+                    }
+                }
+            } else if (urlParams.get('mode') === 'layoutPanel') {
+                const data = sessionStorage.getItem('layoutPanelData');
+                if (data) {
+                    try {
+                        const layoutJson = JSON.parse(data);
+                        initLayoutPanelMode(layoutJson);
+                    } catch(e) {
+                        console.error('Failed to parse layoutPanelData', e);
+                        alert('布局数据解析失败');
+                    }
+                }
+            }
         });
         onUnmounted(() => {
             window.removeEventListener('keydown', handleKeydown);
@@ -475,16 +512,16 @@ const App = {
                 originalUploadJson.value = prjData;
 
                 // 模板画板
-                tplPanelSize.value = tplData.meta.panel_size || [600, 1600];
-                tplPanelType.value = tplData.meta.panel_type || '安装板';
-                tplPlacedParts.value = tplData.meta.parts
+                tplPanelSize.value = tplData.scheme.panel_size || [600, 1600];
+                tplPanelType.value = tplData.scheme.panel_type || '安装板';
+                tplPlacedParts.value = tplData.scheme.parts
                     .filter(p => tplData.arrange?.[p.part_id])
                     .map(p => ({ part_id: p.part_id, part_type: p.part_type, part_size: p.part_size, position: tplData.arrange[p.part_id].position }));
 
                 // 项目画板
-                prjPanelSize.value = prjData.meta.panel_size || [600, 1600];
-                prjPanelType.value = prjData.meta.panel_type || '安装板';
-                placedParts.value  = prjData.meta.parts.map(p => ({
+                prjPanelSize.value = prjData.scheme.panel_size || [600, 1600];
+                prjPanelType.value = prjData.scheme.panel_type || '安装板';
+                placedParts.value  = prjData.scheme.parts.map(p => ({
                     part_id: p.part_id, part_type: p.part_type, part_size: p.part_size,
                     position: prjData.arrange?.[p.part_id]?.position || [0, 0],
                     isInvalid: false,
@@ -503,6 +540,60 @@ const App = {
         const goBackToRecommend = () => {
             if (canUndo.value && !confirm('当前项目布局已有修改，返回将丢失这些修改，是否继续？')) return;
             step.value = 2;
+        };
+
+        const goBackToConfig = () => {
+            if (canUndo.value && !confirm('您还有修改未保存，返回将丢失这些修改，是否继续？')) return;
+            window.location.href = '/static/configurator.html';
+        };
+
+        const initBuildTemplateMode = (tplJson) => {
+            isBuildTemplateMode.value = true;
+            buildTemplateSource.value = tplJson; 
+            
+            // 跳过1、2步，直接进入编辑第3步
+            step.value = 3;
+            
+            prjPanelSize.value = tplJson.scheme.panel_size || [600, 1600];
+            prjPanelType.value = tplJson.scheme.panel_type || '安装板';
+            placedParts.value  = (tplJson.scheme.parts || []).map(p => ({
+                part_id: p.part_id, part_type: p.part_type, part_size: p.part_size,
+                position: [0, 0], 
+                isInvalid: false,
+                parent_id: p.parent_id
+            }));
+            
+            // 自动把元件在左上角稍微错开排布（按顺序往下掉）
+            let currentY = 0;
+            placedParts.value.forEach(p => {
+                p.position = [0, currentY];
+                currentY += p.part_size[1] + 5;
+            });
+
+            checkBounds(); history.value = []; historyIndex.value = -1; saveHistory();
+            nextTick(() => { resetView('prj'); });
+        }
+
+        const initLayoutPanelMode = async (layoutJson) => {
+            isLayoutPanelMode.value = true;
+            layoutPanelSource.value = layoutJson;
+            try {
+                originalUploadJson.value = layoutJson;
+                isLoading.value = true;
+                loadingText.value = '正在进行特征匹配...';
+
+                if (!Object.keys(featureSchema.value).length)
+                    featureSchema.value = await apiGet('/schema');
+
+                const res = await apiPost('/recommend', layoutJson);
+                recommendedTemplates.value = res.templates;
+                step.value = 2; // 直接进入方案推荐页面
+            } catch (err) {
+                alert('操作失败: ' + err.message);
+                window.location.href = '/static/configurator.html';
+            } finally {
+                isLoading.value = false;
+            }
         };
 
         // ============================================================
@@ -526,6 +617,45 @@ const App = {
             }
         };
 
+        const downloadTemplate = () => {
+            if (hasInvalid.value) return alert('存在超出边界的无效元件，无法保存！');
+            
+            const exportData = JSON.parse(JSON.stringify(buildTemplateSource.value));
+            exportData.arrange = {};
+            placedParts.value.forEach(p => { 
+                exportData.arrange[p.part_id] = { position: p.position, rotation: 0 }; 
+            });
+
+            const blob = new Blob([JSON.stringify(exportData, null, 4)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${exportData.name}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            // 保存后返回选配界面（scheme 已由 buildTemplate() 写入 sessionStorage）
+            alert('模板保存成功，已下载为 ' + a.download + '\n即将返回选配界面...');
+            window.location.href = '/static/configurator.html';
+        };
+
+        const submitLayoutPanel = () => {
+            if (hasInvalid.value) return alert('存在超出边界的无效元件，无法返回！');
+            
+            const exportData = JSON.parse(JSON.stringify(originalUploadJson.value));
+            exportData.arrange = {};
+            placedParts.value.forEach(p => { 
+                exportData.arrange[p.part_id] = { position: p.position, rotation: 0 }; 
+            });
+
+            sessionStorage.setItem('layoutPanelResult', JSON.stringify({
+                scheme: exportData.scheme,
+                arrange: exportData.arrange
+            }));
+
+            window.location.href = '/static/configurator.html';
+        };
+
         // ============================================================
         //  工具函数
         // ============================================================
@@ -543,6 +673,10 @@ const App = {
         return {
             // 流程
             step, isLoading, loadingText, isDragging, fileInput,
+            // 模式
+            isBuildTemplateMode, isLayoutPanelMode,
+            // 提交与返回
+            goBackToConfig, submitLayoutPanel,
             // 数据
             originalUploadJson, recommendedTemplates, previewTemplate, previewOnlyDiffs,
             uploadDataMeta, totalFeatureCount,
@@ -560,9 +694,9 @@ const App = {
             getPreviewPanelStyle, getPreviewInnerStyle, getPreviewParts, getColor,
             handleWheel, startPan, resetView,
             startMove, panelRef, activeGuides,
-            hasInvalid, submitLayout,
+            hasInvalid, submitLayout, downloadTemplate,
             undo, redo, canUndo, canRedo,
-            formatValue, getScoreBadgeClass,
+            formatValue, getScoreBadgeClass
         };
     }
 };

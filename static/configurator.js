@@ -26,7 +26,7 @@ let _partTypeOptionsRef = null;  // 在 setup() 中初始化为 ref
 let _orderCounter = 1000;
 const getOrder = () => Date.now() + (_orderCounter++);
 const makePart    = (o={}) => ({ part_id:uid(), order:getOrder(), part_type:'', part_model:'', part_number:1, part_width:60,  part_height:80,  ...o });
-const makePanel   = (o={}) => ({ panel_id:uid(), order:getOrder(), panel_type:'默认面板', operation_method:'', panel_width:600, panel_height:1400, parts:[], ...o });
+const makePanel   = (o={}) => ({ panel_id:uid(), order:getOrder(), panel_type:'默认面板', operation_method:'', panel_width:600, panel_height:1400, parts:[], is_laid_out:false, arrange:{}, ...o });
 const makeCabinet = (o={}) => ({ cabinet_id:uid(), order:getOrder(), cabinet_name:'', cabinet_use:'出线柜', cabinet_model:'GCS', wiring_method:'', cabinet_width:800, cabinet_height:2200, panels:[], ...o });
 
 // ══════════════════════════════════════════════════════════════
@@ -48,6 +48,53 @@ const App = {
         const names = txt.split('\n').map(s=>s.trim()).filter(Boolean);
         if (names.length) PART_TYPE_OPTIONS.value = names;
     }).catch(()=>{});
+
+    // ── 从 sessionStorage 恢复备份数据 ───────────────────────────
+    const _backup = sessionStorage.getItem('configurator_scheme_backup');
+    if (_backup) {
+        try {
+            const { scheme: saved, selectedCabinetId: savedCabId, selectedPanelId: savedPanelId } = JSON.parse(_backup);
+            if (saved?.cabinets?.length) {
+                scheme.cabinets = saved.cabinets;
+                // 延迟设置选中等待 Vue 响应式就绪
+                setTimeout(() => {
+                    if (savedCabId && scheme.cabinets.find(c => c.cabinet_id === savedCabId)) {
+                        selectedCabinetId.value = savedCabId;
+                    }
+                    if (savedPanelId) {
+                        const cab = scheme.cabinets.find(c => c.cabinet_id === savedCabId);
+                        if (cab?.panels.find(p => p.panel_id === savedPanelId)) {
+                            selectedPanelId.value = savedPanelId;
+                        }
+                    }
+                }, 0);
+            }
+        } catch(e) { console.warn('scheme backup restore failed', e); }
+        sessionStorage.removeItem('configurator_scheme_backup');
+    }
+
+    const layoutPanelResult = sessionStorage.getItem('layoutPanelResult');
+    if (layoutPanelResult) {
+        try {
+            const data = JSON.parse(layoutPanelResult);
+            if (data && data.scheme && data.scheme.panel_id) {
+                const targetPanelId = data.scheme.panel_id;
+                let foundPanel = null;
+                for (const cab of scheme.cabinets) {
+                    const p = cab.panels.find(x => x.panel_id === targetPanelId);
+                    if (p) {
+                         p.is_laid_out = true;
+                         p.arrange = data.arrange;
+                         foundPanel = p;
+                         break;
+                    }
+                }
+            }
+        } catch(e) {
+             console.warn('layoutPanelResult parse error', e);
+        }
+        sessionStorage.removeItem('layoutPanelResult');
+    }
 
     // ── 拖拽调整列宽 ─────────────────────────────────────────
     const cabinetWidth = ref(268);
@@ -282,7 +329,7 @@ const App = {
         const exportData = {
             name: name,
             uuid: newUuid,
-            schema: {
+            scheme: {
                 cabinet_name: cabinet?.cabinet_name || '',
                 cabinet_use: cabinetUse,
                 cabinet_model: cabinetModel,
@@ -302,17 +349,61 @@ const App = {
     };
 
     const sendToLayout = () => {
-        if (!selectedPanel.value) return showToast('请先选择一个面板','warn');
-        const payload = {
-            meta: {
-                panel_size:   [selectedPanel.value.panel_width, selectedPanel.value.panel_height],
-                panel_type:   selectedPanel.value.panel_type,
-                cabinet_type: selectedCabinet.value?.cabinet_use||'',
-                parts: selectedPanel.value.parts.map(p=>({ part_id:p.part_id, part_type:p.part_type, part_size:[p.part_width,p.part_height] }))
+        sessionStorage.setItem('current_scheme', JSON.stringify(scheme));
+        window.location.href = '/static/index.html';
+    };
+
+    const buildTemplate = () => {
+        if (!selectedCabinet.value || !selectedPanel.value) {
+            alert('请先在界面上选中一个箱柜和一个要建库的面板');
+            return;
+        }
+        const cab = selectedCabinet.value;
+        const pnl = selectedPanel.value;
+        
+        const generateUuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+
+        const expandedParts = [];
+        pnl.parts.forEach(part => {
+            let count = parseInt(part.part_number) || 1;
+            for (let i = 0; i < count; i++) {
+                expandedParts.push({
+                    parent_id: part.part_id,
+                    part_id: generateUuid(),
+                    part_type: part.part_type,
+                    part_model: part.part_model,
+                    part_size: [parseFloat(part.part_width)||80, parseFloat(part.part_height)||100]
+                });
+            }
+        });
+
+        const templateData = {
+            name: `${cab.cabinet_use}-${cab.cabinet_model||''}-${pnl.panel_type}-${pnl.panel_width}x${pnl.panel_height}`,
+            uuid: generateUuid(),
+            scheme: {
+                cabinet_name: cab.cabinet_name || '',
+                cabinet_use: cab.cabinet_use || '',
+                cabinet_model: cab.cabinet_model || '',
+                cabinet_wiring_method: cab.wiring_method || '',
+                panel_id: pnl.panel_id,
+                panel_type: pnl.panel_type || '',
+                panel_operation_method: pnl.operation_method || '',
+                panel_size: [parseFloat(pnl.panel_width)||600, parseFloat(pnl.panel_height)||1400],
+                parts: expandedParts
             }
         };
-        sessionStorage.setItem('layout_payload', JSON.stringify(payload));
-        window.location.href='/layout';
+
+        // 跳转前同时将当前 scheme 驼存，方便返回开自动恢复
+        sessionStorage.setItem('configurator_scheme_backup', JSON.stringify({
+            scheme: scheme,
+            selectedCabinetId: selectedCabinetId.value,
+            selectedPanelId: selectedPanelId.value,
+        }));
+        sessionStorage.setItem('buildTemplateData', JSON.stringify(templateData));
+        window.location.href = '/static/index.html?mode=buildTemplate';
     };
 
     // ══════════════════════════════════════════════════════════
@@ -544,6 +635,72 @@ const App = {
     //  工具函数
     // ══════════════════════════════════════════════════════════
     const getPanelPartCount = (panel) => panel.parts.reduce((s,p)=>s+(p.part_number||1),0);
+
+    const isPanelValidForLayout = computed(() => {
+        const pnl = selectedPanel.value;
+        if (!pnl) return false;
+        if (!parseFloat(pnl.panel_width) || !parseFloat(pnl.panel_height)) return false;
+        
+        let partsCount = 0;
+        let allValid = true;
+        pnl.parts.forEach(part => {
+            if (!parseFloat(part.part_width) || !parseFloat(part.part_height)) allValid = false;
+            partsCount += parseInt(part.part_number) || 1;
+        });
+        
+        if (!allValid) return false;
+        return partsCount > 1;
+    });
+
+    const layoutPanel = () => {
+        if (!isPanelValidForLayout.value) return;
+        const cab = selectedCabinet.value;
+        const pnl = selectedPanel.value;
+        
+        const generateUuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+
+        const expandedParts = [];
+        pnl.parts.forEach(part => {
+            let count = parseInt(part.part_number) || 1;
+            for (let i = 0; i < count; i++) {
+                expandedParts.push({
+                    parent_id: part.part_id,
+                    part_id: generateUuid(),
+                    part_type: part.part_type,
+                    part_model: part.part_model,
+                    part_size: [parseFloat(part.part_width)||80, parseFloat(part.part_height)||100]
+                });
+            }
+        });
+
+        const templateData = {
+            name: `${cab.cabinet_use}-${cab.cabinet_model||''}-${pnl.panel_type}-${pnl.panel_width}x${pnl.panel_height}`,
+            uuid: generateUuid(),
+            scheme: {
+                cabinet_name: cab.cabinet_name || '',
+                cabinet_use: cab.cabinet_use || '',
+                cabinet_model: cab.cabinet_model || '',
+                cabinet_wiring_method: cab.wiring_method || '',
+                panel_id: pnl.panel_id,
+                panel_type: pnl.panel_type || '',
+                panel_operation_method: pnl.operation_method || '',
+                panel_size: [parseFloat(pnl.panel_width)||600, parseFloat(pnl.panel_height)||1400],
+                parts: expandedParts
+            }
+        };
+
+        sessionStorage.setItem('configurator_scheme_backup', JSON.stringify({
+            scheme: scheme,
+            selectedCabinetId: selectedCabinetId.value,
+            selectedPanelId: selectedPanelId.value,
+        }));
+        sessionStorage.setItem('layoutPanelData', JSON.stringify(templateData));
+        window.location.href = '/static/index.html?mode=layoutPanel';
+    };
+
     const getCabinetStats   = (cab) => ({
         panels: cab.panels.length,
         parts:  cab.panels.reduce((s,p)=>s+getPanelPartCount(p),0),
@@ -580,7 +737,7 @@ const App = {
         // 元件
         openAddPart, openEditPart, savePartModal, removePart,
         // JSON
-        exportJson, exportPanelData, openJsonModal, importJsonFromText, triggerJsonFileInput, handleJsonFile, sendToLayout,
+        exportJson, exportPanelData, openJsonModal, importJsonFromText, triggerJsonFileInput, handleJsonFile, sendToLayout, buildTemplate, layoutPanel, isPanelValidForLayout,
         // 聊天
         chatMessages, chatInput, chatLoading, chatScrollEl, chatTextarea, chatImageInput,
         chatImagePreview, quickHints,

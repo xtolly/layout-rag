@@ -165,11 +165,11 @@ class LayoutService:
             with open(source_path, 'r', encoding='utf-8') as f:
                 tpl_data = json.load(f)
 
-            tpl_meta     = tpl_data.get("meta", {})
+            tpl_meta     = tpl_data.get("scheme", {})
             tpl_arrange  = tpl_data.get("arrange", {})
             tpl_features = self.extractor.extract(tpl_data)
 
-            diff_info     = self.calculate_diff_info(project_data["meta"]["parts"], tpl_meta.get("parts", []))
+            diff_info     = self.calculate_diff_info(project_data["scheme"]["parts"], tpl_meta.get("parts", []))
             feature_diffs = self.get_feature_diff_list(query_features, t_features=tpl_features)
 
             safe_distance = max(0.0, distance) + diff_info["extra"] * 0.1
@@ -180,7 +180,7 @@ class LayoutService:
                 "name":         tpl_data.get("name"),
                 "score":        score,
                 "showFeatures": False,
-                "meta":         tpl_meta,
+                "scheme":       tpl_meta,
                 "diffInfo":     diff_info,
                 "featureDiffs": feature_diffs,
                 "arrange":      tpl_arrange,

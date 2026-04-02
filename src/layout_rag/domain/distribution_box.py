@@ -72,7 +72,7 @@ class DistributionBoxDomain(BusinessDomain):
                 "display_name_template": "{value} 数量",
             },
             "cabinet_type_categories": {
-                "source": "meta",
+                "source": "scheme",
                 "field": "cabinet_type",
                 "feature_type": "boolean",
                 "weight": 5.0,
@@ -80,7 +80,7 @@ class DistributionBoxDomain(BusinessDomain):
                 "display_name_template": "柜体类型:{value}",
             },
             "panel_type_categories": {
-                "source": "meta",
+                "source": "scheme",
                 "field": "panel_type",
                 "feature_type": "boolean",
                 "weight": 5.0,

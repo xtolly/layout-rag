@@ -97,8 +97,8 @@ class LayoutOptimizer:
         核心入口：将模板排版方案迁移到当前项目。
 
         Args:
-            template_data:      主参考模板（含 meta.parts / arrange）。
-            project_data:       当前项目数据（含 meta.parts / meta.panel_size），
+            template_data:      主参考模板（含 scheme.parts / arrange）。
+            project_data:       当前项目数据（含 scheme.parts / scheme.panel_size），
                                 排版结果直接写入 project_data["arrange"]。
             fallback_templates: 其他推荐模板列表，用于补充主模板缺失的 part_type。
 
@@ -106,11 +106,11 @@ class LayoutOptimizer:
             更新了 ``arrange`` 字段的 project_data。
         """
         default_panel = self.domain.default_panel_size
-        curr_parts = project_data.get("meta", {}).get("parts", [])
-        curr_size  = project_data.get("meta", {}).get("panel_size", default_panel)
-        tpl_parts  = template_data.get("meta", {}).get("parts", [])
+        curr_parts = project_data.get("scheme", {}).get("parts", [])
+        curr_size  = project_data.get("scheme", {}).get("panel_size", default_panel)
+        tpl_parts  = template_data.get("scheme", {}).get("parts", [])
         tpl_arrange = template_data.get("arrange", {})
-        tpl_size   = template_data.get("meta", {}).get("panel_size", default_panel)
+        tpl_size   = template_data.get("scheme", {}).get("panel_size", default_panel)
 
         # 坐标缩放因子：模板面板 → 当前面板
         scale_x, scale_y = self._compute_scale(curr_size, tpl_size)
@@ -571,9 +571,9 @@ class LayoutOptimizer:
         index: dict[str, list[dict]] = defaultdict(list)
 
         for tpl in fallback_templates:
-            tpl_parts  = tpl.get("meta", {}).get("parts", [])
+            tpl_parts  = tpl.get("scheme", {}).get("parts", [])
             tpl_arrange = tpl.get("arrange", {})
-            tpl_size   = tpl.get("meta", {}).get("panel_size", default_panel)
+            tpl_size   = tpl.get("scheme", {}).get("panel_size", default_panel)
             sx, sy     = self._compute_scale(curr_size, tpl_size)
             tpl_uuid   = tpl.get("uuid", "")
 
