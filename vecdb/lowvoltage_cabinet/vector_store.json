@@ -81,7 +81,7 @@
       "weight": 1.0,
       "display_name": "万能式断路器 数量",
       "dynamic": true,
-      "source": "schema",
+      "source": "parts",
       "field": "part_type",
       "source_name": "part_type_counts",
       "value": "万能式断路器"
@@ -91,7 +91,7 @@
       "weight": 1.0,
       "display_name": "塑壳式断路器 数量",
       "dynamic": true,
-      "source": "schema",
+      "source": "parts",
       "field": "part_type",
       "source_name": "part_type_counts",
       "value": "塑壳式断路器"
@@ -101,7 +101,7 @@
       "weight": 1.0,
       "display_name": "指示灯 数量",
       "dynamic": true,
-      "source": "schema",
+      "source": "parts",
       "field": "part_type",
       "source_name": "part_type_counts",
       "value": "指示灯"
@@ -111,7 +111,7 @@
       "weight": 1.0,
       "display_name": "电压表 数量",
       "dynamic": true,
-      "source": "schema",
+      "source": "parts",
       "field": "part_type",
       "source_name": "part_type_counts",
       "value": "电压表"
@@ -121,7 +121,7 @@
       "weight": 1.0,
       "display_name": "电流互感器 数量",
       "dynamic": true,
-      "source": "schema",
+      "source": "parts",
       "field": "part_type",
       "source_name": "part_type_counts",
       "value": "电流互感器"
@@ -131,7 +131,7 @@
       "weight": 1.0,
       "display_name": "电流表 数量",
       "dynamic": true,
-      "source": "schema",
+      "source": "parts",
       "field": "part_type",
       "source_name": "part_type_counts",
       "value": "电流表"
@@ -141,7 +141,7 @@
       "weight": 1.0,
       "display_name": "电能表 数量",
       "dynamic": true,
-      "source": "schema",
+      "source": "parts",
       "field": "part_type",
       "source_name": "part_type_counts",
       "value": "电能表"
@@ -151,7 +151,7 @@
       "weight": 5.0,
       "display_name": "柜体用途:出线柜",
       "dynamic": true,
-      "source": "schema",
+      "source": "scheme",
       "field": "cabinet_use",
       "source_name": "cabinet_use_categories",
       "value": "出线柜"
@@ -161,7 +161,7 @@
       "weight": 5.0,
       "display_name": "柜体用途:进线柜",
       "dynamic": true,
-      "source": "schema",
+      "source": "scheme",
       "field": "cabinet_use",
       "source_name": "cabinet_use_categories",
       "value": "进线柜"
@@ -171,7 +171,7 @@
       "weight": 4.0,
       "display_name": "柜体型号:GGD",
       "dynamic": true,
-      "source": "schema",
+      "source": "scheme",
       "field": "cabinet_model",
       "source_name": "cabinet_model_categories",
       "value": "GGD"
@@ -181,7 +181,7 @@
       "weight": 3.0,
       "display_name": "进出线方式:上进上出",
       "dynamic": true,
-      "source": "schema",
+      "source": "scheme",
       "field": "cabinet_wiring_method",
       "source_name": "cabinet_wiring_method_categories",
       "value": "上进上出"
@@ -191,7 +191,7 @@
       "weight": 3.0,
       "display_name": "进出线方式:上进下出",
       "dynamic": true,
-      "source": "schema",
+      "source": "scheme",
       "field": "cabinet_wiring_method",
       "source_name": "cabinet_wiring_method_categories",
       "value": "上进下出"
@@ -201,7 +201,7 @@
       "weight": 5.0,
       "display_name": "面板类型:抽屉面板",
       "dynamic": true,
-      "source": "schema",
+      "source": "scheme",
       "field": "panel_type",
       "source_name": "panel_type_categories",
       "value": "抽屉面板"
@@ -211,7 +211,7 @@
       "weight": 5.0,
       "display_name": "面板类型:默认面板",
       "dynamic": true,
-      "source": "schema",
+      "source": "scheme",
       "field": "panel_type",
       "source_name": "panel_type_categories",
       "value": "默认面板"
@@ -221,7 +221,7 @@
       "weight": 3.0,
       "display_name": "操作方式:手动机构",
       "dynamic": true,
-      "source": "schema",
+      "source": "scheme",
       "field": "panel_operation_method",
       "source_name": "panel_operation_method_categories",
       "value": "手动机构"
@@ -231,7 +231,7 @@
       "weight": 3.0,
       "display_name": "操作方式:抽屉式",
       "dynamic": true,
-      "source": "schema",
+      "source": "scheme",
       "field": "panel_operation_method",
       "source_name": "panel_operation_method_categories",
       "value": "抽屉式"
@@ -283,15 +283,15 @@
   "entries": [
     {
       "uuid": "8b62fddc-7936-4d97-845b-744f1447bbe7",
-      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\lowvoltage_cabinet\\出线柜-GGD-抽屉面板-800x300.json"
+      "source_path": "E:\\Documents\\Code\\layout-rag\\templates\\lowvoltage_cabinet\\出线柜-GGD-抽屉面板-800x300.json"
     },
     {
       "uuid": "f99da6da-008d-4c36-9ae0-bf2466555cd8",
-      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\lowvoltage_cabinet\\出线柜-GGD-抽屉面板-800x550.json"
+      "source_path": "E:\\Documents\\Code\\layout-rag\\templates\\lowvoltage_cabinet\\出线柜-GGD-抽屉面板-800x550.json"
     },
     {
       "uuid": "e393a023-0645-4f0f-a65f-01db521cf14a",
-      "source_path": "D:\\Documents\\Code\\ai\\layout-rag\\templates\\lowvoltage_cabinet\\进线柜-GGD-默认面板-800x2200.json"
+      "source_path": "E:\\Documents\\Code\\layout-rag\\templates\\lowvoltage_cabinet\\进线柜-GGD-默认面板-800x2200.json"
     }
   ]
 }

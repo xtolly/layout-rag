@@ -8,7 +8,7 @@
     <script src="/static/vue.global.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
-    <link rel="stylesheet" href="/static/app.css">
+    <link rel="stylesheet" href="/static/layout_workbench.css">
     <style>
         /* ── 布局 ── */
         .config-sidebar  { min-width: 180px; }
@@ -128,6 +128,13 @@
                 导出面板
             </button>
 
+            <button @click="triggerJsonFileInput" class="btn-ghost flex items-center gap-1.5 text-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                </svg>
+                导入方案
+            </button>
+
             <button @click="exportJson" class="btn-ghost flex items-center gap-1.5 text-sm">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
@@ -135,29 +142,11 @@
                 导出方案
             </button>
 
-            <!-- JSON角落按钮 -->
-            <div class="relative group">
-                <button class="toolbar-btn w-8 h-8 p-0 rounded-lg" title="JSON 导入/查看">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                    </svg>
-                </button>
-                <div class="absolute right-0 top-full mt-1 bg-white border border-slate-200 rounded-2xl shadow-xl p-1.5 w-40 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all z-50">
-                    <div class="absolute -top-4 left-0 w-full h-4 bg-transparent"></div>
-                    <button @click="openJsonModal" class="w-full text-left px-3 py-2 text-sm rounded-xl hover:bg-slate-50 flex items-center gap-2 text-slate-600">
-                        查看/编辑 JSON
-                    </button>
-                    <button @click="triggerJsonFileInput" class="w-full text-left px-3 py-2 text-sm rounded-xl hover:bg-slate-50 flex items-center gap-2 text-slate-600">
-                        导入 JSON 文件
-                    </button>
-                </div>
-            </div>
-
-            <button @click="sendToLayout" class="btn-primary text-sm px-4 py-2 flex items-center gap-1.5">
+            <button @click="startBatchLayout" class="btn-primary text-sm px-4 py-2 flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
-                去布局排版
+                一键布局
             </button>
         </div>
     </header>
@@ -290,11 +279,24 @@
                 </div>
             </div>
             <!-- 面板列表底部：柜体布局按钮 -->
-            <div v-if="selectedCabinet" class="bg-white border-t border-slate-200 p-3 flex justify-end items-center z-10 flex-shrink-0">
-                <button @click="cabinetLayout" :disabled="isCabinetLayoutLoading || !selectedCabinet.panels.length"
+            <div v-if="selectedCabinet" class="bg-white border-t border-slate-200 p-3 flex justify-end items-center gap-2 z-10 flex-shrink-0">
+                <button @click="cabinetLayout(false)" :disabled="isCabinetLayoutLoading || !selectedCabinet.panels.length"
+                    class="btn-ghost px-3 py-2 text-sm flex items-center gap-1.5"
+                    :class="(isCabinetLayoutLoading || !selectedCabinet.panels.length) ? 'opacity-50 cursor-not-allowed' : ''"
+                    title="使用已有布局打开柜体手动编辑">
+                    <svg v-if="isCabinetLayoutLoading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                    <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                    </svg>
+                    手动布局
+                </button>
+                <button @click="cabinetLayout(true)" :disabled="isCabinetLayoutLoading || !selectedCabinet.panels.length"
                     class="btn-primary px-3 py-2 text-sm flex items-center gap-1.5"
                     :class="(isCabinetLayoutLoading || !selectedCabinet.panels.length) ? 'opacity-50 cursor-not-allowed bg-slate-300 border-none' : ''"
-                    title="对整个柜体的所有面板进行布局">
+                    title="自动计算面板布局位置">
                     <svg v-if="isCabinetLayoutLoading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
@@ -302,7 +304,7 @@
                     <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
                     </svg>
-                    {{ isCabinetLayoutLoading ? '请求中...' : '面板布局' }}
+                    {{ isCabinetLayoutLoading ? '请求中...' : '柜体布局' }}
                 </button>
             </div>
         </section>
@@ -402,7 +404,7 @@
                             :class="!isPanelValidForLayout ? 'opacity-50 cursor-not-allowed bg-slate-300 border-none' : ''"
                             title="AI 推荐模板并辅助布局">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-                            智能布局
+                            面板布局
                         </button>
                     </div>
                 </div>
@@ -723,27 +725,106 @@
         </div>
     </div>
 
-    <!-- ── JSON 弹窗 ── -->
-    <div v-if="jsonModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
-        style="background:rgba(15,23,42,.55);backdrop-filter:blur(8px)" @click.self="jsonModal.show=false">
-        <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-2xl border border-slate-200/60">
-            <div class="px-7 pt-6 pb-4 flex items-center justify-between border-b border-slate-100">
-                <h3 class="font-display font-bold text-lg text-slate-800">方案 JSON</h3>
-                <button @click="jsonModal.show=false" class="toolbar-btn w-8 h-8 p-0">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-            </div>
-            <div class="px-7 py-4">
-                <textarea v-model="jsonModal.raw" rows="18"
-                    class="w-full font-mono text-xs rounded-xl border border-slate-200 bg-slate-50 p-4 resize-none focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-                    spellcheck="false"></textarea>
-            </div>
-            <div class="px-7 pb-6 flex justify-end gap-3">
-                <button @click="jsonModal.show=false" class="btn-ghost">关闭</button>
-                <button @click="importJsonFromText" class="btn-primary">导入此 JSON</button>
+    <!-- ══ 一键布局进度弹窗 ══ -->
+    <transition name="fade">
+        <div v-if="batchLayoutShow"
+            class="fixed inset-0 z-[150] flex items-center justify-center p-6 modal-backdrop"
+            style="background:rgba(15,23,42,.55);backdrop-filter:blur(8px)"
+            @click.self="batchLayoutDone && closeBatchLayout()">
+            <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-lg border border-slate-200/60 overflow-hidden">
+                <!-- 标题 -->
+                <div class="px-7 pt-6 pb-4 flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                        style="background:linear-gradient(135deg,#4f46e5,#7c3aed);box-shadow:0 4px 14px rgba(79,70,229,.3)">
+                        <svg class="w-4.5 h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-lg text-slate-800">一键布局</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">
+                            <template v-if="batchLayoutRunning">正在自动排版…</template>
+                            <template v-else-if="batchLayoutDone">处理完成</template>
+                            <template v-else>准备中</template>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 进度条 -->
+                <div class="px-7 pb-3">
+                    <div class="flex items-center justify-between text-xs text-slate-500 mb-1.5">
+                        <span>{{ batchLayoutItems.filter(i => i.status==='done'||i.status==='skipped'||i.status==='error').length }} / {{ batchLayoutItems.length }}</span>
+                        <span>{{ batchLayoutProgress }}%</span>
+                    </div>
+                    <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full rounded-full transition-all duration-500 ease-out"
+                            :style="{ width: batchLayoutProgress + '%' }"
+                            :class="batchLayoutRunning ? 'bg-gradient-to-r from-indigo-500 to-violet-500' : 'bg-emerald-500'">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 任务列表 -->
+                <div class="px-7 pb-2 max-h-72 overflow-y-auto">
+                    <div v-for="item in batchLayoutItems" :key="item.id"
+                        class="flex items-center gap-2.5 py-2 border-b border-slate-100 last:border-0">
+                        <!-- 状态图标 -->
+                        <div class="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                            <!-- pending -->
+                            <svg v-if="item.status==='pending'" class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="9" stroke-width="2"/>
+                            </svg>
+                            <!-- running -->
+                            <svg v-else-if="item.status==='running'" class="w-4 h-4 text-indigo-500 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
+                            </svg>
+                            <!-- done -->
+                            <svg v-else-if="item.status==='done'" class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <!-- skipped -->
+                            <svg v-else-if="item.status==='skipped'" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+                            </svg>
+                            <!-- error -->
+                            <svg v-else class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 3l9.66 16.5H2.34L12 3z"/>
+                            </svg>
+                        </div>
+                        <!-- 标签 -->
+                        <div class="flex-1 min-w-0">
+                            <span class="text-sm text-slate-700 truncate block">{{ item.label }}</span>
+                            <span v-if="item.msg" class="text-[11px] block truncate"
+                                :class="item.status==='error' ? 'text-red-400' : item.status==='skipped' ? 'text-slate-400' : 'text-slate-400'">
+                                {{ item.msg }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部按钮 -->
+                <div class="px-7 py-4 flex justify-end gap-3 border-t border-slate-100">
+                    <template v-if="batchLayoutDone">
+                        <button @click="closeBatchLayout" class="btn-ghost text-sm px-4 py-2">关闭</button>
+                        <button @click="viewBatchLayoutResult" :disabled="batchLayoutViewLoading"
+                            class="btn-primary text-sm px-5 py-2 flex items-center gap-1.5">
+                            <svg v-if="batchLayoutViewLoading" class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
+                            </svg>
+                            <svg v-else class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                            {{ batchLayoutViewLoading ? '加载中…' : '查看布局结果' }}
+                        </button>
+                    </template>
+                    <span v-else class="text-xs text-slate-400">请勿关闭页面…</span>
+                </div>
             </div>
         </div>
-    </div>
+    </transition>
 
     <!-- ══ 布局排版工作台 iframe 弹窗 ══ -->
     <transition name="workbench-overlay">
@@ -765,7 +846,7 @@
                                     d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
                             </svg>
                         </div>
-                        <span class="font-display font-semibold text-slate-800 text-sm">{{ iframePanelInfo?.layout_mode || '布局排版工作台' }}</span>
+                        <span class="font-display font-semibold text-slate-800 text-sm">{{ iframePanelInfo?.title || '布局排版工作台' }}</span>
                         <template v-if="iframePanelInfo?.panel_type">
                             <span class="text-slate-300 text-sm select-none">·</span>
                             <span class="stat-chip">{{ iframePanelInfo.panel_type }}</span>

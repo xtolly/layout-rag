@@ -142,7 +142,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
             "margin":             10.0,
             "element_gap":        0.0,
             "y_penalty":          10,
-            "solver_time_limit":  20.0,
+            "solver_time_limit":  30.0,
             "solver_num_workers": 8,
         }
 

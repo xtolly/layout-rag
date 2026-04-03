@@ -111,6 +111,7 @@ const App = {
         const isLayoutPanelMode = ref(false);
         const isManualLayoutMode = ref(false);
         const layoutPanelSource = ref(null);
+        const workbenchMode = ref('layout'); // 'recommend' | 'layout' | 'view'
         // ── 全局交互状态 ──────────────────────────────────────
         const settings     = reactive({ autoSnap: true, autoExtrude: true });
         const isDragging   = ref(false);
@@ -223,8 +224,11 @@ const App = {
             const schemeData = tpl.scheme || tpl.meta || {};
             if (schemeData.parts) {
                 schemeData.parts.forEach(p => {
-                    if (tpl.arrange?.[p.part_id])
-                        info[p.part_id] = { part_type: p.part_type, part_size: p.part_size, position: tpl.arrange[p.part_id].position };
+                    if (tpl.arrange?.[p.part_id]) {
+                        const entry = { part_type: p.part_type, part_size: p.part_size, position: tpl.arrange[p.part_id].position };
+                        if (p.parts && p.parts.length) { entry.parts = p.parts; entry.arrange = p.arrange; }
+                        info[p.part_id] = entry;
+                    }
                 });
             }
             return info;
@@ -330,7 +334,8 @@ const App = {
             // 始终以嵌入模式运行，监听父窗口消息
             window.addEventListener('message', (e) => {
                 if (e.origin !== window.location.origin) return;
-                const { type, payload } = e.data || {};
+                const { type, payload, workbenchMode: wbMode } = e.data || {};
+                if (wbMode) workbenchMode.value = wbMode;
                 if (type === 'init:layoutPanel') {
                     initLayoutPanelMode(payload);
                 } else if (type === 'init:layoutPanelManual') {
@@ -518,7 +523,7 @@ const App = {
                 tplPanelType.value = tplData.scheme.panel_type || '安装板';
                 tplPlacedParts.value = tplData.scheme.parts
                     .filter(p => tplData.arrange?.[p.part_id])
-                    .map(p => ({ part_id: p.part_id, part_type: p.part_type, part_size: p.part_size, position: tplData.arrange[p.part_id].position }));
+                    .map(p => ({ part_id: p.part_id, part_type: p.part_type, part_size: p.part_size, position: tplData.arrange[p.part_id].position, ...(p.parts?.length ? { parts: p.parts, arrange: p.arrange } : {}) }));
 
                 // 项目画板
                 if (Array.isArray(prjData)) {
@@ -532,6 +537,7 @@ const App = {
                             position:  item.arrange?.[p.part_id]?.position
                                        ? [...item.arrange[p.part_id].position]
                                        : [0, 0],
+                            ...(p.parts?.length ? { parts: p.parts, arrange: p.arrange } : {}),
                         })),
                     }));
                     prjPanelSize.value = multiPanels.value[0]?.panelSize || [600, 1600];
@@ -545,6 +551,7 @@ const App = {
                         part_id: p.part_id, part_type: p.part_type, part_size: p.part_size,
                         position: prjData.arrange?.[p.part_id]?.position || [0, 0],
                         isInvalid: false,
+                        ...(p.parts?.length ? { parts: p.parts, arrange: p.arrange } : {}),
                     }));
                 }
 
@@ -564,6 +571,10 @@ const App = {
         };
 
         const goBackToConfig = () => {
+            window.parent.postMessage({ type: 'workbench:close' }, window.location.origin);
+        };
+
+        const closeWorkbench = () => {
             window.parent.postMessage({ type: 'workbench:close' }, window.location.origin);
         };
 
@@ -604,6 +615,7 @@ const App = {
                         position:  item.arrange?.[p.part_id]?.position
                                    ? [...item.arrange[p.part_id].position]
                                    : [0, 0],
+                        ...(p.parts?.length ? { parts: p.parts, arrange: p.arrange } : {}),
                     })),
                 }));
                 step.value = 3;
@@ -636,6 +648,7 @@ const App = {
                 part_size: p.part_size,
                 position:  arrange[p.part_id]?.position ? [...arrange[p.part_id].position] : [0, 0],
                 isInvalid: false,
+                ...(p.parts?.length ? { parts: p.parts, arrange: p.arrange } : {}),
             }));
 
             step.value = 3;
@@ -696,9 +709,9 @@ const App = {
             // 流程
             step, isLoading, loadingText, isDragging, fileInput,
             // 模式
-            isLayoutPanelMode, isManualLayoutMode,
+            isLayoutPanelMode, isManualLayoutMode, workbenchMode,
             // 提交与返回
-            goBackToConfig, submitLayoutPanel,
+            goBackToConfig, closeWorkbench, submitLayoutPanel,
             // 数据
             originalUploadJson, recommendedTemplates, previewTemplate, previewOnlyDiffs,
             uploadDataMeta, totalFeatureCount,

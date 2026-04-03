@@ -7,7 +7,7 @@
     <title>智能元件布局系统</title>
     <script src="/static/tailwind.js"></script>
     <script src="/static/vue.global.prod.js"></script>
-    <link rel="stylesheet" href="/static/app.css">
+    <link rel="stylesheet" href="/static/layout_workbench.css">
     <style>[v-cloak]{display:none}</style>
 </head>
 
@@ -179,6 +179,13 @@
                                                     class="absolute border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] overflow-hidden text-[7px] font-bold text-white flex items-center justify-center"
                                                     :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
                                                     {{ posObj.part_type.substring(0, 1) }}
+                                                    <!-- 子元件 -->
+                                                    <template v-if="posObj.parts && posObj.parts.length">
+                                                        <div v-for="child in posObj.parts" :key="'prev-thumb-'+child.part_id"
+                                                            class="absolute border border-black/10 overflow-hidden text-[5px] font-bold text-white flex items-center justify-center"
+                                                            :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (posObj.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (posObj.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }">
+                                                        </div>
+                                                    </template>
                                                 </div>
                                             </div>
                                         </div>
@@ -312,6 +319,15 @@
                                                         posObj.part_type }}</span>
                                                     <span class="text-[10px] opacity-85 mt-1">{{ partId.substring(0,
                                                         6) }}</span>
+                                                    <!-- 子元件 -->
+                                                    <div v-if="posObj.parts && posObj.parts.length" class="absolute inset-0" style="pointer-events:none">
+                                                        <div v-for="child in posObj.parts" :key="'modal-child-'+child.part_id"
+                                                            class="absolute border border-black/15 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold"
+                                                            :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (posObj.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (posObj.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                            :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                            <span class="text-[9px] break-words line-clamp-2">{{ child.part_type }}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -468,6 +484,15 @@
                                             part.part_type }}</span>
                                         <span class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
                                             part.part_id }}</span>
+                                        <!-- 子元件 -->
+                                        <div v-if="part.parts && part.parts.length" class="absolute inset-0" style="pointer-events:none">
+                                            <div v-for="child in part.parts" :key="'tpl-child-'+child.part_id"
+                                                class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
+                                                :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                <span class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{ child.part_type }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -539,6 +564,15 @@
                                                     :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
                                                     <span class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{ part.part_type }}</span>
                                                     <span class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{ part.part_id }}</span>
+                                                    <!-- 子元件 -->
+                                                    <div v-if="part.parts && part.parts.length" class="absolute inset-0" style="pointer-events:none">
+                                                        <div v-for="child in part.parts" :key="'mp-child-'+child.part_id"
+                                                            class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
+                                                            :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                            :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                            <span class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{ child.part_type }}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -570,6 +604,15 @@
                                                 part.part_type }}</span>
                                             <span class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
                                                 part.part_id }}</span>
+                                            <!-- 子元件 -->
+                                            <div v-if="part.parts && part.parts.length" class="absolute inset-0" style="pointer-events:none">
+                                                <div v-for="child in part.parts" :key="'prj-child-'+child.part_id"
+                                                    class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
+                                                    :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                    :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                    <span class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{ child.part_type }}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div v-for="(line, index) in activeGuides" :key="'guide-'+index" class="guide-line"
                                             :style="line.style"></div>
@@ -583,7 +626,7 @@
                 <div v-if="isLayoutPanelMode"
                     class="flex-shrink-0 flex items-center justify-between px-5"
                     style="height:52px;background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -2px 12px rgba(15,23,42,0.06)">
-                    <button @click="goBackToRecommend"
+                    <button v-if="workbenchMode === 'recommend'" @click="goBackToRecommend"
                         class="btn-ghost flex items-center gap-1 text-xs"
                         style="padding:6px 12px">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -591,7 +634,16 @@
                         </svg>
                         返回
                     </button>
-                    <button @click="submitLayoutPanel"
+                    <span v-else></span>
+                    <button v-if="workbenchMode === 'view'" @click="closeWorkbench"
+                        class="btn-ghost flex items-center gap-1 text-xs"
+                        style="padding:6px 12px">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                        关闭
+                    </button>
+                    <button v-else @click="submitLayoutPanel"
                         class="btn-primary flex items-center gap-1 text-xs"
                         style="padding:6px 12px">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -605,7 +657,7 @@
         </main>
     </div>
 
-    <script src="/static/app.js"></script>
+    <script src="/static/layout_workbench.js"></script>
 </body>
 
 </html>

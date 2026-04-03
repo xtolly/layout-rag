@@ -181,24 +181,28 @@ const App = {
         _pendingIframeInit = null;
     };
 
-    const openLayoutWorkbench = (mode, data) => {
+    const openLayoutWorkbench = (mode, data, opts = {}) => {
+        // opts: { title, workbenchMode: 'recommend'|'layout'|'view' }
         // 清理上一次
         if (_iframeMessageHandler) {
             window.removeEventListener('message', _iframeMessageHandler);
             _iframeMessageHandler = null;
         }
-        _pendingIframeInit = mode ? { mode, data } : null;
+        _pendingIframeInit = mode ? { mode, data, workbenchMode: opts.workbenchMode || 'layout' } : null;
         // 设置面板信息（用于顶部标题栏）
-        if (data?.scheme) {
+        const wbMode = opts.workbenchMode || 'layout';
+        if (opts.title || data?.scheme) {
             iframePanelInfo.value = {
-                layout_mode: mode === 'layoutPanelManual' ? '手动布局' : '智能布局',
-                panel_type:  data.scheme.panel_type  || '安装板',
-                panel_size:  data.scheme.panel_size  || [600, 1400],
-                parts_count: data.scheme.parts?.length || 0,
+                title:       opts.title || (data?.scheme?.panel_type || '安装板'),
+                layout_mode: wbMode,
+                panel_type:  data?.scheme?.panel_type || null,
+                panel_size:  data?.scheme?.panel_size || null,
+                parts_count: Array.isArray(data) ? data.reduce((s, d) => s + (d.scheme?.parts?.length || 0), 0) : (data?.scheme?.parts?.length || 0),
             };
         } else {
             iframePanelInfo.value = {
-                layout_mode: '布局排版工作台',
+                title:       '布局排版工作台',
+                layout_mode: wbMode,
                 panel_type:  null,
                 panel_size:  null,
                 parts_count: null,
@@ -212,7 +216,7 @@ const App = {
                 // iframe 就绪，发送初始化数据
                 if (_pendingIframeInit && layoutIframe.value) {
                     layoutIframe.value.contentWindow.postMessage(
-                        { type: `init:${_pendingIframeInit.mode}`, payload: JSON.parse(JSON.stringify(_pendingIframeInit.data)) },
+                        { type: `init:${_pendingIframeInit.mode}`, payload: JSON.parse(JSON.stringify(_pendingIframeInit.data)), workbenchMode: _pendingIframeInit.workbenchMode },
                         window.location.origin
                     );
                 }
@@ -263,7 +267,7 @@ const App = {
     const cabinetModal = reactive({ show:false, isNew:true, cabinet: makeCabinet() });
     const panelModal   = reactive({ show:false, cabinetId:null, isNew:true, panel: makePanel() });
     const partModal    = reactive({ show:false, cabinetId:null, panelId:null, isNew:true, quantity:1, part: makePart() });
-    const jsonModal    = reactive({ show:false, raw:'' });
+
 
     // ── 计算属性 ──────────────────────────────────────────────
     const selectedCabinet = computed(() => scheme.cabinets.find(c=>c.cabinet_id===selectedCabinetId.value)||null);
@@ -454,20 +458,17 @@ const App = {
     const handleJsonFile = (e) => {
         const file = e.target.files[0]; if (!file) return;
         const r = new FileReader();
-        r.onload = (ev) => { jsonModal.raw=ev.target.result; jsonModal.show=true; };
+        r.onload = (ev) => {
+            try {
+                const parsed = JSON.parse(ev.target.result);
+                if (!parsed.cabinets) throw new Error('缺少 cabinets 字段');
+                scheme.cabinets = parsed.cabinets;
+                const firstCab = scheme.cabinets[0];
+                if (firstCab) selectCabinet(firstCab.cabinet_id);
+                showToast(`已导入 ${scheme.cabinets.length} 个柜体`);
+            } catch(err) { showToast('JSON 格式错误: '+err.message,'error'); }
+        };
         r.readAsText(file); e.target.value='';
-    };
-    const openJsonModal = () => {
-        jsonModal.raw = JSON.stringify({ cabinets: scheme.cabinets }, null, 2);
-        jsonModal.show=true;
-    };
-    const importJsonFromText = () => {
-        try {
-            const parsed = JSON.parse(jsonModal.raw);
-            if (!parsed.cabinets) throw new Error('缺少 cabinets 字段');
-            scheme.cabinets = parsed.cabinets;
-            jsonModal.show=false; showToast(`已导入 ${scheme.cabinets.length} 个柜体`);
-        } catch(e) { showToast('JSON 格式错误: '+e.message,'error'); }
     };
     const exportJson = () => {
         const blob = new Blob([JSON.stringify({cabinets:scheme.cabinets},null,2)], {type:'application/json'});
@@ -787,7 +788,7 @@ const App = {
         return pnl.parts.length > 0;
     });
 
-    const _buildLayoutData = (pnl, cab, layoutMode) => {
+    const _buildLayoutData = (pnl, cab) => {
         const generateUuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
@@ -801,7 +802,6 @@ const App = {
         return {
             name: `${cab.cabinet_use}-${cab.cabinet_model||''}-${pnl.panel_type}-${pnl.panel_width}x${pnl.panel_height}`,
             uuid: generateUuid(),
-            layout_mode: layoutMode,
             scheme: {
                 cabinet_name: cab.cabinet_name || '',
                 cabinet_use: cab.cabinet_use || '',
@@ -819,33 +819,28 @@ const App = {
 
     const layoutPanelManual = () => {
         if (!isPanelValidForLayout.value) return;
-        const data = _buildLayoutData(selectedPanel.value, selectedCabinet.value, '手动布局');
-        openLayoutWorkbench('layoutPanelManual', data);
+        const data = _buildLayoutData(selectedPanel.value, selectedCabinet.value);
+        openLayoutWorkbench('layoutPanelManual', data, { title: '面板布局', workbenchMode: 'layout' });
     };
 
     const isCabinetLayoutLoading = ref(false);
 
-    const cabinetLayout = async () => {
+    const cabinetLayout = async (autoArrange = true) => {
         const cab = selectedCabinet.value;
         if (!cab) return showToast('请先选择一个柜体', 'warn');
         if (!cab.panels.length) return showToast('该柜体无面板', 'warn');
         isCabinetLayoutLoading.value = true;
         try {
+            const body = { ...cab, auto_arrange: autoArrange };
             const res = await fetch('/api/cabinet-layout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(cab),
+                body: JSON.stringify(body),
             });
             if (!res.ok) throw new Error(await res.text());
             const layoutData = await res.json(); // 数组
             // 设置标题栏信息
-            iframePanelInfo.value = {
-                layout_mode: '柜体布局',
-                panel_type:  null,
-                panel_size:  null,
-                parts_count: cab.panels.reduce((s, p) => s + p.parts.length, 0),
-            };
-            openLayoutWorkbench('layoutPanelManual', layoutData);
+            openLayoutWorkbench('layoutPanelManual', layoutData, { title: '柜体布局', workbenchMode: 'layout' });
         } catch (err) {
             showToast('柜体布局请求失败: ' + err.message, 'error');
         } finally {
@@ -856,9 +851,176 @@ const App = {
     const layoutPanelAI = () => {
         if (!isPanelValidForLayout.value) return;
         const pnl = selectedPanel.value;
-        const mode = (pnl.arrange && Object.keys(pnl.arrange).length > 0) ? '查看布局' : '智能布局';
-        const data = _buildLayoutData(pnl, selectedCabinet.value, mode);
-        openLayoutWorkbench('layoutPanel', data);
+        const data = _buildLayoutData(pnl, selectedCabinet.value);
+        openLayoutWorkbench('layoutPanel', data, { title: '面板布局', workbenchMode: 'recommend' });
+    };
+
+    // ══════════════════════════════════════════════════════════
+    //  一键布局 —— 批量自动排版
+    // ══════════════════════════════════════════════════════════
+    const batchLayoutShow = ref(false);
+    const batchLayoutRunning = ref(false);
+    const batchLayoutItems = ref([]);   // [{id, label, type:'panel'|'cabinet', status:'pending'|'running'|'done'|'skipped'|'error', msg:''}]
+    const batchLayoutProgress = computed(() => {
+        const items = batchLayoutItems.value;
+        if (!items.length) return 0;
+        const finished = items.filter(i => i.status === 'done' || i.status === 'skipped' || i.status === 'error').length;
+        return Math.round(finished / items.length * 100);
+    });
+    const batchLayoutDone = computed(() => batchLayoutItems.value.length > 0 && batchLayoutItems.value.every(i => i.status !== 'pending' && i.status !== 'running'));
+
+    const _isPanelLayoutReady = (pnl) => pnl.arrange && typeof pnl.arrange === 'object' && Object.keys(pnl.arrange).length > 0;
+    const _isPanelValidParts = (pnl) => pnl.parts.length > 0 && parseFloat(pnl.panel_width) > 0 && parseFloat(pnl.panel_height) > 0 && pnl.parts.every(p => parseFloat(p.part_width) && parseFloat(p.part_height));
+
+    const startBatchLayout = async () => {
+        // 构建任务列表
+        const items = [];
+        for (const cab of scheme.cabinets) {
+            for (const pnl of cab.panels) {
+                const id = `panel_${pnl.panel_id}`;
+                if (_isPanelLayoutReady(pnl)) {
+                    items.push({ id, label: `${cab.cabinet_name || '柜体'} / ${pnl.panel_type || '面板'}`, type: 'panel', status: 'skipped', msg: '已有布局', cabId: cab.cabinet_id, panelId: pnl.panel_id });
+                } else if (!_isPanelValidParts(pnl)) {
+                    items.push({ id, label: `${cab.cabinet_name || '柜体'} / ${pnl.panel_type || '面板'}`, type: 'panel', status: 'skipped', msg: '元件信息不完整', cabId: cab.cabinet_id, panelId: pnl.panel_id });
+                } else {
+                    items.push({ id, label: `${cab.cabinet_name || '柜体'} / ${pnl.panel_type || '面板'}`, type: 'panel', status: 'pending', msg: '', cabId: cab.cabinet_id, panelId: pnl.panel_id });
+                }
+            }
+            // 柜体级布局
+            if (cab.panels.length > 0) {
+                const cabHasArrange = cab.arrange && typeof cab.arrange === 'object' && Object.keys(cab.arrange).length > 0;
+                const id = `cabinet_${cab.cabinet_id}`;
+                if (cabHasArrange) {
+                    items.push({ id, label: `${cab.cabinet_name || '柜体'} (柜体布局)`, type: 'cabinet', status: 'skipped', msg: '已有布局', cabId: cab.cabinet_id });
+                } else {
+                    items.push({ id, label: `${cab.cabinet_name || '柜体'} (柜体布局)`, type: 'cabinet', status: 'pending', msg: '', cabId: cab.cabinet_id });
+                }
+            }
+        }
+        batchLayoutItems.value = items;
+        batchLayoutShow.value = true;
+        batchLayoutRunning.value = true;
+
+        // 依次执行
+        for (const item of batchLayoutItems.value) {
+            if (item.status !== 'pending') continue;
+            item.status = 'running';
+            item.msg = '正在处理…';
+            try {
+                if (item.type === 'panel') {
+                    await _batchLayoutPanel(item);
+                } else {
+                    await _batchLayoutCabinet(item);
+                }
+            } catch (err) {
+                item.status = 'error';
+                item.msg = String(err.message || err).slice(0, 80);
+            }
+        }
+        batchLayoutRunning.value = false;
+    };
+
+    const _batchLayoutPanel = async (item) => {
+        const cab = scheme.cabinets.find(c => c.cabinet_id === item.cabId);
+        const pnl = cab?.panels.find(p => p.panel_id === item.panelId);
+        if (!pnl) throw new Error('面板已删除');
+
+        const layoutData = _buildLayoutData(pnl, cab);
+        // Step 1: recommend
+        item.msg = '检索模板…';
+        const recRes = await fetch(`${API}/recommend`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ scheme: layoutData.scheme }),
+        });
+        if (!recRes.ok) throw new Error('推荐失败: ' + recRes.status);
+        const recData = await recRes.json();
+        const templates = recData.templates || [];
+        if (!templates.length) throw new Error('未找到匹配模板');
+
+        // Step 2: apply first template
+        item.msg = '应用模板…';
+        const applyRes = await fetch(`${API}/apply`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                template_uuid: templates[0].uuid,
+                other_template_uuids: templates.slice(1).map(t => t.uuid),
+                project_data: { scheme: layoutData.scheme },
+            }),
+        });
+        if (!applyRes.ok) throw new Error('应用失败: ' + applyRes.status);
+        const applyData = await applyRes.json();
+        const arrange = applyData.project_data?.arrange || {};
+        if (!Object.keys(arrange).length) throw new Error('布局结果为空');
+
+        // 写入
+        pnl.arrange = arrange;
+        item.status = 'done';
+        item.msg = `成功 (${Object.keys(arrange).length} 元件)`;
+    };
+
+    const _batchLayoutCabinet = async (item) => {
+        const cab = scheme.cabinets.find(c => c.cabinet_id === item.cabId);
+        if (!cab) throw new Error('柜体已删除');
+
+        item.msg = '计算柜体布局…';
+        const body = { ...cab, auto_arrange: true };
+        const res = await fetch(`${API}/cabinet-layout`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        });
+        if (!res.ok) throw new Error('柜体布局失败: ' + res.status);
+        const layoutData = await res.json();
+        // layoutData is array of panels with arrange, or direct object
+        if (Array.isArray(layoutData)) {
+            // 柜体级别的 arrange 在返回的 scheme 中
+            const firstWithArrange = layoutData.find(d => d.arrange && Object.keys(d.arrange).length > 0);
+            if (firstWithArrange) {
+                cab.arrange = firstWithArrange.arrange;
+            }
+        } else if (layoutData.arrange) {
+            cab.arrange = layoutData.arrange;
+        }
+        item.status = 'done';
+        item.msg = '柜体布局完成';
+    };
+
+    const closeBatchLayout = () => {
+        batchLayoutShow.value = false;
+        batchLayoutItems.value = [];
+        batchLayoutRunning.value = false;
+    };
+
+    const batchLayoutViewLoading = ref(false);
+
+    const viewBatchLayoutResult = async () => {
+        batchLayoutViewLoading.value = true;
+        try {
+            const results = [];
+            for (const cab of scheme.cabinets) {
+                if (!cab.panels.length) continue;
+                const body = { ...cab, auto_arrange: false };
+                const res = await fetch(`${API}/cabinet-layout`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body),
+                });
+                if (!res.ok) continue;
+                results.push(await res.json());
+            }
+            if (!results.length) {
+                showToast('无可查看的布局结果', 'warn');
+                return;
+            }
+            closeBatchLayout();
+            openLayoutWorkbench('layoutPanelManual', results, { title: '一键布局结果', workbenchMode: 'view' });
+        } catch (err) {
+            showToast('加载布局结果失败: ' + err.message, 'error');
+        } finally {
+            batchLayoutViewLoading.value = false;
+        }
     };
 
     const getCabinetStats   = (cab) => ({
@@ -884,7 +1046,7 @@ const App = {
         sortedCabinets, sortedPanels, sortedParts,
         isLoading, loadingText, toast,
         agentStatus,
-        cabinetModal, panelModal, partModal, jsonModal,
+        cabinetModal, panelModal, partModal,
         jsonFileInput, chatImageInput,
         totalCabinets, totalPanels, totalParts,
         CABINET_USE_OPTIONS, CABINET_MODEL_OPTIONS, PANEL_TYPE_OPTIONS, PART_TYPE_OPTIONS,
@@ -898,8 +1060,10 @@ const App = {
         // 元件
         openAddPart, openEditPart, savePartModal, removePart,
         // JSON
-        exportJson, exportPanelData, openJsonModal, importJsonFromText, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanelManual, layoutPanelAI, isPanelValidForLayout,
+        exportJson, exportPanelData, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanelManual, layoutPanelAI, isPanelValidForLayout,
         cabinetLayout, isCabinetLayoutLoading,
+        batchLayoutShow, batchLayoutRunning, batchLayoutItems, batchLayoutProgress, batchLayoutDone,
+        startBatchLayout, closeBatchLayout, viewBatchLayoutResult, batchLayoutViewLoading,
         iframeOverlayShow, iframeSrc, layoutIframe, closeLayoutWorkbench,
         iframePanelInfo,
         // 聊天

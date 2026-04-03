@@ -61,30 +61,54 @@ async def cabinet_layout(payload: Dict[str, Any] = Body(...)):
     import uuid as _uuid
     from layout_rag.core.cabinet_layout_optimizer import compute_cabinet_arrange
 
+    def _normalize_parts(raw_parts):
+        """递归将 part_width/part_height 转为 part_size，保留已有 arrange"""
+        result = []
+        for p in raw_parts:
+            size = p.get("part_size")
+            if not size:
+                size = [float(p.get("part_width") or 0), float(p.get("part_height") or 0)]
+            item = {
+                "part_id":   p.get("part_id", str(_uuid.uuid4())),
+                "part_type": p.get("part_type", ""),
+                "part_size": size,
+            }
+            if p.get("arrange"):
+                item["arrange"] = p["arrange"]
+            children = p.get("parts")
+            if children:
+                item["parts"] = _normalize_parts(children)
+            result.append(item)
+        return result
+
     panels = payload.get("panels", [])
     cabinet_width  = float(payload.get("cabinet_width")  or 800)
     cabinet_height = float(payload.get("cabinet_height") or 2200)
 
     # 每个面板作为一个元件
-    parts = [
-        {
+    parts = []
+    for p in panels:
+        item = {
             "part_id":    p.get("panel_id", str(_uuid.uuid4())),
             "part_type":  p.get("panel_type", ""),
             "part_model": p.get("operation_method", ""),
             "part_size":  [float(p.get("panel_width") or 600), float(p.get("panel_height") or 1400)],
+            "parts":      _normalize_parts(p.get("parts", [])),
         }
-        for p in panels
-    ]
+        if p.get("arrange"):
+            item["arrange"] = p["arrange"]
+        parts.append(item)
 
     # 已有 arrange 则直接使用，否则计算初始布局
-    existing_arrange = payload.get("arrange") or {}
-    if not existing_arrange and parts:
+    auto_arrange = payload.get("auto_arrange", True)
+    if auto_arrange and parts:
         existing_arrange = compute_cabinet_arrange(cabinet_width, cabinet_height, parts)
+    else:
+        existing_arrange = payload.get("arrange") or {}
 
     result = {
         "name":        f"{payload.get('cabinet_use', '')}-{payload.get('cabinet_name', '')}-{int(cabinet_width)}x{int(cabinet_height)}",
         "uuid":        str(_uuid.uuid4()),
-        "layout_mode": "手动布局",
         "scheme": {
             "cabinet_id":    payload.get("cabinet_id", ""),
             "cabinet_name":  payload.get("cabinet_name", ""),

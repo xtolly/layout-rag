@@ -24,7 +24,6 @@ from layout_rag.config import (  # noqa: E402
     get_domain_paths,
     get_feature_schema,
     load_part_types,
-    save_part_color_payload,
 )
 from layout_rag.domain.lowvoltage_cabinet import LowvoltageCabinetDomain  # noqa: E402
 from layout_rag.core.feature_extractor import FeatureExtractor  # noqa: E402
@@ -55,8 +54,6 @@ def main():
     print("加载特征 Schema 与配置提取器...")
     schema     = get_feature_schema(domain, data_dir)
     part_types = load_part_types(domain, data_dir)
-    save_part_color_payload(part_types, domain, PART_COLOR_PATH)
-    print(f"元件颜色映射已生成至 {PART_COLOR_PATH}，共 {len(part_types)} 种类型")
 
     extractor = FeatureExtractor(domain, part_types, schema)
     store     = VectorStore(schema)
