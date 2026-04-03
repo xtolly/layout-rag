@@ -92,6 +92,21 @@ const App = {
         const prjCanvasContainer = ref(null);
         const panelRef           = ref(null);
 
+        // ── 多面板只读状态 ────────────────────────────────────
+        const multiPanels         = ref([]); // [{panelSize, panelType, parts}]
+        const isMultiPanelMode    = computed(() => multiPanels.value.length > 1);
+        const multiPanelTotalSize = computed(() => {
+            const ps = multiPanels.value;
+            if (!ps.length) return [600, 1600];
+            const totalW = ps.reduce((s, p) => s + p.panelSize[0], 0) + 500 * (ps.length - 1);
+            return [totalW, Math.max(...ps.map(p => p.panelSize[1]))];
+        });
+        const getPanelOffset = (idx) => {
+            let offset = 0;
+            for (let i = 0; i < idx; i++) offset += multiPanels.value[i].panelSize[0] + 500;
+            return offset;
+        };
+
         // ── 选配布局模式状态 ──────────────────────────────────
         const isLayoutPanelMode = ref(false);
         const isManualLayoutMode = ref(false);
@@ -238,7 +253,7 @@ const App = {
 
         const resetView = (viewStr) => {
             if (viewStr === 'tpl'     || !viewStr) resetSpecificView(tplCanvasContainer,     tplPanelSize,     tplCanvasScale,     tplPanX,     tplPanY);
-            if (viewStr === 'prj'     || !viewStr) resetSpecificView(prjCanvasContainer,     prjPanelSize,     prjCanvasScale,     prjPanX,     prjPanY);
+            if (viewStr === 'prj'     || !viewStr) resetSpecificView(prjCanvasContainer, isMultiPanelMode.value ? multiPanelTotalSize : prjPanelSize, prjCanvasScale, prjPanX, prjPanY);
             if (viewStr === 'preview' || !viewStr) resetSpecificView(previewCanvasContainer, previewPanelSize, previewCanvasScale, previewPanX, previewPanY, { x: 40, y: 40 });
         };
 
@@ -506,13 +521,32 @@ const App = {
                     .map(p => ({ part_id: p.part_id, part_type: p.part_type, part_size: p.part_size, position: tplData.arrange[p.part_id].position }));
 
                 // 项目画板
-                prjPanelSize.value = prjData.scheme.panel_size || [600, 1600];
-                prjPanelType.value = prjData.scheme.panel_type || '安装板';
-                placedParts.value  = prjData.scheme.parts.map(p => ({
-                    part_id: p.part_id, part_type: p.part_type, part_size: p.part_size,
-                    position: prjData.arrange?.[p.part_id]?.position || [0, 0],
-                    isInvalid: false,
-                }));
+                if (Array.isArray(prjData)) {
+                    multiPanels.value = prjData.map(item => ({
+                        panelSize: item.scheme?.panel_size || [600, 1600],
+                        panelType: item.scheme?.panel_type || '安装板',
+                        parts: (item.scheme?.parts || []).map(p => ({
+                            part_id:   p.part_id,
+                            part_type: p.part_type,
+                            part_size: p.part_size,
+                            position:  item.arrange?.[p.part_id]?.position
+                                       ? [...item.arrange[p.part_id].position]
+                                       : [0, 0],
+                        })),
+                    }));
+                    prjPanelSize.value = multiPanels.value[0]?.panelSize || [600, 1600];
+                    prjPanelType.value = multiPanels.value[0]?.panelType || '安装板';
+                    placedParts.value  = [];
+                } else {
+                    multiPanels.value = [];
+                    prjPanelSize.value = prjData.scheme.panel_size || [600, 1600];
+                    prjPanelType.value = prjData.scheme.panel_type || '安装板';
+                    placedParts.value  = prjData.scheme.parts.map(p => ({
+                        part_id: p.part_id, part_type: p.part_type, part_size: p.part_size,
+                        position: prjData.arrange?.[p.part_id]?.position || [0, 0],
+                        isInvalid: false,
+                    }));
+                }
 
                 step.value = 3;
                 checkBounds(); history.value = []; historyIndex.value = -1; saveHistory();
@@ -556,6 +590,28 @@ const App = {
         };
 
         const initManualLayoutMode = (layoutJson) => {
+            // 多面板只读模式
+            if (Array.isArray(layoutJson)) {
+                isLayoutPanelMode.value = true;
+                isManualLayoutMode.value = true;
+                multiPanels.value = layoutJson.map(item => ({
+                    panelSize: item.scheme?.panel_size || [600, 1600],
+                    panelType: item.scheme?.panel_type || '安装板',
+                    parts: (item.scheme?.parts || []).map(p => ({
+                        part_id:   p.part_id,
+                        part_type: p.part_type,
+                        part_size: p.part_size,
+                        position:  item.arrange?.[p.part_id]?.position
+                                   ? [...item.arrange[p.part_id].position]
+                                   : [0, 0],
+                    })),
+                }));
+                step.value = 3;
+                history.value = []; historyIndex.value = -1;
+                nextTick(() => resetView('prj'));
+                return;
+            }
+
             isLayoutPanelMode.value = true;
             isManualLayoutMode.value = true;
             layoutPanelSource.value = layoutJson;
@@ -662,7 +718,9 @@ const App = {
             startMove, panelRef, activeGuides,
             hasInvalid,
             undo, redo, canUndo, canRedo,
-            formatValue, getScoreBadgeClass
+            formatValue, getScoreBadgeClass,
+            // 多面板只读
+            multiPanels, isMultiPanelMode, multiPanelTotalSize, getPanelOffset
         };
     }
 };

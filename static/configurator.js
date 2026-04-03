@@ -150,13 +150,22 @@ const App = {
 
     const applyLayoutPanelResult = (data) => {
         if (!data?.scheme?.panel_id) return;
-        const targetPanelId = data.scheme.panel_id;
+        const targetId = data.scheme.panel_id;
+        const arrange = data.arrange || {};
+        // 先尝试按 cabinet_id 匹配（柜体布局模式）
+        const matchedCab = scheme.cabinets.find(c => c.cabinet_id === targetId);
+        if (matchedCab) {
+            matchedCab.arrange = arrange;
+            showToast('柜体布局已更新');
+            return;
+        }
+        // 再按 panel_id 匹配（面板布局模式）
         for (const cab of scheme.cabinets) {
-            const p = cab.panels.find(x => x.panel_id === targetPanelId);
+            const p = cab.panels.find(x => x.panel_id === targetId);
             if (p) {
-                p.arrange = data.arrange || {};
-                showToast('布局已更新 ✓');
-                break;
+                p.arrange = arrange;
+                showToast('面板布局已更新');
+                return;
             }
         }
     };
@@ -313,8 +322,24 @@ const App = {
     };
     const duplicateCabinet = (cab) => {
         const copy = JSON.parse(JSON.stringify(cab));
-        copy.cabinet_id = uid(); copy.cabinet_name += '_副本';
-        copy.panels.forEach(p=>{ p.panel_id=uid(); p.parts.forEach(pt=>pt.part_id=uid()); });
+        copy.cabinet_id = uid(); copy.cabinet_name += '_副本'; copy.order = getOrder();
+        copy.panels.forEach(p => {
+            p.panel_id = uid(); p.order = getOrder();
+            const idMap = {};
+            p.parts.forEach(pt => {
+                const newId = uid();
+                idMap[pt.part_id] = newId;
+                pt.part_id = newId;
+                pt.order = getOrder();
+            });
+            if (p.arrange && typeof p.arrange === 'object') {
+                const newArrange = {};
+                for (const [oldId, val] of Object.entries(p.arrange)) {
+                    newArrange[idMap[oldId] ?? oldId] = val;
+                }
+                p.arrange = newArrange;
+            }
+        });
         const idx = scheme.cabinets.findIndex(c=>c.cabinet_id===cab.cabinet_id);
         scheme.cabinets.splice(idx+1,0,copy);
         showToast('已复制柜体');
@@ -361,6 +386,31 @@ const App = {
         showToast('已删除','warn');
     };
     const selectPanel = (id) => { selectedPanelId.value=id; };
+    const duplicatePanel = (cabinetId, panel) => {
+        const cab = scheme.cabinets.find(c => c.cabinet_id === cabinetId);
+        if (!cab) return;
+        const copy = JSON.parse(JSON.stringify(panel));
+        copy.panel_id = uid(); copy.order = getOrder();
+        const idMap = {};
+        copy.parts.forEach(pt => {
+            const newId = uid();
+            idMap[pt.part_id] = newId;
+            pt.part_id = newId;
+            pt.order = getOrder();
+        });
+        // 同步 arrange：将旧 part_id 键替换为新 part_id
+        if (copy.arrange && typeof copy.arrange === 'object') {
+            const newArrange = {};
+            for (const [oldId, val] of Object.entries(copy.arrange)) {
+                const newId = idMap[oldId] ?? oldId;
+                newArrange[newId] = val;
+            }
+            copy.arrange = newArrange;
+        }
+        const idx = cab.panels.findIndex(p => p.panel_id === panel.panel_id);
+        cab.panels.splice(idx + 1, 0, copy);
+        showToast('已复制面板');
+    };
 
     // ══════════════════════════════════════════════════════════
     //  元件操作
@@ -773,6 +823,36 @@ const App = {
         openLayoutWorkbench('layoutPanelManual', data);
     };
 
+    const isCabinetLayoutLoading = ref(false);
+
+    const cabinetLayout = async () => {
+        const cab = selectedCabinet.value;
+        if (!cab) return showToast('请先选择一个柜体', 'warn');
+        if (!cab.panels.length) return showToast('该柜体无面板', 'warn');
+        isCabinetLayoutLoading.value = true;
+        try {
+            const res = await fetch('/api/cabinet-layout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(cab),
+            });
+            if (!res.ok) throw new Error(await res.text());
+            const layoutData = await res.json(); // 数组
+            // 设置标题栏信息
+            iframePanelInfo.value = {
+                layout_mode: '柜体布局',
+                panel_type:  null,
+                panel_size:  null,
+                parts_count: cab.panels.reduce((s, p) => s + p.parts.length, 0),
+            };
+            openLayoutWorkbench('layoutPanelManual', layoutData);
+        } catch (err) {
+            showToast('柜体布局请求失败: ' + err.message, 'error');
+        } finally {
+            isCabinetLayoutLoading.value = false;
+        }
+    };
+
     const layoutPanelAI = () => {
         if (!isPanelValidForLayout.value) return;
         const pnl = selectedPanel.value;
@@ -814,11 +894,12 @@ const App = {
         // 柜体
         openAddCabinet, openEditCabinet, saveCabinetModal, removeCabinet, duplicateCabinet, selectCabinet,
         // 面板
-        openAddPanel, openEditPanel, savePanelModal, removePanel, selectPanel,
+        openAddPanel, openEditPanel, savePanelModal, removePanel, selectPanel, duplicatePanel,
         // 元件
         openAddPart, openEditPart, savePartModal, removePart,
         // JSON
         exportJson, exportPanelData, openJsonModal, importJsonFromText, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanelManual, layoutPanelAI, isPanelValidForLayout,
+        cabinetLayout, isCabinetLayoutLoading,
         iframeOverlayShow, iframeSrc, layoutIframe, closeLayoutWorkbench,
         iframePanelInfo,
         // 聊天
