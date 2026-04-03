@@ -94,6 +94,7 @@ const App = {
 
         // ── 选配布局模式状态 ──────────────────────────────────
         const isLayoutPanelMode = ref(false);
+        const isManualLayoutMode = ref(false);
         const layoutPanelSource = ref(null);
         // ── 全局交互状态 ──────────────────────────────────────
         const settings     = reactive({ autoSnap: true, autoExtrude: true });
@@ -311,12 +312,20 @@ const App = {
             window.addEventListener('keyup', handleKeyup);
             loadPartColorMap();
 
+            // 若在 iframe 中，先显示加载遮罩，等待父窗口 init 消息
+            if (window.parent !== window) {
+                isLoading.value = true;
+                loadingText.value = '正在初始化...';
+            }
+
             // 始终以嵌入模式运行，监听父窗口消息
             window.addEventListener('message', (e) => {
                 if (e.origin !== window.location.origin) return;
                 const { type, payload } = e.data || {};
                 if (type === 'init:layoutPanel') {
                     initLayoutPanelMode(payload);
+                } else if (type === 'init:layoutPanelManual') {
+                    initManualLayoutMode(payload);
                 } else if (type === 'workbench:requestBack') {
                     if (step.value === 3) goBackToRecommend();
                     else goBackToConfig();
@@ -552,6 +561,38 @@ const App = {
             }
         };
 
+        const initManualLayoutMode = (layoutJson) => {
+            isLayoutPanelMode.value = true;
+            isManualLayoutMode.value = true;
+            layoutPanelSource.value = layoutJson;
+            originalUploadJson.value = layoutJson;
+
+            const panelSize = layoutJson.scheme?.panel_size || [600, 1600];
+            const panelType = layoutJson.scheme?.panel_type || '安装板';
+            const parts     = layoutJson.scheme?.parts || [];
+            const arrange   = layoutJson.arrange || {};
+
+            // 无模板参考，左侧画板置空
+            tplPanelSize.value    = panelSize;
+            tplPanelType.value    = panelType;
+            tplPlacedParts.value  = [];
+
+            // 右侧项目画板：使用已有 arrange 或默认 [0,0]
+            prjPanelSize.value = panelSize;
+            prjPanelType.value = panelType;
+            placedParts.value  = parts.map(p => ({
+                part_id:   p.part_id,
+                part_type: p.part_type,
+                part_size: p.part_size,
+                position:  arrange[p.part_id]?.position ? [...arrange[p.part_id].position] : [0, 0],
+                isInvalid: false,
+            }));
+
+            step.value = 3;
+            history.value = []; historyIndex.value = -1; saveHistory();
+            nextTick(() => resetView('prj'));
+        };
+
         // ============================================================
         //  提交
         // ============================================================
@@ -580,11 +621,11 @@ const App = {
             const exportData = JSON.parse(JSON.stringify(originalUploadJson.value));
             exportData.arrange = {};
             placedParts.value.forEach(p => { 
-                exportData.arrange[p.part_id] = { position: p.position, rotation: 0 }; 
+                exportData.arrange[p.part_id] = { position: [p.position[0], p.position[1]], rotation: 0 }; 
             });
 
             const result = { scheme: exportData.scheme, arrange: exportData.arrange };
-            window.parent.postMessage({ type: 'workbench:layoutPanelResult', payload: result }, window.location.origin);
+            window.parent.postMessage({ type: 'workbench:layoutPanelResult', payload: JSON.parse(JSON.stringify(result)) }, window.location.origin);
         };
 
         // ============================================================
@@ -605,7 +646,7 @@ const App = {
             // 流程
             step, isLoading, loadingText, isDragging, fileInput,
             // 模式
-            isLayoutPanelMode,
+            isLayoutPanelMode, isManualLayoutMode,
             // 提交与返回
             goBackToConfig, submitLayoutPanel,
             // 数据

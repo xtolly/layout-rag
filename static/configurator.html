@@ -273,10 +273,10 @@
                     </div>
                     <div class="flex items-center justify-between mt-2">
                         <span class="text-xs text-slate-500">{{ getPanelPartCount(panel) }} 元件</span>
-                        <span v-if="panel.is_laid_out" class="tag bg-emerald-50 text-emerald-600 border border-emerald-200 px-1.5 py-0.5 text-[10px] shadow-sm">
-                            <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>已布局
+                        <span v-if="panel.arrange && Object.keys(panel.arrange).length > 0" class="tag" style="background:rgba(16,185,129,0.1);color:#059669">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>已布局
                         </span>
-                        <span v-else class="text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-400">未布局</span>
+                        <span v-else class="tag" style="background:rgba(15,23,42,0.05);color:#94a3b8">未布局</span>
                     </div>
                 </div>
             </div>
@@ -329,15 +329,14 @@
                     </div>
                     <div v-else class="space-y-1.5">
                         <div class="grid gap-x-3 px-3 py-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-200"
-                            style="grid-template-columns:1fr 1fr 50px 90px 60px">
-                            <span>类型</span><span>型号</span><span class="text-center">数量</span><span class="text-center">尺寸(W×H)</span><span></span>
+                            style="grid-template-columns:1fr 1fr 90px 60px">
+                            <span>类型</span><span>型号</span><span class="text-center">尺寸(W×H)</span><span></span>
                         </div>
                         <div v-for="part in sortedParts" :key="part.part_id"
                             class="part-row grid gap-x-3 items-center px-3 py-2.5 rounded-xl border border-slate-100 bg-white/70"
-                            style="grid-template-columns:1fr 1fr 50px 90px 60px">
+                            style="grid-template-columns:1fr 1fr 90px 60px">
                             <div class="font-semibold text-slate-700 text-sm truncate">{{ part.part_type||'—' }}</div>
                             <div class="text-slate-500 text-sm truncate">{{ part.part_model||'—' }}</div>
-                            <div class="text-center"><span class="inline-flex items-center justify-center w-7 h-6 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">{{ part.part_number }}</span></div>
                             <div class="text-xs text-slate-400 font-mono text-center">{{ part.part_width }}×{{ part.part_height }}</div>
                             <div class="flex items-center justify-end gap-0.5">
                                 <button @click="openEditPart(selectedCabinet.cabinet_id, selectedPanel.panel_id, part)" class="toolbar-btn w-6 h-6 p-0">
@@ -349,25 +348,33 @@
                             </div>
                         </div>
                         <div class="flex justify-end text-xs text-slate-400 pt-2 pr-2">
-                            共 <strong class="text-slate-600 mx-1">{{ selectedPanel.parts.length }}</strong> 种 /
-                            <strong class="text-slate-600 mx-1">{{ getPanelPartCount(selectedPanel) }}</strong> 个元件
+                            共 <strong class="text-slate-600 mx-1">{{ selectedPanel.parts.length }}</strong> 个元件
                         </div>
                     </div>
                 </div>
                 <div class="bg-white border-t border-slate-200 p-3 flex justify-between items-center z-10 flex-shrink-0">
                     <div class="flex items-center gap-2">
-                        <span v-if="selectedPanel.is_laid_out" class="tag bg-emerald-50 text-emerald-600 border border-emerald-200">
+                        <span v-if="selectedPanel.arrange && Object.keys(selectedPanel.arrange).length > 0" class="tag bg-emerald-50 text-emerald-600 border border-emerald-200">
                             <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>已布局
                         </span>
                         <span v-else class="text-xs text-slate-400">未布局</span>
                     </div>
-                    <button @click="layoutPanel" :disabled="!isPanelValidForLayout" 
-                        class="btn-primary px-4 py-2 text-sm flex items-center gap-1.5"
-                        :class="!isPanelValidForLayout ? 'opacity-50 cursor-not-allowed bg-slate-300 border-none' : ''"
-                        title="需面板和元件尺寸均大于0，且元件数>1才可布局">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-                        面板布局
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <button @click="layoutPanelManual" :disabled="!isPanelValidForLayout"
+                            class="btn-ghost px-3 py-2 text-sm flex items-center gap-1.5 border border-slate-300"
+                            :class="!isPanelValidForLayout ? 'opacity-50 cursor-not-allowed' : ''"
+                            title="直接进入手动布局界面">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                            手动布局
+                        </button>
+                        <button @click="layoutPanelAI" :disabled="!isPanelValidForLayout"
+                            class="btn-primary px-3 py-2 text-sm flex items-center gap-1.5"
+                            :class="!isPanelValidForLayout ? 'opacity-50 cursor-not-allowed bg-slate-300 border-none' : ''"
+                            title="AI 推荐模板并辅助布局">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+                            智能布局
+                        </button>
+                    </div>
                 </div>
             </template>
         </section>
@@ -665,9 +672,9 @@
                     <input v-model="partModal.part.part_model" class="input-field" placeholder="如：DZ47-60 D20">
                 </div>
                 <div class="grid grid-cols-3 gap-3">
-                    <div>
+                    <div v-if="partModal.isNew">
                         <label class="section-label">数量</label>
-                        <input v-model.number="partModal.part.part_number" type="number" min="1" class="input-field">
+                        <input v-model.number="partModal.quantity" type="number" min="1" class="input-field">
                     </div>
                     <div>
                         <label class="section-label">宽 (mm)</label>

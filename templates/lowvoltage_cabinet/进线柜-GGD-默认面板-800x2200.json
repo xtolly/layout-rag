@@ -15,7 +15,6 @@
         ],
         "parts": [
             {
-                "parent_id": "e5ff81fc-8517-4ad6-83bc-3ed55f6e8861",
                 "part_id": "2ef024b6-a20c-40ec-8480-ec312fc46e7f",
                 "part_type": "万能式断路器",
                 "part_model": "DW15-1600",
@@ -25,7 +24,6 @@
                 ]
             },
             {
-                "parent_id": "3548f32f-e719-4765-ac47-f7a01b463277",
                 "part_id": "4b13d102-2ac9-441c-a9c1-e3209c1e2728",
                 "part_type": "电流互感器",
                 "part_model": "LMK-0.66",
@@ -35,7 +33,6 @@
                 ]
             },
             {
-                "parent_id": "3548f32f-e719-4765-ac47-f7a01b463277",
                 "part_id": "76f5cf34-eceb-428d-a1c7-523c76f980ab",
                 "part_type": "电流互感器",
                 "part_model": "LMK-0.66",
@@ -45,7 +42,6 @@
                 ]
             },
             {
-                "parent_id": "3548f32f-e719-4765-ac47-f7a01b463277",
                 "part_id": "e6384291-60aa-43d4-821c-e7c6e224546a",
                 "part_type": "电流互感器",
                 "part_model": "LMK-0.66",
@@ -55,7 +51,6 @@
                 ]
             },
             {
-                "parent_id": "e19c1760-66b6-40f2-bfe2-f844c2c5399f",
                 "part_id": "c486d637-7311-4b3a-b8c0-edf0ec71aa2f",
                 "part_type": "电能表",
                 "part_model": "DT862",
@@ -65,7 +60,6 @@
                 ]
             },
             {
-                "parent_id": "c37009f2-6122-4ec2-9ac9-cf51961486f0",
                 "part_id": "af86a29c-1312-446d-819f-6b4a284fe3e2",
                 "part_type": "电压表",
                 "part_model": "45L1-V",
@@ -75,7 +69,6 @@
                 ]
             },
             {
-                "parent_id": "59112991-4b03-479f-839a-c252150c7f1b",
                 "part_id": "aca36ef2-c3fc-4c83-8261-f1804615e2b5",
                 "part_type": "电流表",
                 "part_model": "45L1-A",
@@ -85,7 +78,6 @@
                 ]
             },
             {
-                "parent_id": "cac3f7ac-671f-49d5-a529-49fb9e4befde",
                 "part_id": "7045559c-462f-4530-8268-81d2f1162d5e",
                 "part_type": "指示灯",
                 "part_model": "AD16-22",
@@ -95,7 +87,6 @@
                 ]
             },
             {
-                "parent_id": "cac3f7ac-671f-49d5-a529-49fb9e4befde",
                 "part_id": "edf6970a-7f30-4044-8c09-4dcd85a8d62c",
                 "part_type": "指示灯",
                 "part_model": "AD16-22",
@@ -105,7 +96,6 @@
                 ]
             },
             {
-                "parent_id": "cac3f7ac-671f-49d5-a529-49fb9e4befde",
                 "part_id": "1c11b9c4-cd59-4dd6-8c74-4182cafed75a",
                 "part_type": "指示灯",
                 "part_model": "AD16-22",

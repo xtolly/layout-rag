@@ -62,8 +62,8 @@ const App = {
     };
 
     const getFirstOption = (optionsRef, fallback = '') => optionsRef.value[0] || fallback;
-    const makePart = (o={}) => ({ part_id:uid(), order:getOrder(), part_type:'', part_model:'', part_number:1, part_width:60, part_height:80, ...o });
-    const makePanel = (o={}) => ({ panel_id:uid(), order:getOrder(), panel_type:getFirstOption(PANEL_TYPE_OPTIONS), operation_method:'', panel_width:600, panel_height:1400, parts:[], is_laid_out:false, arrange:{}, ...o });
+    const makePart = (o={}) => ({ part_id:uid(), order:getOrder(), part_type:'', part_model:'', part_width:60, part_height:80, ...o });
+    const makePanel = (o={}) => ({ panel_id:uid(), order:getOrder(), panel_type:getFirstOption(PANEL_TYPE_OPTIONS), operation_method:'', panel_width:600, panel_height:1400, parts:[], arrange:{}, ...o });
     const makeCabinet = (o={}) => ({ cabinet_id:uid(), order:getOrder(), cabinet_name:'', cabinet_use:getFirstOption(CABINET_USE_OPTIONS), cabinet_model:getFirstOption(CABINET_MODEL_OPTIONS), wiring_method:'', cabinet_width:800, cabinet_height:2200, panels:[], ...o });
 
     // ── 数据 ──────────────────────────────────────────────────
@@ -126,8 +126,7 @@ const App = {
                 for (const cab of scheme.cabinets) {
                     const p = cab.panels.find(x => x.panel_id === targetPanelId);
                     if (p) {
-                         p.is_laid_out = true;
-                         p.arrange = data.arrange;
+                         p.arrange = data.arrange || {};
                          foundPanel = p;
                          break;
                     }
@@ -155,8 +154,7 @@ const App = {
         for (const cab of scheme.cabinets) {
             const p = cab.panels.find(x => x.panel_id === targetPanelId);
             if (p) {
-                p.is_laid_out = true;
-                p.arrange = data.arrange;
+                p.arrange = data.arrange || {};
                 showToast('面板布局已更新 ✓');
                 break;
             }
@@ -182,16 +180,16 @@ const App = {
         }
         _pendingIframeInit = mode ? { mode, data } : null;
         // 设置面板信息（用于顶部标题栏）
-        if (mode === 'layoutPanel' && data?.scheme) {
+        if (data?.scheme) {
             iframePanelInfo.value = {
-                layout_mode: data.layout_mode || '智能布局',
+                layout_mode: mode === 'layoutPanelManual' ? '手动布局' : '智能布局',
                 panel_type:  data.scheme.panel_type  || '安装板',
                 panel_size:  data.scheme.panel_size  || [600, 1400],
                 parts_count: data.scheme.parts?.length || 0,
             };
         } else {
             iframePanelInfo.value = {
-                layout_mode: '手动布局',
+                layout_mode: '布局排版工作台',
                 panel_type:  null,
                 panel_size:  null,
                 parts_count: null,
@@ -205,7 +203,7 @@ const App = {
                 // iframe 就绪，发送初始化数据
                 if (_pendingIframeInit && layoutIframe.value) {
                     layoutIframe.value.contentWindow.postMessage(
-                        { type: `init:${_pendingIframeInit.mode}`, payload: _pendingIframeInit.data },
+                        { type: `init:${_pendingIframeInit.mode}`, payload: JSON.parse(JSON.stringify(_pendingIframeInit.data)) },
                         window.location.origin
                     );
                 }
@@ -255,7 +253,7 @@ const App = {
     // ── 弹窗状态 ──────────────────────────────────────────────
     const cabinetModal = reactive({ show:false, isNew:true, cabinet: makeCabinet() });
     const panelModal   = reactive({ show:false, cabinetId:null, isNew:true, panel: makePanel() });
-    const partModal    = reactive({ show:false, cabinetId:null, panelId:null, isNew:true, part: makePart() });
+    const partModal    = reactive({ show:false, cabinetId:null, panelId:null, isNew:true, quantity:1, part: makePart() });
     const jsonModal    = reactive({ show:false, raw:'' });
 
     // ── 计算属性 ──────────────────────────────────────────────
@@ -263,7 +261,7 @@ const App = {
     const selectedPanel   = computed(() => selectedCabinet.value?.panels.find(p=>p.panel_id===selectedPanelId.value)||null);
     const totalCabinets   = computed(() => scheme.cabinets.length);
     const totalPanels     = computed(() => scheme.cabinets.reduce((s,c)=>s+c.panels.length, 0));
-    const totalParts      = computed(() => scheme.cabinets.reduce((s,c)=>s+c.panels.reduce((sp,p)=>sp+p.parts.reduce((sq,pt)=>sq+(pt.part_number||1),0),0), 0));
+    const totalParts      = computed(() => scheme.cabinets.reduce((s,c)=>s+c.panels.reduce((sp,p)=>sp+p.parts.length,0), 0));
 
     const sortedCabinets = computed(() => [...scheme.cabinets].sort((a,b)=>(a.order||0)-(b.order||0)));
     const sortedPanels   = computed(() => selectedCabinet.value ? [...selectedCabinet.value.panels].sort((a,b)=>(a.order||0)-(b.order||0)) : []);
@@ -368,7 +366,7 @@ const App = {
     //  元件操作
     // ══════════════════════════════════════════════════════════
     const openAddPart = (cabinetId, panelId) => {
-        partModal.cabinetId=cabinetId; partModal.panelId=panelId; partModal.part=makePart(); partModal.isNew=true; partModal.show=true;
+        partModal.cabinetId=cabinetId; partModal.panelId=panelId; partModal.part=makePart(); partModal.quantity=1; partModal.isNew=true; partModal.show=true;
     };
     const openEditPart = (cabinetId, panelId, part) => {
         partModal.cabinetId=cabinetId; partModal.panelId=panelId; partModal.part=JSON.parse(JSON.stringify(part)); partModal.isNew=false; partModal.show=true;
@@ -377,8 +375,17 @@ const App = {
         const cab = scheme.cabinets.find(c=>c.cabinet_id===partModal.cabinetId);
         const panel = cab?.panels.find(p=>p.panel_id===partModal.panelId);
         if (!panel) return;
-        if (partModal.isNew) { panel.parts.push(partModal.part); showToast('已添加元件'); }
-        else { const idx=panel.parts.findIndex(p=>p.part_id===partModal.part.part_id); if (idx!==-1) Object.assign(panel.parts[idx],partModal.part); showToast('已保存'); }
+        if (partModal.isNew) {
+            const qty = Math.max(1, parseInt(partModal.quantity) || 1);
+            for (let i = 0; i < qty; i++) {
+                panel.parts.push({ ...partModal.part, part_id: uid(), order: getOrder() });
+            }
+            showToast(qty > 1 ? `已添加 ${qty} 个元件` : '已添加元件');
+        } else {
+            const idx=panel.parts.findIndex(p=>p.part_id===partModal.part.part_id);
+            if (idx!==-1) Object.assign(panel.parts[idx],partModal.part);
+            showToast('已保存');
+        }
         partModal.show=false;
     };
     const removePart = (cabinetId, panelId, partId) => {
@@ -439,19 +446,12 @@ const App = {
         
         const name = `${cabinetUse}-${cabinetModel}-${panelType}-${pWidth}x${pHeight}`;
         
-        const partsFlat = [];
-        panel.parts.forEach(part => {
-            const qty = part.part_number || 1;
-            for (let i = 0; i < qty; i++) {
-                partsFlat.push({
-                    parent_id: part.part_id,
-                    part_id: generateUUID(),
-                    part_type: part.part_type || '',
-                    part_model: part.part_model || '',
-                    part_size: [part.part_width || 0, part.part_height || 0]
-                });
-            }
-        });
+        const partsFlat = panel.parts.map(part => ({
+            part_id: part.part_id,
+            part_type: part.part_type || '',
+            part_model: part.part_model || '',
+            part_size: [part.part_width || 0, part.part_height || 0]
+        }));
 
         const exportData = {
             name: name,
@@ -726,52 +726,32 @@ const App = {
     // ══════════════════════════════════════════════════════════
     //  工具函数
     // ══════════════════════════════════════════════════════════
-    const getPanelPartCount = (panel) => panel.parts.reduce((s,p)=>s+(p.part_number||1),0);
+    const getPanelPartCount = (panel) => panel.parts.length;
 
     const isPanelValidForLayout = computed(() => {
         const pnl = selectedPanel.value;
         if (!pnl) return false;
         if (!parseFloat(pnl.panel_width) || !parseFloat(pnl.panel_height)) return false;
-        
-        let partsCount = 0;
-        let allValid = true;
-        pnl.parts.forEach(part => {
-            if (!parseFloat(part.part_width) || !parseFloat(part.part_height)) allValid = false;
-            partsCount += parseInt(part.part_number) || 1;
-        });
-        
+        const allValid = pnl.parts.every(part => parseFloat(part.part_width) && parseFloat(part.part_height));
         if (!allValid) return false;
-        return partsCount > 1;
+        return pnl.parts.length > 1;
     });
 
-    const layoutPanel = () => {
-        if (!isPanelValidForLayout.value) return;
-        const cab = selectedCabinet.value;
-        const pnl = selectedPanel.value;
-        
+    const _buildLayoutData = (pnl, cab, layoutMode) => {
         const generateUuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
-
-        const expandedParts = [];
-        pnl.parts.forEach(part => {
-            let count = parseInt(part.part_number) || 1;
-            for (let i = 0; i < count; i++) {
-                expandedParts.push({
-                    parent_id: part.part_id,
-                    part_id: generateUuid(),
-                    part_type: part.part_type,
-                    part_model: part.part_model,
-                    part_size: [parseFloat(part.part_width)||80, parseFloat(part.part_height)||100]
-                });
-            }
-        });
-
-        const templateData = {
+        const expandedParts = pnl.parts.map(part => ({
+            part_id: part.part_id,
+            part_type: part.part_type,
+            part_model: part.part_model,
+            part_size: [parseFloat(part.part_width)||80, parseFloat(part.part_height)||100]
+        }));
+        return {
             name: `${cab.cabinet_use}-${cab.cabinet_model||''}-${pnl.panel_type}-${pnl.panel_width}x${pnl.panel_height}`,
             uuid: generateUuid(),
-            layout_mode: pnl.is_laid_out ? '查看布局' : '智能布局',
+            layout_mode: layoutMode,
             scheme: {
                 cabinet_name: cab.cabinet_name || '',
                 cabinet_use: cab.cabinet_use || '',
@@ -782,11 +762,23 @@ const App = {
                 panel_operation_method: pnl.operation_method || '',
                 panel_size: [parseFloat(pnl.panel_width)||600, parseFloat(pnl.panel_height)||1400],
                 parts: expandedParts
-            }
+            },
+            arrange: pnl.arrange || {}
         };
+    };
 
-        // 展开到布局排版工作台
-        openLayoutWorkbench('layoutPanel', templateData);
+    const layoutPanelManual = () => {
+        if (!isPanelValidForLayout.value) return;
+        const data = _buildLayoutData(selectedPanel.value, selectedCabinet.value, '手动布局');
+        openLayoutWorkbench('layoutPanelManual', data);
+    };
+
+    const layoutPanelAI = () => {
+        if (!isPanelValidForLayout.value) return;
+        const pnl = selectedPanel.value;
+        const mode = (pnl.arrange && Object.keys(pnl.arrange).length > 0) ? '查看布局' : '智能布局';
+        const data = _buildLayoutData(pnl, selectedCabinet.value, mode);
+        openLayoutWorkbench('layoutPanel', data);
     };
 
     const getCabinetStats   = (cab) => ({
@@ -826,7 +818,7 @@ const App = {
         // 元件
         openAddPart, openEditPart, savePartModal, removePart,
         // JSON
-        exportJson, exportPanelData, openJsonModal, importJsonFromText, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanel, isPanelValidForLayout,
+        exportJson, exportPanelData, openJsonModal, importJsonFromText, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanelManual, layoutPanelAI, isPanelValidForLayout,
         iframeOverlayShow, iframeSrc, layoutIframe, closeLayoutWorkbench,
         iframePanelInfo,
         // 聊天

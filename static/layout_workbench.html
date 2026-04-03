@@ -8,10 +8,11 @@
     <script src="/static/tailwind.js"></script>
     <script src="/static/vue.global.js"></script>
     <link rel="stylesheet" href="/static/app.css">
+    <style>[v-cloak]{display:none}</style>
 </head>
 
 <body class="text-slate-800 h-screen flex flex-col overflow-hidden" style="background:#f8fafc">
-    <div id="app" class="flex flex-col h-full">
+    <div id="app" v-cloak class="flex flex-col h-full">
 
         <!-- ══════════════════════════════════════════════════════
              主内容区
@@ -413,7 +414,7 @@
                 <div class="flex flex-1 overflow-hidden min-h-0">
 
                     <!-- 左侧：模板参考画板（只读） -->
-                    <section v-if="!isBuildTemplateMode"
+                    <section v-if="!isBuildTemplateMode && !isManualLayoutMode"
                         class="flex-1 border-r border-slate-200/80 overflow-hidden relative flex flex-col shadow-inner"
                         style="background:#eef0f5; min-width: 30%;" ref="tplCanvasContainer">
 

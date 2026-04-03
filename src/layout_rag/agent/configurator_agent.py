@@ -189,7 +189,7 @@ class PartInput(ConfiguredInputModel):
         description="元件标准名称，必须从共享选型配置的标准名称列表中选取；无法识别时留空",
     )
     part_model: str = Field(default="", description="元件型号规格，如 DW15-630；无法识别时留空")
-    part_number: int = Field(default=1, description="数量")
+
     part_width: int = Field(default=80, description="元件宽度(mm)，根据元件类型推测合理值")
     part_height: int = Field(default=100, description="元件高度(mm)，根据元件类型推测合理值")
 
@@ -392,7 +392,6 @@ def edit_part(
     part_id: str,
     part_type: Optional[str] = None,
     part_model: Optional[str] = None,
-    part_number: Optional[int] = None,
     part_width: Optional[int] = None,
     part_height: Optional[int] = None,
 ) -> str:
@@ -405,8 +404,6 @@ def edit_part(
         updates["part_type"] = part_type
     if part_model:
         updates["part_model"] = part_model
-    if part_number is not None:
-        updates["part_number"] = part_number
     if part_width:
         updates["part_width"] = part_width
     if part_height:
@@ -454,7 +451,7 @@ def get_current_selection() -> str:
             for pt in pn.get("parts", []):
                 lines.append(
                     f"    元件 [{pt.get('part_id','?')}] {pt.get('part_type','?')} "
-                    f"{pt.get('part_model','')} ×{pt.get('part_number',1)}"
+                    f"{pt.get('part_model','')}"
                 )
     else:
         lines.append("当前未选中任何箱柜" if not cab_id else f"选中的箱柜 ID {cab_id} 在方案中未找到")
@@ -476,10 +473,7 @@ def get_scheme_summary() -> str:
     lines = [f"当前方案共 {len(cabinets)} 台箱柜："]
     for c in cabinets:
         panels = c.get("panels", [])
-        parts_total = sum(
-            sum(p.get("part_number", 1) for p in pn.get("parts", []))
-            for pn in panels
-        )
+        parts_total = sum(len(pn.get("parts", [])) for pn in panels)
         cab_id = c.get('cabinet_id', '?')
         lines.append(
             f"  · [{cab_id}] {c.get('cabinet_name','?')}（{c.get('cabinet_use','?')}，"
@@ -489,12 +483,12 @@ def get_scheme_summary() -> str:
             pan_id = pn.get('panel_id', '?')
             pn_parts = pn.get('parts', [])
             lines.append(
-                f"      面板 [{pan_id}] {pn.get('panel_type','?')} — {len(pn_parts)} 种元件"
+                f"      面板 [{pan_id}] {pn.get('panel_type','?')} — {len(pn_parts)} 个元件"
             )
             for pt in pn_parts:
                 pt_id = pt.get('part_id', '?')
                 lines.append(
-                    f"        元件 [{pt_id}] {pt.get('part_type','?')} {pt.get('part_model','')} ×{pt.get('part_number',1)}"
+                    f"        元件 [{pt_id}] {pt.get('part_type','?')} {pt.get('part_model','')}"
                 )
     return "\n".join(lines)
 

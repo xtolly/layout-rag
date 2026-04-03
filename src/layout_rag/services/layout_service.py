@@ -225,9 +225,6 @@ class LayoutService:
             fallback_templates=other_templates,
         )
 
-        if not project_data.get("features"):
-            project_data["features"] = self.extractor.extract(project_data)
-
         return {
             "template_data": tpl_data,
             "project_data":  project_data,

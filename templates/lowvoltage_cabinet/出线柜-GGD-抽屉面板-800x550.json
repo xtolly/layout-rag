@@ -15,7 +15,6 @@
         ],
         "parts": [
             {
-                "parent_id": "027ae1fa-cfa2-4a7f-8fb4-75950040f2a4",
                 "part_id": "debe0101-ae2c-4e82-aed0-68b3eddc3336",
                 "part_type": "塑壳式断路器",
                 "part_model": "CM1-250",
@@ -25,7 +24,6 @@
                 ]
             },
             {
-                "parent_id": "2f0213a7-27d1-49be-8839-6b93f231e9b5",
                 "part_id": "e2d50125-e76f-4323-a815-3acae62bd99b",
                 "part_type": "电流互感器",
                 "part_model": "LMK-0.66",
@@ -35,7 +33,6 @@
                 ]
             },
             {
-                "parent_id": "2f0213a7-27d1-49be-8839-6b93f231e9b5",
                 "part_id": "006d693c-c22c-4411-b6e2-f615d4cb452d",
                 "part_type": "电流互感器",
                 "part_model": "LMK-0.66",
@@ -45,7 +42,6 @@
                 ]
             },
             {
-                "parent_id": "2f0213a7-27d1-49be-8839-6b93f231e9b5",
                 "part_id": "f612ffd7-dbbc-4df1-ab04-be1387c3f6ce",
                 "part_type": "电流互感器",
                 "part_model": "LMK-0.66",
@@ -55,7 +51,6 @@
                 ]
             },
             {
-                "parent_id": "4fb328cc-c7c5-43c8-ae21-73d4ea959f7b",
                 "part_id": "a2d0ffc3-4eee-452c-8b75-c47e41aebb77",
                 "part_type": "指示灯",
                 "part_model": "AD16-22",
