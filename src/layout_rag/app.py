@@ -42,7 +42,7 @@ async def get_configurator():
 # --- 布局排版系统 ---
 @app.get("/layout")
 async def get_layout():
-    return FileResponse(STATIC_DIR / "layout-workbench.html")
+    return FileResponse(STATIC_DIR / "layout_workbench.html")
 
 # --- API 路由挂载 ---
 app.include_router(api_router, prefix="/api")

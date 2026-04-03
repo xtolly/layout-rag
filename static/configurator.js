@@ -139,6 +139,90 @@ const App = {
         sessionStorage.removeItem('layoutPanelResult');
     }
 
+    // ════════════════════════════════════════════════════════
+    //  布局排版工作台 iframe 管理
+    // ════════════════════════════════════════════════════════
+    const iframeOverlayShow     = ref(false);
+    const iframeSrc             = ref('');
+    const layoutIframe          = ref(null);
+    const iframePanelInfo       = ref(null); // { panel_type, panel_size, parts_count }
+    let _iframeMessageHandler = null;
+    let _pendingIframeInit    = null; // { mode, data }
+
+    const applyLayoutPanelResult = (data) => {
+        if (!data?.scheme?.panel_id) return;
+        const targetPanelId = data.scheme.panel_id;
+        for (const cab of scheme.cabinets) {
+            const p = cab.panels.find(x => x.panel_id === targetPanelId);
+            if (p) {
+                p.is_laid_out = true;
+                p.arrange = data.arrange;
+                showToast('面板布局已更新 ✓');
+                break;
+            }
+        }
+    };
+
+    const closeLayoutWorkbench = () => {
+        iframeOverlayShow.value = false;
+        iframeSrc.value = '';
+        iframePanelInfo.value = null;
+        if (_iframeMessageHandler) {
+            window.removeEventListener('message', _iframeMessageHandler);
+            _iframeMessageHandler = null;
+        }
+        _pendingIframeInit = null;
+    };
+
+    const openLayoutWorkbench = (mode, data) => {
+        // 清理上一次
+        if (_iframeMessageHandler) {
+            window.removeEventListener('message', _iframeMessageHandler);
+            _iframeMessageHandler = null;
+        }
+        _pendingIframeInit = mode ? { mode, data } : null;
+        // 设置面板信息（用于顶部标题栏）
+        if (mode === 'layoutPanel' && data?.scheme) {
+            iframePanelInfo.value = {
+                layout_mode: data.layout_mode || '智能布局',
+                panel_type:  data.scheme.panel_type  || '安装板',
+                panel_size:  data.scheme.panel_size  || [600, 1400],
+                parts_count: data.scheme.parts?.length || 0,
+            };
+        } else {
+            iframePanelInfo.value = {
+                layout_mode: '手动布局',
+                panel_type:  null,
+                panel_size:  null,
+                parts_count: null,
+            };
+        }
+
+        const handleMessage = (e) => {
+            if (e.origin !== window.location.origin) return;
+            const { type, payload, filename } = e.data || {};
+            if (type === 'workbench:ready') {
+                // iframe 就绪，发送初始化数据
+                if (_pendingIframeInit && layoutIframe.value) {
+                    layoutIframe.value.contentWindow.postMessage(
+                        { type: `init:${_pendingIframeInit.mode}`, payload: _pendingIframeInit.data },
+                        window.location.origin
+                    );
+                }
+            } else if (type === 'workbench:layoutPanelResult') {
+                applyLayoutPanelResult(payload);
+                closeLayoutWorkbench();
+            } else if (type === 'workbench:close') {
+                closeLayoutWorkbench();
+            }
+        };
+        _iframeMessageHandler = handleMessage;
+        window.addEventListener('message', handleMessage);
+
+        iframeSrc.value = '/layout';
+        iframeOverlayShow.value = true;
+    };
+
     // ── 拖拽调整列宽 ─────────────────────────────────────────
     const cabinetWidth = ref(268);
     const panelWidth   = ref(272);
@@ -392,61 +476,17 @@ const App = {
     };
 
     const sendToLayout = () => {
-        sessionStorage.setItem('current_scheme', JSON.stringify(scheme));
-        window.location.href = '/static/index.html';
+        openLayoutWorkbench(null, null);
     };
 
-    const buildTemplate = () => {
-        if (!selectedCabinet.value || !selectedPanel.value) {
-            alert('请先在界面上选中一个箱柜和一个要建库的面板');
-            return;
-        }
-        const cab = selectedCabinet.value;
-        const pnl = selectedPanel.value;
-        
-        const generateUuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
+    const sendWorkbenchBack = () => {
+        if (layoutIframe.value?.contentWindow)
+            layoutIframe.value.contentWindow.postMessage({ type: 'workbench:requestBack' }, window.location.origin);
+    };
 
-        const expandedParts = [];
-        pnl.parts.forEach(part => {
-            let count = parseInt(part.part_number) || 1;
-            for (let i = 0; i < count; i++) {
-                expandedParts.push({
-                    parent_id: part.part_id,
-                    part_id: generateUuid(),
-                    part_type: part.part_type,
-                    part_model: part.part_model,
-                    part_size: [parseFloat(part.part_width)||80, parseFloat(part.part_height)||100]
-                });
-            }
-        });
-
-        const templateData = {
-            name: `${cab.cabinet_use}-${cab.cabinet_model||''}-${pnl.panel_type}-${pnl.panel_width}x${pnl.panel_height}`,
-            uuid: generateUuid(),
-            scheme: {
-                cabinet_name: cab.cabinet_name || '',
-                cabinet_use: cab.cabinet_use || '',
-                cabinet_model: cab.cabinet_model || '',
-                cabinet_wiring_method: cab.wiring_method || '',
-                panel_id: pnl.panel_id,
-                panel_type: pnl.panel_type || '',
-                panel_operation_method: pnl.operation_method || '',
-                panel_size: [parseFloat(pnl.panel_width)||600, parseFloat(pnl.panel_height)||1400],
-                parts: expandedParts
-            }
-        };
-
-        // 跳转前同时将当前 scheme 驼存，方便返回开自动恢复
-        sessionStorage.setItem('configurator_scheme_backup', JSON.stringify({
-            scheme: scheme,
-            selectedCabinetId: selectedCabinetId.value,
-            selectedPanelId: selectedPanelId.value,
-        }));
-        sessionStorage.setItem('buildTemplateData', JSON.stringify(templateData));
-        window.location.href = '/static/index.html?mode=buildTemplate';
+    const sendWorkbenchSubmit = () => {
+        if (layoutIframe.value?.contentWindow)
+            layoutIframe.value.contentWindow.postMessage({ type: 'workbench:requestSubmit' }, window.location.origin);
     };
 
     // ══════════════════════════════════════════════════════════
@@ -731,6 +771,7 @@ const App = {
         const templateData = {
             name: `${cab.cabinet_use}-${cab.cabinet_model||''}-${pnl.panel_type}-${pnl.panel_width}x${pnl.panel_height}`,
             uuid: generateUuid(),
+            layout_mode: pnl.is_laid_out ? '查看布局' : '智能布局',
             scheme: {
                 cabinet_name: cab.cabinet_name || '',
                 cabinet_use: cab.cabinet_use || '',
@@ -744,13 +785,8 @@ const App = {
             }
         };
 
-        sessionStorage.setItem('configurator_scheme_backup', JSON.stringify({
-            scheme: scheme,
-            selectedCabinetId: selectedCabinetId.value,
-            selectedPanelId: selectedPanelId.value,
-        }));
-        sessionStorage.setItem('layoutPanelData', JSON.stringify(templateData));
-        window.location.href = '/static/index.html?mode=layoutPanel';
+        // 展开到布局排版工作台
+        openLayoutWorkbench('layoutPanel', templateData);
     };
 
     const getCabinetStats   = (cab) => ({
@@ -790,7 +826,9 @@ const App = {
         // 元件
         openAddPart, openEditPart, savePartModal, removePart,
         // JSON
-        exportJson, exportPanelData, openJsonModal, importJsonFromText, triggerJsonFileInput, handleJsonFile, sendToLayout, buildTemplate, layoutPanel, isPanelValidForLayout,
+        exportJson, exportPanelData, openJsonModal, importJsonFromText, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanel, isPanelValidForLayout,
+        iframeOverlayShow, iframeSrc, layoutIframe, closeLayoutWorkbench,
+        iframePanelInfo,
         // 聊天
         chatMessages, chatInput, chatLoading, chatScrollEl, chatTextarea, chatImageInput,
         chatImagePreview, quickHints,

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能选配系统</title>
+    <title>智能布局系统</title>
     <script src="/static/tailwind.js"></script>
     <script src="/static/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -96,7 +96,8 @@
 </head>
 
 <body class="text-slate-800 h-screen flex flex-col overflow-hidden">
-<div id="app" class="flex flex-col h-full">
+<style>[v-cloak]{display:none}</style>
+<div id="app" v-cloak class="flex flex-col h-full">
 
     <!-- ══ 顶部导航 ══ -->
     <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/50 px-5 flex justify-between items-center z-20 flex-shrink-0"
@@ -110,8 +111,7 @@
                 </svg>
             </div>
             <div>
-                <span class="font-display font-semibold text-slate-800 tracking-tight">智能选配系统</span>
-                <span class="ml-2 text-xs text-slate-400">配电柜方案设计</span>
+                <span class="font-display font-semibold text-slate-800 tracking-tight">智能布局系统</span>
             </div>
             <div class="flex items-center gap-1.5 ml-3 pl-3 border-l border-slate-200">
                 <span class="stat-chip">{{ totalCabinets }} 柜</span>
@@ -121,13 +121,6 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <button v-if="selectedPanel" @click="buildTemplate" class="btn-primary flex items-center gap-1.5 text-sm" title="进入模板布置界面">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                </svg>
-                建库
-            </button>
-
             <button v-if="selectedPanel" @click="exportPanelData" class="btn-ghost flex items-center gap-1.5 text-sm" title="导出当前面板结构">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
@@ -714,8 +707,60 @@
             </div>
         </div>
     </div>
+
+    <!-- ══ 布局排版工作台 iframe 弹窗 ══ -->
+    <transition name="workbench-overlay">
+        <div v-if="iframeOverlayShow"
+            class="fixed inset-0 z-[200] flex items-center justify-center p-5"
+            style="background:rgba(15,23,42,0.55);backdrop-filter:blur(6px)"
+            @click.self="closeLayoutWorkbench">
+            <!-- 弹窗容器 -->
+            <div class="flex flex-col rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.4)] border border-white/10"
+                style="width:92vw;height:92vh;background:#f1f5f9">
+                <!-- 顶部标题栏 -->
+                <div class="flex-shrink-0 flex items-center justify-between px-5"
+                    style="height:52px;background:#fff;border-bottom:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(15,23,42,0.06)">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                            style="background:var(--color-primary);box-shadow:0 2px 8px rgba(79,70,229,0.3)">
+                            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                            </svg>
+                        </div>
+                        <span class="font-display font-semibold text-slate-800 text-sm">{{ iframePanelInfo?.layout_mode || '布局排版工作台' }}</span>
+                        <template v-if="iframePanelInfo?.panel_type">
+                            <span class="text-slate-300 text-sm select-none">·</span>
+                            <span class="stat-chip">{{ iframePanelInfo.panel_type }}</span>
+                            <span v-if="iframePanelInfo.panel_size" class="stat-chip">{{ iframePanelInfo.panel_size[0] }}×{{ iframePanelInfo.panel_size[1] }} mm</span>
+                            <span v-if="iframePanelInfo.parts_count != null" class="stat-chip">{{ iframePanelInfo.parts_count }} 元件</span>
+                        </template>
+                    </div>
+                    <button @click="closeLayoutWorkbench"
+                        class="toolbar-btn w-8 h-8 p-0 hover:text-red-500 hover:bg-red-50 transition-colors" title="关闭">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <!-- iframe 填满内容区 -->
+                <iframe ref="layoutIframe"
+                    :src="iframeSrc"
+                    class="flex-1 w-full border-0 min-h-0"
+                    allow="clipboard-read; clipboard-write"
+                    title="布局排版工作台">
+                </iframe>
+
+            </div>
+        </div>
+    </transition>
 </div>
 
 <script src="/static/configurator.js"></script>
+<style>
+.workbench-overlay-enter-active { transition: opacity 0.2s ease; }
+.workbench-overlay-leave-active { transition: opacity 0.18s ease; }
+.workbench-overlay-enter-from, .workbench-overlay-leave-to { opacity: 0; }
+</style>
 </body>
 </html>
