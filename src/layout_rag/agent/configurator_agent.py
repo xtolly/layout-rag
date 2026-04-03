@@ -16,16 +16,20 @@ from __future__ import annotations
 import json
 import os
 import uuid as _uuid
+from contextvars import ContextVar
+from enum import StrEnum
 from typing import Annotated, Optional
 
 from langchain_core.messages import SystemMessage
 from langchain_core.tools import tool
+from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import TypedDict
 
+from layout_rag.config import load_selection_config
 
 from dotenv import load_dotenv
 
@@ -76,9 +80,9 @@ def _make_openai_cls():
 
 def _build_llm():
     """构建 LLM，默认读取 .env 中的 OpenAI 兼容配置"""
-    api_key = os.getenv("OPENAI_API_KEY", os.getenv("DASHSCOPE_API_KEY", ""))
-    base_url = os.getenv("OPENAI_API_BASE", os.getenv("QWEN_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1"))
-    model_name = os.getenv("MODEL_NAME", os.getenv("QWEN_MODEL", "qwen-plus"))
+    api_key = os.getenv("OPENAI_API_KEY", "")
+    base_url = os.getenv("OPENAI_API_BASE", "")
+    model_name = os.getenv("MODEL_NAME", "")
 
     # 方式 2：OpenAI 兼容接口（带 reasoning_content 支持）
     ChatOpenAIReasoning = _make_openai_cls()
@@ -105,55 +109,122 @@ class AgentState(TypedDict):
 # ──────────────────────────────────────────────────────────────
 
 # ── 前端选中状态（由 API 层在每次请求前写入） ──
-_current_selection: dict = {"cabinet_id": "", "panel_id": ""}
-_current_scheme: dict = {"cabinets": []}
+_current_selection_var: ContextVar[dict] = ContextVar(
+    "current_selection",
+    default={"cabinet_id": "", "panel_id": ""},
+)
+_current_scheme_var: ContextVar[dict] = ContextVar(
+    "current_scheme",
+    default={"cabinets": []},
+)
+_agent_checkpointer = InMemorySaver()
 
 
 def set_current_selection(selection: dict) -> None:
     """由 API 层调用，每次请求前写入前端选中的箱柜/面板 ID"""
-    global _current_selection
-    _current_selection = selection or {"cabinet_id": "", "panel_id": ""}
+    _current_selection_var.set(selection or {"cabinet_id": "", "panel_id": ""})
 
 
 def set_current_scheme(scheme: dict) -> None:
     """由 API 层调用，每次请求前写入前端当前方案"""
-    global _current_scheme
-    _current_scheme = scheme or {"cabinets": []}
+    _current_scheme_var.set(scheme or {"cabinets": []})
+
+
+def _get_current_selection() -> dict:
+    return _current_selection_var.get()
+
+
+def _get_current_scheme() -> dict:
+    return _current_scheme_var.get()
 
 
 def _uuid4() -> str:
     return str(_uuid.uuid4())
 
 
+SELECTION_CONFIG = load_selection_config()
+CABINET_USE_OPTIONS = SELECTION_CONFIG.cabinet_use_options
+CABINET_MODEL_OPTIONS = SELECTION_CONFIG.cabinet_model_options
+PANEL_TYPE_OPTIONS = SELECTION_CONFIG.panel_type_options
+WIRING_METHOD_OPTIONS = SELECTION_CONFIG.wiring_method_options
+OPERATION_METHOD_OPTIONS = SELECTION_CONFIG.operation_method_options
+STANDARD_PART_NAMES = SELECTION_CONFIG.part_type_options
+
+
+def _format_option_list(options: list[str]) -> str:
+    return "、".join(options) if options else "（未配置）"
+
+
+def _first_option(options: list[str], fallback: str = "") -> str:
+    return options[0] if options else fallback
+
+
+def _make_str_enum(enum_name: str, options: list[str], fallback: str) -> type[StrEnum]:
+    values = options or [fallback]
+    members = {f"OPTION_{index}": option for index, option in enumerate(values, start=1)}
+    return StrEnum(enum_name, members)
+
+
+CabinetUseOption = _make_str_enum("CabinetUseOption", CABINET_USE_OPTIONS, "出线柜")
+CabinetModelOption = _make_str_enum("CabinetModelOption", CABINET_MODEL_OPTIONS, "GGD")
+PanelTypeOption = _make_str_enum("PanelTypeOption", PANEL_TYPE_OPTIONS, "默认面板")
+WiringMethodOption = _make_str_enum("WiringMethodOption", WIRING_METHOD_OPTIONS, "上进上出")
+OperationMethodOption = _make_str_enum("OperationMethodOption", OPERATION_METHOD_OPTIONS, "手动机构")
+PartTypeOption = _make_str_enum("PartTypeOption", STANDARD_PART_NAMES, "")
+
+OptionalWiringMethodOption = WiringMethodOption | str
+OptionalOperationMethodOption = OperationMethodOption | str
+OptionalPartTypeOption = PartTypeOption | str
+
+
+class ConfiguredInputModel(BaseModel):
+    model_config = ConfigDict(use_enum_values=True)
+
+
 # ── 结构化输入 ──
-class PartInput(BaseModel):
+class PartInput(ConfiguredInputModel):
     order: int = Field(default=0, description="序号，用于前端排序，提取多项时请严格按顺序递增给出")
-    part_type: str = Field(default="", description="元件标准名称，必须从标准名称列表中选取；无法识别时留空")
+    part_type: OptionalPartTypeOption = Field(
+        default="",
+        description="元件标准名称，必须从共享选型配置的标准名称列表中选取；无法识别时留空",
+    )
     part_model: str = Field(default="", description="元件型号规格，如 DW15-630；无法识别时留空")
     part_number: int = Field(default=1, description="数量")
     part_width: int = Field(default=80, description="元件宽度(mm)，根据元件类型推测合理值")
     part_height: int = Field(default=100, description="元件高度(mm)，根据元件类型推测合理值")
 
-
-class PanelInput(BaseModel):
+class PanelInput(ConfiguredInputModel):
     order: int = Field(default=0, description="序号，用于前端排序，提取多项时请严格按顺序递增给出")
-    panel_type: str = Field(default="默认面板", description="默认面板 / 抽屉面板")
-    operation_method: str = Field(default="", description="操作方式：手动机构/电动操作/抽屉式；无法识别时留空")
+    panel_type: PanelTypeOption = Field(
+        default=PanelTypeOption(_first_option(PANEL_TYPE_OPTIONS, "默认面板")),
+        description=f"面板类型；配置可选值：{_format_option_list(PANEL_TYPE_OPTIONS)}",
+    )
+    operation_method: OptionalOperationMethodOption = Field(
+        default="",
+        description=f"操作方式；配置可选值：{_format_option_list(OPERATION_METHOD_OPTIONS)}；无法识别时留空",
+    )
     panel_width: int = Field(default=800, description="面板宽度(mm)，未知时按柜体宽度推测")
     panel_height: int = Field(default=2200, description="面板高度(mm)，未知时按柜体高度推测")
     parts: list[PartInput] = Field(default_factory=list)
 
-
-class CabinetInput(BaseModel):
+class CabinetInput(ConfiguredInputModel):
     order: int = Field(default=0, description="序号，用于前端排序，提取多项时请严格按顺序递增给出")
     cabinet_name: str = Field(default="", description="柜名/柜编号：如 1AL")
-    cabinet_use: str = Field(default="出线柜", description="柜用途：进线柜/出线柜/电容补偿柜/计量柜/联络柜；根据元件配置推测")
-    cabinet_model: str = Field(default="GGD", description="柜型号：GCK/GCS/MNS/GGD；根据用途和面板类型推测")
-    wiring_method: str = Field(default="", description="进出线方式：上进上出/上进下出/下进上出/下进下出；无法识别时留空")
+    cabinet_use: CabinetUseOption = Field(
+        default=CabinetUseOption(_first_option(CABINET_USE_OPTIONS, "出线柜")),
+        description=f"柜用途；配置可选值：{_format_option_list(CABINET_USE_OPTIONS)}；根据元件配置推测",
+    )
+    cabinet_model: CabinetModelOption = Field(
+        default=CabinetModelOption(_first_option(CABINET_MODEL_OPTIONS, "GGD")),
+        description=f"柜型号；配置可选值：{_format_option_list(CABINET_MODEL_OPTIONS)}；根据用途和面板类型推测",
+    )
+    wiring_method: OptionalWiringMethodOption = Field(
+        default="",
+        description=f"进出线方式；配置可选值：{_format_option_list(WIRING_METHOD_OPTIONS)}；无法识别时留空",
+    )
     cabinet_width: int = Field(default=800, description="柜宽(mm)，未知时按柜型推测常见值")
     cabinet_height: int = Field(default=2200, description="柜高(mm)，未知时按柜型推测常见值")
     panels: list[PanelInput] = Field(default_factory=list)
-
 
 class AddCabinetsInput(BaseModel):
     cabinets: list[CabinetInput] = Field(description="新添加的箱柜列表")
@@ -201,7 +272,7 @@ def add_cabinets(**kwargs) -> str:
 def add_panels(**kwargs) -> str:
     """批量添加多个面板（含元件完整信息）到指定箱柜。cabinet_id 留空则添加到当前选中的箱柜。"""
     input_data = AddPanelsInput(**kwargs)
-    target_cab_id = input_data.cabinet_id or _current_selection.get("cabinet_id", "")
+    target_cab_id = input_data.cabinet_id or _get_current_selection().get("cabinet_id", "")
     if not target_cab_id:
         return json.dumps({"action": "error", "message": "未指定目标箱柜且当前未选中任何箱柜，请先选中一个箱柜"}, ensure_ascii=False)
 
@@ -224,7 +295,7 @@ def add_panels(**kwargs) -> str:
 def add_parts(**kwargs) -> str:
     """批量添加多个元件到指定面板。panel_id 留空则添加到当前选中的面板。"""
     input_data = AddPartsInput(**kwargs)
-    target_pan_id = input_data.panel_id or _current_selection.get("panel_id", "")
+    target_pan_id = input_data.panel_id or _get_current_selection().get("panel_id", "")
     if not target_pan_id:
         return json.dumps({"action": "error", "message": "未指定目标面板且当前未选中任何面板，请先选中一个面板"}, ensure_ascii=False)
 
@@ -259,12 +330,18 @@ def edit_cabinet(
     其余字段：需要修改的新值，不传则保持不变
     """
     updates: dict = {}
-    if cabinet_name:  updates["cabinet_name"] = cabinet_name
-    if cabinet_use:   updates["cabinet_use"] = cabinet_use
-    if cabinet_model: updates["cabinet_model"] = cabinet_model
-    if wiring_method: updates["wiring_method"] = wiring_method
-    if cabinet_width:  updates["cabinet_width"] = cabinet_width
-    if cabinet_height:  updates["cabinet_height"] = cabinet_height
+    if cabinet_name:
+        updates["cabinet_name"] = cabinet_name
+    if cabinet_use:
+        updates["cabinet_use"] = cabinet_use
+    if cabinet_model:
+        updates["cabinet_model"] = cabinet_model
+    if wiring_method:
+        updates["wiring_method"] = wiring_method
+    if cabinet_width:
+        updates["cabinet_width"] = cabinet_width
+    if cabinet_height:
+        updates["cabinet_height"] = cabinet_height
 
     return json.dumps(
         {
@@ -290,10 +367,14 @@ def edit_panel(
     panel_id: 要修改的面板 ID（通过 get_current_selection 或 get_scheme_summary 获取）
     """
     updates: dict = {}
-    if panel_type:   updates["panel_type"] = panel_type
-    if operation_method: updates["operation_method"] = operation_method
-    if panel_width:  updates["panel_width"] = panel_width
-    if panel_height: updates["panel_height"] = panel_height
+    if panel_type:
+        updates["panel_type"] = panel_type
+    if operation_method:
+        updates["operation_method"] = operation_method
+    if panel_width:
+        updates["panel_width"] = panel_width
+    if panel_height:
+        updates["panel_height"] = panel_height
 
     return json.dumps(
         {
@@ -320,11 +401,16 @@ def edit_part(
     part_id: 要修改的元件 ID（定位用，通过 get_current_selection 或 get_scheme_summary 获取）
     """
     updates: dict = {}
-    if part_type:   updates["part_type"] = part_type
-    if part_model:  updates["part_model"] = part_model
-    if part_number is not None: updates["part_number"] = part_number
-    if part_width:  updates["part_width"] = part_width
-    if part_height: updates["part_height"] = part_height
+    if part_type:
+        updates["part_type"] = part_type
+    if part_model:
+        updates["part_model"] = part_model
+    if part_number is not None:
+        updates["part_number"] = part_number
+    if part_width:
+        updates["part_width"] = part_width
+    if part_height:
+        updates["part_height"] = part_height
 
     return json.dumps(
         {
@@ -342,13 +428,15 @@ def get_current_selection() -> str:
     获取用户当前在界面上选中的箱柜和面板的完整信息（含 ID、名称、面板列表、元件列表）。
     当用户说"当前面板"/"当前箱柜"或要编辑某个元件时，先调用此工具获取目标 ID。
     """
-    cab_id = _current_selection.get("cabinet_id", "")
-    pan_id = _current_selection.get("panel_id", "")
+    current_selection = _get_current_selection()
+    current_scheme = _get_current_scheme()
+    cab_id = current_selection.get("cabinet_id", "")
+    pan_id = current_selection.get("panel_id", "")
     lines: list[str] = []
 
     # 在当前方案中查找选中的箱柜
     sel_cabinet = None
-    for c in _current_scheme.get("cabinets", []):
+    for c in current_scheme.get("cabinets", []):
         if c.get("cabinet_id") == cab_id:
             sel_cabinet = c
             break
@@ -382,7 +470,7 @@ def get_scheme_summary() -> str:
     """
     获取当前方案的统计摘要，帮助了解已有配置。无需传参，直接读取当前方案。
     """
-    cabinets = _current_scheme.get("cabinets", [])
+    cabinets = _get_current_scheme().get("cabinets", [])
     if not cabinets:
         return "当前方案为空，尚未配置任何箱柜。"
     lines = [f"当前方案共 {len(cabinets)} 台箱柜："]
@@ -411,86 +499,43 @@ def get_scheme_summary() -> str:
     return "\n".join(lines)
 
 
-def _load_standard_names() -> list[str]:
-    """从 standard_names.txt 加载元件标准名称列表"""
-    import pathlib
-    # __file__ = src/layout_rag/agent/configurator_agent.py
-    # parents[3] = src/, parents[3]/../static = project_root/static
-    base = pathlib.Path(__file__).resolve().parents[3]
-    txt_path = base / "static" / "standard_names.txt"
-    try:
-        return [n.strip() for n in txt_path.read_text(encoding="utf-8").splitlines() if n.strip()]
-    except Exception:
-        return []
-
-
-STANDARD_PART_NAMES = _load_standard_names()
-_PART_NAMES_STR = "、".join(STANDARD_PART_NAMES) if STANDARD_PART_NAMES else "（未能加载标准名称）"
-
-
 # ──────────────────────────────────────────────────────────────
 #  系统提示词
 # ──────────────────────────────────────────────────────────────
-SYSTEM_PROMPT = f"""你是一个专业的配电柜选配助手，帮助用户设计低压配电系统方案。
+SYSTEM_PROMPT = """你是一个专业的配电柜选配助手，帮助用户设计低压配电系统方案。
 
-【核心规则】
-1. 当用户描述方案需求时，为每个箱柜调用 **add_cabinets**（传入完整的面板和元件），支持一次性创建多个箱柜。
-2. 当用户想给已有箱柜新增面板时，调用 **add_panels**；新增多项元件时调用 **add_parts**。如果用户没指定目标箱柜/面板，工具会自动使用当前选中的。
-3. 当用户想修改已有内容时，调用 edit_* 工具。**edit 工具统一使用 ID 定位**（cabinet_id / panel_id / part_id）。
-4. 查找 ID 的方法：
-   - 用户说"当前面板"/"当前箱柜"→ 调用 **get_current_selection**，返回选中箱柜及其所有面板和元件的 ID。
-   - 用户用名称描述（如"修改1AL箱柜的断路器"）→ 调用 **get_scheme_summary** 查看完整方案，从中匹配名称找到对应 ID。
-5. 每次工具调用后，向用户简要说明做了什么。
+【工具使用】
+1. 用户描述新方案或新增箱柜时，调用 add_cabinets，一次可以创建多个箱柜，并传入完整的面板和元件结构。
+2. 用户给已有箱柜新增面板时，调用 add_panels；给已有面板新增元件时，调用 add_parts。用户未指定目标时，优先使用当前选中对象。
+3. 用户修改已有内容时，调用 edit_* 工具，并始终使用 ID 定位。
+4. 用户提到“当前面板”或“当前箱柜”时，先调用 get_current_selection；用户通过名称描述目标时，先调用 get_scheme_summary 找到对应 ID。
+5. 每次工具调用后，简要说明执行了什么。
 
-【未明确指定时的推测规则】
-- **柜用途**：根据元件配置推测（如有主进线断路器→进线柜，多回路出线→出线柜，电容器→电容补偿柜）。
-- **柜型号**：可为空。
-- **柜体尺寸**：常见值 800×2200mm，抽屉柜常见 600/800×2200mm。
-- **面板尺寸**：默认等于柜体尺寸；抽屉面板常见 600×200mm。
-- **元件尺寸**：根据元件类型推测（断路器约 140×250，接触器约 80×120，熔断器约 60×80 等）。
-- **元件名称 part_type**：必须从标准名称列表中选取；确实无法匹配时留空。
-- **元件型号 part_model**：无法识别时留空。
-- 推测的值在回复中用"（推测）"标注，提示用户确认或修改。
+【字段约束】
+1. 所有枚举字段和 part_type 必须严格使用工具参数 schema 中给出的可选值，不要自造新值。
+2. 对于允许留空的字段，如无法识别，使用空字符串。
+3. 如果用户没有明确指定，优先使用工具 schema 中的默认值；只有默认值明显不适用时，才根据上下文推测。
+4. 推测得到的值在回复中标注“（推测）”，提示用户确认或修改。
 
-【排序规则】
-- 为箱柜、面板、元件的 order 字段分配递增的数字索引（1,2,3...），确保在前端创建后保持正确的图纸阅读顺序！
+【推测规则】
+1. 柜用途根据元件配置推测：主进线断路器通常对应进线柜，多回路出线通常对应出线柜，含电容器通常对应电容补偿柜。
+2. 柜型号可为空；柜体常见尺寸为 800×2200mm，抽屉柜常见 600/800×2200mm。
+3. 默认面板通常与柜体同尺寸；抽屉面板可按回路数拆分，高度优先按模数推断，否则按柜体总高度均分向下取整。
+4. 元件名称无法匹配标准名时留空；元件型号无法识别时留空。
+5. 所有尺寸字段不得为 0；若无法识别，按合理常见值推测。
 
 【面板规则】
-- **出线柜/抽屉柜中，一个出线回路就是一个独立的抽屉面板，n个回路就有 n个抽屉面板**。抽屉面板的高度计算：如果能识别出每个抽屉面板的模数，则高度 = 25mm × 模数；如果不能识别模数，则高度 = (柜体总高度 / 抽屉数量) 向下取整。
-- **其他柜型通常只有一个"默认面板"**，面板尺寸与柜体尺寸一致，内部元件平铺安装在这个面板上。
-- **面板尺寸不允许填 0**，如果无法识别面板尺寸，**必须使用该面板所属柜体的宽度和高度**。
+1. 出线柜或抽屉柜中，一个出线回路对应一个独立抽屉面板。
+2. 其他柜型通常只有一个默认面板，元件平铺安装在该面板上。
+3. 如果无法识别面板尺寸，必须使用所属柜体的宽度和高度。
+4. 为箱柜、面板、元件的 order 字段分配递增数字，保持前端图纸阅读顺序。
 
 【图片分析】
-当用户发送了图片（如配电系统图、单线图、系统图、配电柜照片、元件清单表等），请：
-1. 仔细识别图中信息：箱柜数量与类型、各回路配置、元件型号与规格参数、额定电流/电压等。
-2. 对于出线柜，注意从图中识别回路数量，然后创建对应数量的抽屉面板。
-3. 提取关键数据后，**为识别到的箱柜调用 add_cabinets 生成配置**。无法确定的字段按推测规则填入合理值。
-4. 向用户说明你从图中解读到了哪些信息，以及还有哪些不确定需要确认。
-
-【可用枚举值】
-箱柜用途：进线柜、出线柜、电容补偿柜、计量柜、联络柜
-箱柜型号：GCK、GCS、MNS、GGD
-进出线方式：上进上出、上进下出、下进上出、下进下出
-面板类型：默认面板、抽屉面板
-面板操作方式：手动机构、电动操作、抽屉式
-
-【元件标准名称】
-生成方案时 part_type 必须从以下标准名称中选取（如用户说的名称与标准不完全一致，请匹配最接近的标准名称）；无法匹配时留空：
-{_PART_NAMES_STR}
-
-【选型建议】
-- 如用户提到额定电流，给出推荐断路器型号
-- 如用户提到电动机功率，给出接触器+热继电器组合建议
-- 尺寸单位统一为 mm
-
-【元件尺寸参考】
-所有尺寸字段**不允许填 0**，按以下参考推测（单位 mm）：
-- 框架断路器(ACB): 280×350 | 塑壳断路器(MCCB): 140×250 | 微型断路器(MCB): 80×120
-- 交流接触器: 80×120 | 热继电器: 60×80 | 熔断器: 60×80
-- 电流互感器: 60×80 | 电压互感器: 80×100 | 电能表: 100×120
-- 转换开关: 60×80 | 指示灯: 30×50 | 按钮: 30×50
-- 浪涌保护器: 80×100 | 电容器: 120×200 | 电抗器: 120×200
-如有具体型号可查到尺寸，以实际尺寸为准。"""
+1. 当用户发送配电系统图、单线图、系统图、配电柜照片、元件清单表等图片时，先识别箱柜数量、柜型、回路数量、元件型号规格和额定参数。
+2. 对于出线柜，要根据识别到的回路数创建对应数量的抽屉面板。
+3. 提取出关键信息后，直接调用 add_cabinets 生成配置；不确定字段按上述规则合理补全。
+4. 回复时说明已识别的信息，以及仍需用户确认的不确定项。
+"""
 
 
 # ──────────────────────────────────────────────────────────────
@@ -499,7 +544,7 @@ SYSTEM_PROMPT = f"""你是一个专业的配电柜选配助手，帮助用户设
 TOOLS = [add_cabinets, add_panels, add_parts, edit_cabinet, edit_panel, edit_part, get_current_selection, get_scheme_summary]
 
 
-def build_agent():
+def build_agent(checkpointer: InMemorySaver | None = None):
     """构建并编译 LangGraph ReAct Agent"""
     llm = _build_llm()
     llm_with_tools = llm.bind_tools(TOOLS)
@@ -523,7 +568,7 @@ def build_agent():
     graph.add_edge(START, "agent")
     graph.add_conditional_edges("agent", should_continue, ["tools", END])
     graph.add_edge("tools", "agent")
-    return graph.compile()
+    return graph.compile(checkpointer=checkpointer or _agent_checkpointer)
 
 
 _agent_instance = None

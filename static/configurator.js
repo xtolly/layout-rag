@@ -11,27 +11,60 @@ const { createApp, ref, reactive, computed, nextTick } = Vue;
 // ── 工具 ──────────────────────────────────────────────────────
 const uid = () => crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
 const API = `${window.location.origin}/api`;
+const SELECTION_CONFIG_URL = '/static/configurator_options.json';
 
-// ── 枚举选项 ──────────────────────────────────────────────────
-const CABINET_USE_OPTIONS   = ['进线柜','出线柜','电容补偿柜','计量柜','联络柜'];
-const CABINET_MODEL_OPTIONS = ['GCK','GCS','MNS','GGD'];
-const PANEL_TYPE_OPTIONS    = ['默认面板','抽屉面板','占位面板'];
-const WIRING_METHOD_OPTIONS = ['上进上出','上进下出','下进上出','下进下出'];
-const OPERATION_METHOD_OPTIONS = ['手动机构','电动操作','抽屉式'];
+const EMPTY_SELECTION_CONFIG = Object.freeze({
+    cabinet_use_options: [],
+    cabinet_model_options: [],
+    panel_type_options: [],
+    wiring_method_options: [],
+    operation_method_options: [],
+    part_type_options: [],
+});
 
-// PART_TYPE_OPTIONS 需要作为 ref 使 Vue 能响应异步加载结果
-let _partTypeOptionsRef = null;  // 在 setup() 中初始化为 ref
+const normalizeOptionList = (values) => {
+    if (!Array.isArray(values)) return [];
+    return [...new Set(values.map((value) => String(value || '').trim()).filter(Boolean))];
+};
 
 // ── 工厂 ──────────────────────────────────────────────────────
 let _orderCounter = 1000;
 const getOrder = () => Date.now() + (_orderCounter++);
-const makePart    = (o={}) => ({ part_id:uid(), order:getOrder(), part_type:'', part_model:'', part_number:1, part_width:60,  part_height:80,  ...o });
-const makePanel   = (o={}) => ({ panel_id:uid(), order:getOrder(), panel_type:'默认面板', operation_method:'', panel_width:600, panel_height:1400, parts:[], is_laid_out:false, arrange:{}, ...o });
-const makeCabinet = (o={}) => ({ cabinet_id:uid(), order:getOrder(), cabinet_name:'', cabinet_use:'出线柜', cabinet_model:'GCS', wiring_method:'', cabinet_width:800, cabinet_height:2200, panels:[], ...o });
 
 // ══════════════════════════════════════════════════════════════
 const App = {
   setup() {
+
+    const CABINET_USE_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.cabinet_use_options]);
+    const CABINET_MODEL_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.cabinet_model_options]);
+    const PANEL_TYPE_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.panel_type_options]);
+    const WIRING_METHOD_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.wiring_method_options]);
+    const OPERATION_METHOD_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.operation_method_options]);
+    const PART_TYPE_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.part_type_options]);
+
+    const applySelectionConfig = (config = EMPTY_SELECTION_CONFIG) => {
+        CABINET_USE_OPTIONS.value = normalizeOptionList(config.cabinet_use_options);
+        CABINET_MODEL_OPTIONS.value = normalizeOptionList(config.cabinet_model_options);
+        PANEL_TYPE_OPTIONS.value = normalizeOptionList(config.panel_type_options);
+        WIRING_METHOD_OPTIONS.value = normalizeOptionList(config.wiring_method_options);
+        OPERATION_METHOD_OPTIONS.value = normalizeOptionList(config.operation_method_options);
+        PART_TYPE_OPTIONS.value = normalizeOptionList(config.part_type_options);
+    };
+
+    const loadSelectionConfig = async () => {
+        try {
+            const response = await fetch(SELECTION_CONFIG_URL, { cache: 'no-store' });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            applySelectionConfig(await response.json());
+        } catch (error) {
+            console.warn('selection config load failed', error);
+        }
+    };
+
+    const getFirstOption = (optionsRef, fallback = '') => optionsRef.value[0] || fallback;
+    const makePart = (o={}) => ({ part_id:uid(), order:getOrder(), part_type:'', part_model:'', part_number:1, part_width:60, part_height:80, ...o });
+    const makePanel = (o={}) => ({ panel_id:uid(), order:getOrder(), panel_type:getFirstOption(PANEL_TYPE_OPTIONS), operation_method:'', panel_width:600, panel_height:1400, parts:[], is_laid_out:false, arrange:{}, ...o });
+    const makeCabinet = (o={}) => ({ cabinet_id:uid(), order:getOrder(), cabinet_name:'', cabinet_use:getFirstOption(CABINET_USE_OPTIONS), cabinet_model:getFirstOption(CABINET_MODEL_OPTIONS), wiring_method:'', cabinet_width:800, cabinet_height:2200, panels:[], ...o });
 
     // ── 数据 ──────────────────────────────────────────────────
     const scheme = reactive({ cabinets: [] });
@@ -40,14 +73,24 @@ const App = {
     const isLoading   = ref(false);
     const loadingText = ref('');
     const toast = reactive({ show:false, msg:'', type:'success' });
+    const agentStatus = reactive({ ready:false, model:'', base_url:'', has_api_key:false });
 
-    // ── 元件类型（响应式，异步加载） ─────────────────────────
-    const PART_TYPE_OPTIONS = ref(['断路器','隔离开关','负荷开关','熔断器','接触器','热继电器']);
-    _partTypeOptionsRef = PART_TYPE_OPTIONS;
-    fetch('/static/standard_names.txt').then(r=>r.text()).then(txt=>{
-        const names = txt.split('\n').map(s=>s.trim()).filter(Boolean);
-        if (names.length) PART_TYPE_OPTIONS.value = names;
-    }).catch(()=>{});
+    const loadAgentStatus = async () => {
+        try {
+            const response = await fetch(`${API}/agent/status`, { cache: 'no-store' });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+            agentStatus.ready = !!data.ready;
+            agentStatus.model = String(data.model || '').trim();
+            agentStatus.base_url = String(data.base_url || '').trim();
+            agentStatus.has_api_key = !!data.has_api_key;
+        } catch (error) {
+            console.warn('agent status load failed', error);
+        }
+    };
+
+    loadSelectionConfig();
+    loadAgentStatus();
 
     // ── 从 sessionStorage 恢复备份数据 ───────────────────────────
     const _backup = sessionStorage.getItem('configurator_scheme_backup');
@@ -417,6 +460,12 @@ const App = {
     const chatScrollEl   = ref(null);
     const chatTextarea   = ref(null);
     const chatImageInput = ref(null);
+    const createChatSessionId = () => {
+        if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+        return `chat-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    };
+    const chatSessionId = ref(sessionStorage.getItem('configurator_chat_session_id') || createChatSessionId());
+    sessionStorage.setItem('configurator_chat_session_id', chatSessionId.value);
     const quickHints = [
         '🔌 生成一套标准低压配电方案，含进线柜和2台出线柜',
         '⚡ 250A 电动机控制回路，含断路器、接触器和热继电器',
@@ -427,6 +476,8 @@ const App = {
     const clearChatSession = () => {
         chatMessages.value = [];
         chatInput.value = '';
+        chatSessionId.value = createChatSessionId();
+        sessionStorage.setItem('configurator_chat_session_id', chatSessionId.value);
         clearChatImage();
         showToast('已开启新会话');
     };
@@ -535,6 +586,7 @@ const App = {
         const currentScheme = { cabinets: JSON.parse(JSON.stringify(scheme.cabinets)) };
         const imageData = chatImagePreview.value || null;
         const payload = {
+            session_id: chatSessionId.value,
             message: text || '请根据图片生成配置方案',
             scheme: currentScheme,
             image: imageData,
@@ -723,6 +775,7 @@ const App = {
         selectedCabinet, selectedPanel,
         sortedCabinets, sortedPanels, sortedParts,
         isLoading, loadingText, toast,
+        agentStatus,
         cabinetModal, panelModal, partModal, jsonModal,
         jsonFileInput, chatImageInput,
         totalCabinets, totalPanels, totalParts,

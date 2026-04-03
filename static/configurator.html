@@ -404,9 +404,9 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <div class="font-display font-semibold text-slate-800 text-sm">AI 选配助手</div>
-                        <div class="text-[11px] flex items-center gap-1 text-emerald-500">
-                            <span class="w-1.5 h-1.5 rounded-full inline-block bg-emerald-400"></span>
-                            Qwen · 就绪
+                        <div class="text-[11px] flex items-center gap-1" :class="agentStatus.ready ? 'text-emerald-500' : 'text-amber-500'">
+                            <span class="w-1.5 h-1.5 rounded-full inline-block" :class="agentStatus.ready ? 'bg-emerald-400' : 'bg-amber-400'"></span>
+                            {{ agentStatus.model || '未配置模型' }} · {{ agentStatus.ready ? '就绪' : '未就绪' }}
                         </div>
                     </div>
                     <button @click="clearChatSession" class="toolbar-btn text-xs px-2 py-1 rounded border border-slate-200 hover:border-indigo-300 hover:text-indigo-600 flex-shrink-0" title="新建会话">

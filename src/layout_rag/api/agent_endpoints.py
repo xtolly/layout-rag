@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import os
 import traceback
+import uuid
 from typing import Any
 
 from fastapi import APIRouter, Body
@@ -27,6 +28,15 @@ def _get_agent():
 
 def _sse(data: Any) -> str:
     return f"data: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+
+def _resolve_session_id(payload: dict) -> str:
+    session_id = str(payload.get("session_id", "") or "").strip()
+    return session_id or str(uuid.uuid4())
+
+
+def _agent_run_config(session_id: str) -> dict:
+    return {"configurable": {"thread_id": session_id}}
 
 
 # ──────────────────────────────────────────────────────────────
@@ -46,6 +56,7 @@ async def chat_stream(payload: dict = Body(...)):
     scheme  = payload.get("scheme", {"cabinets": []})
     image   = payload.get("image")          # base64 data-url 或 None
     selection = payload.get("selection", {})  # {cabinet_id, panel_id}
+    session_id = _resolve_session_id(payload)
 
     async def event_stream():
         try:
@@ -77,9 +88,12 @@ async def chat_stream(payload: dict = Body(...)):
             }
 
             # astream_events 可拿到 token 级 on_chat_model_stream 事件
-            async for event in agent.astream_events(init_state, version="v2"):
+            async for event in agent.astream_events(
+                init_state,
+                config=_agent_run_config(session_id),
+                version="v2",
+            ):
                 kind = event.get("event", "")
-                name = event.get("name", "")
 
                 # ── Token 级流式（LLM 输出） ──────────────────────
                 if kind == "on_chat_model_stream":
@@ -143,6 +157,7 @@ async def chat(payload: dict = Body(...)):
     scheme  = payload.get("scheme", {"cabinets": []})
     image   = payload.get("image")
     selection = payload.get("selection", {})
+    session_id = _resolve_session_id(payload)
     try:
         agent = _get_agent()
 
@@ -159,29 +174,32 @@ async def chat(payload: dict = Body(...)):
             human_msg = HumanMessage(content=content_parts)
         else:
             human_msg = HumanMessage(content=msg_text)
-        result = agent.invoke({
-            "messages": [human_msg],
-            "current_scheme": scheme,
-        })
+        result = agent.invoke(
+            {
+                "messages": [human_msg],
+                "current_scheme": scheme,
+            },
+            config=_agent_run_config(session_id),
+        )
         last = result["messages"][-1]
         reply = getattr(last, "content", str(last))
         actions = _extract_tool_actions(result["messages"])
-        return {"reply": reply, "actions": actions}
+        return {"reply": reply, "actions": actions, "session_id": session_id}
     except Exception as e:
         traceback.print_exc()
-        return {"reply": f"Agent 出错：{e}", "actions": []}
+        return {"reply": f"Agent 出错：{e}", "actions": [], "session_id": session_id}
 
 
 @agent_router.get("/status")
 async def agent_status():
     has_key = os.getenv("OPENAI_API_KEY", "")
-    model_name = os.getenv("MODEL_NAME", os.getenv("MODEL_NAME", ""))
-    base_url = os.getenv("OPENAI_API_BASE", os.getenv("OPENAI_API_BASE", ""))
+    model_name = os.getenv("MODEL_NAME", "")
+    base_url = os.getenv("OPENAI_API_BASE", "")
     return {
-        "ready": has_key,
+        "ready": bool(has_key),
         "model": model_name,
         "base_url": base_url,
-        "has_api_key": has_key,
+        "has_api_key": bool(has_key),
     }
 
 

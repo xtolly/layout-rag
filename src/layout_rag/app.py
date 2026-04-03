@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 
 from layout_rag.config import STATIC_DIR
 
+from layout_rag.api.agent_endpoints import agent_router
 from layout_rag.api.endpoints import router as api_router
 from layout_rag.domain import LowvoltageCabinetDomain
 from layout_rag.services.layout_service import LayoutService
@@ -41,9 +42,7 @@ async def get_configurator():
 # --- 布局排版系统 ---
 @app.get("/layout")
 async def get_layout():
-    return FileResponse(STATIC_DIR / "index.html")
-
-from layout_rag.api.agent_endpoints import agent_router
+    return FileResponse(STATIC_DIR / "layout-workbench.html")
 
 # --- API 路由挂载 ---
 app.include_router(api_router, prefix="/api")
