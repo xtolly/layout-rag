@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>智能元件布局系统</title>
     <script src="/static/tailwind.js"></script>
-    <script src="/static/vue.global.js"></script>
+    <script src="/static/vue.global.prod.js"></script>
     <link rel="stylesheet" href="/static/app.css">
     <style>[v-cloak]{display:none}</style>
 </head>
@@ -414,7 +414,7 @@
                 <div class="flex flex-1 overflow-hidden min-h-0">
 
                     <!-- 左侧：模板参考画板（只读） -->
-                    <section v-if="!isBuildTemplateMode && !isManualLayoutMode"
+                    <section v-if="!isManualLayoutMode"
                         class="flex-1 border-r border-slate-200/80 overflow-hidden relative flex flex-col shadow-inner"
                         style="background:#eef0f5; min-width: 30%;" ref="tplCanvasContainer">
 

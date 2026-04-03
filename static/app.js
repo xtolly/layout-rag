@@ -46,7 +46,7 @@ const App = {
     setup() {
 
         // ── 全局流程状态 ──────────────────────────────────────
-        const step        = ref(1);
+        const step        = ref(0);
         const isLoading   = ref(false);
         const loadingText = ref('');
 
@@ -311,12 +311,6 @@ const App = {
             window.addEventListener('keydown', handleKeydown);
             window.addEventListener('keyup', handleKeyup);
             loadPartColorMap();
-
-            // 若在 iframe 中，先显示加载遮罩，等待父窗口 init 消息
-            if (window.parent !== window) {
-                isLoading.value = true;
-                loadingText.value = '正在初始化...';
-            }
 
             // 始终以嵌入模式运行，监听父窗口消息
             window.addEventListener('message', (e) => {

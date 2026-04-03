@@ -68,23 +68,23 @@ class LowvoltageCabinetDomain(BusinessDomain):
                 "feature_name_template": "count_{value}",
                 "display_name_template": "{value} 数量",
             },
-            # ── 箱柜用途（进线柜 / 出线柜 / …）──
+            # ── 柜体用途（进线柜 / 出线柜 / …）──
             "cabinet_use_categories": {
                 "source": "scheme",
                 "field": "cabinet_use",
                 "feature_type": "boolean",
                 "weight": 5.0,
                 "feature_name_template": "cabinet_use_{value}",
-                "display_name_template": "箱柜用途:{value}",
+                "display_name_template": "柜体用途:{value}",
             },
-            # ── 箱柜型号（GCK / GCS / MNS / GGD）──
+            # ── 柜体型号（GCK / GCS / MNS / GGD）──
             "cabinet_model_categories": {
                 "source": "scheme",
                 "field": "cabinet_model",
                 "feature_type": "boolean",
                 "weight": 4.0,
                 "feature_name_template": "cabinet_model_{value}",
-                "display_name_template": "箱柜型号:{value}",
+                "display_name_template": "柜体型号:{value}",
             },
             # ── 进出线方式（上进上出 / 上进下出 / …）──
             "cabinet_wiring_method_categories": {

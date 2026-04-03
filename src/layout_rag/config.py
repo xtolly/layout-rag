@@ -203,43 +203,6 @@ def load_meta_category_values(domain: BusinessDomain, data_dir=DATA_DIR) -> dict
         )
     return values_by_field
 
-
-# ---------------------------------------------------------------------------
-# 颜色工具（通用实现，颜色变体由 domain 提供）
-# ---------------------------------------------------------------------------
-
-def generate_distinct_colors(count: int, color_variants: tuple[tuple[int, int], ...]) -> list[str]:
-    """按黄金角生成 count 种颜色，循环使用 color_variants 中的饱和度/亮度配置。"""
-    if count <= 0:
-        return []
-    golden_angle = 137.508
-    colors = []
-    for index in range(count):
-        saturation, lightness = color_variants[index % len(color_variants)]
-        hue = (index * golden_angle) % 360
-        colors.append(f"hsl({hue:.3f}, {saturation}%, {lightness}%)")
-    return colors
-
-
-def build_part_color_payload(part_types, domain: BusinessDomain) -> dict:
-    """构建元件颜色映射 payload。"""
-    normalized = sorted({str(pt).strip() for pt in part_types if str(pt).strip()})
-    colors = generate_distinct_colors(len(normalized), domain.color_variants)
-    return {
-        "unknownColor": domain.unknown_part_color,
-        "partColorMap": {pt: colors[i] for i, pt in enumerate(normalized)},
-    }
-
-
-def save_part_color_payload(part_types, domain: BusinessDomain, output_path=PART_COLOR_PATH) -> dict:
-    """生成并持久化元件颜色映射文件。"""
-    payload = build_part_color_payload(part_types, domain)
-    path = Path(output_path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    return payload
-
-
 def load_part_color_payload(domain: BusinessDomain, file_path=PART_COLOR_PATH) -> dict:
     """从磁盘加载元件颜色映射，文件不存在时返回空映射。"""
     path = Path(file_path)
@@ -253,16 +216,5 @@ def load_part_color_payload(domain: BusinessDomain, file_path=PART_COLOR_PATH) -
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return fallback
-
-    part_color_map = payload.get("partColorMap")
-    if not isinstance(part_color_map, dict):
-        part_color_map = {}
-
-    return {
-        "unknownColor": str(payload.get("unknownColor") or domain.unknown_part_color),
-        "partColorMap": {
-            str(pt): str(color)
-            for pt, color in part_color_map.items()
-            if str(pt).strip() and str(color).strip()
-        },
-    }
+    
+    return payload

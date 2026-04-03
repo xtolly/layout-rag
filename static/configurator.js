@@ -2,7 +2,7 @@
  * 智能选配系统 — 前端逻辑 v2
  *
  * 新增：
- *   - 箱柜添加/编辑弹窗 (cabinetModal)
+ *   - 柜体添加/编辑弹窗 (cabinetModal)
  *   - 右侧 AI 聊天界面（SSE 流式 + 工具动作实时渲染）
  *   - API Key 运行时配置
  */
@@ -155,7 +155,7 @@ const App = {
             const p = cab.panels.find(x => x.panel_id === targetPanelId);
             if (p) {
                 p.arrange = data.arrange || {};
-                showToast('面板布局已更新 ✓');
+                showToast('布局已更新 ✓');
                 break;
             }
         }
@@ -276,7 +276,7 @@ const App = {
     };
 
     // ══════════════════════════════════════════════════════════
-    //  箱柜操作
+    //  柜体操作
     // ══════════════════════════════════════════════════════════
     const openAddCabinet = () => {
         cabinetModal.cabinet = makeCabinet({ cabinet_name:`柜${scheme.cabinets.length+1}` });
@@ -293,19 +293,19 @@ const App = {
         if (cabinetModal.isNew) {
             scheme.cabinets.push({ ...cabinetModal.cabinet, panels: cabinetModal.cabinet.panels||[] });
             selectCabinet(cabinetModal.cabinet.cabinet_id);
-            showToast('已添加箱柜');
+            showToast('已添加柜体');
         } else {
             const idx = scheme.cabinets.findIndex(c=>c.cabinet_id===cabinetModal.cabinet.cabinet_id);
             if (idx!==-1) {
                 const panels = scheme.cabinets[idx].panels; // 保留原 panels
                 Object.assign(scheme.cabinets[idx], { ...cabinetModal.cabinet, panels });
             }
-            showToast('已保存箱柜');
+            showToast('已保存柜体');
         }
         cabinetModal.show = false;
     };
     const removeCabinet = (id) => {
-        if (!confirm('确定删除此箱柜及其所有面板和元件？')) return;
+        if (!confirm('确定删除此柜体及其所有面板和元件？')) return;
         const idx = scheme.cabinets.findIndex(c=>c.cabinet_id===id);
         if (idx!==-1) scheme.cabinets.splice(idx,1);
         if (selectedCabinetId.value===id) { selectedCabinetId.value=null; selectedPanelId.value=null; }
@@ -317,7 +317,7 @@ const App = {
         copy.panels.forEach(p=>{ p.panel_id=uid(); p.parts.forEach(pt=>pt.part_id=uid()); });
         const idx = scheme.cabinets.findIndex(c=>c.cabinet_id===cab.cabinet_id);
         scheme.cabinets.splice(idx+1,0,copy);
-        showToast('已复制箱柜');
+        showToast('已复制柜体');
     };
     const selectCabinet = (id) => { 
         selectedCabinetId.value = id; 
@@ -416,7 +416,7 @@ const App = {
             const parsed = JSON.parse(jsonModal.raw);
             if (!parsed.cabinets) throw new Error('缺少 cabinets 字段');
             scheme.cabinets = parsed.cabinets;
-            jsonModal.show=false; showToast(`已导入 ${scheme.cabinets.length} 个箱柜`);
+            jsonModal.show=false; showToast(`已导入 ${scheme.cabinets.length} 个柜体`);
         } catch(e) { showToast('JSON 格式错误: '+e.message,'error'); }
     };
     const exportJson = () => {
@@ -566,13 +566,13 @@ const App = {
 
         if (type === 'replace_scheme' && action.scheme?.cabinets) {
             scheme.cabinets = action.scheme.cabinets;
-            showToast(`AI 已生成 ${scheme.cabinets.length} 个箱柜方案`);
+            showToast(`AI 已生成 ${scheme.cabinets.length} 个柜体方案`);
         }
         else if (type === 'add_cabinets' && action.cabinets?.length) {
             action.cabinets.forEach(cab => {
                 scheme.cabinets.push({ ...cab, panels: cab.panels||[] });
             });
-            showToast(`已批量添加 ${action.cabinets.length} 个箱柜`);
+            showToast(`已批量添加 ${action.cabinets.length} 个柜体`);
         }
         else if (type === 'add_panels' && action.panels?.length) {
             const cab = scheme.cabinets.find(c=>c.cabinet_id===action.cabinet_id);
@@ -594,7 +594,7 @@ const App = {
         }
         else if (type === 'edit_cabinet' && action.updates) {
             const cab = scheme.cabinets.find(c=>c.cabinet_id===action.cabinet_id);
-            if (cab) { Object.assign(cab, action.updates); showToast('已修改箱柜'); }
+            if (cab) { Object.assign(cab, action.updates); showToast('已修改柜体'); }
         }
         else if (type === 'edit_panel' && action.updates) {
             for (const cab of scheme.cabinets) {
@@ -734,7 +734,7 @@ const App = {
         if (!parseFloat(pnl.panel_width) || !parseFloat(pnl.panel_height)) return false;
         const allValid = pnl.parts.every(part => parseFloat(part.part_width) && parseFloat(part.part_height));
         if (!allValid) return false;
-        return pnl.parts.length > 1;
+        return pnl.parts.length > 0;
     });
 
     const _buildLayoutData = (pnl, cab, layoutMode) => {
@@ -811,7 +811,7 @@ const App = {
         WIRING_METHOD_OPTIONS, OPERATION_METHOD_OPTIONS,
         // 拖拽 & 折叠
         cabinetWidth, panelWidth, chatWidth, chatCollapsed, startResize, toggleChat,
-        // 箱柜
+        // 柜体
         openAddCabinet, openEditCabinet, saveCabinetModal, removeCabinet, duplicateCabinet, selectCabinet,
         // 面板
         openAddPanel, openEditPanel, savePanelModal, removePanel, selectPanel,

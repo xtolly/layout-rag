@@ -149,7 +149,7 @@
     "cabinet_use_出线柜": {
       "type": "boolean",
       "weight": 5.0,
-      "display_name": "箱柜用途:出线柜",
+      "display_name": "柜体用途:出线柜",
       "dynamic": true,
       "source": "schema",
       "field": "cabinet_use",
@@ -159,7 +159,7 @@
     "cabinet_use_进线柜": {
       "type": "boolean",
       "weight": 5.0,
-      "display_name": "箱柜用途:进线柜",
+      "display_name": "柜体用途:进线柜",
       "dynamic": true,
       "source": "schema",
       "field": "cabinet_use",
@@ -169,7 +169,7 @@
     "cabinet_model_GGD": {
       "type": "boolean",
       "weight": 4.0,
-      "display_name": "箱柜型号:GGD",
+      "display_name": "柜体型号:GGD",
       "dynamic": true,
       "source": "schema",
       "field": "cabinet_model",
