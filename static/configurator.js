@@ -6,7 +6,7 @@
  *   - 右侧 AI 聊天界面（SSE 流式 + 工具动作实时渲染）
  *   - API Key 运行时配置
  */
-const { createApp, ref, reactive, computed, nextTick } = Vue;
+const { createApp, ref, reactive, computed, nextTick, watch } = Vue;
 
 // ── 工具 ──────────────────────────────────────────────────────
 const uid = () => crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
@@ -145,8 +145,45 @@ const App = {
     const iframeSrc             = ref('');
     const layoutIframe          = ref(null);
     const iframePanelInfo       = ref(null); // { panel_type, panel_size, parts_count }
+    const embeddedLayoutIframe  = ref(null);
+    const embeddedLayoutInfo    = ref(null);
+    const rightPaneTab          = ref('parts');
     let _iframeMessageHandler = null;
     let _pendingIframeInit    = null; // { mode, data }
+    let _embeddedIframeReady  = false;
+    let _embeddedIframeInit   = null;
+
+    const buildWorkbenchInfo = (data, opts = {}) => {
+        const wbMode = opts.workbenchMode || 'layout';
+        if (opts.title || data?.scheme) {
+            return {
+                title:       opts.title || (data?.scheme?.panel_type || '安装板'),
+                layout_mode: wbMode,
+                panel_type:  data?.scheme?.panel_type || null,
+                panel_size:  data?.scheme?.panel_size || null,
+                parts_count: Array.isArray(data) ? data.reduce((sum, item) => sum + (item.scheme?.parts?.length || 0), 0) : (data?.scheme?.parts?.length || 0),
+            };
+        }
+        return {
+            title: '布局排版工作台',
+            layout_mode: wbMode,
+            panel_type: null,
+            panel_size: null,
+            parts_count: null,
+        };
+    };
+
+    const postWorkbenchInit = (targetWindow, initConfig) => {
+        if (!targetWindow || !initConfig) return;
+        targetWindow.postMessage(
+            {
+                type: `init:${initConfig.mode}`,
+                payload: JSON.parse(JSON.stringify(initConfig.data)),
+                workbenchMode: initConfig.workbenchMode,
+            },
+            window.location.origin
+        );
+    };
 
     const applyLayoutPanelResult = (data) => {
         if (!data?.scheme?.panel_id) return;
@@ -189,36 +226,17 @@ const App = {
             _iframeMessageHandler = null;
         }
         _pendingIframeInit = mode ? { mode, data, workbenchMode: opts.workbenchMode || 'layout' } : null;
-        // 设置面板信息（用于顶部标题栏）
-        const wbMode = opts.workbenchMode || 'layout';
-        if (opts.title || data?.scheme) {
-            iframePanelInfo.value = {
-                title:       opts.title || (data?.scheme?.panel_type || '安装板'),
-                layout_mode: wbMode,
-                panel_type:  data?.scheme?.panel_type || null,
-                panel_size:  data?.scheme?.panel_size || null,
-                parts_count: Array.isArray(data) ? data.reduce((s, d) => s + (d.scheme?.parts?.length || 0), 0) : (data?.scheme?.parts?.length || 0),
-            };
-        } else {
-            iframePanelInfo.value = {
-                title:       '布局排版工作台',
-                layout_mode: wbMode,
-                panel_type:  null,
-                panel_size:  null,
-                parts_count: null,
-            };
-        }
+        iframePanelInfo.value = buildWorkbenchInfo(data, opts);
 
         const handleMessage = (e) => {
             if (e.origin !== window.location.origin) return;
+            const overlayWindow = layoutIframe.value?.contentWindow;
+            if (!overlayWindow || e.source !== overlayWindow) return;
             const { type, payload, filename } = e.data || {};
             if (type === 'workbench:ready') {
                 // iframe 就绪，发送初始化数据
-                if (_pendingIframeInit && layoutIframe.value) {
-                    layoutIframe.value.contentWindow.postMessage(
-                        { type: `init:${_pendingIframeInit.mode}`, payload: JSON.parse(JSON.stringify(_pendingIframeInit.data)), workbenchMode: _pendingIframeInit.workbenchMode },
-                        window.location.origin
-                    );
+                if (_pendingIframeInit) {
+                    postWorkbenchInit(overlayWindow, _pendingIframeInit);
                 }
             } else if (type === 'workbench:layoutPanelResult') {
                 applyLayoutPanelResult(payload);
@@ -233,6 +251,68 @@ const App = {
         iframeSrc.value = '/layout';
         iframeOverlayShow.value = true;
     };
+
+    const getEmbeddedWorkbenchConfig = () => {
+        if (rightPaneTab.value === 'panel-layout') {
+            if (!selectedPanel.value || !selectedCabinet.value || !isPanelValidForLayout.value) return null;
+            const data = convertPanelsToLayoutData(selectedPanel.value, selectedCabinet.value);
+            return {
+                mode: 'layoutPanelManual',
+                data,
+                workbenchMode: 'layout',
+                info: buildWorkbenchInfo(data, { title: '面板布局', workbenchMode: 'layout' }),
+            };
+        }
+        if (rightPaneTab.value === 'cabinet-layout') {
+            if (!selectedCabinet.value || !selectedCabinet.value.panels.length) return null;
+            const data = convertCabinetsToLayoutData(selectedCabinet.value);
+            return {
+                mode: 'layoutPanelManual',
+                data,
+                workbenchMode: 'layout',
+                info: buildWorkbenchInfo(data, { title: '柜体布局', workbenchMode: 'layout' }),
+            };
+        }
+        return null;
+    };
+
+    const syncEmbeddedWorkbench = () => {
+        const config = getEmbeddedWorkbenchConfig();
+        _embeddedIframeInit = config ? { mode: config.mode, data: config.data, workbenchMode: config.workbenchMode } : null;
+        embeddedLayoutInfo.value = config?.info || null;
+        if (_embeddedIframeReady && embeddedLayoutIframe.value?.contentWindow && _embeddedIframeInit) {
+            postWorkbenchInit(embeddedLayoutIframe.value.contentWindow, _embeddedIframeInit);
+        }
+    };
+
+    const setRightPaneTab = (tab) => {
+        const previousTab = rightPaneTab.value;
+        rightPaneTab.value = tab;
+        if (previousTab === 'parts' && tab !== 'parts') {
+            _embeddedIframeReady = false;
+        }
+        nextTick(() => syncEmbeddedWorkbench());
+    };
+
+    const handleEmbeddedWorkbenchMessage = (e) => {
+        if (e.origin !== window.location.origin) return;
+        const embeddedWindow = embeddedLayoutIframe.value?.contentWindow;
+        if (!embeddedWindow || e.source !== embeddedWindow) return;
+        const { type, payload } = e.data || {};
+        if (type === 'workbench:ready') {
+            _embeddedIframeReady = true;
+            if (_embeddedIframeInit) {
+                postWorkbenchInit(embeddedWindow, _embeddedIframeInit);
+            }
+        } else if (type === 'workbench:layoutPanelResult') {
+            applyLayoutPanelResult(payload);
+            syncEmbeddedWorkbench();
+        } else if (type === 'workbench:close') {
+            setRightPaneTab('parts');
+        }
+    };
+
+    window.addEventListener('message', handleEmbeddedWorkbenchMessage);
 
     // ── 拖拽调整列宽 ─────────────────────────────────────────
     const cabinetWidth = ref(268);
@@ -279,6 +359,10 @@ const App = {
     const sortedCabinets = computed(() => [...scheme.cabinets].sort((a,b)=>(a.order||0)-(b.order||0)));
     const sortedPanels   = computed(() => selectedCabinet.value ? [...selectedCabinet.value.panels].sort((a,b)=>(a.order||0)-(b.order||0)) : []);
     const sortedParts    = computed(() => selectedPanel.value ? [...selectedPanel.value.parts].sort((a,b)=>(a.order||0)-(b.order||0)) : []);
+
+    watch([rightPaneTab, selectedCabinet, selectedPanel], () => {
+        syncEmbeddedWorkbench();
+    }, { deep: true });
 
     // ── Toast ──────────────────────────────────────────────────
     let _toastTimer = null;
@@ -788,50 +872,177 @@ const App = {
         return pnl.parts.length > 0;
     });
 
-    const _buildLayoutData = (pnl, cab) => {
-        const generateUuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const createLayoutUuid = () => window.crypto?.randomUUID
+        ? window.crypto.randomUUID()
+        : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
-        const expandedParts = pnl.parts.map(part => ({
-            part_id: part.part_id,
-            part_type: part.part_type,
-            part_model: part.part_model,
-            part_size: [parseFloat(part.part_width)||80, parseFloat(part.part_height)||100]
-        }));
-        return {
-            name: `${cab.cabinet_use}-${cab.cabinet_model||''}-${pnl.panel_type}-${pnl.panel_width}x${pnl.panel_height}`,
-            uuid: generateUuid(),
-            scheme: {
-                cabinet_name: cab.cabinet_name || '',
-                cabinet_use: cab.cabinet_use || '',
-                cabinet_model: cab.cabinet_model || '',
-                cabinet_wiring_method: cab.wiring_method || '',
-                panel_id: pnl.panel_id,
-                panel_type: pnl.panel_type || '',
-                panel_operation_method: pnl.operation_method || '',
-                panel_size: [parseFloat(pnl.panel_width)||600, parseFloat(pnl.panel_height)||1400],
-                parts: expandedParts
-            },
-            arrange: pnl.arrange || {}
-        };
+
+    const toLayoutNumber = (value, fallback = 0) => {
+        const parsed = parseFloat(value);
+        return Number.isFinite(parsed) ? parsed : fallback;
     };
+
+    const cloneLayoutArrange = (arrange) => {
+        if (!arrange || typeof arrange !== 'object') return {};
+        return JSON.parse(JSON.stringify(arrange));
+    };
+
+    const mapLayoutInput = (input, transformer) => {
+        if (Array.isArray(input)) return input.map((item, index) => transformer(item, index));
+        return transformer(input, 0);
+    };
+
+    const transformPartsToLayoutParts = (parts) => {
+        if (!Array.isArray(parts)) return [];
+        return parts.map((part) => {
+            const item = {
+                part_id: part?.part_id || createLayoutUuid(),
+                part_type: part?.part_type || '',
+                part_model: part?.part_model || '',
+                part_size: [
+                    toLayoutNumber(part?.part_size?.[0], toLayoutNumber(part?.part_width, 80)),
+                    toLayoutNumber(part?.part_size?.[1], toLayoutNumber(part?.part_height, 100)),
+                ],
+            };
+            if (part?.arrange && typeof part.arrange === 'object') {
+                item.arrange = cloneLayoutArrange(part.arrange);
+            }
+            const children = transformPartsToLayoutParts(part?.parts);
+            if (children.length) {
+                item.parts = children;
+            }
+            return item;
+        });
+    };
+
+    const buildLayoutDocument = ({ name = '', scheme = {}, arrange = {} } = {}) => ({
+        name,
+        uuid: createLayoutUuid(),
+        scheme,
+        arrange: cloneLayoutArrange(arrange),
+    });
+
+    const buildPanelAsLayoutPart = (panel) => {
+        const item = {
+            part_id: panel?.panel_id || createLayoutUuid(),
+            part_type: panel?.panel_type || '',
+            part_model: panel?.operation_method || '',
+            part_size: [
+                toLayoutNumber(panel?.panel_width, 600),
+                toLayoutNumber(panel?.panel_height, 1400),
+            ],
+            parts: transformPartsToLayoutParts(panel?.parts),
+        };
+        if (panel?.arrange && typeof panel.arrange === 'object') {
+            item.arrange = cloneLayoutArrange(panel.arrange);
+        }
+        return item;
+    };
+
+    const buildLayoutScheme = ({
+        cabinet_id = '',
+        cabinet_name = '',
+        cabinet_use = '',
+        cabinet_model = '',
+        cabinet_wiring_method = '',
+        panel_id = '',
+        panel_type = '',
+        panel_operation_method = '',
+        panel_size = [600, 1400],
+        parts = [],
+    } = {}) => ({
+        cabinet_id,
+        cabinet_name,
+        cabinet_use,
+        cabinet_model,
+        cabinet_wiring_method,
+        panel_id,
+        panel_type,
+        panel_operation_method,
+        panel_size,
+        parts,
+    });
+
+    const buildPanelLayoutData = (panel, cabinet = {}) => buildLayoutDocument({
+        name: `${cabinet.cabinet_use || ''}-${cabinet.cabinet_model || ''}-${panel?.panel_type || ''}-${panel?.panel_width || 600}x${panel?.panel_height || 1400}`,
+        scheme: buildLayoutScheme({
+            cabinet_id: cabinet.cabinet_id || '',
+            cabinet_name: cabinet.cabinet_name || '',
+            cabinet_use: cabinet.cabinet_use || '',
+            cabinet_model: cabinet.cabinet_model || '',
+            cabinet_wiring_method: cabinet.wiring_method || '',
+            panel_id: panel?.panel_id || '',
+            panel_type: panel?.panel_type || '',
+            panel_operation_method: panel?.operation_method || '',
+            panel_size: [
+                toLayoutNumber(panel?.panel_width, 600),
+                toLayoutNumber(panel?.panel_height, 1400),
+            ],
+            parts: transformPartsToLayoutParts(panel?.parts),
+        }),
+        arrange: panel?.arrange,
+    });
+
+    const convertPanelsToLayoutData = (panelOrPanels, cabinet = {}) => mapLayoutInput(
+        panelOrPanels,
+        (panel) => buildPanelLayoutData(panel, cabinet)
+    );
+
+    const buildCabinetLayoutData = (cabinet) => {
+        const cabinetWidth = toLayoutNumber(cabinet?.cabinet_width, 800);
+        const cabinetHeight = toLayoutNumber(cabinet?.cabinet_height, 2200);
+        const parts = Array.isArray(cabinet?.panels)
+            ? cabinet.panels.map((panel) => buildPanelAsLayoutPart(panel))
+            : [];
+
+        return buildLayoutDocument({
+            name: `${cabinet?.cabinet_use || ''}-${cabinet?.cabinet_name || ''}-${Math.round(cabinetWidth)}x${Math.round(cabinetHeight)}`,
+            scheme: buildLayoutScheme({
+                cabinet_id: cabinet?.cabinet_id || '',
+                cabinet_name: cabinet?.cabinet_name || '',
+                cabinet_use: cabinet?.cabinet_use || '',
+                cabinet_model: cabinet?.cabinet_model || '',
+                cabinet_wiring_method: cabinet?.wiring_method || '',
+                panel_type: `${cabinet?.cabinet_use || ''}-${cabinet?.cabinet_name || ''}`,
+                panel_id: cabinet?.cabinet_id || '',
+                panel_operation_method: '',
+                panel_size: [cabinetWidth, cabinetHeight],
+                parts,
+            }),
+            arrange: cabinet?.arrange,
+        });
+    };
+
+    const convertCabinetsToLayoutData = (cabinetOrCabinets) => mapLayoutInput(
+        cabinetOrCabinets,
+        (cabinet) => buildCabinetLayoutData(cabinet)
+    );
 
     const layoutPanelManual = () => {
         if (!isPanelValidForLayout.value) return;
-        const data = _buildLayoutData(selectedPanel.value, selectedCabinet.value);
+        const data = convertPanelsToLayoutData(selectedPanel.value, selectedCabinet.value);
         openLayoutWorkbench('layoutPanelManual', data, { title: '面板布局', workbenchMode: 'layout' });
+    };
+
+    const cabinetLayoutManual = () => {
+        const cab = selectedCabinet.value;
+        if (!cab) return showToast('请先选择一个柜体', 'warn');
+        if (!cab.panels.length) return showToast('该柜体无面板', 'warn');
+        const layoutData = convertCabinetsToLayoutData(cab);
+        openLayoutWorkbench('layoutPanelManual', layoutData, { title: '柜体布局', workbenchMode: 'layout' });
     };
 
     const isCabinetLayoutLoading = ref(false);
 
-    const cabinetLayout = async (autoArrange = true) => {
+    const cabinetLayout = async () => {
         const cab = selectedCabinet.value;
         if (!cab) return showToast('请先选择一个柜体', 'warn');
         if (!cab.panels.length) return showToast('该柜体无面板', 'warn');
         isCabinetLayoutLoading.value = true;
         try {
-            const body = { ...cab, auto_arrange: autoArrange };
+            const body = convertCabinetsToLayoutData(cab);
             const res = await fetch('/api/cabinet-layout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -851,7 +1062,7 @@ const App = {
     const layoutPanelAI = () => {
         if (!isPanelValidForLayout.value) return;
         const pnl = selectedPanel.value;
-        const data = _buildLayoutData(pnl, selectedCabinet.value);
+        const data = convertPanelsToLayoutData(pnl, selectedCabinet.value);
         openLayoutWorkbench('layoutPanel', data, { title: '面板布局', workbenchMode: 'recommend' });
     };
 
@@ -925,7 +1136,7 @@ const App = {
         const pnl = cab?.panels.find(p => p.panel_id === item.panelId);
         if (!pnl) throw new Error('面板已删除');
 
-        const layoutData = _buildLayoutData(pnl, cab);
+        const layoutData = convertPanelsToLayoutData(pnl, cab);
         // Step 1: recommend
         item.msg = '检索模板…';
         const recRes = await fetch(`${API}/recommend`, {
@@ -965,7 +1176,7 @@ const App = {
         if (!cab) throw new Error('柜体已删除');
 
         item.msg = '计算柜体布局…';
-        const body = { ...cab, auto_arrange: true };
+        const body = convertCabinetsToLayoutData(cab);
         const res = await fetch(`${API}/cabinet-layout`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -995,21 +1206,11 @@ const App = {
 
     const batchLayoutViewLoading = ref(false);
 
-    const viewBatchLayoutResult = async () => {
+    const viewBatchLayoutResult = () => {
         batchLayoutViewLoading.value = true;
         try {
-            const results = [];
-            for (const cab of scheme.cabinets) {
-                if (!cab.panels.length) continue;
-                const body = { ...cab, auto_arrange: false };
-                const res = await fetch(`${API}/cabinet-layout`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body),
-                });
-                if (!res.ok) continue;
-                results.push(await res.json());
-            }
+            const sourceCabinets = scheme.cabinets.filter((cab) => cab.panels.length > 0);
+            const results = convertCabinetsToLayoutData(sourceCabinets);
             if (!results.length) {
                 showToast('无可查看的布局结果', 'warn');
                 return;
@@ -1061,11 +1262,11 @@ const App = {
         openAddPart, openEditPart, savePartModal, removePart,
         // JSON
         exportJson, exportPanelData, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanelManual, layoutPanelAI, isPanelValidForLayout,
-        cabinetLayout, isCabinetLayoutLoading,
+        cabinetLayoutManual, cabinetLayout, isCabinetLayoutLoading,
         batchLayoutShow, batchLayoutRunning, batchLayoutItems, batchLayoutProgress, batchLayoutDone,
         startBatchLayout, closeBatchLayout, viewBatchLayoutResult, batchLayoutViewLoading,
         iframeOverlayShow, iframeSrc, layoutIframe, closeLayoutWorkbench,
-        iframePanelInfo,
+        iframePanelInfo, embeddedLayoutIframe, embeddedLayoutInfo, rightPaneTab, setRightPaneTab,
         // 聊天
         chatMessages, chatInput, chatLoading, chatScrollEl, chatTextarea, chatImageInput,
         chatImagePreview, quickHints,

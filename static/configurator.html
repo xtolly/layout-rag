@@ -278,35 +278,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 面板列表底部：柜体布局按钮 -->
-            <div v-if="selectedCabinet" class="bg-white border-t border-slate-200 p-3 flex justify-end items-center gap-2 z-10 flex-shrink-0">
-                <button @click="cabinetLayout(false)" :disabled="isCabinetLayoutLoading || !selectedCabinet.panels.length"
-                    class="btn-ghost px-3 py-2 text-sm flex items-center gap-1.5"
-                    :class="(isCabinetLayoutLoading || !selectedCabinet.panels.length) ? 'opacity-50 cursor-not-allowed' : ''"
-                    title="使用已有布局打开柜体手动编辑">
-                    <svg v-if="isCabinetLayoutLoading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                    </svg>
-                    <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-                    </svg>
-                    手动布局
-                </button>
-                <button @click="cabinetLayout(true)" :disabled="isCabinetLayoutLoading || !selectedCabinet.panels.length"
-                    class="btn-primary px-3 py-2 text-sm flex items-center gap-1.5"
-                    :class="(isCabinetLayoutLoading || !selectedCabinet.panels.length) ? 'opacity-50 cursor-not-allowed bg-slate-300 border-none' : ''"
-                    title="自动计算面板布局位置">
-                    <svg v-if="isCabinetLayoutLoading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                    </svg>
-                    <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
-                    </svg>
-                    {{ isCabinetLayoutLoading ? '请求中...' : '柜体布局' }}
-                </button>
-            </div>
         </section>
 
         <!-- 拖拽条：面板 ↔ 元件 -->
@@ -316,15 +287,35 @@
         <section class="flex-1 flex flex-col overflow-hidden border-r border-slate-200/60" style="background:var(--color-bg)">
             <!-- 元件列表标题栏 -->
             <div class="px-3 py-2.5 border-b border-slate-200 flex justify-between items-center bg-slate-100/80 flex-shrink-0">
-                <span class="section-label mb-0 truncate" style="color:#374151">元件列表
-                    <span class="stat-chip ml-1.5">{{ selectedPanel ? getPanelPartCount(selectedPanel) : 0 }}</span>
-                </span>
-                <button v-if="selectedPanel" @click="openAddPart(selectedCabinet.cabinet_id, selectedPanel.panel_id)" class="toolbar-btn w-6 h-6 p-0 hover:text-indigo-600" title="添加元件">
+                <div class="flex items-center min-w-0">
+                    <div class="flex items-center gap-1 p-1 rounded-xl border border-slate-200 bg-white/90 shadow-sm">
+                        <button @click="setRightPaneTab('parts')"
+                            class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors"
+                            :class="rightPaneTab === 'parts' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'">
+                            元件列表
+                        </button>
+                        <button @click="setRightPaneTab('panel-layout')" :disabled="!isPanelValidForLayout"
+                            class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors"
+                            :class="rightPaneTab === 'panel-layout' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'"
+                            :style="!isPanelValidForLayout ? 'opacity:0.45;cursor:not-allowed' : ''">
+                            元件布局
+                        </button>
+                        <button @click="setRightPaneTab('cabinet-layout')" :disabled="!selectedCabinet || !selectedCabinet.panels.length"
+                            class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors"
+                            :class="rightPaneTab === 'cabinet-layout' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'"
+                            :style="(!selectedCabinet || !selectedCabinet.panels.length) ? 'opacity:0.45;cursor:not-allowed' : ''">
+                            面板布局
+                        </button>
+                    </div>
+                </div>
+                <button v-if="selectedPanel && rightPaneTab === 'parts'" @click="openAddPart(selectedCabinet.cabinet_id, selectedPanel.panel_id)" class="toolbar-btn w-6 h-6 p-0 hover:text-indigo-600" title="添加元件">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                     </svg>
                 </button>
             </div>
+            <!-- 元件列表视图 -->
+            <template v-if="rightPaneTab === 'parts'">
             <!-- 无选择 -->
             <div v-if="!selectedPanel" class="flex-1 flex items-center justify-center">
                 <div class="text-center space-y-3">
@@ -384,29 +375,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white border-t border-slate-200 p-3 flex justify-between items-center z-10 flex-shrink-0">
-                    <div class="flex items-center gap-2">
-                        <span v-if="selectedPanel.arrange && Object.keys(selectedPanel.arrange).length > 0" class="tag bg-emerald-50 text-emerald-600 border border-emerald-200">
-                            <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>已布局
-                        </span>
-                        <span v-else class="text-xs text-slate-400">未布局</span>
+            </template>
+            </template>
+
+            <!-- 嵌入布局视图 -->
+            <template v-else>
+                <div v-if="(rightPaneTab === 'panel-layout' && !isPanelValidForLayout) || (rightPaneTab === 'cabinet-layout' && (!selectedCabinet || !selectedCabinet.panels.length))" class="flex-1 flex items-center justify-center">
+                    <div class="text-center space-y-3 max-w-sm px-6">
+                        <div class="w-16 h-16 rounded-3xl mx-auto flex items-center justify-center" style="background:linear-gradient(135deg,rgba(79,70,229,0.1),rgba(99,102,241,0.05))">
+                            <svg class="w-8 h-8 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm4 4h8m-8 4h8m-8 4h5"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-slate-600">{{ rightPaneTab === 'panel-layout' ? '当前面板暂不可布局' : '当前柜体暂不可布局' }}</h3>
+                            <p class="text-slate-400 text-sm mt-1">{{ rightPaneTab === 'panel-layout' ? '请先确保面板尺寸和元件尺寸完整，且至少包含一个元件。' : '请先选择柜体，并确保柜体下至少包含一个面板。' }}</p>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <button @click="layoutPanelManual" :disabled="!isPanelValidForLayout"
-                            class="btn-ghost px-3 py-2 text-sm flex items-center gap-1.5 border border-slate-300"
-                            :class="!isPanelValidForLayout ? 'opacity-50 cursor-not-allowed' : ''"
-                            title="直接进入手动布局界面">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-                            手动布局
-                        </button>
-                        <button @click="layoutPanelAI" :disabled="!isPanelValidForLayout"
-                            class="btn-primary px-3 py-2 text-sm flex items-center gap-1.5"
-                            :class="!isPanelValidForLayout ? 'opacity-50 cursor-not-allowed bg-slate-300 border-none' : ''"
-                            title="AI 推荐模板并辅助布局">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-                            面板布局
-                        </button>
-                    </div>
+                </div>
+                <div v-else class="flex-1 min-h-0 bg-white">
+                    <iframe ref="embeddedLayoutIframe"
+                        src="/layout"
+                        class="w-full h-full border-0 bg-white"
+                        title="嵌入式布局工作台"></iframe>
                 </div>
             </template>
         </section>
