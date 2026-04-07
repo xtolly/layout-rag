@@ -284,7 +284,7 @@
         <div class="resize-handle" @mousedown="startResize($event, 'panel')"></div>
 
         <!-- ── 中右栏：元件 ── -->
-        <section class="flex-1 flex flex-col overflow-hidden border-r border-slate-200/60" style="background:var(--color-bg)">
+        <section class="flex-1 flex flex-col overflow-hidden border-r border-slate-200/60 relative" style="background:var(--color-bg)">
             <!-- 元件列表标题栏 -->
             <div class="px-3 py-2.5 border-b border-slate-200 flex justify-between items-center bg-slate-100/80 flex-shrink-0">
                 <div class="flex items-center min-w-0">
@@ -400,6 +400,35 @@
                         title="嵌入式布局工作台"></iframe>
                 </div>
             </template>
+
+            <div v-if="rightPaneTab === 'panel-layout' && isPanelValidForLayout"
+                class="absolute inset-x-0 bottom-0 z-10 h-[52px] flex items-center px-5 pointer-events-none">
+                <button @click="openLayoutRecommend"
+                    class="btn-primary pointer-events-auto flex items-center gap-1 text-xs"
+                    style="padding:6px 12px;background:linear-gradient(135deg,#0f766e,#0891b2);box-shadow:0 4px 12px rgba(8,145,178,0.32)">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    布局推荐
+                </button>
+            </div>
+
+            <div v-if="rightPaneTab === 'cabinet-layout' && selectedCabinet && selectedCabinet.panels.length"
+                class="absolute inset-x-0 bottom-0 z-10 h-[52px] flex items-center px-5 pointer-events-none">
+                <button @click="cabinetLayout"
+                    :disabled="isCabinetLayoutLoading"
+                    class="btn-primary pointer-events-auto flex items-center gap-1 text-xs"
+                    style="padding:6px 12px;background:linear-gradient(135deg,#0f766e,#14b8a6);box-shadow:0 4px 12px rgba(20,184,166,0.3)">
+                    <svg v-if="isCabinetLayoutLoading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                    </svg>
+                    <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M7 4v6m10-6v6M6 17l3 3 9-9"/>
+                    </svg>
+                    {{ isCabinetLayoutLoading ? '自动布置中…' : '自动布置' }}
+                </button>
+            </div>
         </section>
 
         <!-- 拖拽条：元件 ↔ AI聊天 -->

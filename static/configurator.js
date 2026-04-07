@@ -180,6 +180,7 @@ const App = {
                 type: `init:${initConfig.mode}`,
                 payload: JSON.parse(JSON.stringify(initConfig.data)),
                 workbenchMode: initConfig.workbenchMode,
+                hostMode: initConfig.hostMode,
             },
             window.location.origin
         );
@@ -193,7 +194,7 @@ const App = {
         const matchedCab = scheme.cabinets.find(c => c.cabinet_id === targetId);
         if (matchedCab) {
             matchedCab.arrange = arrange;
-            showToast('柜体布局已更新');
+            showToast('布局已更新');
             return;
         }
         // 再按 panel_id 匹配（面板布局模式）
@@ -201,7 +202,7 @@ const App = {
             const p = cab.panels.find(x => x.panel_id === targetId);
             if (p) {
                 p.arrange = arrange;
-                showToast('面板布局已更新');
+                showToast('布局已更新');
                 return;
             }
         }
@@ -225,7 +226,7 @@ const App = {
             window.removeEventListener('message', _iframeMessageHandler);
             _iframeMessageHandler = null;
         }
-        _pendingIframeInit = mode ? { mode, data, workbenchMode: opts.workbenchMode || 'layout' } : null;
+        _pendingIframeInit = mode ? { mode, data, workbenchMode: opts.workbenchMode || 'layout', hostMode: 'overlay' } : null;
         iframePanelInfo.value = buildWorkbenchInfo(data, opts);
 
         const handleMessage = (e) => {
@@ -278,7 +279,7 @@ const App = {
 
     const syncEmbeddedWorkbench = () => {
         const config = getEmbeddedWorkbenchConfig();
-        _embeddedIframeInit = config ? { mode: config.mode, data: config.data, workbenchMode: config.workbenchMode } : null;
+        _embeddedIframeInit = config ? { mode: config.mode, data: config.data, workbenchMode: config.workbenchMode, hostMode: 'embedded' } : null;
         embeddedLayoutInfo.value = config?.info || null;
         if (_embeddedIframeReady && embeddedLayoutIframe.value?.contentWindow && _embeddedIframeInit) {
             postWorkbenchInit(embeddedLayoutIframe.value.contentWindow, _embeddedIframeInit);
@@ -562,52 +563,17 @@ const App = {
 
     const exportPanelData = () => {
         if (!selectedPanel.value) return showToast('请先选择一个面板', 'warn');
-        const panel = selectedPanel.value;
-        const cabinet = selectedCabinet.value;
-        
-        const generateUUID = () => {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        };
+        const exportData = buildPanelLayoutData(selectedPanel.value, selectedCabinet.value || {});
+        const rawName = exportData.name || exportData.scheme?.panel_type || 'panel';
+        const safeName = String(rawName).replace(/[\\/:*?"<>|]+/g, '_');
 
-        const newUuid = generateUUID();
-        const cabinetUse = cabinet?.cabinet_use || '';
-        const cabinetModel = cabinet?.cabinet_model || '';
-        const panelType = panel.panel_type || '';
-        const pWidth = panel.panel_width || 0;
-        const pHeight = panel.panel_height || 0;
-        
-        const name = `${cabinetUse}-${cabinetModel}-${panelType}-${pWidth}x${pHeight}`;
-        
-        const partsFlat = panel.parts.map(part => ({
-            part_id: part.part_id,
-            part_type: part.part_type || '',
-            part_model: part.part_model || '',
-            part_size: [part.part_width || 0, part.part_height || 0]
-        }));
-
-        const exportData = {
-            name: name,
-            uuid: newUuid,
-            scheme: {
-                cabinet_name: cabinet?.cabinet_name || '',
-                cabinet_use: cabinetUse,
-                cabinet_model: cabinetModel,
-                panel_id: panel.panel_id,
-                panel_type: panelType,
-                panel_size: [pWidth, pHeight],
-                parts: partsFlat
-            }
-        };
-
-        const blob = new Blob([JSON.stringify(exportData, null, 2)], {type:'application/json'});
-        const a = document.createElement('a'); 
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `panel_${name}_${Date.now()}.json`;
+        a.download = `${safeName}_${Date.now()}.json`;
         a.click();
-        showToast('已导出面板');
+        URL.revokeObjectURL(a.href);
+        showToast('已导出面板布局数据');
     };
 
     const sendToLayout = () => {
@@ -1051,7 +1017,7 @@ const App = {
             if (!res.ok) throw new Error(await res.text());
             const layoutData = await res.json(); // 数组
             // 设置标题栏信息
-            openLayoutWorkbench('layoutPanelManual', layoutData, { title: '柜体布局', workbenchMode: 'layout' });
+            openLayoutWorkbench('layoutPanelManual', layoutData, { title: '面板自动布局', workbenchMode: 'layout' });
         } catch (err) {
             showToast('柜体布局请求失败: ' + err.message, 'error');
         } finally {
@@ -1063,7 +1029,12 @@ const App = {
         if (!isPanelValidForLayout.value) return;
         const pnl = selectedPanel.value;
         const data = convertPanelsToLayoutData(pnl, selectedCabinet.value);
-        openLayoutWorkbench('layoutPanel', data, { title: '面板布局', workbenchMode: 'recommend' });
+        openLayoutWorkbench('layoutPanel', data, { title: '元件布局推荐', workbenchMode: 'recommend' });
+    };
+
+    const openLayoutRecommend = () => {
+        if (!isPanelValidForLayout.value) return showToast('当前面板暂不可布局', 'warn');
+        layoutPanelAI();
     };
 
     // ══════════════════════════════════════════════════════════
@@ -1261,7 +1232,7 @@ const App = {
         // 元件
         openAddPart, openEditPart, savePartModal, removePart,
         // JSON
-        exportJson, exportPanelData, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanelManual, layoutPanelAI, isPanelValidForLayout,
+        exportJson, exportPanelData, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanelManual, layoutPanelAI, openLayoutRecommend, isPanelValidForLayout,
         cabinetLayoutManual, cabinetLayout, isCabinetLayoutLoading,
         batchLayoutShow, batchLayoutRunning, batchLayoutItems, batchLayoutProgress, batchLayoutDone,
         startBatchLayout, closeBatchLayout, viewBatchLayoutResult, batchLayoutViewLoading,

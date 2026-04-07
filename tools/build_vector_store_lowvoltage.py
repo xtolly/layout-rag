@@ -73,7 +73,7 @@ def main():
             raw_data_list.append({
                 "uuid":        layout_sample.get("uuid"),
                 "id":          project_id,
-                "source_path": str(file_path),
+                "source_path": str(file_path.relative_to(PROJECT_ROOT).as_posix()),
                 "features":    features_dict,
             })
             print(f"  ✓ {file_path.name}")

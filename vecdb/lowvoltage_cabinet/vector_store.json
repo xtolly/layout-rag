@@ -283,15 +283,15 @@
   "entries": [
     {
       "uuid": "8b62fddc-7936-4d97-845b-744f1447bbe7",
-      "source_path": "E:\\Documents\\Code\\layout-rag\\templates\\lowvoltage_cabinet\\出线柜-GGD-抽屉面板-800x300.json"
+      "source_path": "templates/lowvoltage_cabinet/出线柜-GGD-抽屉面板-800x300.json"
     },
     {
       "uuid": "f99da6da-008d-4c36-9ae0-bf2466555cd8",
-      "source_path": "E:\\Documents\\Code\\layout-rag\\templates\\lowvoltage_cabinet\\出线柜-GGD-抽屉面板-800x550.json"
+      "source_path": "templates/lowvoltage_cabinet/出线柜-GGD-抽屉面板-800x550.json"
     },
     {
       "uuid": "e393a023-0645-4f0f-a65f-01db521cf14a",
-      "source_path": "E:\\Documents\\Code\\layout-rag\\templates\\lowvoltage_cabinet\\进线柜-GGD-默认面板-800x2200.json"
+      "source_path": "templates/lowvoltage_cabinet/进线柜-GGD-默认面板-800x2200.json"
     }
   ]
 }

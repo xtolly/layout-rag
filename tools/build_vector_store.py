@@ -43,7 +43,6 @@ def main():
     print("加载特征 Schema 与配置提取器...")
     schema     = get_feature_schema(domain, data_dir)
     part_types = load_part_types(domain, data_dir)
-    print(f"元件颜色映射已生成至 {PART_COLOR_PATH}，共 {len(part_types)} 种类型")
 
     extractor = FeatureExtractor(domain, part_types, schema)
     store     = VectorStore(schema)
@@ -63,7 +62,7 @@ def main():
             raw_data_list.append({
                 "uuid":        layout_sample.get("uuid"),
                 "id":          project_id,
-                "source_path": str(file_path),
+                "source_path": str(file_path.relative_to(PROJECT_ROOT).as_posix()),
                 "features":    features_dict,
             })
         except Exception as e:

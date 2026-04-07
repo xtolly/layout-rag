@@ -44,6 +44,11 @@ async function apiPost(path, body) {
 
 const App = {
     setup() {
+        onMounted(() => {
+            requestAnimationFrame(() => {
+                document.documentElement.classList.remove('workbench-booting');
+            });
+        });
 
         // ── 全局流程状态 ──────────────────────────────────────
         const step        = ref(0);
@@ -112,6 +117,7 @@ const App = {
         const isManualLayoutMode = ref(false);
         const layoutPanelSource = ref(null);
         const workbenchMode = ref('layout'); // 'recommend' | 'layout' | 'view'
+        const hostMode = ref('standalone'); // 'overlay' | 'embedded' | 'standalone'
         // ── 全局交互状态 ──────────────────────────────────────
         const settings     = reactive({ autoSnap: true, autoExtrude: true });
         const isDragging   = ref(false);
@@ -334,8 +340,9 @@ const App = {
             // 始终以嵌入模式运行，监听父窗口消息
             window.addEventListener('message', (e) => {
                 if (e.origin !== window.location.origin) return;
-                const { type, payload, workbenchMode: wbMode } = e.data || {};
+                const { type, payload, workbenchMode: wbMode, hostMode: nextHostMode } = e.data || {};
                 if (wbMode) workbenchMode.value = wbMode;
+                if (nextHostMode) hostMode.value = nextHostMode;
                 if (type === 'init:layoutPanel') {
                     initLayoutPanelMode(payload);
                 } else if (type === 'init:layoutPanelManual') {
@@ -709,7 +716,7 @@ const App = {
             // 流程
             step, isLoading, loadingText, isDragging, fileInput,
             // 模式
-            isLayoutPanelMode, isManualLayoutMode, workbenchMode,
+            isLayoutPanelMode, isManualLayoutMode, workbenchMode, hostMode,
             // 提交与返回
             goBackToConfig, closeWorkbench, submitLayoutPanel,
             // 数据
