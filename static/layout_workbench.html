@@ -9,8 +9,13 @@
     <script src="/static/vue.global.prod.js"></script>
     <link rel="stylesheet" href="/static/layout_workbench.css">
     <style>
-        .workbench-booting body { visibility: hidden; }
-        [v-cloak] { display: none; }
+        .workbench-booting body {
+            visibility: hidden;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
     </style>
 </head>
 
@@ -97,7 +102,8 @@
                                     class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">{{ totalFeatureCount
                                     }}</span> 项关键特征，为您推荐以下布局：</p>
                         </div>
-                        <button v-if="!isLayoutPanelMode" @click="triggerFileInput" class="btn-ghost flex items-center gap-2 group">
+                        <button v-if="!isLayoutPanelMode" @click="triggerFileInput"
+                            class="btn-ghost flex items-center gap-2 group">
                             <svg class="w-4 h-4 transform group-hover:-rotate-12 transition-transform" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -184,7 +190,8 @@
                                                     {{ posObj.part_type.substring(0, 1) }}
                                                     <!-- 子元件 -->
                                                     <template v-if="posObj.parts && posObj.parts.length">
-                                                        <div v-for="child in posObj.parts" :key="'prev-thumb-'+child.part_id"
+                                                        <div v-for="child in posObj.parts"
+                                                            :key="'prev-thumb-'+child.part_id"
                                                             class="absolute border border-black/10 overflow-hidden text-[5px] font-bold text-white flex items-center justify-center"
                                                             :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (posObj.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (posObj.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }">
                                                         </div>
@@ -216,7 +223,8 @@
                                     </svg>
                                 </button>
 
-                                <div v-show="tpl.showFeatures" class="mt-2 rounded-xl border border-slate-200 overflow-hidden">
+                                <div v-show="tpl.showFeatures"
+                                    class="mt-2 rounded-xl border border-slate-200 overflow-hidden">
                                     <div
                                         class="flex justify-between text-xs text-slate-400 font-semibold bg-slate-50 px-4 py-2.5 border-b border-slate-200">
                                         <span>特征项</span>
@@ -296,8 +304,10 @@
                                     class="card p-5 xl:h-full flex flex-col overflow-hidden shrink-0 xl:shrink xl:flex-1 min-h-[400px] xl:min-h-0">
                                     <div class="flex items-center justify-between mb-4 flex-shrink-0 gap-4">
                                         <div class="flex items-center gap-3 text-sm text-slate-500 flex-wrap">
-                                            <span>面板尺寸: {{ (previewTemplate.scheme?.panel_size?.[0] || previewTemplate.meta?.panel_size?.[0]) || 0 }} × {{
-                                                (previewTemplate.scheme?.panel_size?.[1] || previewTemplate.meta?.panel_size?.[1]) || 0 }} mm</span>
+                                            <span>面板尺寸: {{ (previewTemplate.scheme?.panel_size?.[0] ||
+                                                previewTemplate.meta?.panel_size?.[0]) || 0 }} × {{
+                                                (previewTemplate.scheme?.panel_size?.[1] ||
+                                                previewTemplate.meta?.panel_size?.[1]) || 0 }} mm</span>
                                             <span
                                                 class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
                                                 :class="previewTemplate.score >= 80 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : previewTemplate.score >= 60 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'">
@@ -323,12 +333,15 @@
                                                     <span class="text-[10px] opacity-85 mt-1">{{ partId.substring(0,
                                                         6) }}</span>
                                                     <!-- 子元件 -->
-                                                    <div v-if="posObj.parts && posObj.parts.length" class="absolute inset-0" style="pointer-events:none">
-                                                        <div v-for="child in posObj.parts" :key="'modal-child-'+child.part_id"
+                                                    <div v-if="posObj.parts && posObj.parts.length"
+                                                        class="absolute inset-0" style="pointer-events:none">
+                                                        <div v-for="child in posObj.parts"
+                                                            :key="'modal-child-'+child.part_id"
                                                             class="absolute border border-black/15 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold"
                                                             :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (posObj.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (posObj.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
                                                             :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
-                                                            <span class="text-[9px] break-words line-clamp-2">{{ child.part_type }}</span>
+                                                            <span class="text-[9px] break-words line-clamp-2">{{
+                                                                child.part_type }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -346,15 +359,19 @@
                                         <div class="grid grid-cols-3 gap-3 text-center">
                                             <div
                                                 class="bg-gradient-to-b from-emerald-50 to-white/50 border border-emerald-100/60 rounded-xl px-3 py-4 flex flex-col items-center gap-1">
-                                                <div class="text-2xl font-display font-bold text-emerald-600 leading-none">
+                                                <div
+                                                    class="text-2xl font-display font-bold text-emerald-600 leading-none">
                                                     {{ previewTemplate.diffInfo?.matched || 0 }}</div>
-                                                <div class="text-[11px] text-emerald-600/80 font-bold uppercase">匹配元件</div>
+                                                <div class="text-[11px] text-emerald-600/80 font-bold uppercase">匹配元件
+                                                </div>
                                             </div>
                                             <div
                                                 class="bg-gradient-to-b from-amber-50 to-white/50 border border-amber-100/60 rounded-xl px-3 py-4 flex flex-col items-center gap-1">
-                                                <div class="text-2xl font-display font-bold text-amber-500 leading-none">
+                                                <div
+                                                    class="text-2xl font-display font-bold text-amber-500 leading-none">
                                                     {{ previewTemplate.diffInfo?.missing || 0 }}</div>
-                                                <div class="text-[11px] text-amber-600/80 font-bold uppercase">冗余元件</div>
+                                                <div class="text-[11px] text-amber-600/80 font-bold uppercase">冗余元件
+                                                </div>
                                             </div>
                                             <div
                                                 class="bg-gradient-to-b from-red-50 to-white/50 border border-red-100/60 rounded-xl px-3 py-4 flex flex-col items-center gap-1">
@@ -371,8 +388,7 @@
                                             <h4 class="text-base font-bold text-slate-800">特征对比</h4>
                                             <button @click="previewOnlyDiffs = !previewOnlyDiffs" type="button"
                                                 class="inline-flex items-center gap-2 text-sm text-slate-500 select-none"
-                                                :aria-pressed="previewOnlyDiffs ? 'true' : 'false'"
-                                                title="切换是否仅显示差异项">
+                                                :aria-pressed="previewOnlyDiffs ? 'true' : 'false'" title="切换是否仅显示差异项">
                                                 <span>只看不同</span>
                                                 <span
                                                     class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
@@ -390,8 +406,7 @@
                                         </div>
                                         <div
                                             class="flex-1 min-h-0 overflow-y-auto rounded-b-xl border-x border-b border-slate-200">
-                                            <div v-for="(feat, idx) in previewFeatureDiffs"
-                                                :key="'preview-feat-' + idx"
+                                            <div v-for="(feat, idx) in previewFeatureDiffs" :key="'preview-feat-' + idx"
                                                 class="flex items-center justify-between px-4 py-2.5 border-b border-slate-100 last:border-0 text-sm hover:bg-slate-50">
                                                 <div class="flex items-center gap-2 min-w-0 pr-3">
                                                     <span class="w-2 h-2 rounded-full flex-shrink-0" :class="{
@@ -400,8 +415,8 @@
                                                         'bg-orange-500':  feat.status === 'orange',
                                                         'bg-red-500':     feat.status === 'red'
                                                     }"></span>
-                                                    <span class="truncate text-slate-600"
-                                                        :title="feat.displayName">{{ feat.displayName }}</span>
+                                                    <span class="truncate text-slate-600" :title="feat.displayName">{{
+                                                        feat.displayName }}</span>
                                                 </div>
                                                 <span class="font-mono text-xs text-slate-500 flex-shrink-0">{{
                                                     formatValue(feat.templateValue) }} / {{
@@ -421,8 +436,7 @@
                     <div
                         class="px-8 py-5 border-t border-slate-200/60 bg-white/80 backdrop-blur-md flex justify-end gap-4 flex-shrink-0">
                         <button @click="closeTemplatePreview" class="btn-ghost min-w-[120px]">关闭</button>
-                        <button @click="applyTemplate(previewTemplate)"
-                            class="btn-primary min-w-[140px]">应用此方案</button>
+                        <button @click="applyTemplate(previewTemplate)" class="btn-primary min-w-[140px]">应用此方案</button>
                     </div>
                 </div>
             </div>
@@ -430,107 +444,31 @@
             <!-- ══ Step 3：双画板编辑 ══ -->
             <template v-if="step === 3">
                 <div class="flex flex-col w-full h-full overflow-hidden">
-                <div class="flex flex-1 overflow-hidden min-h-0">
+                    <div class="flex flex-1 overflow-hidden min-h-0">
 
-                    <!-- 左侧：模板参考画板（只读） -->
-                    <section v-if="!isManualLayoutMode"
-                        class="flex-1 border-r border-slate-200/80 overflow-hidden relative flex flex-col shadow-inner"
-                        style="background:#eef0f5; min-width: 30%;" ref="tplCanvasContainer">
+                        <!-- 左侧：模板参考画板（只读） -->
+                        <section v-if="!isManualLayoutMode"
+                            class="flex-1 border-r border-slate-200/80 overflow-hidden relative flex flex-col shadow-inner"
+                            style="background:#eef0f5; min-width: 30%;" ref="tplCanvasContainer">
 
-                        <div class="bg-white/80 backdrop-blur-md border-b border-slate-200/60 px-5 flex justify-between items-center z-10 flex-shrink-0"
-                            style="height:48px;">
-                            <h2 class="font-display font-semibold text-slate-500 flex items-center text-[13px] gap-2">
-                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                </svg>
-                                模板参考
-                                <span
-                                    class="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded uppercase tracking-widest font-bold">只读</span>
-                            </h2>
-                            <div class="flex items-center gap-2 text-[11px] text-slate-400">
-                                <span>{{ Math.round(tplCanvasScale * 100) }}%</span>
-                                <button @click="resetView('tpl')" class="toolbar-btn" title="复位视角">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="bg-white/80 backdrop-blur-md border-b border-slate-200/60 px-5 flex justify-between items-center z-10 flex-shrink-0"
+                                style="height:48px;">
+                                <h2
+                                    class="font-display font-semibold text-slate-500 flex items-center text-[13px] gap-2">
+                                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="flex-1 relative overflow-hidden w-full h-full"
-                            @wheel.prevent="e => handleWheel(e, 'tpl')" @mousedown="e => startPan(e, 'tpl')"
-                            :class="{'cursor-grab': isSpaceDown && activePanView !== 'tpl', 'cursor-grabbing': isPanning && activePanView === 'tpl'}">
-                            <div class="absolute top-0 left-0"
-                                :style="{ transform: `translate(${tplPanX}px, ${tplPanY}px) scale(${tplCanvasScale})`, transformOrigin: '0 0' }">
-                                <div class="absolute bottom-full left-0 mb-4 w-full flex justify-between items-end">
-                                    <h2 class="text-4xl font-bold text-gray-500 tracking-wide pointer-events-none whitespace-nowrap">
-                                        {{ tplPanelType }}
-                                        <span
-                                            class="text-2xl font-medium text-gray-400 ml-3 bg-gray-50 px-2 py-1 rounded shadow-sm border pointer-events-auto">尺寸:
-                                            {{ tplPanelSize[0] }} × {{ tplPanelSize[1] }} mm</span>
-                                    </h2>
-                                </div>
-                                <div class="layout-panel bg-white/70 shadow-lg ring-1 ring-gray-300 relative"
-                                    :style="{ width: tplPanelSize[0] + 'px', height: tplPanelSize[1] + 'px' }">
-                                    <div v-for="part in tplPlacedParts" :key="'tpl-'+part.part_id"
-                                        class="absolute border border-black/20 rounded-[4px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider opacity-90"
-                                        style="pointer-events:auto;cursor:default"
-                                        :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: getColor(part.part_type) }"
-                                        :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
-                                        <span
-                                            class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
-                                            part.part_type }}</span>
-                                        <span class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
-                                            part.part_id }}</span>
-                                        <!-- 子元件 -->
-                                        <div v-if="part.parts && part.parts.length" class="absolute inset-0" style="pointer-events:none">
-                                            <div v-for="child in part.parts" :key="'tpl-child-'+child.part_id"
-                                                class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
-                                                :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
-                                                :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
-                                                <span class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{ child.part_type }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- 右侧：项目画板（可编辑） -->
-                    <section class="flex-1 overflow-hidden relative flex flex-col shadow-inner"
-                        style="background:#f1f5f9; min-width: 50%;" ref="prjCanvasContainer">
-
-                        <div class="bg-white/90 backdrop-blur-md border-b border-slate-200/60 px-5 flex justify-between items-center z-10 flex-shrink-0"
-                            style="height:48px;">
-                            <h2 class="font-display font-semibold text-blue-600 flex items-center text-[13px] gap-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                </svg>
-                                布局编辑器
-                            </h2>
-                            <div class="flex items-center gap-4 text-[11px] select-none">
-                                <label class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700">
-                                    <input type="checkbox" v-model="settings.autoSnap"
-                                        class="w-3.5 h-3.5 rounded accent-indigo-600">
-                                    <span>自动吸附</span>
-                                </label>
-                                <label
-                                    class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700 border-r border-slate-200 pr-4">
-                                    <input type="checkbox" v-model="settings.autoExtrude"
-                                        class="w-3.5 h-3.5 rounded accent-indigo-600">
-                                    <span>防重叠挤出</span>
-                                </label>
-                                <div class="flex items-center gap-2 text-slate-400">
-                                    <span class="cursor-help" title="滚轮缩放 · 中键/空格拖拽">{{ Math.round(prjCanvasScale * 100)
-                                        }}%</span>
-                                    <button @click="resetView('prj')" class="toolbar-btn" title="复位视角">
+                                    模板参考
+                                    <span
+                                        class="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded uppercase tracking-widest font-bold">只读</span>
+                                </h2>
+                                <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                    <span>{{ Math.round(tplCanvasScale * 100) }}%</span>
+                                    <button @click="resetView('tpl')" class="toolbar-btn" title="复位视角">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
@@ -538,121 +476,225 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="flex-1 relative overflow-hidden w-full h-full"
-                            @wheel.prevent="e => handleWheel(e, 'prj')" @mousedown="e => startPan(e, 'prj')"
-                            :class="{'cursor-grab': isSpaceDown && activePanView !== 'prj', 'cursor-grabbing': isPanning && activePanView === 'prj'}">
-                            <div class="absolute top-0 left-0"
-                                :style="{ transform: `translate(${prjPanX}px, ${prjPanY}px) scale(${prjCanvasScale})`, transformOrigin: '0 0' }">
-
-                                <!-- 多面板只读模式 -->
-                                <template v-if="isMultiPanelMode">
-                                    <div :style="{ position: 'relative', width: multiPanelTotalSize[0] + 'px', height: multiPanelTotalSize[1] + 'px' }">
-                                        <div v-for="(panel, idx) in multiPanels" :key="idx"
-                                            :style="{ position: 'absolute', left: getPanelOffset(idx) + 'px', top: 0 }">
-                                            <div class="absolute bottom-full left-0 mb-4 flex items-end">
-                                                <h2 class="text-4xl font-bold text-gray-800 tracking-wide pointer-events-none whitespace-nowrap">
-                                                    {{ panel.panelType }}
-                                                    <span class="text-2xl font-medium text-gray-500 ml-3 bg-white px-2 py-1 rounded shadow-sm border">尺寸: {{ panel.panelSize[0] }} × {{ panel.panelSize[1] }} mm</span>
-                                                </h2>
+                            <div class="flex-1 relative overflow-hidden w-full h-full"
+                                @wheel.prevent="e => handleWheel(e, 'tpl')" @mousedown="e => startPan(e, 'tpl')"
+                                :class="{'cursor-grab': isSpaceDown && activePanView !== 'tpl', 'cursor-grabbing': isPanning && activePanView === 'tpl'}">
+                                <div class="absolute top-0 left-0"
+                                    :style="{ transform: `translate(${tplPanX}px, ${tplPanY}px) scale(${tplCanvasScale})`, transformOrigin: '0 0' }">
+                                    <div class="absolute bottom-full left-0 mb-4 w-full flex justify-between items-end">
+                                        <h2
+                                            class="text-4xl font-bold text-gray-500 tracking-wide pointer-events-none whitespace-nowrap">
+                                            {{ tplPanelType }}
+                                            <span
+                                                class="text-2xl font-medium text-gray-400 ml-3 bg-gray-50 px-2 py-1 rounded shadow-sm border pointer-events-auto">尺寸:
+                                                {{ tplPanelSize[0] }} × {{ tplPanelSize[1] }} mm</span>
+                                        </h2>
+                                    </div>
+                                    <div class="layout-panel bg-white/70 shadow-lg ring-1 ring-gray-300 relative"
+                                        :style="{ width: tplPanelSize[0] + 'px', height: tplPanelSize[1] + 'px' }">
+                                        <div v-for="part in tplPlacedParts" :key="'tpl-'+part.part_id"
+                                            class="absolute border border-black/20 rounded-[4px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider opacity-90"
+                                            style="pointer-events:auto;cursor:default"
+                                            :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: getColor(part.part_type) }"
+                                            :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
+                                            <span
+                                                class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
+                                                part.part_type }}</span>
+                                            <span
+                                                class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
+                                                part.part_id }}</span>
+                                            <!-- 子元件 -->
+                                            <div v-if="part.parts && part.parts.length" class="absolute inset-0"
+                                                style="pointer-events:none">
+                                                <div v-for="child in part.parts" :key="'tpl-child-'+child.part_id"
+                                                    class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
+                                                    :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                    :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                    <span
+                                                        class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{
+                                                        child.part_type }}</span>
+                                                </div>
                                             </div>
-                                            <div class="layout-panel bg-white shadow-2xl ring-1 ring-gray-400 relative"
-                                                :style="{ width: panel.panelSize[0] + 'px', height: panel.panelSize[1] + 'px' }">
-                                                <div v-for="part in panel.parts" :key="part.part_id"
-                                                    class="component-box absolute border border-black/30 shadow flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
-                                                    :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: getColor(part.part_type) }"
-                                                    :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
-                                                    <span class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{ part.part_type }}</span>
-                                                    <span class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{ part.part_id }}</span>
-                                                    <!-- 子元件 -->
-                                                    <div v-if="part.parts && part.parts.length" class="absolute inset-0" style="pointer-events:none">
-                                                        <div v-for="child in part.parts" :key="'mp-child-'+child.part_id"
-                                                            class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
-                                                            :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
-                                                            :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
-                                                            <span class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{ child.part_type }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- 右侧：项目画板（可编辑） -->
+                        <section class="flex-1 overflow-hidden relative flex flex-col shadow-inner"
+                            style="background:#f1f5f9; min-width: 50%;" ref="prjCanvasContainer">
+
+                            <div class="bg-white/90 backdrop-blur-md border-b border-slate-200/60 px-5 flex justify-between items-center z-10 flex-shrink-0"
+                                style="height:36px;">
+                                <h2
+                                    class="font-display font-semibold text-blue-600 flex items-center text-[13px] gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                    布局编辑器
+                                </h2>
+                                <div class="flex items-center gap-4 text-[11px] select-none">
+                                    <label
+                                        class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700">
+                                        <input type="checkbox" v-model="settings.autoSnap"
+                                            class="w-3.5 h-3.5 rounded accent-indigo-600">
+                                        <span>自动吸附</span>
+                                    </label>
+                                    <label
+                                        class="flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-700 border-r border-slate-200 pr-4">
+                                        <input type="checkbox" v-model="settings.autoExtrude"
+                                            class="w-3.5 h-3.5 rounded accent-indigo-600">
+                                        <span>防重叠挤出</span>
+                                    </label>
+                                    <div class="flex items-center gap-2 text-slate-400">
+                                        <span class="cursor-help" title="滚轮缩放 · 中键/空格拖拽">{{ Math.round(prjCanvasScale *
+                                            100)
+                                            }}%</span>
+                                        <button @click="resetView('prj')" class="toolbar-btn" title="复位视角">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex-1 relative overflow-hidden w-full h-full"
+                                @wheel.prevent="e => handleWheel(e, 'prj')" @mousedown="e => startPan(e, 'prj')"
+                                :class="{'cursor-grab': isSpaceDown && activePanView !== 'prj', 'cursor-grabbing': isPanning && activePanView === 'prj'}">
+                                <div class="absolute top-0 left-0"
+                                    :style="{ transform: `translate(${prjPanX}px, ${prjPanY}px) scale(${prjCanvasScale})`, transformOrigin: '0 0' }">
+
+                                    <!-- 多面板只读模式 -->
+                                    <template v-if="isMultiPanelMode">
+                                        <div
+                                            :style="{ position: 'relative', width: multiPanelTotalSize[0] + 'px', height: multiPanelTotalSize[1] + 'px' }">
+                                            <div v-for="(panel, idx) in multiPanels" :key="idx"
+                                                :style="{ position: 'absolute', left: getPanelOffset(idx) + 'px', top: 0 }">
+                                                <div class="absolute bottom-full left-0 mb-4 flex items-end">
+                                                    <h2
+                                                        class="text-4xl font-bold text-gray-800 tracking-wide pointer-events-none whitespace-nowrap">
+                                                        {{ panel.panelType }}
+                                                        <span
+                                                            class="text-2xl font-medium text-gray-500 ml-3 bg-white px-2 py-1 rounded shadow-sm border">尺寸:
+                                                            {{ panel.panelSize[0] }} × {{ panel.panelSize[1] }}
+                                                            mm</span>
+                                                    </h2>
+                                                </div>
+                                                <div class="layout-panel bg-white shadow-2xl ring-1 ring-gray-400 relative"
+                                                    :style="{ width: panel.panelSize[0] + 'px', height: panel.panelSize[1] + 'px' }">
+                                                    <div v-for="part in panel.parts" :key="part.part_id"
+                                                        class="component-box absolute border border-black/30 shadow flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
+                                                        :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: getColor(part.part_type) }"
+                                                        :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
+                                                        <span
+                                                            class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
+                                                            part.part_type }}</span>
+                                                        <span
+                                                            class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
+                                                            part.part_id }}</span>
+                                                        <!-- 子元件 -->
+                                                        <div v-if="part.parts && part.parts.length"
+                                                            class="absolute inset-0" style="pointer-events:none">
+                                                            <div v-for="child in part.parts"
+                                                                :key="'mp-child-'+child.part_id"
+                                                                class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
+                                                                :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                                :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                                <span
+                                                                    class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{
+                                                                    child.part_type }}</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </template>
+                                    </template>
 
-                                <!-- 单面板编辑模式 -->
-                                <template v-else>
-                                    <div class="absolute bottom-full left-0 mb-4 w-full flex justify-between items-end">
-                                        <h2 class="text-4xl font-bold text-gray-800 tracking-wide pointer-events-none whitespace-nowrap">
-                                            {{ prjPanelType }}
-                                            <span
-                                                class="text-2xl font-medium text-gray-500 ml-3 bg-white px-2 py-1 rounded shadow-sm border pointer-events-auto">尺寸:
-                                                {{ prjPanelSize[0] }} × {{ prjPanelSize[1] }} mm</span>
-                                        </h2>
-                                    </div>
+                                    <!-- 单面板编辑模式 -->
+                                    <template v-else>
+                                        <div
+                                            class="absolute bottom-full left-0 mb-4 w-full flex justify-between items-end">
+                                            <h2
+                                                class="text-4xl font-bold text-gray-800 tracking-wide pointer-events-none whitespace-nowrap">
+                                                {{ prjPanelType }}
+                                                <span
+                                                    class="text-2xl font-medium text-gray-500 ml-3 bg-white px-2 py-1 rounded shadow-sm border pointer-events-auto">尺寸:
+                                                    {{ prjPanelSize[0] }} × {{ prjPanelSize[1] }} mm</span>
+                                            </h2>
+                                        </div>
 
-                                    <div class="layout-panel bg-white shadow-2xl ring-1 ring-gray-400 relative"
-                                        :style="{ width: prjPanelSize[0] + 'px', height: prjPanelSize[1] + 'px' }"
-                                        ref="panelRef">
-                                        <div v-for="part in placedParts" :key="part.part_id"
-                                            class="component-box absolute border border-black/30 shadow flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
-                                            :class="{ 'is-invalid': part.isInvalid, 'cursor-move': !isSpaceDown && !isPanning, 'pointer-events-none': isSpaceDown || isPanning }"
-                                            :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: part.isInvalid ? '' : getColor(part.part_type) }"
-                                            @mousedown="startMove($event, part)"
-                                            :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
-                                            <span
-                                                class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
-                                                part.part_type }}</span>
-                                            <span class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
-                                                part.part_id }}</span>
-                                            <!-- 子元件 -->
-                                            <div v-if="part.parts && part.parts.length" class="absolute inset-0" style="pointer-events:none">
-                                                <div v-for="child in part.parts" :key="'prj-child-'+child.part_id"
-                                                    class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
-                                                    :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
-                                                    :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
-                                                    <span class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{ child.part_type }}</span>
+                                        <div class="layout-panel bg-white shadow-2xl ring-1 ring-gray-400 relative"
+                                            :style="{ width: prjPanelSize[0] + 'px', height: prjPanelSize[1] + 'px' }"
+                                            ref="panelRef">
+                                            <div v-for="part in placedParts" :key="part.part_id"
+                                                class="component-box absolute border border-black/30 shadow flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
+                                                :class="{ 'is-invalid': part.isInvalid, 'cursor-move': !isSpaceDown && !isPanning, 'pointer-events-none': isSpaceDown || isPanning }"
+                                                :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: part.isInvalid ? '' : getColor(part.part_type) }"
+                                                @mousedown="startMove($event, part)"
+                                                :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
+                                                <span
+                                                    class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
+                                                    part.part_type }}</span>
+                                                <span
+                                                    class="text-[10px] mt-1 opacity-80 font-normal truncate max-w-full px-1">{{
+                                                    part.part_id }}</span>
+                                                <!-- 子元件 -->
+                                                <div v-if="part.parts && part.parts.length" class="absolute inset-0"
+                                                    style="pointer-events:none">
+                                                    <div v-for="child in part.parts" :key="'prj-child-'+child.part_id"
+                                                        class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
+                                                        :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                        :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                        <span
+                                                            class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{
+                                                            child.part_type }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div v-for="(line, index) in activeGuides" :key="'guide-'+index"
+                                                class="guide-line" :style="line.style"></div>
                                         </div>
-                                        <div v-for="(line, index) in activeGuides" :key="'guide-'+index" class="guide-line"
-                                            :style="line.style"></div>
-                                    </div>
-                                </template>
+                                    </template>
+                                </div>
                             </div>
-                        </div>
-                    </section>
-                </div>
-                <!-- 底部操作栏（嵌入模式） -->
-                <div v-if="isLayoutPanelMode"
-                    class="flex-shrink-0 flex items-center justify-between px-5"
-                    style="height:52px;background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -2px 12px rgba(15,23,42,0.06)">
-                    <button v-if="workbenchMode === 'recommend'" @click="goBackToRecommend"
-                        class="btn-ghost flex items-center gap-1 text-xs"
-                        style="padding:6px 12px">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                        </svg>
-                        返回
-                    </button>
-                    <span v-else></span>
-                    <button v-if="workbenchMode === 'view'" @click="closeWorkbench"
-                        class="btn-ghost flex items-center gap-1 text-xs"
-                        style="padding:6px 12px">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                        关闭
-                    </button>
-                    <button v-else @click="submitLayoutPanel"
-                        class="btn-primary flex items-center gap-1 text-xs"
-                        style="padding:6px 12px">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
-                        {{ hostMode === 'overlay' || workbenchMode === 'recommend' ? '应用' : '保存布局' }}
-                    </button>
-                </div>
+                        </section>
+                    </div>
+                    <!-- 底部操作栏（嵌入模式） -->
+                    <div v-if="isLayoutPanelMode" class="flex-shrink-0 flex items-center justify-between px-5"
+                        style="height:52px;background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -2px 12px rgba(15,23,42,0.06)">
+                        <button v-if="workbenchMode === 'recommend'" @click="goBackToRecommend"
+                            class="btn-ghost flex items-center gap-1 text-xs" style="padding:6px 12px">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            返回
+                        </button>
+                        <span v-else></span>
+                        <button v-if="workbenchMode === 'view'" @click="closeWorkbench"
+                            class="btn-ghost flex items-center gap-1 text-xs" style="padding:6px 12px">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            关闭
+                        </button>
+                        <button v-else @click="submitLayoutPanel" class="btn-primary flex items-center gap-1 text-xs"
+                            style="padding:6px 12px">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            {{ hostMode === 'overlay' || workbenchMode === 'recommend' ? '应用' : '保存布局' }}
+                        </button>
+                    </div>
                 </div>
             </template>
         </main>
