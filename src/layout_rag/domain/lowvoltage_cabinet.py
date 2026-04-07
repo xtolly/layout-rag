@@ -50,6 +50,11 @@ class LowvoltageCabinetDomain(BusinessDomain):
             "height_std":         {"type": "continuous", "weight": 1.0, "display_name": "元件高度标准差"},
             # 大型元件比例
             "large_part_ratio":   {"type": "continuous", "weight": 1.0, "display_name": "大型元件占比"},
+            # 主回路特征
+            "panel_main_circuit_current": {"type": "continuous", "weight": 2.0, "display_name": "主回路电流"},
+            "panel_main_circuit_poles":   {"type": "continuous", "weight": 2.0, "display_name": "主回路极数"},
+            # 高度模数
+            "panel_height_module":        {"type": "continuous", "weight": 3.0, "display_name": "高度模数"},
         }
 
     # ------------------------------------------------------------------
@@ -120,7 +125,33 @@ class LowvoltageCabinetDomain(BusinessDomain):
     # ------------------------------------------------------------------
 
     def extract_structural_features(self, parts: list[dict], meta: dict) -> dict[str, float]:
-        return {}
+        features = {}
+        
+        # 提取主回路特征
+        current = meta.get("panel_main_circuit_current", 0.0)
+        poles = meta.get("panel_main_circuit_poles", 0.0)
+        
+        # 处理高度模数 (如 '8E' -> 8.0)
+        h_mod = str(meta.get("panel_height_module", "")).strip().upper()
+        if h_mod.endswith('E'):
+            h_mod = h_mod[:-1]
+        
+        try:
+            features["panel_main_circuit_current"] = float(current) if current is not None else 0.0
+        except (ValueError, TypeError):
+            features["panel_main_circuit_current"] = 0.0
+            
+        try:
+            features["panel_main_circuit_poles"] = float(poles) if poles is not None else 0.0
+        except (ValueError, TypeError):
+            features["panel_main_circuit_poles"] = 0.0
+            
+        try:
+            features["panel_height_module"] = float(h_mod) if h_mod else 0.0
+        except (ValueError, TypeError):
+            features["panel_height_module"] = 0.0
+            
+        return features
 
     # ------------------------------------------------------------------
     # 4. 大型元件阈值
