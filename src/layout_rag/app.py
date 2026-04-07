@@ -8,7 +8,7 @@ from layout_rag.config import STATIC_DIR
 
 from layout_rag.api.agent_endpoints import agent_router
 from layout_rag.api.endpoints import router as api_router
-from layout_rag.domain import LowvoltageCabinetDomain
+from layout_rag.domain import LowvoltageCabinetDomain, DistributionBoxDomain
 from layout_rag.services.layout_service import LayoutService
 
 # --- 业务领域初始化 ---

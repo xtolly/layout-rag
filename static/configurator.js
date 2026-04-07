@@ -390,7 +390,7 @@ const App = {
             cabinetModal.show = true;
         };
         const saveCabinetModal = () => {
-            if (!cabinetModal.cabinet.cabinet_name.trim()) return showToast('请填写柜编号', 'warn');
+            if (!cabinetModal.cabinet.cabinet_name.trim()) return showToast('请填写柜名称', 'warn');
             if (cabinetModal.isNew) {
                 scheme.cabinets.push({ ...cabinetModal.cabinet, panels: cabinetModal.cabinet.panels || [] });
                 selectCabinet(cabinetModal.cabinet.cabinet_id);
