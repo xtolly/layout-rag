@@ -335,11 +335,14 @@ const App = {
             else if (target === 'panel') panelWidth.value = newW;
             else chatWidth.value = newW;
         };
-        const onUp = () => { document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); document.body.style.cursor=''; document.body.style.userSelect=''; };
+        const onUp = () => {
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('mouseup', onUp);
+            document.body.classList.remove('is-dragging');
+        };
         document.addEventListener('mousemove', onMove);
         document.addEventListener('mouseup', onUp);
-        document.body.style.cursor = 'col-resize';
-        document.body.style.userSelect = 'none';
+        document.body.classList.add('is-dragging');
     };
 
     const toggleChat = () => { chatCollapsed.value = !chatCollapsed.value; };
@@ -711,6 +714,42 @@ const App = {
                 }
             }
         }
+        else if (type === 'delete_cabinet') {
+            const idx = scheme.cabinets.findIndex(c => c.cabinet_id === action.cabinet_id);
+            if (idx !== -1) {
+                scheme.cabinets.splice(idx, 1);
+                if (selectedCabinetId.value === action.cabinet_id) {
+                    selectedCabinetId.value = null;
+                    selectedPanelId.value = null;
+                }
+                showToast('已删除柜体');
+            }
+        }
+        else if (type === 'delete_panel') {
+            for (const cab of scheme.cabinets) {
+                const idx = cab.panels.findIndex(p => p.panel_id === action.panel_id);
+                if (idx !== -1) {
+                    cab.panels.splice(idx, 1);
+                    if (selectedPanelId.value === action.panel_id) {
+                        selectedPanelId.value = null;
+                    }
+                    showToast('已删除面板');
+                    return;
+                }
+            }
+        }
+        else if (type === 'delete_part') {
+            for (const cab of scheme.cabinets) {
+                for (const panel of cab.panels) {
+                    const idx = panel.parts.findIndex(pt => pt.part_id === action.part_id);
+                    if (idx !== -1) {
+                        panel.parts.splice(idx, 1);
+                        showToast('已删除元件');
+                        return;
+                    }
+                }
+            }
+        }
     };
 
     // 发送消息（SSE 流式）
@@ -739,7 +778,7 @@ const App = {
 
         // AI 回复消息占位
         const aiMsgIdx = chatMessages.value.length;
-        chatMessages.value.push({ role:'ai', content:'' });
+        chatMessages.value.push({ role:'ai', content:'', actions: [] });
         clearChatImage();
 
         try {
@@ -799,7 +838,10 @@ const App = {
                         else if (evt.type === 'action') {
                             // 工具动作：添加卡片 + 应用到方案
                             applyAction(evt.action);
-                            chatMessages.value.push({ role:'action', content: evt.action?.message || '已执行操作' });
+                            if (chatMessages.value[aiMsgIdx]) {
+                                if (!chatMessages.value[aiMsgIdx].actions) chatMessages.value[aiMsgIdx].actions = [];
+                                chatMessages.value[aiMsgIdx].actions.push(evt.action?.message || '已执行操作');
+                            }
                             scrollChat();
                         }
                         else if (evt.type === 'done') {
