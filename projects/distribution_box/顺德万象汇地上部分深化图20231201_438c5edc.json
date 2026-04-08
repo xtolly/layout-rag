@@ -1,0 +1,130 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_438c5edc",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 500,
+      "cabinet_height": 800,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 500,
+          "panel_height": 800,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "11FE0"
+            },
+            {
+              "order": 2,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "11FDF"
+            },
+            {
+              "order": 3,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "11FDE"
+            },
+            {
+              "order": 4,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 266,
+              "part_height": 192,
+              "part_id": "11FDD"
+            },
+            {
+              "order": 5,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "11FDC"
+            },
+            {
+              "order": 6,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "11FDB"
+            },
+            {
+              "order": 7,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "11FDA"
+            },
+            {
+              "order": 8,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "11FD9"
+            },
+            {
+              "order": 9,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "11FD8"
+            },
+            {
+              "order": 10,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "11FD7"
+            },
+            {
+              "order": 11,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "11FD6"
+            },
+            {
+              "order": 12,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "11FD5"
+            },
+            {
+              "order": 13,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "11FD4"
+            }
+          ],
+          "panel_id": "b60953eb-d0a3-4a08-af41-e96c4b344d6b"
+        }
+      ],
+      "cabinet_id": "0832a425-6613-4bc3-bd97-e1cffb74f771"
+    }
+  ]
+}

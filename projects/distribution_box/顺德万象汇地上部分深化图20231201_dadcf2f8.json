@@ -1,0 +1,194 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_dadcf2f8",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 500,
+      "cabinet_height": 1000,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 500,
+          "panel_height": 1000,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "12055"
+            },
+            {
+              "order": 2,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "12054"
+            },
+            {
+              "order": 3,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "12053"
+            },
+            {
+              "order": 4,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 266,
+              "part_height": 192,
+              "part_id": "12052"
+            },
+            {
+              "order": 5,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "12051"
+            },
+            {
+              "order": 6,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "12050"
+            },
+            {
+              "order": 7,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "1204F"
+            },
+            {
+              "order": 8,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "1204E"
+            },
+            {
+              "order": 9,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "1204D"
+            },
+            {
+              "order": 10,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "1204C"
+            },
+            {
+              "order": 11,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "1204B"
+            },
+            {
+              "order": 12,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "1204A"
+            },
+            {
+              "order": 13,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "12049"
+            },
+            {
+              "order": 14,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "12048"
+            },
+            {
+              "order": 15,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "12047"
+            },
+            {
+              "order": 16,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "12046"
+            },
+            {
+              "order": 17,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "12045"
+            },
+            {
+              "order": 18,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "12044"
+            },
+            {
+              "order": 19,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "12043"
+            },
+            {
+              "order": 20,
+              "part_type": "智能照明控制模块",
+              "part_model": "",
+              "part_width": 216,
+              "part_height": 104,
+              "part_id": "12042"
+            },
+            {
+              "order": 21,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 125,
+              "part_height": 30,
+              "part_id": "12041"
+            }
+          ],
+          "panel_id": "8b2c4dbf-f877-4f8e-b3e5-eee791d8f8fd"
+        }
+      ],
+      "cabinet_id": "3979eac5-a283-4a84-8bdf-d137e149bda7"
+    }
+  ]
+}

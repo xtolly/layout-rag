@@ -1,0 +1,154 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_87222c92",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 400,
+      "cabinet_height": 500,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 400,
+          "panel_height": 500,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 103,
+              "part_id": "9673"
+            },
+            {
+              "order": 2,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 115,
+              "part_id": "9672"
+            },
+            {
+              "order": 3,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "962A"
+            },
+            {
+              "order": 4,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 47,
+              "part_height": 177,
+              "part_id": "9629"
+            },
+            {
+              "order": 5,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "9628"
+            },
+            {
+              "order": 6,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9625"
+            },
+            {
+              "order": 7,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "9624"
+            },
+            {
+              "order": 8,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9623"
+            },
+            {
+              "order": 9,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "9622"
+            },
+            {
+              "order": 10,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "9621"
+            },
+            {
+              "order": 11,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9620"
+            },
+            {
+              "order": 12,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 27,
+              "part_height": 121,
+              "part_id": "961F"
+            },
+            {
+              "order": 13,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "961E"
+            },
+            {
+              "order": 14,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "961D"
+            },
+            {
+              "order": 15,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "961C"
+            },
+            {
+              "order": 16,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "961B"
+            }
+          ],
+          "panel_id": "17465322-ec92-49fc-8239-fa890353a48d"
+        }
+      ],
+      "cabinet_id": "6104d34b-fed7-444f-9eba-ef3a239e540a"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_83e89c63",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 500,
+      "cabinet_height": 700,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 500,
+          "panel_height": 700,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "隔离开关",
+              "part_model": "",
+              "part_width": 116,
+              "part_height": 124,
+              "part_id": "35462"
+            },
+            {
+              "order": 2,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "35461"
+            },
+            {
+              "order": 3,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "35460"
+            },
+            {
+              "order": 4,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "3545F"
+            },
+            {
+              "order": 5,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "3545E"
+            },
+            {
+              "order": 6,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "3545D"
+            },
+            {
+              "order": 7,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 276,
+              "part_height": 75,
+              "part_id": "34E88"
+            }
+          ],
+          "panel_id": "2fbe782d-a4b1-409a-bd07-d6f95f42ce98"
+        }
+      ],
+      "cabinet_id": "c6a53aab-5427-43d8-9401-2434ef6db630"
+    }
+  ]
+}

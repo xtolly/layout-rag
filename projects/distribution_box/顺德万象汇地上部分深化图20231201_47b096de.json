@@ -1,0 +1,194 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_47b096de",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 500,
+      "cabinet_height": 1000,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 500,
+          "panel_height": 1000,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121FA"
+            },
+            {
+              "order": 2,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121F9"
+            },
+            {
+              "order": 3,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "121F8"
+            },
+            {
+              "order": 4,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 266,
+              "part_height": 192,
+              "part_id": "121F7"
+            },
+            {
+              "order": 5,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "121F6"
+            },
+            {
+              "order": 6,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "121F5"
+            },
+            {
+              "order": 7,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "121F4"
+            },
+            {
+              "order": 8,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "121F3"
+            },
+            {
+              "order": 9,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121F2"
+            },
+            {
+              "order": 10,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121F1"
+            },
+            {
+              "order": 11,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121F0"
+            },
+            {
+              "order": 12,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121EF"
+            },
+            {
+              "order": 13,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121EE"
+            },
+            {
+              "order": 14,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121ED"
+            },
+            {
+              "order": 15,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121EC"
+            },
+            {
+              "order": 16,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121EB"
+            },
+            {
+              "order": 17,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121EA"
+            },
+            {
+              "order": 18,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121E9"
+            },
+            {
+              "order": 19,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 83,
+              "part_id": "121E8"
+            },
+            {
+              "order": 20,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "121E7"
+            },
+            {
+              "order": 21,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "121E6"
+            }
+          ],
+          "panel_id": "905eae74-f521-4e71-9649-eb74e1128e88"
+        }
+      ],
+      "cabinet_id": "431826ad-0d13-44db-a2dc-6fd825fd5123"
+    }
+  ]
+}

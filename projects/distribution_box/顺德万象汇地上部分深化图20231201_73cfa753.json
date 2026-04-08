@@ -1,0 +1,218 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_73cfa753",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 700,
+      "cabinet_height": 2000,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 700,
+          "panel_height": 2000,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "4A46B"
+            },
+            {
+              "order": 2,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "4A46A"
+            },
+            {
+              "order": 3,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "4A469"
+            },
+            {
+              "order": 4,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "4A468"
+            },
+            {
+              "order": 5,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "4A467"
+            },
+            {
+              "order": 6,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "49AB2"
+            },
+            {
+              "order": 7,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "490FF"
+            },
+            {
+              "order": 8,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "490FE"
+            },
+            {
+              "order": 9,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "4874B"
+            },
+            {
+              "order": 10,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 319,
+              "part_height": 195,
+              "part_id": "4874A"
+            },
+            {
+              "order": 11,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "48749"
+            },
+            {
+              "order": 12,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "48748"
+            },
+            {
+              "order": 13,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "48746"
+            },
+            {
+              "order": 14,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "48745"
+            },
+            {
+              "order": 15,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "48744"
+            },
+            {
+              "order": 16,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "48743"
+            },
+            {
+              "order": 17,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "48742"
+            },
+            {
+              "order": 18,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "48741"
+            },
+            {
+              "order": 19,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "48740"
+            },
+            {
+              "order": 20,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "4873F"
+            },
+            {
+              "order": 21,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "4873E"
+            },
+            {
+              "order": 22,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "4873D"
+            },
+            {
+              "order": 23,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "4873C"
+            },
+            {
+              "order": 24,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "47D89"
+            }
+          ],
+          "panel_id": "6dbe7f44-1cb5-4770-99f5-488d1ef6e48b"
+        }
+      ],
+      "cabinet_id": "51966dc0-0905-4b88-aa1d-9508fac35b92"
+    }
+  ]
+}

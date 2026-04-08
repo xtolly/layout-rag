@@ -1,0 +1,258 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_e4b30655",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 500,
+      "cabinet_height": 700,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 500,
+          "panel_height": 700,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 130,
+              "part_id": "AFEC"
+            },
+            {
+              "order": 2,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 140,
+              "part_id": "AFEB"
+            },
+            {
+              "order": 3,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9694"
+            },
+            {
+              "order": 4,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9693"
+            },
+            {
+              "order": 5,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 27,
+              "part_height": 121,
+              "part_id": "9692"
+            },
+            {
+              "order": 6,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "9691"
+            },
+            {
+              "order": 7,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9690"
+            },
+            {
+              "order": 8,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "968F"
+            },
+            {
+              "order": 9,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "968E"
+            },
+            {
+              "order": 10,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "968D"
+            },
+            {
+              "order": 11,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "968C"
+            },
+            {
+              "order": 12,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "968B"
+            },
+            {
+              "order": 13,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "968A"
+            },
+            {
+              "order": 14,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9689"
+            },
+            {
+              "order": 15,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9688"
+            },
+            {
+              "order": 16,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "9687"
+            },
+            {
+              "order": 17,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9686"
+            },
+            {
+              "order": 18,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "9685"
+            },
+            {
+              "order": 19,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "9684"
+            },
+            {
+              "order": 20,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9683"
+            },
+            {
+              "order": 21,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 27,
+              "part_height": 121,
+              "part_id": "9682"
+            },
+            {
+              "order": 22,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9681"
+            },
+            {
+              "order": 23,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "9680"
+            },
+            {
+              "order": 24,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "967F"
+            },
+            {
+              "order": 25,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 47,
+              "part_height": 177,
+              "part_id": "967E"
+            },
+            {
+              "order": 26,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 47,
+              "part_height": 177,
+              "part_id": "967D"
+            },
+            {
+              "order": 27,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "967C"
+            },
+            {
+              "order": 28,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "967B"
+            },
+            {
+              "order": 29,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "967A"
+            }
+          ],
+          "panel_id": "d478e57a-87c2-4c35-9e1b-b16a9c77da95"
+        }
+      ],
+      "cabinet_id": "c789befe-456c-4c87-af17-f5ad3c1a5cd9"
+    }
+  ]
+}

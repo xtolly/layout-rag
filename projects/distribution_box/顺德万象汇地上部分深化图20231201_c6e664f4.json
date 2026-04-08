@@ -1,0 +1,90 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_c6e664f4",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1100,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1100,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "3ADF7"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "3ADF6"
+            },
+            {
+              "order": 3,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "3ADF5"
+            },
+            {
+              "order": 4,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "3ADF4"
+            },
+            {
+              "order": 5,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 266,
+              "part_height": 192,
+              "part_id": "3ADF3"
+            },
+            {
+              "order": 6,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "3ADF2"
+            },
+            {
+              "order": 7,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "3ADF1"
+            },
+            {
+              "order": 8,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "3ADF0"
+            }
+          ],
+          "panel_id": "ee518d32-7cae-4e33-90b7-c659289bd446"
+        }
+      ],
+      "cabinet_id": "157d39fc-864c-4662-83ee-d7de24b18409"
+    }
+  ]
+}

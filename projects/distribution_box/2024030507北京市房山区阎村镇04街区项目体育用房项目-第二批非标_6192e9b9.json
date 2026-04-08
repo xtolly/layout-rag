@@ -1,0 +1,362 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_6192e9b9",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 143,
+              "part_id": "134BBE"
+            },
+            {
+              "order": 2,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 147,
+              "part_id": "134BBD"
+            },
+            {
+              "order": 3,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134BBC"
+            },
+            {
+              "order": 4,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134BBB"
+            },
+            {
+              "order": 5,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134BBA"
+            },
+            {
+              "order": 6,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134BB9"
+            },
+            {
+              "order": 7,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134BB8"
+            },
+            {
+              "order": 8,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 30,
+              "part_height": 71,
+              "part_id": "134BB7"
+            },
+            {
+              "order": 9,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 30,
+              "part_height": 71,
+              "part_id": "134BB6"
+            },
+            {
+              "order": 10,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134BB5"
+            },
+            {
+              "order": 11,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "134BB4"
+            },
+            {
+              "order": 12,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "134BB3"
+            },
+            {
+              "order": 13,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "134BB2"
+            },
+            {
+              "order": 14,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 30,
+              "part_height": 71,
+              "part_id": "134BB1"
+            },
+            {
+              "order": 15,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134BB0"
+            },
+            {
+              "order": 16,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 30,
+              "part_height": 71,
+              "part_id": "134BAF"
+            },
+            {
+              "order": 17,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134BAE"
+            },
+            {
+              "order": 18,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134BAD"
+            },
+            {
+              "order": 19,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134BAC"
+            },
+            {
+              "order": 20,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134BAB"
+            },
+            {
+              "order": 21,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134BAA"
+            },
+            {
+              "order": 22,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134BA9"
+            },
+            {
+              "order": 23,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "134BA8"
+            },
+            {
+              "order": 24,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "134BA7"
+            },
+            {
+              "order": 25,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "134BA6"
+            },
+            {
+              "order": 26,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 105,
+              "part_height": 55,
+              "part_id": "134BA5"
+            },
+            {
+              "order": 27,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 82,
+              "part_id": "134BA2"
+            },
+            {
+              "order": 28,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 24,
+              "part_height": 43,
+              "part_id": "134B9F"
+            },
+            {
+              "order": 29,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "134B9E"
+            },
+            {
+              "order": 30,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 90,
+              "part_id": "134B9D"
+            },
+            {
+              "order": 31,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 135,
+              "part_id": "134B9C"
+            },
+            {
+              "order": 32,
+              "part_type": "控制与保护开关",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 249,
+              "part_id": "134B9B"
+            },
+            {
+              "order": 33,
+              "part_type": "控制与保护开关",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 249,
+              "part_id": "134B9A"
+            },
+            {
+              "order": 34,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 63,
+              "part_height": 146,
+              "part_id": "134B99"
+            },
+            {
+              "order": 35,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 63,
+              "part_height": 146,
+              "part_id": "134B98"
+            },
+            {
+              "order": 36,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 63,
+              "part_height": 146,
+              "part_id": "134B97"
+            },
+            {
+              "order": 37,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "134B96"
+            },
+            {
+              "order": 38,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "134B95"
+            },
+            {
+              "order": 39,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "134B94"
+            },
+            {
+              "order": 40,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "134B93"
+            },
+            {
+              "order": 41,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "134B92"
+            },
+            {
+              "order": 42,
+              "part_type": "后备保护断路器",
+              "part_model": "",
+              "part_width": 82,
+              "part_height": 134,
+              "part_id": "134B91"
+            }
+          ],
+          "panel_id": "f66cf00c-b6e2-48c0-bad0-641fe6f2826c"
+        }
+      ],
+      "cabinet_id": "3e0f1bc5-2c6a-4951-8534-fe3f0fb85d3a"
+    }
+  ]
+}

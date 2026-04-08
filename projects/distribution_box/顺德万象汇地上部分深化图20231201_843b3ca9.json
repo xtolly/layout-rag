@@ -1,0 +1,146 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_843b3ca9",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 700,
+      "cabinet_height": 1300,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 700,
+          "panel_height": 1300,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 318,
+              "part_id": "567F7"
+            },
+            {
+              "order": 2,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "567F6"
+            },
+            {
+              "order": 3,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "567F5"
+            },
+            {
+              "order": 4,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "567F4"
+            },
+            {
+              "order": 5,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "567F3"
+            },
+            {
+              "order": 6,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "567F2"
+            },
+            {
+              "order": 7,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "567F1"
+            },
+            {
+              "order": 8,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 318,
+              "part_id": "55E3E"
+            },
+            {
+              "order": 9,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "55E3C"
+            },
+            {
+              "order": 10,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "55E3B"
+            },
+            {
+              "order": 11,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "55E3A"
+            },
+            {
+              "order": 12,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "55E39"
+            },
+            {
+              "order": 13,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "55E38"
+            },
+            {
+              "order": 14,
+              "part_type": "隔离开关",
+              "part_model": "",
+              "part_width": 170,
+              "part_height": 135,
+              "part_id": "55E37"
+            },
+            {
+              "order": 15,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 318,
+              "part_id": "55484"
+            }
+          ],
+          "panel_id": "5afe475c-8214-49c5-af65-74f7d305e5e6"
+        }
+      ],
+      "cabinet_id": "a4776913-1c32-4234-bc68-c3f79eaaa252"
+    }
+  ]
+}

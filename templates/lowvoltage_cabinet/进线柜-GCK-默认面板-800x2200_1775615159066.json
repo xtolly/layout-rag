@@ -1,0 +1,249 @@
+{
+  "name": "进线柜-GCK-默认面板-800x2200",
+  "uuid": "440d480c-aace-4c01-a6f1-cff853c14ea8",
+  "scheme": {
+    "cabinet_id": "0e787c60-88e0-41f9-9f79-110a0c80330c",
+    "cabinet_name": "1AL",
+    "cabinet_use": "进线柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "",
+    "panel_id": "4791c9de-c4ef-4f24-aadc-db6cefe0357b",
+    "panel_type": "默认面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": 32,
+    "panel_main_circuit_poles": 3,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      2200
+    ],
+    "parts": [
+      {
+        "part_id": "ba933361-18df-431f-8390-fa7f4d1f6e87",
+        "part_type": "万能式断路器",
+        "part_model": "NDW2-32-32A-3P",
+        "part_size": [
+          400,
+          450
+        ]
+      },
+      {
+        "part_id": "8bb74530-7e65-41f4-b161-afa82f6452eb",
+        "part_type": "电流表",
+        "part_model": "",
+        "part_size": [
+          80,
+          80
+        ]
+      },
+      {
+        "part_id": "5b918879-6bb5-4e1d-8088-606398cfa09e",
+        "part_type": "电流表",
+        "part_model": "",
+        "part_size": [
+          80,
+          80
+        ]
+      },
+      {
+        "part_id": "aa7fe433-0ff9-4061-9213-bcb4e285cfcf",
+        "part_type": "电流表",
+        "part_model": "",
+        "part_size": [
+          80,
+          80
+        ]
+      },
+      {
+        "part_id": "4ead1879-d804-42e1-848c-27a96cded80b",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          50,
+          50
+        ]
+      },
+      {
+        "part_id": "676427e5-c2bb-420d-95ab-6621d76b6896",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          50,
+          50
+        ]
+      },
+      {
+        "part_id": "cfcd2784-8a2b-4446-bcf3-d5efbe11a9b0",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          50,
+          50
+        ]
+      },
+      {
+        "part_id": "730610a2-299b-4aff-bad4-8082727f82d6",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          92,
+          92
+        ]
+      },
+      {
+        "part_id": "b82ebe48-b187-4172-be96-f04485750f09",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          45,
+          45
+        ]
+      },
+      {
+        "part_id": "1289967c-eb4f-415b-81bc-b925baf86a9d",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          45,
+          45
+        ]
+      },
+      {
+        "part_id": "8a54159a-562e-4e0b-ab7f-46643f027a05",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          45,
+          45
+        ]
+      },
+      {
+        "part_id": "3798aeb0-0142-497a-9a3b-df776a6df378",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          45,
+          45
+        ]
+      },
+      {
+        "part_id": "e3341fea-33f1-407d-882f-cae53950a5e7",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          45,
+          45
+        ]
+      },
+      {
+        "part_id": "630528a7-b130-46ee-87fa-7a3b9500669b",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          45,
+          45
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "ba933361-18df-431f-8390-fa7f4d1f6e87": {
+      "position": [
+        200,
+        748
+      ],
+      "rotation": 0
+    },
+    "8bb74530-7e65-41f4-b161-afa82f6452eb": {
+      "position": [
+        138,
+        1333
+      ],
+      "rotation": 0
+    },
+    "5b918879-6bb5-4e1d-8088-606398cfa09e": {
+      "position": [
+        250,
+        1333
+      ],
+      "rotation": 0
+    },
+    "aa7fe433-0ff9-4061-9213-bcb4e285cfcf": {
+      "position": [
+        360,
+        1333
+      ],
+      "rotation": 0
+    },
+    "4ead1879-d804-42e1-848c-27a96cded80b": {
+      "position": [
+        265,
+        1451
+      ],
+      "rotation": 0
+    },
+    "676427e5-c2bb-420d-95ab-6621d76b6896": {
+      "position": [
+        153,
+        1451
+      ],
+      "rotation": 0
+    },
+    "cfcd2784-8a2b-4446-bcf3-d5efbe11a9b0": {
+      "position": [
+        375,
+        1451
+      ],
+      "rotation": 0
+    },
+    "730610a2-299b-4aff-bad4-8082727f82d6": {
+      "position": [
+        126,
+        554
+      ],
+      "rotation": 0
+    },
+    "b82ebe48-b187-4172-be96-f04485750f09": {
+      "position": [
+        318,
+        578
+      ],
+      "rotation": 0
+    },
+    "1289967c-eb4f-415b-81bc-b925baf86a9d": {
+      "position": [
+        249,
+        578
+      ],
+      "rotation": 0
+    },
+    "8a54159a-562e-4e0b-ab7f-46643f027a05": {
+      "position": [
+        390,
+        578
+      ],
+      "rotation": 0
+    },
+    "3798aeb0-0142-497a-9a3b-df776a6df378": {
+      "position": [
+        457,
+        578
+      ],
+      "rotation": 0
+    },
+    "e3341fea-33f1-407d-882f-cae53950a5e7": {
+      "position": [
+        525,
+        578
+      ],
+      "rotation": 0
+    },
+    "630528a7-b130-46ee-87fa-7a3b9500669b": {
+      "position": [
+        600,
+        578
+      ],
+      "rotation": 0
+    }
+  }
+}

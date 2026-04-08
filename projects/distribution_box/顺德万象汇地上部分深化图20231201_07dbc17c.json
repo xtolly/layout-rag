@@ -1,0 +1,66 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_07dbc17c",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 900,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 900,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 293,
+              "part_height": 192,
+              "part_id": "19E56"
+            },
+            {
+              "order": 2,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "19E55"
+            },
+            {
+              "order": 3,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "19E54"
+            },
+            {
+              "order": 4,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "19E53"
+            },
+            {
+              "order": 5,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "19E52"
+            }
+          ],
+          "panel_id": "fde1e351-a5af-4ee6-b072-70bf43e7d85c"
+        }
+      ],
+      "cabinet_id": "eb530841-950a-4f8f-ba91-e70a55327431"
+    }
+  ]
+}

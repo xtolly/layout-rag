@@ -1,0 +1,434 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_4fe6e71b",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 1200,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 1200,
+          "panel_height": 2200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "60E73"
+            },
+            {
+              "order": 2,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "604C0"
+            },
+            {
+              "order": 3,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "5FB0D"
+            },
+            {
+              "order": 4,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "5F159"
+            },
+            {
+              "order": 5,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "5E7A6"
+            },
+            {
+              "order": 6,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "5DDF3"
+            },
+            {
+              "order": 7,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "5D440"
+            },
+            {
+              "order": 8,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "5CA8D"
+            },
+            {
+              "order": 9,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "5C0DA"
+            },
+            {
+              "order": 10,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "5B727"
+            },
+            {
+              "order": 11,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "5AD74"
+            },
+            {
+              "order": 12,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "5AD73"
+            },
+            {
+              "order": 13,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AD72"
+            },
+            {
+              "order": 14,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "5AD71"
+            },
+            {
+              "order": 15,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AD70"
+            },
+            {
+              "order": 16,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 85,
+              "part_height": 128,
+              "part_id": "5AC47"
+            },
+            {
+              "order": 17,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "5AC46"
+            },
+            {
+              "order": 18,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "5AC45"
+            },
+            {
+              "order": 19,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "5AC44"
+            },
+            {
+              "order": 20,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "5AC43"
+            },
+            {
+              "order": 21,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "5AC42"
+            },
+            {
+              "order": 22,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "5AC41"
+            },
+            {
+              "order": 23,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AC40"
+            },
+            {
+              "order": 24,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AC3F"
+            },
+            {
+              "order": 25,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AC3E"
+            },
+            {
+              "order": 26,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "5AC3D"
+            },
+            {
+              "order": 27,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "5AC3C"
+            },
+            {
+              "order": 28,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "5AC3B"
+            },
+            {
+              "order": 29,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "5AC3A"
+            },
+            {
+              "order": 30,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "5AC39"
+            },
+            {
+              "order": 31,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "5AC38"
+            },
+            {
+              "order": 32,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 56,
+              "part_height": 84,
+              "part_id": "5AC37"
+            },
+            {
+              "order": 33,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AC36"
+            },
+            {
+              "order": 34,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AC35"
+            },
+            {
+              "order": 35,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 355,
+              "part_height": 243,
+              "part_id": "5AC34"
+            },
+            {
+              "order": 36,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "5AC33"
+            },
+            {
+              "order": 37,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "5AC32"
+            },
+            {
+              "order": 38,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "5AC31"
+            },
+            {
+              "order": 39,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "5AC30"
+            },
+            {
+              "order": 40,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "5AC2F"
+            },
+            {
+              "order": 41,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "5AC2E"
+            },
+            {
+              "order": 42,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "5AC2D"
+            },
+            {
+              "order": 43,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "5AC2C"
+            },
+            {
+              "order": 44,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "5AC2B"
+            },
+            {
+              "order": 45,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "5AC2A"
+            },
+            {
+              "order": 46,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "5AC29"
+            },
+            {
+              "order": 47,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "5AC28"
+            },
+            {
+              "order": 48,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AC27"
+            },
+            {
+              "order": 49,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AC26"
+            },
+            {
+              "order": 50,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AC25"
+            },
+            {
+              "order": 51,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5AC24"
+            }
+          ],
+          "panel_id": "a56bee7e-fc94-4384-a32c-05746a77ec5e"
+        }
+      ],
+      "cabinet_id": "bd359225-b3e8-49d0-935b-40f8471c9bce"
+    }
+  ]
+}

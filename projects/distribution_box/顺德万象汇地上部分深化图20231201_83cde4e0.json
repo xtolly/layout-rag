@@ -1,0 +1,114 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_83cde4e0",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1100,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1100,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "55481"
+            },
+            {
+              "order": 2,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "55480"
+            },
+            {
+              "order": 3,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 318,
+              "part_id": "54ACD"
+            },
+            {
+              "order": 4,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "54ACC"
+            },
+            {
+              "order": 5,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "54ACB"
+            },
+            {
+              "order": 6,
+              "part_type": "隔离开关",
+              "part_model": "",
+              "part_width": 116,
+              "part_height": 124,
+              "part_id": "54AC9"
+            },
+            {
+              "order": 7,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "54AC8"
+            },
+            {
+              "order": 8,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "54AC7"
+            },
+            {
+              "order": 9,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "54AC6"
+            },
+            {
+              "order": 10,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "54AC5"
+            },
+            {
+              "order": 11,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 318,
+              "part_id": "54112"
+            }
+          ],
+          "panel_id": "44a9c2cd-5ea9-4695-9d04-bb4f458a66ee"
+        }
+      ],
+      "cabinet_id": "0e73cc28-192c-4c12-a5db-5fd41a16ccfb"
+    }
+  ]
+}

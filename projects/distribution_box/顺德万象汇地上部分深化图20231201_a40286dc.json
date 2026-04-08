@@ -1,0 +1,114 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_a40286dc",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 700,
+      "cabinet_height": 1100,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 700,
+          "panel_height": 1100,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "2A478"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "2A477"
+            },
+            {
+              "order": 3,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 83,
+              "part_id": "2A476"
+            },
+            {
+              "order": 4,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 164,
+              "part_height": 162,
+              "part_id": "2A1D9"
+            },
+            {
+              "order": 5,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "2A1D8"
+            },
+            {
+              "order": 6,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "2A1D7"
+            },
+            {
+              "order": 7,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 83,
+              "part_height": 148,
+              "part_id": "29E50"
+            },
+            {
+              "order": 8,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 83,
+              "part_height": 148,
+              "part_id": "29AC9"
+            },
+            {
+              "order": 9,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "29AC7"
+            },
+            {
+              "order": 10,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 125,
+              "part_height": 30,
+              "part_id": "29AC6"
+            },
+            {
+              "order": 11,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "29AC5"
+            }
+          ],
+          "panel_id": "496aef5e-ccd1-4654-848a-2d1e8aade370"
+        }
+      ],
+      "cabinet_id": "84047d68-b440-4419-94ea-331e16100f21"
+    }
+  ]
+}

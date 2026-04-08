@@ -1,0 +1,298 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_6ac29dc2",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 800,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 800,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 157,
+              "part_id": "ABAB"
+            },
+            {
+              "order": 2,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 160,
+              "part_id": "ABAA"
+            },
+            {
+              "order": 3,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "92C5"
+            },
+            {
+              "order": 4,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9298"
+            },
+            {
+              "order": 5,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "9297"
+            },
+            {
+              "order": 6,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "9296"
+            },
+            {
+              "order": 7,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "9295"
+            },
+            {
+              "order": 8,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "9294"
+            },
+            {
+              "order": 9,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "9293"
+            },
+            {
+              "order": 10,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9292"
+            },
+            {
+              "order": 11,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "9291"
+            },
+            {
+              "order": 12,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9251"
+            },
+            {
+              "order": 13,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "9250"
+            },
+            {
+              "order": 14,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "924F"
+            },
+            {
+              "order": 15,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "924E"
+            },
+            {
+              "order": 16,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "924D"
+            },
+            {
+              "order": 17,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "924C"
+            },
+            {
+              "order": 18,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "924B"
+            },
+            {
+              "order": 19,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "924A"
+            },
+            {
+              "order": 20,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 43,
+              "part_height": 149,
+              "part_id": "9249"
+            },
+            {
+              "order": 21,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "9248"
+            },
+            {
+              "order": 22,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 43,
+              "part_height": 149,
+              "part_id": "9247"
+            },
+            {
+              "order": 23,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 245,
+              "part_height": 258,
+              "part_id": "9246"
+            },
+            {
+              "order": 24,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "9245"
+            },
+            {
+              "order": 25,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "9244"
+            },
+            {
+              "order": 26,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "9243"
+            },
+            {
+              "order": 27,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "9242"
+            },
+            {
+              "order": 28,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "9241"
+            },
+            {
+              "order": 29,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "9240"
+            },
+            {
+              "order": 30,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "923F"
+            },
+            {
+              "order": 31,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "923E"
+            },
+            {
+              "order": 32,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "923D"
+            },
+            {
+              "order": 33,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "923C"
+            },
+            {
+              "order": 34,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 136,
+              "part_height": 111,
+              "part_id": "923B"
+            }
+          ],
+          "panel_id": "8a3a55b4-683f-43c4-b8e2-05fc945a9cc6"
+        }
+      ],
+      "cabinet_id": "ecaedd3f-8438-4307-9039-eb079c4431ca"
+    }
+  ]
+}

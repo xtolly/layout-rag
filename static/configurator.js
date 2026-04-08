@@ -27,6 +27,12 @@ const normalizeOptionList = (values) => {
     return [...new Set(values.map((value) => String(value || '').trim()).filter(Boolean))];
 };
 
+const normalizeNullableNumber = (value) => {
+    if (value === null || value === undefined || value === '') return null;
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+};
+
 // ── 工厂 ──────────────────────────────────────────────────────
 let _orderCounter = 1000;
 const getOrder = () => Date.now() + (_orderCounter++);
@@ -453,18 +459,29 @@ const App = {
             panelModal.cabinetId = cabinetId; panelModal.panel = makePanel(); panelModal.isNew = true; panelModal.show = true;
         };
         const openEditPanel = (cabinetId, panel) => {
-            panelModal.cabinetId = cabinetId; panelModal.panel = JSON.parse(JSON.stringify(panel)); panelModal.isNew = false; panelModal.show = true;
+            panelModal.cabinetId = cabinetId;
+            panelModal.panel = makePanel(JSON.parse(JSON.stringify(panel)));
+            panelModal.isNew = false;
+            panelModal.show = true;
         };
         const savePanelModal = () => {
             const cab = scheme.cabinets.find(c => c.cabinet_id === panelModal.cabinetId);
             if (!cab) return;
+            const normalizedPanel = {
+                ...panelModal.panel,
+                main_circuit_current: normalizeNullableNumber(panelModal.panel.main_circuit_current),
+                main_circuit_poles: normalizeNullableNumber(panelModal.panel.main_circuit_poles),
+            };
             if (panelModal.isNew) {
-                cab.panels.push(panelModal.panel);
-                selectedPanelId.value = panelModal.panel.panel_id;
+                cab.panels.push(normalizedPanel);
+                selectedPanelId.value = normalizedPanel.panel_id;
                 showToast('已添加面板');
             } else {
-                const idx = cab.panels.findIndex(p => p.panel_id === panelModal.panel.panel_id);
-                if (idx !== -1) Object.assign(cab.panels[idx], panelModal.panel); showToast('已保存面板');
+                const idx = cab.panels.findIndex(p => p.panel_id === normalizedPanel.panel_id);
+                if (idx !== -1) {
+                    Object.assign(cab.panels[idx], normalizedPanel);
+                }
+                showToast('已保存面板');
             }
             panelModal.show = false;
         };
@@ -990,8 +1007,8 @@ const App = {
                 panel_id: panel?.panel_id || '',
                 panel_type: panel?.panel_type || '',
                 panel_operation_method: panel?.operation_method || '',
-                panel_main_circuit_current: panel?.main_circuit_current || null,
-                panel_main_circuit_poles: panel?.main_circuit_poles || null,
+                panel_main_circuit_current: panel?.main_circuit_current ?? null,
+                panel_main_circuit_poles: panel?.main_circuit_poles ?? null,
                 panel_height_module: panel?.height_module || '',
                 panel_size: [
                     toLayoutNumber(panel?.panel_width, 600),

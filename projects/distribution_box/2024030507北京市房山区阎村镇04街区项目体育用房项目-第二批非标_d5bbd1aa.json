@@ -1,0 +1,122 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_d5bbd1aa",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 500,
+      "cabinet_height": 500,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 500,
+          "panel_height": 500,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 130,
+              "part_id": "137149"
+            },
+            {
+              "order": 2,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 135,
+              "part_id": "137148"
+            },
+            {
+              "order": 3,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "137147"
+            },
+            {
+              "order": 4,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "137146"
+            },
+            {
+              "order": 5,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "137145"
+            },
+            {
+              "order": 6,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "137144"
+            },
+            {
+              "order": 7,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "137143"
+            },
+            {
+              "order": 8,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "137142"
+            },
+            {
+              "order": 9,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 82,
+              "part_id": "137141"
+            },
+            {
+              "order": 10,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 24,
+              "part_height": 43,
+              "part_id": "13713E"
+            },
+            {
+              "order": 11,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 90,
+              "part_id": "13713D"
+            },
+            {
+              "order": 12,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "13713C"
+            }
+          ],
+          "panel_id": "1d7f6d1d-0689-44dd-bcf3-0e7a9b5195c0"
+        }
+      ],
+      "cabinet_id": "5ad2d43c-bfa6-4f0a-a2a9-c4dff96068b5"
+    }
+  ]
+}

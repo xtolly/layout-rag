@@ -1,0 +1,122 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_a884fa42",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 900,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 900,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 97,
+              "part_id": "53E5C"
+            },
+            {
+              "order": 2,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "53E5B"
+            },
+            {
+              "order": 3,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "53E5A"
+            },
+            {
+              "order": 4,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "53E58"
+            },
+            {
+              "order": 5,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 125,
+              "part_height": 30,
+              "part_id": "53E57"
+            },
+            {
+              "order": 6,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 83,
+              "part_height": 148,
+              "part_id": "53AD0"
+            },
+            {
+              "order": 7,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "53ACF"
+            },
+            {
+              "order": 8,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 97,
+              "part_id": "53ACE"
+            },
+            {
+              "order": 9,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "53ACD"
+            },
+            {
+              "order": 10,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "53ACC"
+            },
+            {
+              "order": 11,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "53ACB"
+            },
+            {
+              "order": 12,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "53ACA"
+            }
+          ],
+          "panel_id": "b6bda83c-b028-4a28-bdd6-773ca65f58df"
+        }
+      ],
+      "cabinet_id": "f4a750f9-a6c4-4c74-9ca2-df2c779b63cc"
+    }
+  ]
+}

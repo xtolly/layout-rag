@@ -1,0 +1,322 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_90798b18",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1000,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1000,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 170,
+              "part_id": "13492C"
+            },
+            {
+              "order": 2,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 176,
+              "part_id": "13492B"
+            },
+            {
+              "order": 3,
+              "part_type": "电源模块",
+              "part_model": "",
+              "part_width": 126,
+              "part_height": 90,
+              "part_id": "13492A"
+            },
+            {
+              "order": 4,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134929"
+            },
+            {
+              "order": 5,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134928"
+            },
+            {
+              "order": 6,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134927"
+            },
+            {
+              "order": 7,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134926"
+            },
+            {
+              "order": 8,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "134925"
+            },
+            {
+              "order": 9,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "134924"
+            },
+            {
+              "order": 10,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134923"
+            },
+            {
+              "order": 11,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134922"
+            },
+            {
+              "order": 12,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "134921"
+            },
+            {
+              "order": 13,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "134920"
+            },
+            {
+              "order": 14,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "13491F"
+            },
+            {
+              "order": 15,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "13491E"
+            },
+            {
+              "order": 16,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "13491D"
+            },
+            {
+              "order": 17,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 105,
+              "part_height": 55,
+              "part_id": "13491C"
+            },
+            {
+              "order": 18,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 82,
+              "part_id": "134919"
+            },
+            {
+              "order": 19,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 24,
+              "part_height": 43,
+              "part_id": "134917"
+            },
+            {
+              "order": 20,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 135,
+              "part_id": "134916"
+            },
+            {
+              "order": 21,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 63,
+              "part_height": 146,
+              "part_id": "134915"
+            },
+            {
+              "order": 22,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 63,
+              "part_height": 146,
+              "part_id": "134914"
+            },
+            {
+              "order": 23,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 63,
+              "part_height": 146,
+              "part_id": "134913"
+            },
+            {
+              "order": 24,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "134912"
+            },
+            {
+              "order": 25,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "134911"
+            },
+            {
+              "order": 26,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "134910"
+            },
+            {
+              "order": 27,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "13490F"
+            },
+            {
+              "order": 28,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "13490E"
+            },
+            {
+              "order": 29,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "13490D"
+            },
+            {
+              "order": 30,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "13490C"
+            },
+            {
+              "order": 31,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "13490B"
+            },
+            {
+              "order": 32,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "13490A"
+            },
+            {
+              "order": 33,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "134909"
+            },
+            {
+              "order": 34,
+              "part_type": "后备保护断路器",
+              "part_model": "",
+              "part_width": 82,
+              "part_height": 134,
+              "part_id": "134908"
+            },
+            {
+              "order": 35,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 90,
+              "part_id": "134907"
+            },
+            {
+              "order": 36,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 56,
+              "part_height": 149,
+              "part_id": "134906"
+            },
+            {
+              "order": 37,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 56,
+              "part_height": 149,
+              "part_id": "134905"
+            }
+          ],
+          "panel_id": "748977f5-17c8-4653-97af-0e9850ca07eb"
+        }
+      ],
+      "cabinet_id": "4e1aab25-c633-4e47-aa6f-783a3c472220"
+    }
+  ]
+}

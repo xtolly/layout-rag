@@ -1,0 +1,210 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_199923cd",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 700,
+      "cabinet_height": 900,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 700,
+          "panel_height": 900,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 143,
+              "part_id": "8D5E"
+            },
+            {
+              "order": 2,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 147,
+              "part_id": "8D5D"
+            },
+            {
+              "order": 3,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 43,
+              "part_height": 149,
+              "part_id": "8D07"
+            },
+            {
+              "order": 4,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 43,
+              "part_height": 149,
+              "part_id": "8D06"
+            },
+            {
+              "order": 5,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 90,
+              "part_height": 82,
+              "part_id": "8D05"
+            },
+            {
+              "order": 6,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 65,
+              "part_height": 71,
+              "part_id": "8D04"
+            },
+            {
+              "order": 7,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 65,
+              "part_height": 71,
+              "part_id": "8D03"
+            },
+            {
+              "order": 8,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 33,
+              "part_height": 43,
+              "part_id": "8D02"
+            },
+            {
+              "order": 9,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 82,
+              "part_id": "8D01"
+            },
+            {
+              "order": 10,
+              "part_type": "火灾监控探测器",
+              "part_model": "",
+              "part_width": 41,
+              "part_height": 97,
+              "part_id": "8D00"
+            },
+            {
+              "order": 11,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 245,
+              "part_height": 258,
+              "part_id": "8CFF"
+            },
+            {
+              "order": 12,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 172,
+              "part_id": "8CFE"
+            },
+            {
+              "order": 13,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 155,
+              "part_id": "8CFD"
+            },
+            {
+              "order": 14,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 155,
+              "part_id": "8CFC"
+            },
+            {
+              "order": 15,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 146,
+              "part_id": "8CFB"
+            },
+            {
+              "order": 16,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 146,
+              "part_id": "8CFA"
+            },
+            {
+              "order": 17,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 81,
+              "part_height": 135,
+              "part_id": "8CF9"
+            },
+            {
+              "order": 18,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 81,
+              "part_height": 135,
+              "part_id": "8CF8"
+            },
+            {
+              "order": 19,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "8CF7"
+            },
+            {
+              "order": 20,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "8CF6"
+            },
+            {
+              "order": 21,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "8CF5"
+            },
+            {
+              "order": 22,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 135,
+              "part_id": "8CF4"
+            },
+            {
+              "order": 23,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 98,
+              "part_height": 40,
+              "part_id": "8CF3"
+            }
+          ],
+          "panel_id": "c6f9c48c-237c-4605-86af-f96f241917e1"
+        }
+      ],
+      "cabinet_id": "2aebfe31-1734-43e4-b911-eddf8dd067c7"
+    }
+  ]
+}

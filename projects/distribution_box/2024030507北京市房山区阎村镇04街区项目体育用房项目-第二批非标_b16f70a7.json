@@ -1,0 +1,138 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_b16f70a7",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 400,
+      "cabinet_height": 500,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 400,
+          "panel_height": 500,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "136BDF"
+            },
+            {
+              "order": 2,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 103,
+              "part_id": "136983"
+            },
+            {
+              "order": 3,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 115,
+              "part_id": "136982"
+            },
+            {
+              "order": 4,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "136981"
+            },
+            {
+              "order": 5,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 27,
+              "part_height": 121,
+              "part_id": "136980"
+            },
+            {
+              "order": 6,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "13697F"
+            },
+            {
+              "order": 7,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "13697E"
+            },
+            {
+              "order": 8,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "13697D"
+            },
+            {
+              "order": 9,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "13697C"
+            },
+            {
+              "order": 10,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "13697B"
+            },
+            {
+              "order": 11,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "13697A"
+            },
+            {
+              "order": 12,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "136979"
+            },
+            {
+              "order": 13,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 56,
+              "part_height": 186,
+              "part_id": "136978"
+            },
+            {
+              "order": 14,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "136977"
+            }
+          ],
+          "panel_id": "6fa07d04-52f8-4d36-9d58-aef544c33c1e"
+        }
+      ],
+      "cabinet_id": "f381b7c7-1a8d-4c6c-9b20-fd2473b986ee"
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_fc2521d0",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 1000,
+      "cabinet_height": 1300,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 1000,
+          "panel_height": 1300,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "3F20E"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "3F20D"
+            },
+            {
+              "order": 3,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "3F20C"
+            },
+            {
+              "order": 4,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "3F20B"
+            },
+            {
+              "order": 5,
+              "part_type": "隔离开关",
+              "part_model": "",
+              "part_width": 170,
+              "part_height": 135,
+              "part_id": "3F209"
+            },
+            {
+              "order": 6,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "3F208"
+            },
+            {
+              "order": 7,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "3F207"
+            },
+            {
+              "order": 8,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "3F206"
+            },
+            {
+              "order": 9,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "3F205"
+            },
+            {
+              "order": 10,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "3F204"
+            },
+            {
+              "order": 11,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "3F203"
+            },
+            {
+              "order": 12,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "3F202"
+            },
+            {
+              "order": 13,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "3F201"
+            },
+            {
+              "order": 14,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "3F200"
+            },
+            {
+              "order": 15,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "3F1FF"
+            },
+            {
+              "order": 16,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "3F1FE"
+            },
+            {
+              "order": 17,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "3F1FD"
+            }
+          ],
+          "panel_id": "501d99e9-660f-4078-940e-d9eba60f11a9"
+        }
+      ],
+      "cabinet_id": "87d11bc0-8ef2-4186-a5bc-871ce40b848a"
+    }
+  ]
+}

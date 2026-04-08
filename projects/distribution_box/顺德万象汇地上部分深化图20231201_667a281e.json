@@ -1,0 +1,50 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_667a281e",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 700,
+      "cabinet_height": 1800,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 700,
+          "panel_height": 1800,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "71E70"
+            },
+            {
+              "order": 2,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "71E6F"
+            },
+            {
+              "order": 3,
+              "part_type": "隔离开关",
+              "part_model": "",
+              "part_width": 290,
+              "part_height": 260,
+              "part_id": "71E6D"
+            }
+          ],
+          "panel_id": "85940252-396b-482a-9866-dbf3b1fbfc0e"
+        }
+      ],
+      "cabinet_id": "eac84156-0e69-4b4e-a4c1-5e8e453262f3"
+    }
+  ]
+}

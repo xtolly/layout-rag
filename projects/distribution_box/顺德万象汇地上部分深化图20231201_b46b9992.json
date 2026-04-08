@@ -1,0 +1,58 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_b46b9992",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 400,
+      "cabinet_height": 600,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 400,
+          "panel_height": 600,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "342C8"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "342C7"
+            },
+            {
+              "order": 3,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "342C6"
+            },
+            {
+              "order": 4,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 276,
+              "part_height": 75,
+              "part_id": "33CF1"
+            }
+          ],
+          "panel_id": "6da8ac50-7ce1-4cf0-b952-a76cd4294797"
+        }
+      ],
+      "cabinet_id": "7456fe47-0b25-40cf-bc0a-6dd384d83408"
+    }
+  ]
+}

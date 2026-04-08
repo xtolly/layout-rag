@@ -1,0 +1,450 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_d17a0f4b",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 172,
+              "part_id": "135472"
+            },
+            {
+              "order": 2,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 184,
+              "part_id": "135471"
+            },
+            {
+              "order": 3,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "130D01"
+            },
+            {
+              "order": 4,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "130D00"
+            },
+            {
+              "order": 5,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 30,
+              "part_height": 71,
+              "part_id": "130CFF"
+            },
+            {
+              "order": 6,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 5,
+              "part_height": 43,
+              "part_id": "130CFE"
+            },
+            {
+              "order": 7,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 5,
+              "part_height": 43,
+              "part_id": "130CFD"
+            },
+            {
+              "order": 8,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 5,
+              "part_height": 43,
+              "part_id": "130CFC"
+            },
+            {
+              "order": 9,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "130CFB"
+            },
+            {
+              "order": 10,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "130CFA"
+            },
+            {
+              "order": 11,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "130CF9"
+            },
+            {
+              "order": 12,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "130CF8"
+            },
+            {
+              "order": 13,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "130CF7"
+            },
+            {
+              "order": 14,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "130CF6"
+            },
+            {
+              "order": 15,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "130CF5"
+            },
+            {
+              "order": 16,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "130CF4"
+            },
+            {
+              "order": 17,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "130CF3"
+            },
+            {
+              "order": 18,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CF2"
+            },
+            {
+              "order": 19,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "130CF1"
+            },
+            {
+              "order": 20,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "130CF0"
+            },
+            {
+              "order": 21,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 30,
+              "part_height": 71,
+              "part_id": "130CEF"
+            },
+            {
+              "order": 22,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 30,
+              "part_height": 71,
+              "part_id": "130CEE"
+            },
+            {
+              "order": 23,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 105,
+              "part_height": 55,
+              "part_id": "130CED"
+            },
+            {
+              "order": 24,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CEC"
+            },
+            {
+              "order": 25,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CEB"
+            },
+            {
+              "order": 26,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CEA"
+            },
+            {
+              "order": 27,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CE9"
+            },
+            {
+              "order": 28,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "130CE8"
+            },
+            {
+              "order": 29,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CE7"
+            },
+            {
+              "order": 30,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 33,
+              "part_height": 43,
+              "part_id": "130CE6"
+            },
+            {
+              "order": 31,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "130CE5"
+            },
+            {
+              "order": 32,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CE4"
+            },
+            {
+              "order": 33,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CE3"
+            },
+            {
+              "order": 34,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CE2"
+            },
+            {
+              "order": 35,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CE1"
+            },
+            {
+              "order": 36,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CE0"
+            },
+            {
+              "order": 37,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "130CDF"
+            },
+            {
+              "order": 38,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 24,
+              "part_height": 43,
+              "part_id": "130CDE"
+            },
+            {
+              "order": 39,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "130CDD"
+            },
+            {
+              "order": 40,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "130CDC"
+            },
+            {
+              "order": 41,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 12,
+              "part_height": 42,
+              "part_id": "130CDB"
+            },
+            {
+              "order": 42,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 12,
+              "part_height": 42,
+              "part_id": "130CDA"
+            },
+            {
+              "order": 43,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 265,
+              "part_height": 272,
+              "part_id": "130CD9"
+            },
+            {
+              "order": 44,
+              "part_type": "火灾监控探测器",
+              "part_model": "",
+              "part_width": 110,
+              "part_height": 94,
+              "part_id": "130CD8"
+            },
+            {
+              "order": 45,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 90,
+              "part_id": "130CD7"
+            },
+            {
+              "order": 46,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "130CD6"
+            },
+            {
+              "order": 47,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "130CD5"
+            },
+            {
+              "order": 48,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 135,
+              "part_id": "130CD4"
+            },
+            {
+              "order": 49,
+              "part_type": "控制与保护开关",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 249,
+              "part_id": "130CD3"
+            },
+            {
+              "order": 50,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "130CD2"
+            },
+            {
+              "order": 51,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "130CD1"
+            },
+            {
+              "order": 52,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "130CD0"
+            },
+            {
+              "order": 53,
+              "part_type": "后备保护断路器",
+              "part_model": "",
+              "part_width": 82,
+              "part_height": 134,
+              "part_id": "130CCF"
+            }
+          ],
+          "panel_id": "2d357c51-3dad-4aea-b059-38292e24442c"
+        }
+      ],
+      "cabinet_id": "23364a30-0026-4d92-b4b8-893dbc72cdc6"
+    }
+  ]
+}

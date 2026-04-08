@@ -1,0 +1,186 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_f2f8b277",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1600,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1600,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 65,
+              "part_height": 71,
+              "part_id": "134274"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 155,
+              "part_id": "134273"
+            },
+            {
+              "order": 3,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 65,
+              "part_height": 71,
+              "part_id": "134272"
+            },
+            {
+              "order": 4,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 65,
+              "part_height": 71,
+              "part_id": "134271"
+            },
+            {
+              "order": 5,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 155,
+              "part_id": "134270"
+            },
+            {
+              "order": 6,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 155,
+              "part_id": "13426F"
+            },
+            {
+              "order": 7,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 65,
+              "part_height": 71,
+              "part_id": "13426E"
+            },
+            {
+              "order": 8,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 155,
+              "part_id": "13426D"
+            },
+            {
+              "order": 9,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 65,
+              "part_height": 71,
+              "part_id": "13426C"
+            },
+            {
+              "order": 10,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 65,
+              "part_height": 71,
+              "part_id": "13426B"
+            },
+            {
+              "order": 11,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 82,
+              "part_id": "13426A"
+            },
+            {
+              "order": 12,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 24,
+              "part_height": 43,
+              "part_id": "134269"
+            },
+            {
+              "order": 13,
+              "part_type": "隔离开关",
+              "part_model": "",
+              "part_width": 170,
+              "part_height": 135,
+              "part_id": "134268"
+            },
+            {
+              "order": 14,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 90,
+              "part_id": "134267"
+            },
+            {
+              "order": 15,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 190,
+              "part_height": 110,
+              "part_id": "134266"
+            },
+            {
+              "order": 16,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 135,
+              "part_id": "134265"
+            },
+            {
+              "order": 17,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 155,
+              "part_id": "134264"
+            },
+            {
+              "order": 18,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 155,
+              "part_id": "134263"
+            },
+            {
+              "order": 19,
+              "part_type": "后备保护断路器",
+              "part_model": "",
+              "part_width": 82,
+              "part_height": 134,
+              "part_id": "134262"
+            },
+            {
+              "order": 20,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 530,
+              "part_height": 176,
+              "part_id": "134204"
+            }
+          ],
+          "panel_id": "47775bb8-16a0-4962-a5f3-cbc9fbb840c9"
+        }
+      ],
+      "cabinet_id": "654acf82-fdf1-4bbb-b7ea-3466a5436dfa"
+    }
+  ]
+}

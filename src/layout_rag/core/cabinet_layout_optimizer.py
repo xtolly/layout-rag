@@ -12,18 +12,21 @@
 软约束（优先级 1 > 2）：
   1. 占位类型的面板（part_type 含 "占位"）：
        - 宽 > 高 → 从上往下排列（权重10000），从左往右排列（权重100）
-       - 高 >= 宽 → 从右往左排（权重1000），从上往下排（权重100）
-  2. 其他面板 → 从上往下排列（权重10），从左往右排列（权重1）
+             - 高 >= 宽 → 从右往左排（权重10000），从下往上排（权重100）
+    2. 其他面板 → 从上往下排列（权重10），从左往右排列（权重1）
+         且默认面板优先于抽屉面板，默认面板在上，抽屉面板在下。
 """
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 
 from ortools.sat.python import cp_model
 
 
 ZHANWEI_KEYWORD = "占位"
+DEFAULT_PANEL_KEYWORD = "默认面板"
+DRAWER_PANEL_KEYWORD = "抽屉面板"
 
 # ---------------------------------------------------------------------------
 # 软约束权重
@@ -31,9 +34,22 @@ ZHANWEI_KEYWORD = "占位"
 WEIGHT_ZHANWEI_WIDE_Y = 10000   # 占位(宽>高) 从上往下
 WEIGHT_ZHANWEI_WIDE_X = 100     # 占位(宽>高) 从左往右
 WEIGHT_ZHANWEI_TALL_X = 10000   # 占位(高>=宽) 从右往左
-WEIGHT_ZHANWEI_TALL_Y = 100     # 占位(高>=宽) 从上往下
+WEIGHT_ZHANWEI_TALL_Y = 100     # 占位(高>=宽) 从下往上
 WEIGHT_OTHER_Y        = 10      # 其他面板 从上往下
 WEIGHT_OTHER_X        = 1       # 其他面板 从左往右
+WEIGHT_DEFAULT_ABOVE_DRAWER = 100000
+
+
+def _is_zhanwei_panel(part_type: str) -> bool:
+    return ZHANWEI_KEYWORD in part_type
+
+
+def _is_default_panel(part_type: str) -> bool:
+    return DEFAULT_PANEL_KEYWORD in part_type
+
+
+def _is_drawer_panel(part_type: str) -> bool:
+    return DRAWER_PANEL_KEYWORD in part_type
 
 def compute_cabinet_arrange(
     cabinet_width: float,
@@ -76,6 +92,9 @@ def compute_cabinet_arrange(
 
     x_vars:      Dict[str, cp_model.IntVar] = {}
     y_vars:      Dict[str, cp_model.IntVar] = {}
+    width_map:   Dict[str, int] = {}
+    height_map:  Dict[str, int] = {}
+    type_map:    Dict[str, str] = {}
     x_intervals: list = []
     y_intervals: list = []
     cost_terms:  list = []
@@ -93,14 +112,17 @@ def compute_cabinet_arrange(
         y = model.NewIntVar(0, y_hi, f"y_{pid}")
         x_vars[pid] = x
         y_vars[pid] = y
+        width_map[pid] = w
+        height_map[pid] = h
+        type_map[pid] = str(p.get("part_type", ""))
 
         # ── NoOverlap2D 所需的区间变量 ──
         x_intervals.append(model.NewIntervalVar(x, w, x + w, f"xi_{pid}"))
         y_intervals.append(model.NewIntervalVar(y, h, y + h, f"yi_{pid}"))
 
         # ── 按分类添加软约束代价项 ──
-        part_type = p.get("part_type", "")
-        is_zhanwei = ZHANWEI_KEYWORD in part_type
+        part_type = type_map[pid]
+        is_zhanwei = _is_zhanwei_panel(part_type)
 
         if is_zhanwei and w > h:
             # 占位(宽>高)：从上往下（10000），从左往右（100）
@@ -108,17 +130,38 @@ def compute_cabinet_arrange(
             cost_terms.append(WEIGHT_ZHANWEI_WIDE_X * x)
 
         elif is_zhanwei:
-            # 占位(高>=宽)：从右往左（1000），从上往下（100）
-            # 从右往左 ⇔ 最大化 x ⇔ 最小化 (x_hi − x)
+            # 占位(高>=宽)：从右往左（10000），从下往上（100）
+            # 从右往左 / 从下往上 ⇔ 最大化坐标 ⇔ 最小化 (hi − var)
             neg_x = model.NewIntVar(0, x_hi, f"neg_x_{pid}")
+            neg_y = model.NewIntVar(0, y_hi, f"neg_y_{pid}")
             model.Add(neg_x == x_hi - x)
+            model.Add(neg_y == y_hi - y)
             cost_terms.append(WEIGHT_ZHANWEI_TALL_X * neg_x)
-            cost_terms.append(WEIGHT_ZHANWEI_TALL_Y * y)
+            cost_terms.append(WEIGHT_ZHANWEI_TALL_Y * neg_y)
 
         else:
             # 其他面板：从上往下（10），从左往右（1）
             cost_terms.append(WEIGHT_OTHER_Y * y)
             cost_terms.append(WEIGHT_OTHER_X * x)
+
+    # ── 软约束：默认面板在上，抽屉面板在下 ──
+    part_ids = [p["part_id"] for p in parts]
+    for default_id in part_ids:
+        if _is_zhanwei_panel(type_map[default_id]) or not _is_default_panel(type_map[default_id]):
+            continue
+        default_bottom = model.NewIntVar(0, max_y, f"default_bottom_{default_id}")
+        model.Add(default_bottom == y_vars[default_id] + height_map[default_id])
+
+        for drawer_id in part_ids:
+            if default_id == drawer_id:
+                continue
+            if _is_zhanwei_panel(type_map[drawer_id]) or not _is_drawer_panel(type_map[drawer_id]):
+                continue
+
+            default_above = model.NewBoolVar(f"default_above_{default_id}_{drawer_id}")
+            model.Add(default_bottom <= y_vars[drawer_id]).OnlyEnforceIf(default_above)
+            model.Add(default_bottom >= y_vars[drawer_id] + 1).OnlyEnforceIf(default_above.Not())
+            cost_terms.append(WEIGHT_DEFAULT_ABOVE_DRAWER * (1 - default_above))
 
     # ── 硬约束：不重叠 ──
     model.AddNoOverlap2D(x_intervals, y_intervals)

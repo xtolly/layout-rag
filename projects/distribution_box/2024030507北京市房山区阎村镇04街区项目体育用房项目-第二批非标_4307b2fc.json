@@ -1,0 +1,170 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_4307b2fc",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1400,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1400,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "分线端子",
+              "part_model": "",
+              "part_width": 43,
+              "part_height": 149,
+              "part_id": "1351AA"
+            },
+            {
+              "order": 2,
+              "part_type": "分线端子",
+              "part_model": "",
+              "part_width": 43,
+              "part_height": 149,
+              "part_id": "1351A9"
+            },
+            {
+              "order": 3,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "1351A8"
+            },
+            {
+              "order": 4,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 33,
+              "part_height": 43,
+              "part_id": "1351A7"
+            },
+            {
+              "order": 5,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 126,
+              "part_height": 82,
+              "part_id": "1351A6"
+            },
+            {
+              "order": 6,
+              "part_type": "火灾监控探测器",
+              "part_model": "",
+              "part_width": 110,
+              "part_height": 94,
+              "part_id": "1351A5"
+            },
+            {
+              "order": 7,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 82,
+              "part_id": "1351A4"
+            },
+            {
+              "order": 8,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 24,
+              "part_height": 43,
+              "part_id": "1351A3"
+            },
+            {
+              "order": 9,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 265,
+              "part_height": 272,
+              "part_id": "1351A2"
+            },
+            {
+              "order": 10,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "1351A1"
+            },
+            {
+              "order": 11,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 90,
+              "part_id": "1351A0"
+            },
+            {
+              "order": 12,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 105,
+              "part_height": 55,
+              "part_id": "13519F"
+            },
+            {
+              "order": 13,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 135,
+              "part_id": "13519E"
+            },
+            {
+              "order": 14,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 155,
+              "part_id": "13519D"
+            },
+            {
+              "order": 15,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "13519C"
+            },
+            {
+              "order": 16,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "13519B"
+            },
+            {
+              "order": 17,
+              "part_type": "后备保护断路器",
+              "part_model": "",
+              "part_width": 82,
+              "part_height": 134,
+              "part_id": "13519A"
+            },
+            {
+              "order": 18,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 530,
+              "part_height": 176,
+              "part_id": "13513C"
+            }
+          ],
+          "panel_id": "fe8079fd-34b4-4f57-bcfb-38c93f03024f"
+        }
+      ],
+      "cabinet_id": "dd509a2b-6559-4762-adf7-7be211635d5b"
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_056f9fdb",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 700,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 700,
+          "panel_height": 2200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "75EB8"
+            },
+            {
+              "order": 2,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "75EB7"
+            },
+            {
+              "order": 3,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "75EB6"
+            },
+            {
+              "order": 4,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "75EB5"
+            },
+            {
+              "order": 5,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "75EB4"
+            },
+            {
+              "order": 6,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "75EB1"
+            },
+            {
+              "order": 7,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "75EB0"
+            },
+            {
+              "order": 8,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "75EAF"
+            },
+            {
+              "order": 9,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "75EAE"
+            },
+            {
+              "order": 10,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 319,
+              "part_height": 195,
+              "part_id": "75EAD"
+            },
+            {
+              "order": 11,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "75EAC"
+            },
+            {
+              "order": 12,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "75EAB"
+            },
+            {
+              "order": 13,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "75EA9"
+            },
+            {
+              "order": 14,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "75EA8"
+            },
+            {
+              "order": 15,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "75EA7"
+            },
+            {
+              "order": 16,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "75EA6"
+            },
+            {
+              "order": 17,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "75EA5"
+            },
+            {
+              "order": 18,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "75EA4"
+            },
+            {
+              "order": 19,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "75EA3"
+            },
+            {
+              "order": 20,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "75EA2"
+            },
+            {
+              "order": 21,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "75EA1"
+            },
+            {
+              "order": 22,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "75EA0"
+            },
+            {
+              "order": 23,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "75E9F"
+            },
+            {
+              "order": 24,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "75E9E"
+            },
+            {
+              "order": 25,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 83,
+              "part_id": "75E9D"
+            }
+          ],
+          "panel_id": "7202893d-1a75-4439-b833-e7af79ecd2ea"
+        }
+      ],
+      "cabinet_id": "e47895fb-4db0-45cb-9158-e873e51f4635"
+    }
+  ]
+}

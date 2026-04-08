@@ -1,0 +1,122 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_c451135c",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1100,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1100,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "68D17"
+            },
+            {
+              "order": 2,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "68D16"
+            },
+            {
+              "order": 3,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "68D15"
+            },
+            {
+              "order": 4,
+              "part_type": "时控开关",
+              "part_model": "",
+              "part_width": 74,
+              "part_height": 126,
+              "part_id": "68D14"
+            },
+            {
+              "order": 5,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "68D12"
+            },
+            {
+              "order": 6,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 125,
+              "part_height": 30,
+              "part_id": "68D11"
+            },
+            {
+              "order": 7,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "68D10"
+            },
+            {
+              "order": 8,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "68D0F"
+            },
+            {
+              "order": 9,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "68D0E"
+            },
+            {
+              "order": 10,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "68D0D"
+            },
+            {
+              "order": 11,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "68D0C"
+            },
+            {
+              "order": 12,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 83,
+              "part_id": "68D0B"
+            }
+          ],
+          "panel_id": "0842ec5e-b8c8-45d5-8c78-7acd612e3577"
+        }
+      ],
+      "cabinet_id": "0b46eb9e-c3be-4bf3-994f-8971b9a27968"
+    }
+  ]
+}

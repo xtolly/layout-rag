@@ -1,0 +1,114 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "明湖智谷22CT11_a2a29e25",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1300,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1300,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "15189"
+            },
+            {
+              "order": 2,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 60,
+              "part_height": 33,
+              "part_id": "15188"
+            },
+            {
+              "order": 3,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 60,
+              "part_height": 33,
+              "part_id": "15187"
+            },
+            {
+              "order": 4,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 60,
+              "part_height": 33,
+              "part_id": "15186"
+            },
+            {
+              "order": 5,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "15185"
+            },
+            {
+              "order": 6,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 115,
+              "part_height": 75,
+              "part_id": "15184"
+            },
+            {
+              "order": 7,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 91,
+              "part_height": 100,
+              "part_id": "15183"
+            },
+            {
+              "order": 8,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "15182"
+            },
+            {
+              "order": 9,
+              "part_type": "隔离开关",
+              "part_model": "",
+              "part_width": 142,
+              "part_height": 135,
+              "part_id": "15181"
+            },
+            {
+              "order": 10,
+              "part_type": "隔离开关",
+              "part_model": "",
+              "part_width": 142,
+              "part_height": 135,
+              "part_id": "15180"
+            },
+            {
+              "order": 11,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 289,
+              "part_height": 136,
+              "part_id": "1517F"
+            }
+          ],
+          "panel_id": "690536d9-c836-4882-b28b-db4f34e7575d"
+        }
+      ],
+      "cabinet_id": "4cfcca0b-04de-466a-913c-f46c6e47bbc6"
+    }
+  ]
+}

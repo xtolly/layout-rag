@@ -3,8 +3,8 @@
     "uuid": "1e7ffc51-cf09-4de2-8415-fd1724fef1d5",
     "scheme": {
         "industry": "",
-        "cabinet_type": "配电柜",
-        "panel_type": "安装板",
+        "cabinet_use": "配电柜",
+        "panel_type": "默认面板",
         "panel_size": [
             500.0,
             1000.0

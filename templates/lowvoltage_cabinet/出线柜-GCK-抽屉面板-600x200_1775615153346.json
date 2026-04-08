@@ -1,0 +1,57 @@
+{
+  "name": "出线柜-GCK-抽屉面板-600x200",
+  "uuid": "92007f52-a7c9-491e-b567-7d20de821599",
+  "scheme": {
+    "cabinet_id": "f24160ee-301e-40ea-a740-3f0adddfc466",
+    "cabinet_name": "1-1AA5",
+    "cabinet_use": "出线柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "上进上出",
+    "panel_id": "af26bd6d-87cc-431a-94af-d73277e69781",
+    "panel_type": "抽屉面板",
+    "panel_operation_method": "抽屉式",
+    "panel_main_circuit_current": 250,
+    "panel_main_circuit_poles": 3,
+    "panel_height_module": "",
+    "panel_size": [
+      600,
+      200
+    ],
+    "parts": [
+      {
+        "part_id": "c9370200-7b62-4680-8fbf-918605f826af",
+        "part_type": "塑壳式断路器",
+        "part_model": "NM1-250R/3P 250A",
+        "part_size": [
+          100,
+          100
+        ]
+      },
+      {
+        "part_id": "61182ea2-da30-42e1-b38f-ee00a7ceab31",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          120,
+          80
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "c9370200-7b62-4680-8fbf-918605f826af": {
+      "position": [
+        137,
+        50
+      ],
+      "rotation": 0
+    },
+    "61182ea2-da30-42e1-b38f-ee00a7ceab31": {
+      "position": [
+        357,
+        60
+      ],
+      "rotation": 0
+    }
+  }
+}

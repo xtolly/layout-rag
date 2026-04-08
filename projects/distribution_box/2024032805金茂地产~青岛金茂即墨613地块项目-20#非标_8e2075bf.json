@@ -1,0 +1,274 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024032805金茂地产~青岛金茂即墨613地块项目-20#非标_8e2075bf",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 800,
+      "cabinet_height": 2203,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 800,
+          "panel_height": 2203,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 33,
+              "part_height": 43,
+              "part_id": "8B12"
+            },
+            {
+              "order": 2,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 82,
+              "part_id": "8B11"
+            },
+            {
+              "order": 3,
+              "part_type": "火灾监控探测器",
+              "part_model": "",
+              "part_width": 41,
+              "part_height": 97,
+              "part_id": "8B10"
+            },
+            {
+              "order": 4,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 65,
+              "part_height": 71,
+              "part_id": "8B0F"
+            },
+            {
+              "order": 5,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 730,
+              "part_height": 179,
+              "part_id": "8A2E"
+            },
+            {
+              "order": 6,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "89A6"
+            },
+            {
+              "order": 7,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "89A5"
+            },
+            {
+              "order": 8,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "89A4"
+            },
+            {
+              "order": 9,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "89A3"
+            },
+            {
+              "order": 10,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "89A2"
+            },
+            {
+              "order": 11,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "89A1"
+            },
+            {
+              "order": 12,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "89A0"
+            },
+            {
+              "order": 13,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "899F"
+            },
+            {
+              "order": 14,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "899E"
+            },
+            {
+              "order": 15,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "899D"
+            },
+            {
+              "order": 16,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "899C"
+            },
+            {
+              "order": 17,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "899B"
+            },
+            {
+              "order": 18,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "899A"
+            },
+            {
+              "order": 19,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "8999"
+            },
+            {
+              "order": 20,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 145,
+              "part_height": 255,
+              "part_id": "8998"
+            },
+            {
+              "order": 21,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 277,
+              "part_height": 80,
+              "part_id": "8997"
+            },
+            {
+              "order": 22,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 109,
+              "part_height": 165,
+              "part_id": "8996"
+            },
+            {
+              "order": 23,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 93,
+              "part_height": 155,
+              "part_id": "8995"
+            },
+            {
+              "order": 24,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "8994"
+            },
+            {
+              "order": 25,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "8993"
+            },
+            {
+              "order": 26,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "8992"
+            },
+            {
+              "order": 27,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "8991"
+            },
+            {
+              "order": 28,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "8990"
+            },
+            {
+              "order": 29,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "898F"
+            },
+            {
+              "order": 30,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "898E"
+            },
+            {
+              "order": 31,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "898D"
+            }
+          ],
+          "panel_id": "096cdc6d-4e19-4b1e-a512-d815aca98fb0"
+        }
+      ],
+      "cabinet_id": "3baa3e19-fc93-4a71-ba74-62b18200f72b"
+    }
+  ]
+}

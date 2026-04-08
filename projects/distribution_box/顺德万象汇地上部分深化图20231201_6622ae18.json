@@ -1,0 +1,90 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_6622ae18",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1100,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1100,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "2C0A4"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "2C0A3"
+            },
+            {
+              "order": 3,
+              "part_type": "隔离开关",
+              "part_model": "",
+              "part_width": 170,
+              "part_height": 135,
+              "part_id": "2C0A1"
+            },
+            {
+              "order": 4,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "2C0A0"
+            },
+            {
+              "order": 5,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "2C081"
+            },
+            {
+              "order": 6,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 85,
+              "part_height": 40,
+              "part_id": "2C080"
+            },
+            {
+              "order": 7,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 85,
+              "part_height": 40,
+              "part_id": "2C07F"
+            },
+            {
+              "order": 8,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 85,
+              "part_height": 40,
+              "part_id": "2C079"
+            }
+          ],
+          "panel_id": "a9923705-55d5-4101-9312-65fa0338d3dd"
+        }
+      ],
+      "cabinet_id": "7ee42bcc-d9e3-4266-9253-58662d318ab4"
+    }
+  ]
+}

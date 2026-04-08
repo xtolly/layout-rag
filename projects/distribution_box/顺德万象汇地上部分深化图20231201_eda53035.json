@@ -1,0 +1,74 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_eda53035",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 319,
+              "part_height": 195,
+              "part_id": "3B7C2"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 107,
+              "part_height": 165,
+              "part_id": "3B7C1"
+            },
+            {
+              "order": 3,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "3B7C0"
+            },
+            {
+              "order": 4,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "3B7BF"
+            },
+            {
+              "order": 5,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "3B7BE"
+            },
+            {
+              "order": 6,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "3B7BC"
+            }
+          ],
+          "panel_id": "432e7f81-ae18-40ab-becf-d4b253c8f565"
+        }
+      ],
+      "cabinet_id": "317e2736-3fc3-480c-8df3-e8af86cf926a"
+    }
+  ]
+}

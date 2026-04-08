@@ -21,7 +21,7 @@ import os
 import uuid as _uuid
 from contextvars import ContextVar
 from enum import StrEnum
-from typing import Annotated, Optional, Literal, Any
+from typing import Annotated, Optional, Literal
 
 from langchain_core.messages import SystemMessage
 from langchain_core.tools import tool
@@ -215,6 +215,8 @@ class PanelInput(ConfiguredInputModel):
         default="",
         description=f"操作方式；配置可选值：{_format_option_list(OPERATION_METHOD_OPTIONS)}；无法识别时留空",
     )
+    main_circuit_current: Optional[int] = Field(default=None, description="主回路电流(A)，未知时留空")
+    main_circuit_poles: Optional[int] = Field(default=None, description="主回路极数，未知时留空")
     panel_width: int = Field(default=800, description="面板宽度(mm)，未知时按柜体宽度推测")
     panel_height: int = Field(default=2200, description="面板高度(mm)，未知时按柜体高度推测")
     parts: list[PartInput] = Field(default_factory=list)
@@ -274,6 +276,8 @@ class EditPanelInput(BaseModel):
     operation_method: Optional[OptionalOperationMethodOption] = Field(
         default=None, description=f"操作方式；配置可选值：{_format_option_list(OPERATION_METHOD_OPTIONS)}"
     )
+    main_circuit_current: Optional[int] = Field(default=None, description="主回路电流(A)")
+    main_circuit_poles: Optional[int] = Field(default=None, description="主回路极数")
     panel_width: Optional[int] = Field(default=None, description="面板宽度(mm)")
     panel_height: Optional[int] = Field(default=None, description="面板高度(mm)")
 

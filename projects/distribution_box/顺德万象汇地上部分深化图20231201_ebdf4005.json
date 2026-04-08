@@ -1,0 +1,250 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_ebdf4005",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 800,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 800,
+          "panel_height": 2200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "724A6"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "724A5"
+            },
+            {
+              "order": 3,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "724A4"
+            },
+            {
+              "order": 4,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "724A3"
+            },
+            {
+              "order": 5,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "724A0"
+            },
+            {
+              "order": 6,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "7249F"
+            },
+            {
+              "order": 7,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "7249E"
+            },
+            {
+              "order": 8,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "7249D"
+            },
+            {
+              "order": 9,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "7249C"
+            },
+            {
+              "order": 10,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "7249B"
+            },
+            {
+              "order": 11,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "7249A"
+            },
+            {
+              "order": 12,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "72499"
+            },
+            {
+              "order": 13,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "72498"
+            },
+            {
+              "order": 14,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 70,
+              "part_height": 74,
+              "part_id": "72497"
+            },
+            {
+              "order": 15,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "72496"
+            },
+            {
+              "order": 16,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "72495"
+            },
+            {
+              "order": 17,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "72494"
+            },
+            {
+              "order": 18,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "72493"
+            },
+            {
+              "order": 19,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "72492"
+            },
+            {
+              "order": 20,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "72491"
+            },
+            {
+              "order": 21,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 94,
+              "part_id": "7248F"
+            },
+            {
+              "order": 22,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 319,
+              "part_height": 195,
+              "part_id": "7248E"
+            },
+            {
+              "order": 23,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "7248B"
+            },
+            {
+              "order": 24,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "7248A"
+            },
+            {
+              "order": 25,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "72489"
+            },
+            {
+              "order": 26,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "72488"
+            },
+            {
+              "order": 27,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "72487"
+            },
+            {
+              "order": 28,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 318,
+              "part_height": 75,
+              "part_id": "72486"
+            }
+          ],
+          "panel_id": "bdbd58ce-2609-43d5-b47b-b8618710be4b"
+        }
+      ],
+      "cabinet_id": "0bb6d8f7-8799-4679-8045-3522fd2b642a"
+    }
+  ]
+}

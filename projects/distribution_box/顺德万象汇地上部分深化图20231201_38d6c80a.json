@@ -1,0 +1,186 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_38d6c80a",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 700,
+      "cabinet_height": 1400,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 700,
+          "panel_height": 1400,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 83,
+              "part_height": 148,
+              "part_id": "6C7C7"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "6C7C6"
+            },
+            {
+              "order": 3,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "6C7C5"
+            },
+            {
+              "order": 4,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "6C7C4"
+            },
+            {
+              "order": 5,
+              "part_type": "时控开关",
+              "part_model": "",
+              "part_width": 74,
+              "part_height": 126,
+              "part_id": "6C7C3"
+            },
+            {
+              "order": 6,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "6C7C2"
+            },
+            {
+              "order": 7,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "6C7C1"
+            },
+            {
+              "order": 8,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "6C7C0"
+            },
+            {
+              "order": 9,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 128,
+              "part_id": "6C7BF"
+            },
+            {
+              "order": 10,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 83,
+              "part_id": "6C7BE"
+            },
+            {
+              "order": 11,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "6C7BD"
+            },
+            {
+              "order": 12,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 83,
+              "part_height": 148,
+              "part_id": "6C7BC"
+            },
+            {
+              "order": 13,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 107,
+              "part_height": 165,
+              "part_id": "6C7BA"
+            },
+            {
+              "order": 14,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 125,
+              "part_height": 30,
+              "part_id": "6C7B9"
+            },
+            {
+              "order": 15,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "6C7B8"
+            },
+            {
+              "order": 16,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "6C7B7"
+            },
+            {
+              "order": 17,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "6C7B6"
+            },
+            {
+              "order": 18,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 83,
+              "part_height": 148,
+              "part_id": "6C7B5"
+            },
+            {
+              "order": 19,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 83,
+              "part_height": 148,
+              "part_id": "6C7B4"
+            },
+            {
+              "order": 20,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 83,
+              "part_height": 148,
+              "part_id": "6C7B3"
+            }
+          ],
+          "panel_id": "c53c46b4-0e4d-451e-82b8-ae966f8d684b"
+        }
+      ],
+      "cabinet_id": "b819e9b9-586a-4d8c-af42-027aa3e70c42"
+    }
+  ]
+}

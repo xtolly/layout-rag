@@ -51,10 +51,8 @@ class LowvoltageCabinetDomain(BusinessDomain):
             # 大型元件比例
             "large_part_ratio":   {"type": "continuous", "weight": 1.0, "display_name": "大型元件占比"},
             # 主回路特征
-            "panel_main_circuit_current": {"type": "continuous", "weight": 2.0, "display_name": "主回路电流"},
-            "panel_main_circuit_poles":   {"type": "continuous", "weight": 2.0, "display_name": "主回路极数"},
-            # 高度模数
-            "panel_height_module":        {"type": "continuous", "weight": 3.0, "display_name": "高度模数"},
+            "panel_main_circuit_current": {"type": "continuous", "weight": 1.0, "display_name": "主回路电流"},
+            "panel_main_circuit_poles":   {"type": "continuous", "weight": 1.0, "display_name": "主回路极数"},
         }
 
     # ------------------------------------------------------------------
@@ -78,7 +76,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
                 "source": "scheme",
                 "field": "cabinet_use",
                 "feature_type": "boolean",
-                "weight": 5.0,
+                "weight": 10.0,
                 "feature_name_template": "cabinet_use_{value}",
                 "display_name_template": "柜体用途:{value}",
             },
@@ -87,7 +85,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
                 "source": "scheme",
                 "field": "cabinet_model",
                 "feature_type": "boolean",
-                "weight": 4.0,
+                "weight": 2.0,
                 "feature_name_template": "cabinet_model_{value}",
                 "display_name_template": "柜体型号:{value}",
             },
@@ -96,7 +94,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
                 "source": "scheme",
                 "field": "cabinet_wiring_method",
                 "feature_type": "boolean",
-                "weight": 3.0,
+                "weight": 2.0,
                 "feature_name_template": "cabinet_wiring_method_{value}",
                 "display_name_template": "进出线方式:{value}",
             },
@@ -105,7 +103,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
                 "source": "scheme",
                 "field": "panel_type",
                 "feature_type": "boolean",
-                "weight": 5.0,
+                "weight": 10.0,
                 "feature_name_template": "panel_type_{value}",
                 "display_name_template": "面板类型:{value}",
             },
@@ -131,11 +129,6 @@ class LowvoltageCabinetDomain(BusinessDomain):
         current = meta.get("panel_main_circuit_current", 0.0)
         poles = meta.get("panel_main_circuit_poles", 0.0)
         
-        # 处理高度模数 (如 '8E' -> 8.0)
-        h_mod = str(meta.get("panel_height_module", "")).strip().upper()
-        if h_mod.endswith('E'):
-            h_mod = h_mod[:-1]
-        
         try:
             features["panel_main_circuit_current"] = float(current) if current is not None else 0.0
         except (ValueError, TypeError):
@@ -145,11 +138,6 @@ class LowvoltageCabinetDomain(BusinessDomain):
             features["panel_main_circuit_poles"] = float(poles) if poles is not None else 0.0
         except (ValueError, TypeError):
             features["panel_main_circuit_poles"] = 0.0
-            
-        try:
-            features["panel_height_module"] = float(h_mod) if h_mod else 0.0
-        except (ValueError, TypeError):
-            features["panel_height_module"] = 0.0
             
         return features
 

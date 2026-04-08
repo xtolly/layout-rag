@@ -1,0 +1,314 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "2024030507北京市房山区阎村镇04街区项目体育用房项目-第二批非标_2e83659f",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 600,
+      "cabinet_height": 1200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 600,
+          "panel_height": 1200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "零排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 172,
+              "part_id": "135B74"
+            },
+            {
+              "order": 2,
+              "part_type": "地排",
+              "part_model": "",
+              "part_width": 15,
+              "part_height": 184,
+              "part_id": "135B73"
+            },
+            {
+              "order": 3,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "135B70"
+            },
+            {
+              "order": 4,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "135B6F"
+            },
+            {
+              "order": 5,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "135B6E"
+            },
+            {
+              "order": 6,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "135B6D"
+            },
+            {
+              "order": 7,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "135B6C"
+            },
+            {
+              "order": 8,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "135B6B"
+            },
+            {
+              "order": 9,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "135B6A"
+            },
+            {
+              "order": 10,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "135B69"
+            },
+            {
+              "order": 11,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "135B68"
+            },
+            {
+              "order": 12,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 30,
+              "part_height": 71,
+              "part_id": "135B67"
+            },
+            {
+              "order": 13,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 30,
+              "part_height": 71,
+              "part_id": "135B66"
+            },
+            {
+              "order": 14,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "135B65"
+            },
+            {
+              "order": 15,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "135B64"
+            },
+            {
+              "order": 16,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 25,
+              "part_height": 43,
+              "part_id": "135B63"
+            },
+            {
+              "order": 17,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "135B62"
+            },
+            {
+              "order": 18,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "135B61"
+            },
+            {
+              "order": 19,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 82,
+              "part_id": "135B60"
+            },
+            {
+              "order": 20,
+              "part_type": "时间继电器",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 71,
+              "part_id": "135B5F"
+            },
+            {
+              "order": 21,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 108,
+              "part_height": 82,
+              "part_id": "135B5E"
+            },
+            {
+              "order": 22,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 33,
+              "part_height": 43,
+              "part_id": "135B5D"
+            },
+            {
+              "order": 23,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 82,
+              "part_id": "135B5C"
+            },
+            {
+              "order": 24,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "135B59"
+            },
+            {
+              "order": 25,
+              "part_type": "端子堵头",
+              "part_model": "",
+              "part_width": 9,
+              "part_height": 42,
+              "part_id": "135B58"
+            },
+            {
+              "order": 26,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 27,
+              "part_height": 121,
+              "part_id": "135B57"
+            },
+            {
+              "order": 27,
+              "part_type": "分线端子",
+              "part_model": "",
+              "part_width": 43,
+              "part_height": 149,
+              "part_id": "135B56"
+            },
+            {
+              "order": 28,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "135B55"
+            },
+            {
+              "order": 29,
+              "part_type": "分线端子",
+              "part_model": "",
+              "part_width": 43,
+              "part_height": 149,
+              "part_id": "135B54"
+            },
+            {
+              "order": 30,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "135B53"
+            },
+            {
+              "order": 31,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 265,
+              "part_height": 272,
+              "part_id": "135B52"
+            },
+            {
+              "order": 32,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 56,
+              "part_height": 186,
+              "part_id": "135B51"
+            },
+            {
+              "order": 33,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 135,
+              "part_id": "135B50"
+            },
+            {
+              "order": 34,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 135,
+              "part_id": "135B4F"
+            },
+            {
+              "order": 35,
+              "part_type": "火灾监控探测器",
+              "part_model": "",
+              "part_width": 110,
+              "part_height": 94,
+              "part_id": "135B4E"
+            },
+            {
+              "order": 36,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 190,
+              "part_height": 110,
+              "part_id": "135B4D"
+            }
+          ],
+          "panel_id": "6cdd719e-2807-4080-98b4-60aece764d09"
+        }
+      ],
+      "cabinet_id": "4128e04e-afb3-40c8-9235-f7ec354690c7"
+    }
+  ]
+}

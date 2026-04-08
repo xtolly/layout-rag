@@ -1,0 +1,122 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_5ce58532",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 700,
+      "cabinet_height": 1100,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 700,
+          "panel_height": 1100,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "6EF2A"
+            },
+            {
+              "order": 2,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "6EF29"
+            },
+            {
+              "order": 3,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "6EF25"
+            },
+            {
+              "order": 4,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 125,
+              "part_height": 30,
+              "part_id": "6EF24"
+            },
+            {
+              "order": 5,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "6EF23"
+            },
+            {
+              "order": 6,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "6EF22"
+            },
+            {
+              "order": 7,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "6EF21"
+            },
+            {
+              "order": 8,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "6EF02"
+            },
+            {
+              "order": 9,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "6EF01"
+            },
+            {
+              "order": 10,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "6EF00"
+            },
+            {
+              "order": 11,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "6EEFF"
+            },
+            {
+              "order": 12,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "6EEFE"
+            }
+          ],
+          "panel_id": "b1dc9fc2-b240-4c45-a55f-caaff0d6d204"
+        }
+      ],
+      "cabinet_id": "4a67c2dc-ac4c-4dc4-b6a5-27c22c83ff89"
+    }
+  ]
+}

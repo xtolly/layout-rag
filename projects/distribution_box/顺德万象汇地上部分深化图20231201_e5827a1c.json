@@ -1,0 +1,418 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_e5827a1c",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 900,
+      "cabinet_height": 1200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 900,
+          "panel_height": 1200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5410F"
+            },
+            {
+              "order": 2,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "5410E"
+            },
+            {
+              "order": 3,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "5410D"
+            },
+            {
+              "order": 4,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "5410C"
+            },
+            {
+              "order": 5,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "5410B"
+            },
+            {
+              "order": 6,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "5410A"
+            },
+            {
+              "order": 7,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "54109"
+            },
+            {
+              "order": 8,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 125,
+              "part_height": 30,
+              "part_id": "54108"
+            },
+            {
+              "order": 9,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "54107"
+            },
+            {
+              "order": 10,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "54106"
+            },
+            {
+              "order": 11,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "54105"
+            },
+            {
+              "order": 12,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "54104"
+            },
+            {
+              "order": 13,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "54103"
+            },
+            {
+              "order": 14,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 97,
+              "part_id": "54102"
+            },
+            {
+              "order": 15,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "54101"
+            },
+            {
+              "order": 16,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 97,
+              "part_id": "54100"
+            },
+            {
+              "order": 17,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "540FF"
+            },
+            {
+              "order": 18,
+              "part_type": "分线端子",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 8,
+              "part_id": "540FD"
+            },
+            {
+              "order": 19,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 69,
+              "part_height": 30,
+              "part_id": "540FC"
+            },
+            {
+              "order": 20,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540FA"
+            },
+            {
+              "order": 21,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540F8"
+            },
+            {
+              "order": 22,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540F6"
+            },
+            {
+              "order": 23,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540F4"
+            },
+            {
+              "order": 24,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 8,
+              "part_id": "540F3"
+            },
+            {
+              "order": 25,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540F1"
+            },
+            {
+              "order": 26,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 69,
+              "part_height": 30,
+              "part_id": "540F0"
+            },
+            {
+              "order": 27,
+              "part_type": "分线端子",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 8,
+              "part_id": "540EF"
+            },
+            {
+              "order": 28,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 69,
+              "part_height": 30,
+              "part_id": "540EE"
+            },
+            {
+              "order": 29,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540EC"
+            },
+            {
+              "order": 30,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 8,
+              "part_id": "540EB"
+            },
+            {
+              "order": 31,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 69,
+              "part_height": 30,
+              "part_id": "540EA"
+            },
+            {
+              "order": 32,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540E8"
+            },
+            {
+              "order": 33,
+              "part_type": "分线端子",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 8,
+              "part_id": "540E3"
+            },
+            {
+              "order": 34,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 69,
+              "part_height": 30,
+              "part_id": "540E2"
+            },
+            {
+              "order": 35,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540E0"
+            },
+            {
+              "order": 36,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540DE"
+            },
+            {
+              "order": 37,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540DC"
+            },
+            {
+              "order": 38,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540DA"
+            },
+            {
+              "order": 39,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 8,
+              "part_id": "540D9"
+            },
+            {
+              "order": 40,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540D7"
+            },
+            {
+              "order": 41,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 69,
+              "part_height": 30,
+              "part_id": "540D6"
+            },
+            {
+              "order": 42,
+              "part_type": "分线端子",
+              "part_model": "",
+              "part_width": 75,
+              "part_height": 8,
+              "part_id": "540C1"
+            },
+            {
+              "order": 43,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 69,
+              "part_height": 30,
+              "part_id": "540C0"
+            },
+            {
+              "order": 44,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "540BE"
+            },
+            {
+              "order": 45,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 8,
+              "part_id": "54095"
+            },
+            {
+              "order": 46,
+              "part_type": "熔断器",
+              "part_model": "",
+              "part_width": 69,
+              "part_height": 30,
+              "part_id": "53F67"
+            },
+            {
+              "order": 47,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 35,
+              "part_id": "53E72"
+            },
+            {
+              "order": 48,
+              "part_type": "变频器",
+              "part_model": "",
+              "part_width": 135,
+              "part_height": 296,
+              "part_id": "53E71"
+            },
+            {
+              "order": 49,
+              "part_type": "变频器",
+              "part_model": "",
+              "part_width": 135,
+              "part_height": 296,
+              "part_id": "53E70"
+            }
+          ],
+          "panel_id": "97747e42-4be6-4a8b-b9fb-4de8572c9ff9"
+        }
+      ],
+      "cabinet_id": "394712dc-bdd7-49d2-b283-dd1141d2785f"
+    }
+  ]
+}

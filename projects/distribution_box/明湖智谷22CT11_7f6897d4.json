@@ -1,0 +1,170 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "明湖智谷22CT11_7f6897d4",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 500,
+      "cabinet_height": 800,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 500,
+          "panel_height": 800,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 85,
+              "part_id": "14DB1"
+            },
+            {
+              "order": 2,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 85,
+              "part_id": "14DB0"
+            },
+            {
+              "order": 3,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 85,
+              "part_id": "14DAF"
+            },
+            {
+              "order": 4,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 85,
+              "part_id": "14D68"
+            },
+            {
+              "order": 5,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 54,
+              "part_height": 85,
+              "part_id": "14D67"
+            },
+            {
+              "order": 6,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 85,
+              "part_id": "14D66"
+            },
+            {
+              "order": 7,
+              "part_type": "双电源自动转换开关",
+              "part_model": "",
+              "part_width": 289,
+              "part_height": 136,
+              "part_id": "14D65"
+            },
+            {
+              "order": 8,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 85,
+              "part_id": "14D63"
+            },
+            {
+              "order": 9,
+              "part_type": "接线端子",
+              "part_model": "",
+              "part_width": 115,
+              "part_height": 75,
+              "part_id": "14D62"
+            },
+            {
+              "order": 10,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 85,
+              "part_id": "14D60"
+            },
+            {
+              "order": 11,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 85,
+              "part_id": "14D5F"
+            },
+            {
+              "order": 12,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 85,
+              "part_id": "14D5E"
+            },
+            {
+              "order": 13,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 60,
+              "part_height": 33,
+              "part_id": "14D5D"
+            },
+            {
+              "order": 14,
+              "part_type": "母线排",
+              "part_model": "",
+              "part_width": 115,
+              "part_height": 42,
+              "part_id": "14D5C"
+            },
+            {
+              "order": 15,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 60,
+              "part_height": 33,
+              "part_id": "14D5B"
+            },
+            {
+              "order": 16,
+              "part_type": "电流互感器",
+              "part_model": "",
+              "part_width": 60,
+              "part_height": 33,
+              "part_id": "14D5A"
+            },
+            {
+              "order": 17,
+              "part_type": "电源监控",
+              "part_model": "",
+              "part_width": 91,
+              "part_height": 100,
+              "part_id": "14D59"
+            },
+            {
+              "order": 18,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 18,
+              "part_height": 85,
+              "part_id": "14D58"
+            }
+          ],
+          "panel_id": "94fe9554-c661-4825-abf3-76cc774ae53d"
+        }
+      ],
+      "cabinet_id": "8c7845dc-d52c-4b5c-bac8-1d8e8642440f"
+    }
+  ]
+}

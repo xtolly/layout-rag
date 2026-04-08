@@ -1,0 +1,410 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "顺德万象汇地上部分深化图20231201_37ba4c56",
+      "cabinet_use": "配电柜",
+      "cabinet_model": "",
+      "wiring_method": "",
+      "cabinet_width": 1200,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "",
+          "panel_width": 1200,
+          "panel_height": 2200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "4DEA7"
+            },
+            {
+              "order": 2,
+              "part_type": "电能表",
+              "part_model": "",
+              "part_width": 144,
+              "part_height": 105,
+              "part_id": "4DEA6"
+            },
+            {
+              "order": 3,
+              "part_type": "变频器",
+              "part_model": "",
+              "part_width": 150,
+              "part_height": 334,
+              "part_id": "4DEA5"
+            },
+            {
+              "order": 4,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 432,
+              "part_height": 75,
+              "part_id": "4D1FF"
+            },
+            {
+              "order": 5,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 432,
+              "part_height": 75,
+              "part_id": "4C559"
+            },
+            {
+              "order": 6,
+              "part_type": "变频器",
+              "part_model": "",
+              "part_width": 150,
+              "part_height": 334,
+              "part_id": "4C557"
+            },
+            {
+              "order": 7,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 150,
+              "part_id": "4C555"
+            },
+            {
+              "order": 8,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "4C554"
+            },
+            {
+              "order": 9,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 107,
+              "part_height": 165,
+              "part_id": "4C553"
+            },
+            {
+              "order": 10,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 97,
+              "part_id": "4C552"
+            },
+            {
+              "order": 11,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "4C551"
+            },
+            {
+              "order": 12,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "4C550"
+            },
+            {
+              "order": 13,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4C54F"
+            },
+            {
+              "order": 14,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "4C54E"
+            },
+            {
+              "order": 15,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4C54D"
+            },
+            {
+              "order": 16,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "4C54C"
+            },
+            {
+              "order": 17,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4C54B"
+            },
+            {
+              "order": 18,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "4C54A"
+            },
+            {
+              "order": 19,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 148,
+              "part_height": 83,
+              "part_id": "4C1C3"
+            },
+            {
+              "order": 20,
+              "part_type": "变频器",
+              "part_model": "",
+              "part_width": 135,
+              "part_height": 296,
+              "part_id": "4C1C1"
+            },
+            {
+              "order": 21,
+              "part_type": "变频器",
+              "part_model": "",
+              "part_width": 135,
+              "part_height": 296,
+              "part_id": "4C1C0"
+            },
+            {
+              "order": 22,
+              "part_type": "变频器",
+              "part_model": "",
+              "part_width": 150,
+              "part_height": 334,
+              "part_id": "4C1BF"
+            },
+            {
+              "order": 23,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 432,
+              "part_height": 75,
+              "part_id": "4B519"
+            },
+            {
+              "order": 24,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 148,
+              "part_height": 83,
+              "part_id": "4B192"
+            },
+            {
+              "order": 25,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "4B191"
+            },
+            {
+              "order": 26,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "4B190"
+            },
+            {
+              "order": 27,
+              "part_type": "塑壳断路器",
+              "part_model": "",
+              "part_width": 122,
+              "part_height": 151,
+              "part_id": "4B18F"
+            },
+            {
+              "order": 28,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 97,
+              "part_id": "4B18E"
+            },
+            {
+              "order": 29,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "4B18D"
+            },
+            {
+              "order": 30,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4B18C"
+            },
+            {
+              "order": 31,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "4B18B"
+            },
+            {
+              "order": 32,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 56,
+              "part_height": 84,
+              "part_id": "4B18A"
+            },
+            {
+              "order": 33,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4B189"
+            },
+            {
+              "order": 34,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4B188"
+            },
+            {
+              "order": 35,
+              "part_type": "热继电器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 65,
+              "part_id": "4B187"
+            },
+            {
+              "order": 36,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4B186"
+            },
+            {
+              "order": 37,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4B185"
+            },
+            {
+              "order": 38,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4B184"
+            },
+            {
+              "order": 39,
+              "part_type": "接触器",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 75,
+              "part_id": "4B183"
+            },
+            {
+              "order": 40,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "4B182"
+            },
+            {
+              "order": 41,
+              "part_type": "浪涌保护器",
+              "part_model": "",
+              "part_width": 72,
+              "part_height": 79,
+              "part_id": "4B181"
+            },
+            {
+              "order": 42,
+              "part_type": "继电器+接线端子",
+              "part_model": "",
+              "part_width": 432,
+              "part_height": 75,
+              "part_id": "4A4DB"
+            },
+            {
+              "order": 43,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 97,
+              "part_id": "4A4DA"
+            },
+            {
+              "order": 44,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "4A4D9"
+            },
+            {
+              "order": 45,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 97,
+              "part_id": "4A4D8"
+            },
+            {
+              "order": 46,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "4A4D7"
+            },
+            {
+              "order": 47,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 117,
+              "part_height": 97,
+              "part_id": "4A4D6"
+            },
+            {
+              "order": 48,
+              "part_type": "微型断路器",
+              "part_model": "",
+              "part_width": 36,
+              "part_height": 85,
+              "part_id": "4A4D5"
+            }
+          ],
+          "panel_id": "f96ab5c6-708b-4b00-981d-c1c845b7b378"
+        }
+      ],
+      "cabinet_id": "a9a96569-da43-448b-baab-bda6f74b3cb3"
+    }
+  ]
+}

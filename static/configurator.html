@@ -604,6 +604,12 @@
                         <div class="flex flex-wrap gap-1 mt-2">
                             <span v-if="panel.operation_method" class="tag"
                                 style="background:rgba(79,70,229,0.1);color:#4f46e5">{{ panel.operation_method }}</span>
+                            <span v-if="panel.main_circuit_current !== null && panel.main_circuit_current !== undefined && panel.main_circuit_current !== ''"
+                                class="tag" style="background:rgba(14,165,233,0.1);color:#0369a1">{{
+                                panel.main_circuit_current }}A</span>
+                            <span v-if="panel.main_circuit_poles !== null && panel.main_circuit_poles !== undefined && panel.main_circuit_poles !== ''"
+                                class="tag" style="background:rgba(249,115,22,0.1);color:#c2410c">{{
+                                panel.main_circuit_poles }}P</span>
                         </div>
                     </div>
                 </div>
@@ -998,7 +1004,7 @@
 
         <!-- ── 柜体弹窗 ── -->
         <div v-if="cabinetModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
-            style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)" @click.self="cabinetModal.show=false">
+            style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)">
             <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-200/60">
                 <div class="px-7 pt-7 pb-2">
                     <h3 class="font-display font-bold text-xl text-slate-800">{{ cabinetModal.isNew?'添加柜体':'编辑柜体' }}
@@ -1059,8 +1065,8 @@
 
         <!-- ── 面板弹窗 ── -->
         <div v-if="panelModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
-            style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)" @click.self="panelModal.show=false">
-            <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-sm border border-slate-200/60">
+            style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)">
+            <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-xl border border-slate-200/60">
                 <div class="px-7 pt-7 pb-2">
                     <h3 class="font-display font-bold text-xl text-slate-800">{{ panelModal.isNew?'添加面板':'编辑面板' }}</h3>
                 </div>
@@ -1093,6 +1099,18 @@
                                 class="input-field">
                         </div>
                     </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="section-label">主回路电流 (A)</label>
+                            <input v-model.number="panelModal.panel.main_circuit_current" type="number" min="0"
+                                step="1" class="input-field" placeholder="例如 630">
+                        </div>
+                        <div>
+                            <label class="section-label">主回路极数</label>
+                            <input v-model.number="panelModal.panel.main_circuit_poles" type="number" min="0"
+                                step="1" class="input-field" placeholder="例如 3">
+                        </div>
+                    </div>
                 </div>
                 <div class="px-7 pb-7 flex justify-end gap-3">
                     <button @click="panelModal.show=false" class="btn-ghost">取消</button>
@@ -1103,7 +1121,7 @@
 
         <!-- ── 元件弹窗 ── -->
         <div v-if="partModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
-            style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)" @click.self="partModal.show=false">
+            style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)">
             <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-200/60">
                 <div class="px-7 pt-7 pb-2">
                     <h3 class="font-display font-bold text-xl text-slate-800">{{ partModal.isNew?'添加元件':'编辑元件' }}</h3>

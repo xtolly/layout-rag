@@ -1,0 +1,57 @@
+{
+  "name": "出线柜-GCK-抽屉面板-600x400",
+  "uuid": "3446acbb-4c48-4e25-a118-b8e66d736312",
+  "scheme": {
+    "cabinet_id": "f24160ee-301e-40ea-a740-3f0adddfc466",
+    "cabinet_name": "1-1AA5",
+    "cabinet_use": "出线柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "上进上出",
+    "panel_id": "768e2475-0b56-4566-90a6-1c101ff0f1a5",
+    "panel_type": "抽屉面板",
+    "panel_operation_method": "抽屉式",
+    "panel_main_circuit_current": 400,
+    "panel_main_circuit_poles": 3,
+    "panel_height_module": "",
+    "panel_size": [
+      600,
+      400
+    ],
+    "parts": [
+      {
+        "part_id": "4af0df53-955f-44e2-a9a3-86a2e076def6",
+        "part_type": "塑壳式断路器",
+        "part_model": "NM1-400H/3P 400A",
+        "part_size": [
+          200,
+          200
+        ]
+      },
+      {
+        "part_id": "6f5bb578-eb6e-4733-bfcf-3edd679bdc16",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          120,
+          80
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "4af0df53-955f-44e2-a9a3-86a2e076def6": {
+      "position": [
+        83,
+        125
+      ],
+      "rotation": 0
+    },
+    "6f5bb578-eb6e-4733-bfcf-3edd679bdc16": {
+      "position": [
+        368,
+        245
+      ],
+      "rotation": 0
+    }
+  }
+}

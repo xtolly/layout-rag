@@ -71,13 +71,13 @@ class DistributionBoxDomain(BusinessDomain):
                 "feature_name_template": "count_{value}",
                 "display_name_template": "{value} 数量",
             },
-            "cabinet_type_categories": {
+            "cabinet_use_categories": {
                 "source": "scheme",
-                "field": "cabinet_type",
+                "field": "cabinet_use",
                 "feature_type": "boolean",
                 "weight": 5.0,
-                "feature_name_template": "cabinet_type_{value}",
-                "display_name_template": "柜体类型:{value}",
+                "feature_name_template": "cabinet_use_{value}",
+                "display_name_template": "柜用途:{value}",
             },
             "panel_type_categories": {
                 "source": "scheme",

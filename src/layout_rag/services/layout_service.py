@@ -172,7 +172,7 @@ class LayoutService:
             diff_info     = self.calculate_diff_info(project_data["scheme"]["parts"], tpl_meta.get("parts", []))
             feature_diffs = self.get_feature_diff_list(query_features, t_features=tpl_features)
 
-            safe_distance = max(0.0, distance) + diff_info["extra"] * 0.1
+            safe_distance = max(0.0, distance) + diff_info["extra"] * 0.03
             score = min(100, round(100 * math.exp(-safe_distance / 4.0)))
 
             templates.append({

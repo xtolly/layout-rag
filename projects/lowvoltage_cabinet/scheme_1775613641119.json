@@ -1,0 +1,531 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_name": "1-1AA1",
+      "cabinet_use": "进线柜",
+      "cabinet_model": "GCK",
+      "wiring_method": "上进上出",
+      "cabinet_width": 1200,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "抽屉式",
+          "panel_width": 1200,
+          "panel_height": 2200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "多功能表",
+              "part_model": "68*68",
+              "part_width": 68,
+              "part_height": 68,
+              "part_id": "fd50f3fe-a58d-4f7d-ab54-f0000b05acf6"
+            },
+            {
+              "order": 2,
+              "part_type": "按钮开关",
+              "part_model": "合闸指示",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "35c046b5-3621-4dc1-b705-ad8e8f9e977e"
+            },
+            {
+              "order": 3,
+              "part_type": "按钮开关",
+              "part_model": "合闸按钮",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "4dd36ee6-2326-4dd8-9ce7-8a70ad658454"
+            },
+            {
+              "order": 4,
+              "part_type": "按钮开关",
+              "part_model": "分闸指示",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "dfa60f81-7ce0-423c-b28d-233339357d20"
+            },
+            {
+              "order": 5,
+              "part_type": "按钮开关",
+              "part_model": "分闸按钮",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "2e9e6312-029d-4db9-872f-7ababe269885"
+            },
+            {
+              "order": 6,
+              "part_type": "手动转换开关",
+              "part_model": "LW5",
+              "part_width": 80,
+              "part_height": 80,
+              "part_id": "0f91e176-79e0-40ce-96a5-4ae12650faf0"
+            },
+            {
+              "order": 7,
+              "part_type": "万能式断路器",
+              "part_model": "NXA-6300/3P",
+              "part_width": 800,
+              "part_height": 450,
+              "part_id": "4aaf2727-5884-4b21-b7c8-12d3b64b7798"
+            },
+            {
+              "order": 8,
+              "part_type": "隔离开关",
+              "part_model": "铅封锁片",
+              "part_width": 700,
+              "part_height": 480,
+              "part_id": "3b12cbdb-3b47-4b28-96d2-f3464d342a81"
+            }
+          ],
+          "panel_id": "8cc8572a-dbb1-4c47-867f-db6288372f5c",
+          "arrange": {
+            "fd50f3fe-a58d-4f7d-ab54-f0000b05acf6": {
+              "position": [
+                416,
+                565
+              ],
+              "rotation": 0
+            },
+            "35c046b5-3621-4dc1-b705-ad8e8f9e977e": {
+              "position": [
+                603,
+                610
+              ],
+              "rotation": 0
+            },
+            "4dd36ee6-2326-4dd8-9ce7-8a70ad658454": {
+              "position": [
+                540,
+                610
+              ],
+              "rotation": 0
+            },
+            "dfa60f81-7ce0-423c-b28d-233339357d20": {
+              "position": [
+                603,
+                571
+              ],
+              "rotation": 0
+            },
+            "2e9e6312-029d-4db9-872f-7ababe269885": {
+              "position": [
+                540,
+                571
+              ],
+              "rotation": 0
+            },
+            "0f91e176-79e0-40ce-96a5-4ae12650faf0": {
+              "position": [
+                676,
+                553
+              ],
+              "rotation": 0
+            },
+            "4aaf2727-5884-4b21-b7c8-12d3b64b7798": {
+              "position": [
+                200,
+                717
+              ],
+              "rotation": 0
+            },
+            "3b12cbdb-3b47-4b28-96d2-f3464d342a81": {
+              "position": [
+                250,
+                1294
+              ],
+              "rotation": 0
+            }
+          },
+          "main_circuit_current": 5000,
+          "main_circuit_poles": 3,
+          "height_module": ""
+        }
+      ],
+      "cabinet_id": "ba25b025-a9cd-4ac4-b909-d267c7d62363",
+      "arrange": {
+        "8cc8572a-dbb1-4c47-867f-db6288372f5c": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "order": 1,
+      "cabinet_name": "1-1AA5",
+      "cabinet_use": "出线柜",
+      "cabinet_model": "GCK",
+      "wiring_method": "上进上出",
+      "cabinet_width": 800,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "默认面板",
+          "operation_method": "抽屉式",
+          "panel_width": 800,
+          "panel_height": 800,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "万能式断路器",
+              "part_model": "NXA-4000/3P",
+              "part_width": 600,
+              "part_height": 450,
+              "part_id": "796fef13-41ca-4fe4-9f2f-1b068fe4aa9f"
+            },
+            {
+              "part_id": "f60063fe-9afd-40f4-8a4b-045100dc3be8",
+              "order": 1775547913994,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 68,
+              "part_height": 68
+            },
+            {
+              "part_id": "09d35ec2-b1f2-4c2a-8beb-bece23979e40",
+              "order": 1775547944213,
+              "part_type": "按钮开关",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            },
+            {
+              "part_id": "ae27af07-b650-46bc-bffd-2e5a89b596a0",
+              "order": 1775547944214,
+              "part_type": "按钮开关",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            },
+            {
+              "part_id": "1326c876-0aed-43e0-9484-20ccb201f1a5",
+              "order": 1775547944216,
+              "part_type": "按钮开关",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            },
+            {
+              "part_id": "0e13b5e0-9748-4c65-be02-94c5238da321",
+              "order": 1775547944217,
+              "part_type": "按钮开关",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            }
+          ],
+          "panel_id": "1462671f-7123-465d-9815-be3a9a9a617e",
+          "arrange": {
+            "796fef13-41ca-4fe4-9f2f-1b068fe4aa9f": {
+              "position": [
+                100,
+                285
+              ],
+              "rotation": 0
+            },
+            "f60063fe-9afd-40f4-8a4b-045100dc3be8": {
+              "position": [
+                267,
+                160
+              ],
+              "rotation": 0
+            },
+            "09d35ec2-b1f2-4c2a-8beb-bece23979e40": {
+              "position": [
+                442,
+                205
+              ],
+              "rotation": 0
+            },
+            "ae27af07-b650-46bc-bffd-2e5a89b596a0": {
+              "position": [
+                374,
+                205
+              ],
+              "rotation": 0
+            },
+            "1326c876-0aed-43e0-9484-20ccb201f1a5": {
+              "position": [
+                442,
+                160
+              ],
+              "rotation": 0
+            },
+            "0e13b5e0-9748-4c65-be02-94c5238da321": {
+              "position": [
+                374,
+                160
+              ],
+              "rotation": 0
+            }
+          },
+          "main_circuit_current": 4000,
+          "main_circuit_poles": 3,
+          "height_module": ""
+        },
+        {
+          "order": 2,
+          "panel_type": "抽屉面板",
+          "operation_method": "抽屉式",
+          "panel_width": 600,
+          "panel_height": 400,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳式断路器",
+              "part_model": "NM1-400H/3P 400A",
+              "part_width": 200,
+              "part_height": 200,
+              "part_id": "4af0df53-955f-44e2-a9a3-86a2e076def6"
+            },
+            {
+              "order": 2,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 120,
+              "part_height": 80,
+              "part_id": "6f5bb578-eb6e-4733-bfcf-3edd679bdc16"
+            }
+          ],
+          "panel_id": "768e2475-0b56-4566-90a6-1c101ff0f1a5",
+          "arrange": {
+            "4af0df53-955f-44e2-a9a3-86a2e076def6": {
+              "position": [
+                83,
+                125
+              ],
+              "rotation": 0
+            },
+            "6f5bb578-eb6e-4733-bfcf-3edd679bdc16": {
+              "position": [
+                368,
+                245
+              ],
+              "rotation": 0
+            }
+          },
+          "main_circuit_current": 400,
+          "main_circuit_poles": 3
+        },
+        {
+          "order": 3,
+          "panel_type": "抽屉面板",
+          "operation_method": "抽屉式",
+          "panel_width": 600,
+          "panel_height": 200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳式断路器",
+              "part_model": "NM1-250R/3P 250A",
+              "part_width": 100,
+              "part_height": 100,
+              "part_id": "c9370200-7b62-4680-8fbf-918605f826af"
+            },
+            {
+              "order": 2,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 120,
+              "part_height": 80,
+              "part_id": "61182ea2-da30-42e1-b38f-ee00a7ceab31"
+            }
+          ],
+          "panel_id": "af26bd6d-87cc-431a-94af-d73277e69781",
+          "arrange": {
+            "c9370200-7b62-4680-8fbf-918605f826af": {
+              "position": [
+                137,
+                50
+              ],
+              "rotation": 0
+            },
+            "61182ea2-da30-42e1-b38f-ee00a7ceab31": {
+              "position": [
+                357,
+                60
+              ],
+              "rotation": 0
+            }
+          },
+          "main_circuit_current": 250,
+          "main_circuit_poles": 3
+        },
+        {
+          "order": 4,
+          "panel_type": "抽屉面板",
+          "operation_method": "抽屉式",
+          "panel_width": 600,
+          "panel_height": 200,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳式断路器",
+              "part_model": "NM1-250R/3P 250A",
+              "part_width": 100,
+              "part_height": 100,
+              "part_id": "7dd54ce0-64bd-48bd-8192-4cff18942250"
+            },
+            {
+              "order": 2,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 120,
+              "part_height": 80,
+              "part_id": "7562cb22-21c6-4bd5-b2db-2f8002e0ee76"
+            }
+          ],
+          "panel_id": "ec603363-f217-4e74-92f1-acee95ab5ae3",
+          "arrange": {
+            "7dd54ce0-64bd-48bd-8192-4cff18942250": {
+              "position": [
+                139,
+                50
+              ],
+              "rotation": 0
+            },
+            "7562cb22-21c6-4bd5-b2db-2f8002e0ee76": {
+              "position": [
+                351,
+                60
+              ],
+              "rotation": 0
+            }
+          },
+          "main_circuit_current": 250,
+          "main_circuit_poles": 3
+        },
+        {
+          "order": 1775548277644,
+          "panel_type": "抽屉面板",
+          "operation_method": "抽屉式",
+          "panel_width": 600,
+          "panel_height": 200,
+          "parts": [],
+          "panel_id": "aa7127ed-6c78-49a6-b6a8-91b9c9bb8b78",
+          "arrange": {
+            "ba9f1665-ca98-4f34-bafb-15425888ca6e": {
+              "position": [
+                130,
+                50
+              ],
+              "rotation": 0
+            },
+            "56237864-a63b-4bfe-a103-04f076a5c11e": {
+              "position": [
+                353,
+                60
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "67ba36d9-7edf-4e49-a121-e940a5448a96",
+          "order": 1775547707573,
+          "panel_type": "占位面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 200,
+          "panel_height": 1000,
+          "parts": [],
+          "arrange": {}
+        },
+        {
+          "panel_id": "9ad75cdd-bcf0-4e74-9445-d1c39f1286a0",
+          "order": 1775548237962,
+          "panel_type": "占位面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 200,
+          "parts": [],
+          "arrange": {}
+        },
+        {
+          "panel_id": "544bc465-6967-44d8-83bd-4c0c06546e22",
+          "order": 1775548286782,
+          "panel_type": "占位面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 200,
+          "parts": [],
+          "arrange": {}
+        }
+      ],
+      "cabinet_id": "f24160ee-301e-40ea-a740-3f0adddfc466",
+      "arrange": {
+        "1462671f-7123-465d-9815-be3a9a9a617e": {
+          "position": [
+            0,
+            200
+          ],
+          "rotation": 0
+        },
+        "768e2475-0b56-4566-90a6-1c101ff0f1a5": {
+          "position": [
+            0,
+            1400
+          ],
+          "rotation": 0
+        },
+        "af26bd6d-87cc-431a-94af-d73277e69781": {
+          "position": [
+            0,
+            1000
+          ],
+          "rotation": 0
+        },
+        "ec603363-f217-4e74-92f1-acee95ab5ae3": {
+          "position": [
+            0,
+            1200
+          ],
+          "rotation": 0
+        },
+        "aa7127ed-6c78-49a6-b6a8-91b9c9bb8b78": {
+          "position": [
+            0,
+            1800
+          ],
+          "rotation": 0
+        },
+        "67ba36d9-7edf-4e49-a121-e940a5448a96": {
+          "position": [
+            600,
+            1000
+          ],
+          "rotation": 0
+        },
+        "9ad75cdd-bcf0-4e74-9445-d1c39f1286a0": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        "544bc465-6967-44d8-83bd-4c0c06546e22": {
+          "position": [
+            0,
+            2000
+          ],
+          "rotation": 0
+        }
+      }
+    }
+  ]
+}
