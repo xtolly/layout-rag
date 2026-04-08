@@ -36,6 +36,33 @@ const normalizeNullableNumber = (value) => {
 // ── 工厂 ──────────────────────────────────────────────────────
 let _orderCounter = 1000;
 const getOrder = () => Date.now() + (_orderCounter++);
+const sortByOrder = (a, b) => (a.order || 0) - (b.order || 0);
+const rebalanceOrders = (items) => {
+    [...items].sort(sortByOrder).forEach((item, index) => {
+        item.order = (index + 1) * 1000;
+    });
+};
+const getAdjacentOrder = (items, currentId, idField) => {
+    const assignOrder = () => {
+        const sortedItems = [...items].sort(sortByOrder);
+        const currentIndex = sortedItems.findIndex(item => item[idField] === currentId);
+        if (currentIndex === -1) return getOrder();
+
+        const currentOrder = Number(sortedItems[currentIndex].order || 0);
+        const nextOrder = Number(sortedItems[currentIndex + 1]?.order);
+
+        if (!Number.isFinite(currentOrder)) return getOrder();
+        if (!Number.isFinite(nextOrder)) return currentOrder + 1;
+        if (nextOrder - currentOrder > 1e-6) return currentOrder + (nextOrder - currentOrder) / 2;
+        return null;
+    };
+
+    const order = assignOrder();
+    if (order !== null) return order;
+
+    rebalanceOrders(items);
+    return assignOrder() ?? getOrder();
+};
 
 // ══════════════════════════════════════════════════════════════
 const App = {
@@ -420,7 +447,7 @@ const App = {
         };
         const duplicateCabinet = (cab) => {
             const copy = JSON.parse(JSON.stringify(cab));
-            copy.cabinet_id = uid(); copy.cabinet_name += '_副本'; copy.order = getOrder();
+            copy.cabinet_id = uid(); copy.cabinet_name += '_副本'; copy.order = getAdjacentOrder(scheme.cabinets, cab.cabinet_id, 'cabinet_id');
             copy.panels.forEach(p => {
                 p.panel_id = uid(); p.order = getOrder();
                 const idMap = {};
@@ -499,7 +526,7 @@ const App = {
             const cab = scheme.cabinets.find(c => c.cabinet_id === cabinetId);
             if (!cab) return;
             const copy = JSON.parse(JSON.stringify(panel));
-            copy.panel_id = uid(); copy.order = getOrder();
+            copy.panel_id = uid(); copy.order = getAdjacentOrder(cab.panels, panel.panel_id, 'panel_id');
             const idMap = {};
             copy.parts.forEach(pt => {
                 const newId = uid();
@@ -553,6 +580,16 @@ const App = {
             const idx = panel.parts.findIndex(p => p.part_id === partId);
             if (idx !== -1) panel.parts.splice(idx, 1);
             showToast('已删除', 'warn');
+        };
+        const duplicatePart = (cabinetId, panelId, part) => {
+            const panel = scheme.cabinets.find(c => c.cabinet_id === cabinetId)?.panels.find(p => p.panel_id === panelId);
+            if (!panel) return;
+            const copy = JSON.parse(JSON.stringify(part));
+            copy.part_id = uid();
+            copy.order = getAdjacentOrder(panel.parts, part.part_id, 'part_id');
+            const idx = panel.parts.findIndex(p => p.part_id === part.part_id);
+            panel.parts.splice(idx + 1, 0, copy);
+            showToast('已复制元件');
         };
 
         // ══════════════════════════════════════════════════════════
@@ -1298,7 +1335,7 @@ const App = {
             // 面板
             openAddPanel, openEditPanel, savePanelModal, removePanel, selectPanel, duplicatePanel,
             // 元件
-            openAddPart, openEditPart, savePartModal, removePart,
+            openAddPart, openEditPart, savePartModal, removePart, duplicatePart,
             // JSON
             exportJson, exportPanelData, triggerJsonFileInput, handleJsonFile, sendToLayout, sendWorkbenchBack, sendWorkbenchSubmit, layoutPanelManual, layoutPanelAI, openLayoutRecommend, isPanelValidForLayout,
             cabinetLayoutManual, cabinetLayout, isCabinetLayoutLoading,

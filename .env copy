@@ -1,0 +1,7 @@
+# OpenAI API 配置
+OPENAI_API_KEY=sk-aolenseNObVE2xM8sa0010FjjbRg5vd8JASasqB
+OPENAI_API_BASE=http://8.147.118.43:11000/v1
+MODEL_NAME=gemma-4
+
+# Agent 配置
+AGENT_TIMEOUT=600.0
