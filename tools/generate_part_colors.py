@@ -27,6 +27,41 @@ SL_VARIANTS = [
 ]
 
 UNKNOWN_COLOR = "hsl(215, 16%, 55%)"
+FIXED_PANEL_COLORS = {
+    "默认面板": "hsla(180, 28%, 37%, 0.30)",
+    "占位面板": "hsla(0, 0%, 26%, 1)",
+    "框架面板": "hsla(0, 0%, 26%, 1)",
+    "断路器面板": "hsla(180, 94%, 13%, 0.33)",
+    "上门板": "hsla(73, 98%, 20%, 0.33)",
+    "中门板": "hsla(93, 96%, 20%, 0.33)",
+    "下门板": "hsla(117, 100%, 20%, 0.33)",
+    "抽屉面板": "hsla(235, 73%, 29%, 0.33)",
+}
+
+
+def load_extra_part_types(file_path: Path) -> list[str]:
+    if not file_path.exists():
+        return []
+
+    return [
+        line.strip()
+        for line in file_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+
+def merge_part_types(primary: list[str], extra: list[str]) -> list[str]:
+    merged: list[str] = []
+    seen: set[str] = set()
+
+    for part_type in [*primary, *extra]:
+        text = str(part_type or "").strip()
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        merged.append(text)
+
+    return merged
 
 
 def generate_colors(part_types: list[str]) -> dict[str, str]:
@@ -42,16 +77,20 @@ def main() -> None:
     root = Path(__file__).parent.parent
     options_path = root / "static" / "configurator_options.json"
     color_path   = root / "static" / "part.color"
+    extra_part_types_path = root / "tools" / "distribution_box_part_types.txt"
 
     with open(options_path, encoding="utf-8") as f:
         options = json.load(f)
 
-    part_types = options.get("part_type_options", [])
+    part_types = merge_part_types(
+        options.get("part_type_options", []),
+        load_extra_part_types(extra_part_types_path),
+    )
     if not part_types:
         print("未找到 part_type_options，请检查文件内容。")
         return
 
-    color_map = generate_colors(part_types)
+    color_map = {**FIXED_PANEL_COLORS, **generate_colors(part_types)}
     output = {
         "unknownColor": UNKNOWN_COLOR,
         "partColorMap": color_map,
