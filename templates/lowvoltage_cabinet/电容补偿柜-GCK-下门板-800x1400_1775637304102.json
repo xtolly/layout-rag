@@ -1,0 +1,89 @@
+{
+  "name": "电容补偿柜-GCK-下门板-800x1400",
+  "uuid": "7183c07c-cf8d-43d5-b4fe-ea416d1fdc38",
+  "scheme": {
+    "cabinet_id": "2d883baf-4cf3-4e28-a387-7275390eac61",
+    "cabinet_name": "1A3",
+    "cabinet_use": "电容补偿柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "",
+    "panel_id": "990de605-9fb4-4fa9-89fe-19d1888d592e",
+    "panel_type": "下门板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      1400
+    ],
+    "parts": [
+      {
+        "part_id": "b8c4d464-709d-4f9d-bf48-d35477206b8a",
+        "part_type": "低压无功补偿控制器",
+        "part_model": "",
+        "part_size": [
+          200,
+          142
+        ]
+      },
+      {
+        "part_id": "7e2c3d9c-c9cd-4024-8976-153192c20756",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          92,
+          92
+        ]
+      },
+      {
+        "part_id": "8456c74a-b15f-4c6a-9590-174229ae213e",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          45,
+          45
+        ]
+      },
+      {
+        "part_id": "ca84efa6-eb3d-4c7a-a11f-003b0f3a2f9c",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "b8c4d464-709d-4f9d-bf48-d35477206b8a": {
+      "position": [
+        137,
+        137
+      ],
+      "rotation": 0
+    },
+    "7e2c3d9c-c9cd-4024-8976-153192c20756": {
+      "position": [
+        381,
+        162
+      ],
+      "rotation": 0
+    },
+    "8456c74a-b15f-4c6a-9590-174229ae213e": {
+      "position": [
+        507,
+        186
+      ],
+      "rotation": 0
+    },
+    "ca84efa6-eb3d-4c7a-a11f-003b0f3a2f9c": {
+      "position": [
+        598,
+        197
+      ],
+      "rotation": 0
+    }
+  }
+}

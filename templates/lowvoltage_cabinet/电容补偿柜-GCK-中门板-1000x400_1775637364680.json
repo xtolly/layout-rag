@@ -1,0 +1,57 @@
+{
+  "name": "电容补偿柜-GCK-中门板-1000x400",
+  "uuid": "3c4205ed-b343-4567-9616-6ace23ca584b",
+  "scheme": {
+    "cabinet_id": "40d1fc4b-1180-4f4f-bea0-5076c2d609ec",
+    "cabinet_name": "1-1AA2",
+    "cabinet_use": "电容补偿柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "",
+    "panel_id": "8c26885c-a0f7-4c49-9484-3ef6a3288b76",
+    "panel_type": "中门板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      1000,
+      400
+    ],
+    "parts": [
+      {
+        "part_id": "d0e5ab85-e745-45fb-8e4f-832fe7d3cb5c",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          92,
+          92
+        ]
+      },
+      {
+        "part_id": "0b393130-0e8f-483f-ba36-1341dfd37206",
+        "part_type": "低压无功补偿控制器",
+        "part_model": "",
+        "part_size": [
+          138,
+          138
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "d0e5ab85-e745-45fb-8e4f-832fe7d3cb5c": {
+      "position": [
+        439,
+        154
+      ],
+      "rotation": 0
+    },
+    "0b393130-0e8f-483f-ba36-1341dfd37206": {
+      "position": [
+        655,
+        131
+      ],
+      "rotation": 0
+    }
+  }
+}

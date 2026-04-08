@@ -1,0 +1,41 @@
+{
+  "name": "电容补偿柜-GCK-断路器面板-800x400",
+  "uuid": "782f5b29-2545-4e8d-abee-001833b675c8",
+  "scheme": {
+    "cabinet_id": "2d883baf-4cf3-4e28-a387-7275390eac61",
+    "cabinet_name": "1A3",
+    "cabinet_use": "电容补偿柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "",
+    "panel_id": "19425c81-3ba4-4721-a7bd-b82f92b1b40e",
+    "panel_type": "断路器面板",
+    "panel_operation_method": "固定式",
+    "panel_main_circuit_current": 630,
+    "panel_main_circuit_poles": 3,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      400
+    ],
+    "parts": [
+      {
+        "part_id": "8a320dda-8988-412b-819d-9a3d5d681b1d",
+        "part_type": "塑壳式断路器",
+        "part_model": "NDM3E-630/3P",
+        "part_size": [
+          150,
+          150
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "8a320dda-8988-412b-819d-9a3d5d681b1d": {
+      "position": [
+        325,
+        125
+      ],
+      "rotation": 0
+    }
+  }
+}

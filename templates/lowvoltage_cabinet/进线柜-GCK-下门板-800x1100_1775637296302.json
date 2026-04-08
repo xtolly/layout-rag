@@ -1,0 +1,73 @@
+{
+  "name": "进线柜-GCK-下门板-800x1100",
+  "uuid": "6708f2d2-d82c-48c0-b02b-63dde4681c9d",
+  "scheme": {
+    "cabinet_id": "0199dda0-2fbb-41af-8de8-b894cf93cda8",
+    "cabinet_name": "1A1",
+    "cabinet_use": "进线柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "",
+    "panel_id": "f8f253b4-92ee-4aa8-b53b-61d094ea2f65",
+    "panel_type": "下门板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      1100
+    ],
+    "parts": [
+      {
+        "part_id": "40a2c9f8-f986-4fb5-9733-98f0b4e256b0",
+        "part_type": "连接片",
+        "part_model": "",
+        "part_size": [
+          10,
+          35
+        ]
+      },
+      {
+        "part_id": "1dc695b4-d24e-4382-93dd-03595c49ee0e",
+        "part_type": "连接片",
+        "part_model": "",
+        "part_size": [
+          10,
+          35
+        ]
+      },
+      {
+        "part_id": "5d95d5d5-bcff-402c-9ea9-d653c5b08767",
+        "part_type": "连接片",
+        "part_model": "",
+        "part_size": [
+          10,
+          35
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "40a2c9f8-f986-4fb5-9733-98f0b4e256b0": {
+      "position": [
+        305,
+        66
+      ],
+      "rotation": 0
+    },
+    "1dc695b4-d24e-4382-93dd-03595c49ee0e": {
+      "position": [
+        234,
+        66
+      ],
+      "rotation": 0
+    },
+    "5d95d5d5-bcff-402c-9ea9-d653c5b08767": {
+      "position": [
+        158,
+        66
+      ],
+      "rotation": 0
+    }
+  }
+}

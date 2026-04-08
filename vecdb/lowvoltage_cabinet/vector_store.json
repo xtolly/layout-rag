@@ -96,6 +96,16 @@
       "source_name": "part_type_counts",
       "value": "万能式断路器"
     },
+    "count_低压无功补偿控制器": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "低压无功补偿控制器 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "低压无功补偿控制器"
+    },
     "count_塑壳式断路器": {
       "type": "count",
       "weight": 1.0,
@@ -126,6 +136,16 @@
       "source_name": "part_type_counts",
       "value": "手动转换开关"
     },
+    "count_指示灯": {
+      "type": "count",
+      "weight": 1.0,
+      "display_name": "指示灯 数量",
+      "dynamic": true,
+      "source": "parts",
+      "field": "part_type",
+      "source_name": "part_type_counts",
+      "value": "指示灯"
+    },
     "count_按钮开关": {
       "type": "count",
       "weight": 1.0,
@@ -136,29 +156,29 @@
       "source_name": "part_type_counts",
       "value": "按钮开关"
     },
-    "count_电流表": {
+    "count_熔断器式隔离开关": {
       "type": "count",
       "weight": 1.0,
-      "display_name": "电流表 数量",
+      "display_name": "熔断器式隔离开关 数量",
       "dynamic": true,
       "source": "parts",
       "field": "part_type",
       "source_name": "part_type_counts",
-      "value": "电流表"
+      "value": "熔断器式隔离开关"
     },
-    "count_隔离开关": {
+    "count_连接片": {
       "type": "count",
       "weight": 1.0,
-      "display_name": "隔离开关 数量",
+      "display_name": "连接片 数量",
       "dynamic": true,
       "source": "parts",
       "field": "part_type",
       "source_name": "part_type_counts",
-      "value": "隔离开关"
+      "value": "连接片"
     },
     "cabinet_use_出线柜": {
       "type": "boolean",
-      "weight": 10.0,
+      "weight": 5.0,
       "display_name": "柜体用途:出线柜",
       "dynamic": true,
       "source": "scheme",
@@ -166,9 +186,19 @@
       "source_name": "cabinet_use_categories",
       "value": "出线柜"
     },
+    "cabinet_use_电容补偿柜": {
+      "type": "boolean",
+      "weight": 5.0,
+      "display_name": "柜体用途:电容补偿柜",
+      "dynamic": true,
+      "source": "scheme",
+      "field": "cabinet_use",
+      "source_name": "cabinet_use_categories",
+      "value": "电容补偿柜"
+    },
     "cabinet_use_进线柜": {
       "type": "boolean",
-      "weight": 10.0,
+      "weight": 5.0,
       "display_name": "柜体用途:进线柜",
       "dynamic": true,
       "source": "scheme",
@@ -178,7 +208,7 @@
     },
     "cabinet_model_GCK": {
       "type": "boolean",
-      "weight": 2.0,
+      "weight": 1.0,
       "display_name": "柜体型号:GCK",
       "dynamic": true,
       "source": "scheme",
@@ -186,19 +216,9 @@
       "source_name": "cabinet_model_categories",
       "value": "GCK"
     },
-    "cabinet_model_GCS": {
-      "type": "boolean",
-      "weight": 2.0,
-      "display_name": "柜体型号:GCS",
-      "dynamic": true,
-      "source": "scheme",
-      "field": "cabinet_model",
-      "source_name": "cabinet_model_categories",
-      "value": "GCS"
-    },
     "cabinet_wiring_method_上进上出": {
       "type": "boolean",
-      "weight": 2.0,
+      "weight": 1.0,
       "display_name": "进出线方式:上进上出",
       "dynamic": true,
       "source": "scheme",
@@ -206,9 +226,39 @@
       "source_name": "cabinet_wiring_method_categories",
       "value": "上进上出"
     },
+    "panel_type_上门板": {
+      "type": "boolean",
+      "weight": 2.0,
+      "display_name": "面板类型:上门板",
+      "dynamic": true,
+      "source": "scheme",
+      "field": "panel_type",
+      "source_name": "panel_type_categories",
+      "value": "上门板"
+    },
+    "panel_type_下门板": {
+      "type": "boolean",
+      "weight": 2.0,
+      "display_name": "面板类型:下门板",
+      "dynamic": true,
+      "source": "scheme",
+      "field": "panel_type",
+      "source_name": "panel_type_categories",
+      "value": "下门板"
+    },
+    "panel_type_中门板": {
+      "type": "boolean",
+      "weight": 2.0,
+      "display_name": "面板类型:中门板",
+      "dynamic": true,
+      "source": "scheme",
+      "field": "panel_type",
+      "source_name": "panel_type_categories",
+      "value": "中门板"
+    },
     "panel_type_抽屉面板": {
       "type": "boolean",
-      "weight": 10.0,
+      "weight": 2.0,
       "display_name": "面板类型:抽屉面板",
       "dynamic": true,
       "source": "scheme",
@@ -216,19 +266,39 @@
       "source_name": "panel_type_categories",
       "value": "抽屉面板"
     },
-    "panel_type_默认面板": {
+    "panel_type_断路器面板": {
       "type": "boolean",
-      "weight": 10.0,
-      "display_name": "面板类型:默认面板",
+      "weight": 2.0,
+      "display_name": "面板类型:断路器面板",
       "dynamic": true,
       "source": "scheme",
       "field": "panel_type",
       "source_name": "panel_type_categories",
-      "value": "默认面板"
+      "value": "断路器面板"
+    },
+    "panel_operation_method_固定式": {
+      "type": "boolean",
+      "weight": 1.0,
+      "display_name": "操作方式:固定式",
+      "dynamic": true,
+      "source": "scheme",
+      "field": "panel_operation_method",
+      "source_name": "panel_operation_method_categories",
+      "value": "固定式"
+    },
+    "panel_operation_method_抽出式": {
+      "type": "boolean",
+      "weight": 1.0,
+      "display_name": "操作方式:抽出式",
+      "dynamic": true,
+      "source": "scheme",
+      "field": "panel_operation_method",
+      "source_name": "panel_operation_method_categories",
+      "value": "抽出式"
     },
     "panel_operation_method_抽屉式": {
       "type": "boolean",
-      "weight": 3.0,
+      "weight": 1.0,
       "display_name": "操作方式:抽屉式",
       "dynamic": true,
       "source": "scheme",
@@ -242,76 +312,102 @@
       600.0,
       200.0,
       120000.0,
-      0.36363636363636365,
-      19600.0,
-      0.12915568181818182,
-      68.4,
-      68.4,
-      100.0,
-      100.0,
+      0.5714285714285714,
+      1050.0,
+      0.0011931818181818183,
       10.0,
+      23.0,
       10.0,
+      23.0,
       0.0,
       0.0,
-      3.0
+      0.0,
+      0.0,
+      0.0
     ],
     "cont_range": [
       600.0,
-      2000.0,
-      2520000.0,
-      2.6363636363636362,
-      689540.0,
-      0.3311859848484848,
-      149.1,
-      77.85,
-      700.0,
-      400.0,
-      299.1702605361648,
-      175.38052082136355,
-      0.5,
+      1200.0,
+      1000000.0,
+      2.428571428571429,
+      372090.0,
+      0.4386172348484848,
+      140.0,
+      127.0,
+      790.0,
+      477.0,
+      266.89369587526636,
+      164.62164412459776,
+      1.0,
       5000.0,
-      1.0
+      3.0
     ],
     "count_max_log": [
-      2.70805020110221,
+      2.833213344056216,
       1.791759469228055,
       0.6931471805599453,
       0.6931471805599453,
       0.6931471805599453,
+      1.0986122886681098,
       0.6931471805599453,
-      2.302585092994046,
-      1.3862943611198906,
-      0.6931471805599453
+      2.833213344056216,
+      1.0986122886681098,
+      0.6931471805599453,
+      1.3862943611198906
     ]
   },
   "entries": [
     {
-      "uuid": "92007f52-a7c9-491e-b567-7d20de821599",
-      "source_path": "templates/lowvoltage_cabinet/出线柜-GCK-抽屉面板-600x200_1775615153346.json"
+      "uuid": "9232ffa4-80ab-486d-9c8d-69a7acf23e05",
+      "source_path": "templates/lowvoltage_cabinet/出线柜-GCK-抽屉面板-600x200_1775637358903.json"
     },
     {
-      "uuid": "3446acbb-4c48-4e25-a118-b8e66d736312",
-      "source_path": "templates/lowvoltage_cabinet/出线柜-GCK-抽屉面板-600x400_1775615151410.json"
+      "uuid": "c1bda809-9b4a-4ceb-8c2f-d5ef1ed2d1bd",
+      "source_path": "templates/lowvoltage_cabinet/出线柜-GCK-抽屉面板-600x300_1775637316318.json"
     },
     {
-      "uuid": "4a711ad0-ee37-4308-beae-c068f12809ae",
-      "source_path": "templates/lowvoltage_cabinet/出线柜-GCK-默认面板-800x800_1775615149058.json"
+      "uuid": "86179b9c-4e99-4469-b917-f8dc4f44e566",
+      "source_path": "templates/lowvoltage_cabinet/出线柜-GCK-抽屉面板-600x400_1775637356608.json"
     },
     {
-      "uuid": "43da2d89-4d83-4271-97e4-12e6454c5bbb",
-      "source_path": "templates/lowvoltage_cabinet/出线柜-GCS-抽屉面板-600x300_1775615169034.json"
+      "uuid": "7590de1b-489d-4d4e-a92e-9b9844ec2b5e",
+      "source_path": "templates/lowvoltage_cabinet/出线柜-GCK-断路器面板-800x600_1775637306431.json"
     },
     {
-      "uuid": "5dd1e5ca-6043-452e-88e6-7a7196d1b9ac",
-      "source_path": "templates/lowvoltage_cabinet/出线柜-GCS-抽屉面板-800x600_1775615165963.json"
+      "uuid": "4ca0944c-1f2f-4dae-b5ec-b126d290ee78",
+      "source_path": "templates/lowvoltage_cabinet/出线柜-GCK-断路器面板-800x800_1775637354280.json"
     },
     {
-      "uuid": "dd83bcc7-be64-4e13-8bc1-c5d2a394ac02",
-      "source_path": "templates/lowvoltage_cabinet/进线柜-GCK-默认面板-1200x2200_1775615147146.json"
+      "uuid": "d64dc4ac-7ebd-4136-8001-3c68744f9fb3",
+      "source_path": "templates/lowvoltage_cabinet/电容补偿柜-GCK-上门板-1000x400_1775637363103.json"
     },
     {
-      "uuid": "440d480c-aace-4c01-a6f1-cff853c14ea8",
-      "source_path": "templates/lowvoltage_cabinet/进线柜-GCK-默认面板-800x2200_1775615159066.json"
+      "uuid": "fd8417d6-1d6e-4c98-9c9f-4a13cfa8e0c3",
+      "source_path": "templates/lowvoltage_cabinet/电容补偿柜-GCK-下门板-1000x1000_1775637366864.json"
+    },
+    {
+      "uuid": "7183c07c-cf8d-43d5-b4fe-ea416d1fdc38",
+      "source_path": "templates/lowvoltage_cabinet/电容补偿柜-GCK-下门板-800x1400_1775637304102.json"
+    },
+    {
+      "uuid": "3c4205ed-b343-4567-9616-6ace23ca584b",
+      "source_path": "templates/lowvoltage_cabinet/电容补偿柜-GCK-中门板-1000x400_1775637364680.json"
+    },
+    {
+      "uuid": "782f5b29-2545-4e8d-abee-001833b675c8",
+      "source_path": "templates/lowvoltage_cabinet/电容补偿柜-GCK-断路器面板-800x400_1775637302038.json"
+    },
+    {
+      "uuid": "6708f2d2-d82c-48c0-b02b-63dde4681c9d",
+      "source_path": "templates/lowvoltage_cabinet/进线柜-GCK-下门板-800x1100_1775637296302.json"
+    },
+    {
+      "uuid": "b7de99fb-df6f-4dce-a46b-84941f05ee85",
+      "source_path": "templates/lowvoltage_cabinet/进线柜-GCK-断路器面板-1200x800_1775637350766.json"
+    },
+    {
+      "uuid": "7f8f4174-6165-4fdd-87c8-03d041b00262",
+      "source_path": "templates/lowvoltage_cabinet/进线柜-GCK-断路器面板-800x700_1775637294878.json"
     }
   ]
 }

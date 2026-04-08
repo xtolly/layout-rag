@@ -1,0 +1,137 @@
+{
+  "name": "出线柜-GCK-断路器面板-800x600",
+  "uuid": "7590de1b-489d-4d4e-a92e-9b9844ec2b5e",
+  "scheme": {
+    "cabinet_id": "e361b059-55d1-4706-bcb2-a6fd1c021348",
+    "cabinet_name": "1A6",
+    "cabinet_use": "出线柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "",
+    "panel_id": "0edf7479-6908-4b6c-ba5c-885515990188",
+    "panel_type": "断路器面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      600
+    ],
+    "parts": [
+      {
+        "part_id": "dd9945ed-1e17-4145-9c5c-baa177fa803c",
+        "part_type": "万能式断路器",
+        "part_model": "NDW2-20-12-3P",
+        "part_size": [
+          400,
+          500
+        ]
+      },
+      {
+        "part_id": "444056ab-db56-4321-909e-8eab36e2d2cb",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          92,
+          92
+        ]
+      },
+      {
+        "part_id": "69093585-f7ab-4f97-9cd3-0597c52027bc",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "a5d07fa2-a4c0-40b6-b828-1a93a518328e",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "948b89b6-1815-46d8-bd48-471a78df2827",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "e842231f-74d9-47e5-95b8-6bce2625c5f1",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "0ed1a2f0-1d24-4211-9962-dc8e579eb404",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "dd9945ed-1e17-4145-9c5c-baa177fa803c": {
+      "position": [
+        337,
+        50
+      ],
+      "rotation": 0
+    },
+    "444056ab-db56-4321-909e-8eab36e2d2cb": {
+      "position": [
+        112,
+        50
+      ],
+      "rotation": 0
+    },
+    "69093585-f7ab-4f97-9cd3-0597c52027bc": {
+      "position": [
+        60,
+        184
+      ],
+      "rotation": 0
+    },
+    "a5d07fa2-a4c0-40b6-b828-1a93a518328e": {
+      "position": [
+        147,
+        184
+      ],
+      "rotation": 0
+    },
+    "948b89b6-1815-46d8-bd48-471a78df2827": {
+      "position": [
+        233,
+        271
+      ],
+      "rotation": 0
+    },
+    "e842231f-74d9-47e5-95b8-6bce2625c5f1": {
+      "position": [
+        60,
+        271
+      ],
+      "rotation": 0
+    },
+    "0ed1a2f0-1d24-4211-9962-dc8e579eb404": {
+      "position": [
+        233,
+        184
+      ],
+      "rotation": 0
+    }
+  }
+}

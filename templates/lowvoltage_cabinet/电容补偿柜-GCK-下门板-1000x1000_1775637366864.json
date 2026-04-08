@@ -1,0 +1,281 @@
+{
+  "name": "电容补偿柜-GCK-下门板-1000x1000",
+  "uuid": "fd8417d6-1d6e-4c98-9c9f-4a13cfa8e0c3",
+  "scheme": {
+    "cabinet_id": "40d1fc4b-1180-4f4f-bea0-5076c2d609ec",
+    "cabinet_name": "1-1AA2",
+    "cabinet_use": "电容补偿柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "",
+    "panel_id": "18dfb6e8-9dd3-4806-a80b-55c1619d0e9c",
+    "panel_type": "下门板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      1000,
+      1000
+    ],
+    "parts": [
+      {
+        "part_id": "cf56779a-0fbb-4750-a3ce-478f51e31556",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "cce00dad-2839-4a99-8d46-fe0b8e34721f",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "d3510d16-af1d-47ed-8174-1035e2463418",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "bdcb7827-6b4e-4bdf-9358-fd66dd65c50d",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "1bdccd90-2c21-4cf0-a758-b808cf22cf5e",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "6f88f8f5-73a0-463d-a910-ebd1558d004e",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "5aa865f0-91ae-4594-8253-9a80bca0fc28",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "97ad62be-1560-4d06-9f80-cfde129a4996",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "931eaffa-6bcc-44e7-ad61-72bec05af55e",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "f5e522ac-64a2-4fae-ba2e-5234998eff66",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "4245b30f-eebe-4e13-b6ff-ff7e7d45263a",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "586e37c7-b938-4869-9dae-f802f4180dfc",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "1061b8da-aaeb-4443-8788-1460d7d635af",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "b26ea485-0b3c-4ab5-9afe-df96743d87c3",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "c40e93f6-eeb4-45fc-ae72-b47a396f1470",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "6e4f85b6-91a7-4c96-a4de-e487ed932305",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "cf56779a-0fbb-4750-a3ce-478f51e31556": {
+      "position": [
+        901,
+        224
+      ],
+      "rotation": 0
+    },
+    "cce00dad-2839-4a99-8d46-fe0b8e34721f": {
+      "position": [
+        789,
+        224
+      ],
+      "rotation": 0
+    },
+    "d3510d16-af1d-47ed-8174-1035e2463418": {
+      "position": [
+        671,
+        224
+      ],
+      "rotation": 0
+    },
+    "bdcb7827-6b4e-4bdf-9358-fd66dd65c50d": {
+      "position": [
+        557,
+        224
+      ],
+      "rotation": 0
+    },
+    "1bdccd90-2c21-4cf0-a758-b808cf22cf5e": {
+      "position": [
+        431,
+        224
+      ],
+      "rotation": 0
+    },
+    "6f88f8f5-73a0-463d-a910-ebd1558d004e": {
+      "position": [
+        306,
+        224
+      ],
+      "rotation": 0
+    },
+    "5aa865f0-91ae-4594-8253-9a80bca0fc28": {
+      "position": [
+        202,
+        224
+      ],
+      "rotation": 0
+    },
+    "97ad62be-1560-4d06-9f80-cfde129a4996": {
+      "position": [
+        98,
+        224
+      ],
+      "rotation": 0
+    },
+    "931eaffa-6bcc-44e7-ad61-72bec05af55e": {
+      "position": [
+        901,
+        137
+      ],
+      "rotation": 0
+    },
+    "f5e522ac-64a2-4fae-ba2e-5234998eff66": {
+      "position": [
+        789,
+        137
+      ],
+      "rotation": 0
+    },
+    "4245b30f-eebe-4e13-b6ff-ff7e7d45263a": {
+      "position": [
+        671,
+        137
+      ],
+      "rotation": 0
+    },
+    "586e37c7-b938-4869-9dae-f802f4180dfc": {
+      "position": [
+        557,
+        137
+      ],
+      "rotation": 0
+    },
+    "1061b8da-aaeb-4443-8788-1460d7d635af": {
+      "position": [
+        431,
+        137
+      ],
+      "rotation": 0
+    },
+    "b26ea485-0b3c-4ab5-9afe-df96743d87c3": {
+      "position": [
+        306,
+        137
+      ],
+      "rotation": 0
+    },
+    "c40e93f6-eeb4-45fc-ae72-b47a396f1470": {
+      "position": [
+        202,
+        137
+      ],
+      "rotation": 0
+    },
+    "6e4f85b6-91a7-4c96-a4de-e487ed932305": {
+      "position": [
+        98,
+        137
+      ],
+      "rotation": 0
+    }
+  }
+}

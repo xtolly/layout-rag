@@ -1,0 +1,1687 @@
+{
+  "cabinets": [
+    {
+      "cabinet_id": "0199dda0-2fbb-41af-8de8-b894cf93cda8",
+      "order": 1775631774506,
+      "cabinet_name": "1A1",
+      "cabinet_use": "进线柜",
+      "cabinet_model": "GCK",
+      "wiring_method": "",
+      "cabinet_width": 800,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "panel_id": "a3b135a7-6a95-4e4e-a80a-007e2ebd2b60",
+          "order": 1775631784203,
+          "panel_type": "断路器面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": 3200,
+          "main_circuit_poles": 3,
+          "panel_width": 800,
+          "panel_height": 700,
+          "parts": [
+            {
+              "part_id": "0a734853-fdb1-4509-98ce-fbb89c5ba3d5",
+              "order": 1775631849607,
+              "part_type": "万能式断路器",
+              "part_model": "NDW2-32-32A-3P",
+              "part_width": 376,
+              "part_height": 432
+            },
+            {
+              "part_id": "988c75e3-b211-4a7e-a7c9-08e1a7743ad6",
+              "order": 1775631866049,
+              "part_type": "多功能表",
+              "part_model": "92*92",
+              "part_width": 92,
+              "part_height": 92
+            },
+            {
+              "part_id": "22edada3-03da-467c-984e-5f5a1421129d",
+              "order": 1775631951141,
+              "part_type": "多功能表",
+              "part_model": "45*45",
+              "part_width": 45,
+              "part_height": 45
+            },
+            {
+              "part_id": "0fd4823b-ad5f-4013-b8b0-51b8a1923c99",
+              "order": 1775632015945,
+              "part_type": "按钮开关",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            },
+            {
+              "part_id": "d6198fa8-ef8f-440c-9e9c-1377149f320a",
+              "order": 1775632040364,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            },
+            {
+              "part_id": "a55c23f5-896c-48b2-8bb9-b0cd169ede4c",
+              "order": 1775632040365,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            },
+            {
+              "part_id": "50fde0c4-3975-4126-ab3f-0a06f362d638",
+              "order": 1775632040366,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            },
+            {
+              "part_id": "f2b829f7-1f8d-46c4-b1b1-5020e713dde5",
+              "order": 1775632040367,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            },
+            {
+              "part_id": "2dd14e12-b32b-404b-8100-eb32ad95bf08",
+              "order": 1775632040368,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23
+            }
+          ],
+          "arrange": {
+            "0a734853-fdb1-4509-98ce-fbb89c5ba3d5": {
+              "position": [
+                212,
+                231
+              ],
+              "rotation": 0
+            },
+            "988c75e3-b211-4a7e-a7c9-08e1a7743ad6": {
+              "position": [
+                120,
+                90
+              ],
+              "rotation": 0
+            },
+            "22edada3-03da-467c-984e-5f5a1421129d": {
+              "position": [
+                246,
+                114
+              ],
+              "rotation": 0
+            },
+            "0fd4823b-ad5f-4013-b8b0-51b8a1923c99": {
+              "position": [
+                315,
+                125
+              ],
+              "rotation": 0
+            },
+            "d6198fa8-ef8f-440c-9e9c-1377149f320a": {
+              "position": [
+                360,
+                125
+              ],
+              "rotation": 0
+            },
+            "a55c23f5-896c-48b2-8bb9-b0cd169ede4c": {
+              "position": [
+                421,
+                125
+              ],
+              "rotation": 0
+            },
+            "50fde0c4-3975-4126-ab3f-0a06f362d638": {
+              "position": [
+                478,
+                125
+              ],
+              "rotation": 0
+            },
+            "f2b829f7-1f8d-46c4-b1b1-5020e713dde5": {
+              "position": [
+                537,
+                125
+              ],
+              "rotation": 0
+            },
+            "2dd14e12-b32b-404b-8100-eb32ad95bf08": {
+              "position": [
+                588,
+                125
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "f8f253b4-92ee-4aa8-b53b-61d094ea2f65",
+          "order": 1775632053193,
+          "panel_type": "下门板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 1100,
+          "parts": [
+            {
+              "part_id": "40a2c9f8-f986-4fb5-9733-98f0b4e256b0",
+              "order": 1775632259407,
+              "part_type": "连接片",
+              "part_model": "",
+              "part_width": 10,
+              "part_height": 35
+            },
+            {
+              "part_id": "1dc695b4-d24e-4382-93dd-03595c49ee0e",
+              "order": 1775632259408,
+              "part_type": "连接片",
+              "part_model": "",
+              "part_width": 10,
+              "part_height": 35
+            },
+            {
+              "part_id": "5d95d5d5-bcff-402c-9ea9-d653c5b08767",
+              "order": 1775632259409,
+              "part_type": "连接片",
+              "part_model": "",
+              "part_width": 10,
+              "part_height": 35
+            }
+          ],
+          "arrange": {
+            "40a2c9f8-f986-4fb5-9733-98f0b4e256b0": {
+              "position": [
+                305,
+                66
+              ],
+              "rotation": 0
+            },
+            "1dc695b4-d24e-4382-93dd-03595c49ee0e": {
+              "position": [
+                234,
+                66
+              ],
+              "rotation": 0
+            },
+            "5d95d5d5-bcff-402c-9ea9-d653c5b08767": {
+              "position": [
+                158,
+                66
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "e60d099d-9176-4f37-85a1-3526afb88a89",
+          "order": 1775632286011,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 300,
+          "parts": [],
+          "arrange": {}
+        },
+        {
+          "panel_id": "e151361b-3515-4b6b-a4ab-98720e7e2a03",
+          "order": 1775632312567,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 100,
+          "parts": [],
+          "arrange": {}
+        }
+      ],
+      "arrange": {
+        "a3b135a7-6a95-4e4e-a80a-007e2ebd2b60": {
+          "position": [
+            0,
+            300
+          ],
+          "rotation": 0
+        },
+        "f8f253b4-92ee-4aa8-b53b-61d094ea2f65": {
+          "position": [
+            0,
+            1000
+          ],
+          "rotation": 0
+        },
+        "e60d099d-9176-4f37-85a1-3526afb88a89": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        "e151361b-3515-4b6b-a4ab-98720e7e2a03": {
+          "position": [
+            0,
+            2100
+          ],
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "cabinet_id": "679848ac-bece-4e2e-ae57-75c9fbec9047",
+      "order": 1775632392672,
+      "cabinet_name": "1A2",
+      "cabinet_use": "母联柜",
+      "cabinet_model": "GCK",
+      "wiring_method": "",
+      "cabinet_width": 800,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "断路器面板",
+          "operation_method": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 700,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "万能式断路器",
+              "part_model": "NDW2-32-32A-3P",
+              "part_width": 376,
+              "part_height": 432,
+              "part_id": "42b6f917-6ae9-4eed-8e6a-8508af90b101"
+            },
+            {
+              "order": 2,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "f7b43dc1-dcf2-48f7-a6d2-1acd80bad0ef"
+            },
+            {
+              "order": 3,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 45,
+              "part_id": "9c470b43-1e75-45c8-b24c-a6fc20cd100d"
+            },
+            {
+              "order": 4,
+              "part_type": "按钮开关",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "6ef34b23-2c92-430a-b514-da5bda642492"
+            },
+            {
+              "order": 5,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "ebf9b859-0778-4cbf-abeb-064da77a5b7d"
+            },
+            {
+              "order": 6,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "a1888b7f-50a5-47f7-9db7-e2e93e6c6045"
+            },
+            {
+              "order": 7,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "6b74f8fd-51d4-48ba-ba35-16ec69aa9042"
+            },
+            {
+              "order": 8,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "c7260782-67c5-4261-ba50-0d1bf7b91558"
+            },
+            {
+              "order": 9,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "eba55d45-1a35-47a5-b18f-df1a468a5f9b"
+            }
+          ],
+          "panel_id": "5a7053fb-a570-4868-b154-db401db11978",
+          "height_module": "",
+          "arrange": {
+            "42b6f917-6ae9-4eed-8e6a-8508af90b101": {
+              "position": [
+                212,
+                219
+              ],
+              "rotation": 0
+            },
+            "f7b43dc1-dcf2-48f7-a6d2-1acd80bad0ef": {
+              "position": [
+                120,
+                82
+              ],
+              "rotation": 0
+            },
+            "9c470b43-1e75-45c8-b24c-a6fc20cd100d": {
+              "position": [
+                232,
+                106
+              ],
+              "rotation": 0
+            },
+            "6ef34b23-2c92-430a-b514-da5bda642492": {
+              "position": [
+                299,
+                117
+              ],
+              "rotation": 0
+            },
+            "ebf9b859-0778-4cbf-abeb-064da77a5b7d": {
+              "position": [
+                354,
+                117
+              ],
+              "rotation": 0
+            },
+            "a1888b7f-50a5-47f7-9db7-e2e93e6c6045": {
+              "position": [
+                413,
+                117
+              ],
+              "rotation": 0
+            },
+            "6b74f8fd-51d4-48ba-ba35-16ec69aa9042": {
+              "position": [
+                475,
+                117
+              ],
+              "rotation": 0
+            },
+            "c7260782-67c5-4261-ba50-0d1bf7b91558": {
+              "position": [
+                536,
+                117
+              ],
+              "rotation": 0
+            },
+            "eba55d45-1a35-47a5-b18f-df1a468a5f9b": {
+              "position": [
+                588,
+                117
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "order": 2,
+          "panel_type": "下门板",
+          "operation_method": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 1100,
+          "parts": [],
+          "panel_id": "f1d73dcc-0529-40c0-b844-3c8353b4a9bf",
+          "height_module": "",
+          "arrange": {}
+        },
+        {
+          "order": 3,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 300,
+          "parts": [],
+          "panel_id": "f8596ab2-2a4a-452b-b228-4f3d8a586167",
+          "height_module": "",
+          "arrange": {}
+        },
+        {
+          "order": 4,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 100,
+          "parts": [],
+          "panel_id": "fe8508fe-9249-4646-85a1-906308dcaba0",
+          "height_module": "",
+          "arrange": {}
+        }
+      ],
+      "arrange": {
+        "5a7053fb-a570-4868-b154-db401db11978": {
+          "position": [
+            0,
+            300
+          ],
+          "rotation": 0
+        },
+        "f1d73dcc-0529-40c0-b844-3c8353b4a9bf": {
+          "position": [
+            0,
+            1000
+          ],
+          "rotation": 0
+        },
+        "f8596ab2-2a4a-452b-b228-4f3d8a586167": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        "fe8508fe-9249-4646-85a1-906308dcaba0": {
+          "position": [
+            0,
+            2100
+          ],
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "cabinet_id": "2d883baf-4cf3-4e28-a387-7275390eac61",
+      "order": 1775632771263,
+      "cabinet_name": "1A3",
+      "cabinet_use": "电容补偿柜",
+      "cabinet_model": "GCK",
+      "wiring_method": "",
+      "cabinet_width": 800,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "panel_id": "19425c81-3ba4-4721-a7bd-b82f92b1b40e",
+          "order": 1775632818297,
+          "panel_type": "断路器面板",
+          "operation_method": "固定式",
+          "height_module": "",
+          "main_circuit_current": 630,
+          "main_circuit_poles": 3,
+          "panel_width": 800,
+          "panel_height": 400,
+          "parts": [
+            {
+              "part_id": "8a320dda-8988-412b-819d-9a3d5d681b1d",
+              "order": 1775633034568,
+              "part_type": "塑壳式断路器",
+              "part_model": "NDM3E-630/3P",
+              "part_width": 150,
+              "part_height": 150
+            }
+          ],
+          "arrange": {
+            "8a320dda-8988-412b-819d-9a3d5d681b1d": {
+              "position": [
+                325,
+                125
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "990de605-9fb4-4fa9-89fe-19d1888d592e",
+          "order": 1775632869954,
+          "panel_type": "下门板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 1400,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "低压无功补偿控制器",
+              "part_model": "",
+              "part_width": 200,
+              "part_height": 142,
+              "part_id": "b8c4d464-709d-4f9d-bf48-d35477206b8a"
+            },
+            {
+              "order": 2,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "7e2c3d9c-c9cd-4024-8976-153192c20756"
+            },
+            {
+              "order": 3,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 45,
+              "part_height": 45,
+              "part_id": "8456c74a-b15f-4c6a-9590-174229ae213e"
+            },
+            {
+              "order": 4,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "ca84efa6-eb3d-4c7a-a11f-003b0f3a2f9c"
+            }
+          ],
+          "arrange": {
+            "b8c4d464-709d-4f9d-bf48-d35477206b8a": {
+              "position": [
+                137,
+                137
+              ],
+              "rotation": 0
+            },
+            "7e2c3d9c-c9cd-4024-8976-153192c20756": {
+              "position": [
+                381,
+                162
+              ],
+              "rotation": 0
+            },
+            "8456c74a-b15f-4c6a-9590-174229ae213e": {
+              "position": [
+                507,
+                186
+              ],
+              "rotation": 0
+            },
+            "ca84efa6-eb3d-4c7a-a11f-003b0f3a2f9c": {
+              "position": [
+                598,
+                197
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "58f12a80-0fff-45af-99ac-c801aa2fbf69",
+          "order": 1775633178475,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 300,
+          "parts": [],
+          "arrange": {}
+        },
+        {
+          "panel_id": "d14f0fe4-69a9-4f43-96ad-b51d61900d1b",
+          "order": 1775633188116,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 100,
+          "parts": [],
+          "arrange": {}
+        }
+      ],
+      "arrange": {
+        "19425c81-3ba4-4721-a7bd-b82f92b1b40e": {
+          "position": [
+            0,
+            300
+          ],
+          "rotation": 0
+        },
+        "990de605-9fb4-4fa9-89fe-19d1888d592e": {
+          "position": [
+            0,
+            700
+          ],
+          "rotation": 0
+        },
+        "58f12a80-0fff-45af-99ac-c801aa2fbf69": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        "d14f0fe4-69a9-4f43-96ad-b51d61900d1b": {
+          "position": [
+            0,
+            2100
+          ],
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "cabinet_id": "e361b059-55d1-4706-bcb2-a6fd1c021348",
+      "order": 1775633053130,
+      "cabinet_name": "1A6",
+      "cabinet_use": "出线柜",
+      "cabinet_model": "GCK",
+      "wiring_method": "",
+      "cabinet_width": 800,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "order": 1,
+          "panel_type": "断路器面板",
+          "operation_method": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 600,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "万能式断路器",
+              "part_model": "NDW2-20-12-3P",
+              "part_width": 400,
+              "part_height": 500,
+              "part_id": "dd9945ed-1e17-4145-9c5c-baa177fa803c"
+            },
+            {
+              "order": 2,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "444056ab-db56-4321-909e-8eab36e2d2cb"
+            },
+            {
+              "order": 3,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "69093585-f7ab-4f97-9cd3-0597c52027bc"
+            },
+            {
+              "order": 4,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "a5d07fa2-a4c0-40b6-b828-1a93a518328e"
+            },
+            {
+              "order": 5,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "948b89b6-1815-46d8-bd48-471a78df2827"
+            },
+            {
+              "order": 6,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "e842231f-74d9-47e5-95b8-6bce2625c5f1"
+            },
+            {
+              "order": 7,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "0ed1a2f0-1d24-4211-9962-dc8e579eb404"
+            }
+          ],
+          "panel_id": "0edf7479-6908-4b6c-ba5c-885515990188",
+          "arrange": {
+            "dd9945ed-1e17-4145-9c5c-baa177fa803c": {
+              "position": [
+                337,
+                50
+              ],
+              "rotation": 0
+            },
+            "444056ab-db56-4321-909e-8eab36e2d2cb": {
+              "position": [
+                112,
+                50
+              ],
+              "rotation": 0
+            },
+            "69093585-f7ab-4f97-9cd3-0597c52027bc": {
+              "position": [
+                60,
+                184
+              ],
+              "rotation": 0
+            },
+            "a5d07fa2-a4c0-40b6-b828-1a93a518328e": {
+              "position": [
+                147,
+                184
+              ],
+              "rotation": 0
+            },
+            "948b89b6-1815-46d8-bd48-471a78df2827": {
+              "position": [
+                233,
+                271
+              ],
+              "rotation": 0
+            },
+            "e842231f-74d9-47e5-95b8-6bce2625c5f1": {
+              "position": [
+                60,
+                271
+              ],
+              "rotation": 0
+            },
+            "0ed1a2f0-1d24-4211-9962-dc8e579eb404": {
+              "position": [
+                233,
+                184
+              ],
+              "rotation": 0
+            }
+          },
+          "height_module": ""
+        },
+        {
+          "order": 1775633747116,
+          "panel_type": "断路器面板",
+          "operation_method": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 600,
+          "parts": [
+            {
+              "order": 1775633747117,
+              "part_type": "万能式断路器",
+              "part_model": "NDW2-20-12-3P",
+              "part_width": 400,
+              "part_height": 500,
+              "part_id": "7335614a-5403-4bc0-a208-8757178d45d3"
+            },
+            {
+              "order": 1775633747118,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "e00f5b01-f5e5-4ee0-8864-169e273c3915"
+            },
+            {
+              "order": 1775633747119,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "522c6089-f9f0-4170-af41-d420abc89727"
+            },
+            {
+              "order": 1775633747120,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "f5531683-b3cc-4ad6-b9f1-0aa78f47d6ed"
+            },
+            {
+              "order": 1775633747121,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "cbc850ae-3f6f-48fe-b474-1f8ca9e9e46b"
+            },
+            {
+              "order": 1775633747122,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "b6d82159-0434-42ad-a230-5c12d57d1b6c"
+            },
+            {
+              "order": 1775633747123,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "f2be50c2-60f2-4be4-a674-085ad357ee5b"
+            }
+          ],
+          "panel_id": "d4f6e8c4-6ce1-4f3a-a76c-a9dca9f2cb46",
+          "arrange": {
+            "7335614a-5403-4bc0-a208-8757178d45d3": {
+              "position": [
+                337,
+                50
+              ],
+              "rotation": 0
+            },
+            "e00f5b01-f5e5-4ee0-8864-169e273c3915": {
+              "position": [
+                112,
+                50
+              ],
+              "rotation": 0
+            },
+            "522c6089-f9f0-4170-af41-d420abc89727": {
+              "position": [
+                60,
+                184
+              ],
+              "rotation": 0
+            },
+            "f5531683-b3cc-4ad6-b9f1-0aa78f47d6ed": {
+              "position": [
+                147,
+                184
+              ],
+              "rotation": 0
+            },
+            "cbc850ae-3f6f-48fe-b474-1f8ca9e9e46b": {
+              "position": [
+                233,
+                271
+              ],
+              "rotation": 0
+            },
+            "b6d82159-0434-42ad-a230-5c12d57d1b6c": {
+              "position": [
+                60,
+                271
+              ],
+              "rotation": 0
+            },
+            "f2be50c2-60f2-4be4-a674-085ad357ee5b": {
+              "position": [
+                233,
+                184
+              ],
+              "rotation": 0
+            }
+          },
+          "height_module": ""
+        },
+        {
+          "order": 1775633748516,
+          "panel_type": "断路器面板",
+          "operation_method": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 600,
+          "parts": [
+            {
+              "order": 1775633748517,
+              "part_type": "万能式断路器",
+              "part_model": "NDW2-20-12-3P",
+              "part_width": 400,
+              "part_height": 500,
+              "part_id": "dd97c186-b441-430b-b324-a90d0cca7733"
+            },
+            {
+              "order": 1775633748518,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "c8651742-06c1-47ea-88c8-5fc979df389b"
+            },
+            {
+              "order": 1775633748519,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "76bdcf2a-05a0-4924-9a79-657b94ad5349"
+            },
+            {
+              "order": 1775633748520,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "e1c7fffa-dff0-428e-bdd1-9a00f4f04dd5"
+            },
+            {
+              "order": 1775633748521,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "2316fe51-bfc6-4205-b583-55a0fdc48eae"
+            },
+            {
+              "order": 1775633748522,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "9a905ea0-ff76-473e-b729-6d37dc30782b"
+            },
+            {
+              "order": 1775633748523,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 23,
+              "part_height": 23,
+              "part_id": "27eed6b4-5719-4b74-baa9-1bf9e3191c6c"
+            }
+          ],
+          "panel_id": "fcb0b1ff-ad53-4503-91d3-691ab690cb06",
+          "arrange": {
+            "dd97c186-b441-430b-b324-a90d0cca7733": {
+              "position": [
+                337,
+                50
+              ],
+              "rotation": 0
+            },
+            "c8651742-06c1-47ea-88c8-5fc979df389b": {
+              "position": [
+                112,
+                50
+              ],
+              "rotation": 0
+            },
+            "76bdcf2a-05a0-4924-9a79-657b94ad5349": {
+              "position": [
+                60,
+                184
+              ],
+              "rotation": 0
+            },
+            "e1c7fffa-dff0-428e-bdd1-9a00f4f04dd5": {
+              "position": [
+                147,
+                184
+              ],
+              "rotation": 0
+            },
+            "2316fe51-bfc6-4205-b583-55a0fdc48eae": {
+              "position": [
+                233,
+                271
+              ],
+              "rotation": 0
+            },
+            "9a905ea0-ff76-473e-b729-6d37dc30782b": {
+              "position": [
+                60,
+                271
+              ],
+              "rotation": 0
+            },
+            "27eed6b4-5719-4b74-baa9-1bf9e3191c6c": {
+              "position": [
+                233,
+                184
+              ],
+              "rotation": 0
+            }
+          },
+          "height_module": ""
+        },
+        {
+          "panel_id": "fe507c6e-6d64-407f-b016-bc39b8fa2d54",
+          "order": 1775633749379,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 300,
+          "parts": [],
+          "arrange": {}
+        },
+        {
+          "panel_id": "83d17168-fcf3-42e0-a40f-3110eb16ba48",
+          "order": 1775633759157,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 100,
+          "parts": [],
+          "arrange": {}
+        }
+      ],
+      "arrange": {
+        "0edf7479-6908-4b6c-ba5c-885515990188": {
+          "position": [
+            0,
+            300
+          ],
+          "rotation": 0
+        },
+        "d4f6e8c4-6ce1-4f3a-a76c-a9dca9f2cb46": {
+          "position": [
+            0,
+            1500
+          ],
+          "rotation": 0
+        },
+        "fcb0b1ff-ad53-4503-91d3-691ab690cb06": {
+          "position": [
+            0,
+            900
+          ],
+          "rotation": 0
+        },
+        "fe507c6e-6d64-407f-b016-bc39b8fa2d54": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        "83d17168-fcf3-42e0-a40f-3110eb16ba48": {
+          "position": [
+            0,
+            2100
+          ],
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "cabinet_id": "e7f35bb2-f46d-47e8-89e7-02a21a37b5f3",
+      "order": 1775633818823,
+      "cabinet_name": "1A7",
+      "cabinet_use": "出线柜",
+      "cabinet_model": "GCK",
+      "wiring_method": "",
+      "cabinet_width": 800,
+      "cabinet_height": 2200,
+      "panels": [
+        {
+          "panel_id": "4ae45ff2-8e6b-4c5c-b10a-880f334bd79f",
+          "order": 1775633901389,
+          "panel_type": "抽屉面板",
+          "operation_method": "固定式",
+          "height_module": "",
+          "main_circuit_current": 630,
+          "main_circuit_poles": 3,
+          "panel_width": 600,
+          "panel_height": 300,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳式断路器",
+              "part_model": "NDM3E-630-3P",
+              "part_width": 160,
+              "part_height": 80,
+              "part_id": "bc35baf4-ad57-412b-b3bb-8aefad6673bf"
+            },
+            {
+              "order": 2,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "52704a51-207c-470e-86ea-72dcc70efe66"
+            },
+            {
+              "order": 3,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "11501280-f3e9-4172-b1b4-5571569fbe34"
+            },
+            {
+              "order": 4,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "81ecae8e-8a39-484e-824c-2b14987239f8"
+            }
+          ],
+          "arrange": {
+            "bc35baf4-ad57-412b-b3bb-8aefad6673bf": {
+              "position": [
+                220,
+                114
+              ],
+              "rotation": 0
+            },
+            "52704a51-207c-470e-86ea-72dcc70efe66": {
+              "position": [
+                472,
+                172
+              ],
+              "rotation": 0
+            },
+            "11501280-f3e9-4172-b1b4-5571569fbe34": {
+              "position": [
+                427,
+                207
+              ],
+              "rotation": 0
+            },
+            "81ecae8e-8a39-484e-824c-2b14987239f8": {
+              "position": [
+                427,
+                172
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "51524fce-6fc0-453a-8c0a-457d15a0342f",
+          "order": 1775634162908,
+          "panel_type": "抽屉面板",
+          "operation_method": "固定式",
+          "height_module": "",
+          "main_circuit_current": 630,
+          "main_circuit_poles": 3,
+          "panel_width": 600,
+          "panel_height": 300,
+          "parts": [
+            {
+              "order": 1775634162909,
+              "part_type": "塑壳式断路器",
+              "part_model": "NDM3E-630-3P",
+              "part_width": 160,
+              "part_height": 80,
+              "part_id": "dbe1ac16-cb8a-4452-b40a-1be0d7d14e64"
+            },
+            {
+              "order": 1775634162910,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "5b898651-cbef-43da-bed5-4c8d8f5e36ab"
+            },
+            {
+              "order": 1775634162911,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "9dfe610a-8d77-4c86-b868-4af916606100"
+            },
+            {
+              "order": 1775634162912,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "e9abda8e-45d9-4051-bf7d-cd37e9cacd69"
+            }
+          ],
+          "arrange": {
+            "dbe1ac16-cb8a-4452-b40a-1be0d7d14e64": {
+              "position": [
+                220,
+                114
+              ],
+              "rotation": 0
+            },
+            "5b898651-cbef-43da-bed5-4c8d8f5e36ab": {
+              "position": [
+                472,
+                172
+              ],
+              "rotation": 0
+            },
+            "9dfe610a-8d77-4c86-b868-4af916606100": {
+              "position": [
+                427,
+                207
+              ],
+              "rotation": 0
+            },
+            "e9abda8e-45d9-4051-bf7d-cd37e9cacd69": {
+              "position": [
+                427,
+                172
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "9831c073-fcee-4304-b308-12ac8c356aa6",
+          "order": 1775634162526,
+          "panel_type": "抽屉面板",
+          "operation_method": "固定式",
+          "height_module": "",
+          "main_circuit_current": 630,
+          "main_circuit_poles": 3,
+          "panel_width": 600,
+          "panel_height": 300,
+          "parts": [
+            {
+              "order": 1775634162527,
+              "part_type": "塑壳式断路器",
+              "part_model": "NDM3E-630-3P",
+              "part_width": 160,
+              "part_height": 80,
+              "part_id": "a1aa9c55-2d6b-423d-8ba8-aaa7e247b293"
+            },
+            {
+              "order": 1775634162528,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "ddde12d9-e62b-46ee-877c-2c97d85cf011"
+            },
+            {
+              "order": 1775634162529,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "8da2aa6f-e4fc-471d-bfab-ddbbd173b1ff"
+            },
+            {
+              "order": 1775634162530,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "2471e802-4b1f-4ba5-8fee-e0efdb62b001"
+            }
+          ],
+          "arrange": {
+            "a1aa9c55-2d6b-423d-8ba8-aaa7e247b293": {
+              "position": [
+                220,
+                114
+              ],
+              "rotation": 0
+            },
+            "ddde12d9-e62b-46ee-877c-2c97d85cf011": {
+              "position": [
+                472,
+                172
+              ],
+              "rotation": 0
+            },
+            "8da2aa6f-e4fc-471d-bfab-ddbbd173b1ff": {
+              "position": [
+                427,
+                207
+              ],
+              "rotation": 0
+            },
+            "2471e802-4b1f-4ba5-8fee-e0efdb62b001": {
+              "position": [
+                427,
+                172
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "b077d56b-389a-4a29-839d-e5239c3f07e7",
+          "order": 1775634162145,
+          "panel_type": "抽屉面板",
+          "operation_method": "固定式",
+          "height_module": "",
+          "main_circuit_current": 630,
+          "main_circuit_poles": 3,
+          "panel_width": 600,
+          "panel_height": 300,
+          "parts": [
+            {
+              "order": 1775634162146,
+              "part_type": "塑壳式断路器",
+              "part_model": "NDM3E-630-3P",
+              "part_width": 160,
+              "part_height": 80,
+              "part_id": "2b82132b-8df6-451b-b42a-84c60681d01a"
+            },
+            {
+              "order": 1775634162147,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "7c2f635e-4772-4f49-804c-3b4feb376f21"
+            },
+            {
+              "order": 1775634162148,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "f9a34723-3ece-43da-96da-127af128cc4e"
+            },
+            {
+              "order": 1775634162149,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "11734bde-a594-43d3-9134-e91136c7aae5"
+            }
+          ],
+          "arrange": {
+            "2b82132b-8df6-451b-b42a-84c60681d01a": {
+              "position": [
+                220,
+                114
+              ],
+              "rotation": 0
+            },
+            "7c2f635e-4772-4f49-804c-3b4feb376f21": {
+              "position": [
+                472,
+                172
+              ],
+              "rotation": 0
+            },
+            "f9a34723-3ece-43da-96da-127af128cc4e": {
+              "position": [
+                427,
+                207
+              ],
+              "rotation": 0
+            },
+            "11734bde-a594-43d3-9134-e91136c7aae5": {
+              "position": [
+                427,
+                172
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "6b5e96f5-ef11-47de-8e03-9b2d3a80662a",
+          "order": 1775634161805,
+          "panel_type": "抽屉面板",
+          "operation_method": "固定式",
+          "height_module": "",
+          "main_circuit_current": 630,
+          "main_circuit_poles": 3,
+          "panel_width": 600,
+          "panel_height": 300,
+          "parts": [
+            {
+              "order": 1775634161806,
+              "part_type": "塑壳式断路器",
+              "part_model": "NDM3E-630-3P",
+              "part_width": 160,
+              "part_height": 80,
+              "part_id": "207a8c3a-dfb0-44d7-99fe-7f16b4386fdc"
+            },
+            {
+              "order": 1775634161807,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "8f2881d8-b70b-46c8-9b58-de216dc5c6bd"
+            },
+            {
+              "order": 1775634161808,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "bbebf505-4a2c-44e7-8e40-169d2463a5b8"
+            },
+            {
+              "order": 1775634161809,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "e50f64c6-f5a7-46da-a13e-bf07c7fd9aa1"
+            }
+          ],
+          "arrange": {
+            "207a8c3a-dfb0-44d7-99fe-7f16b4386fdc": {
+              "position": [
+                220,
+                114
+              ],
+              "rotation": 0
+            },
+            "8f2881d8-b70b-46c8-9b58-de216dc5c6bd": {
+              "position": [
+                472,
+                172
+              ],
+              "rotation": 0
+            },
+            "bbebf505-4a2c-44e7-8e40-169d2463a5b8": {
+              "position": [
+                427,
+                207
+              ],
+              "rotation": 0
+            },
+            "e50f64c6-f5a7-46da-a13e-bf07c7fd9aa1": {
+              "position": [
+                427,
+                172
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "3eaa2ec7-f28d-4292-b827-7abb7d0a7db3",
+          "order": 1775634161303,
+          "panel_type": "抽屉面板",
+          "operation_method": "固定式",
+          "height_module": "",
+          "main_circuit_current": 630,
+          "main_circuit_poles": 3,
+          "panel_width": 600,
+          "panel_height": 300,
+          "parts": [
+            {
+              "order": 1775634161304,
+              "part_type": "塑壳式断路器",
+              "part_model": "NDM3E-630-3P",
+              "part_width": 160,
+              "part_height": 80,
+              "part_id": "84ee22e5-56f3-40cc-9f13-943eb9945cc5"
+            },
+            {
+              "order": 1775634161305,
+              "part_type": "多功能表",
+              "part_model": "",
+              "part_width": 92,
+              "part_height": 92,
+              "part_id": "94aedb3e-6f85-477a-9bd7-ce71e91a8ce6"
+            },
+            {
+              "order": 1775634161306,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "7d360ff9-aff3-43e0-8929-14ac611984b5"
+            },
+            {
+              "order": 1775634161307,
+              "part_type": "指示灯",
+              "part_model": "",
+              "part_width": 22,
+              "part_height": 22,
+              "part_id": "a00f0817-204e-49bd-add7-04b98e925c6d"
+            }
+          ],
+          "arrange": {
+            "84ee22e5-56f3-40cc-9f13-943eb9945cc5": {
+              "position": [
+                220,
+                114
+              ],
+              "rotation": 0
+            },
+            "94aedb3e-6f85-477a-9bd7-ce71e91a8ce6": {
+              "position": [
+                472,
+                172
+              ],
+              "rotation": 0
+            },
+            "7d360ff9-aff3-43e0-8929-14ac611984b5": {
+              "position": [
+                427,
+                207
+              ],
+              "rotation": 0
+            },
+            "a00f0817-204e-49bd-add7-04b98e925c6d": {
+              "position": [
+                427,
+                172
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "panel_id": "16d4fe3f-4377-4562-bdf7-4f5f3ef5feca",
+          "order": 1775634164529,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 300,
+          "parts": [],
+          "arrange": {}
+        },
+        {
+          "panel_id": "6b348e30-6f13-4bd9-8539-ab7ae4ef9424",
+          "order": 1775634178004,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 800,
+          "panel_height": 100,
+          "parts": [],
+          "arrange": {}
+        },
+        {
+          "panel_id": "676c8514-a88c-44e2-8a94-2dae00371cc8",
+          "order": 1775634371619,
+          "panel_type": "框架面板",
+          "operation_method": "",
+          "height_module": "",
+          "main_circuit_current": null,
+          "main_circuit_poles": null,
+          "panel_width": 200,
+          "panel_height": 1800,
+          "parts": [],
+          "arrange": {}
+        }
+      ],
+      "arrange": {
+        "4ae45ff2-8e6b-4c5c-b10a-880f334bd79f": {
+          "position": [
+            0,
+            1500
+          ],
+          "rotation": 0
+        },
+        "51524fce-6fc0-453a-8c0a-457d15a0342f": {
+          "position": [
+            0,
+            900
+          ],
+          "rotation": 0
+        },
+        "9831c073-fcee-4304-b308-12ac8c356aa6": {
+          "position": [
+            0,
+            300
+          ],
+          "rotation": 0
+        },
+        "b077d56b-389a-4a29-839d-e5239c3f07e7": {
+          "position": [
+            0,
+            600
+          ],
+          "rotation": 0
+        },
+        "6b5e96f5-ef11-47de-8e03-9b2d3a80662a": {
+          "position": [
+            0,
+            1800
+          ],
+          "rotation": 0
+        },
+        "3eaa2ec7-f28d-4292-b827-7abb7d0a7db3": {
+          "position": [
+            0,
+            1200
+          ],
+          "rotation": 0
+        },
+        "16d4fe3f-4377-4562-bdf7-4f5f3ef5feca": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        "6b348e30-6f13-4bd9-8539-ab7ae4ef9424": {
+          "position": [
+            0,
+            2100
+          ],
+          "rotation": 0
+        },
+        "676c8514-a88c-44e2-8a94-2dae00371cc8": {
+          "position": [
+            600,
+            300
+          ],
+          "rotation": 0
+        }
+      }
+    }
+  ]
+}

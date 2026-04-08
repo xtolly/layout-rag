@@ -1,6 +1,6 @@
 {
-  "name": "进线柜-GCK-默认面板-1200x2200",
-  "uuid": "dd83bcc7-be64-4e13-8bc1-c5d2a394ac02",
+  "name": "进线柜-GCK-断路器面板-1200x800",
+  "uuid": "b7de99fb-df6f-4dce-a46b-84941f05ee85",
   "scheme": {
     "cabinet_id": "ba25b025-a9cd-4ac4-b909-d267c7d62363",
     "cabinet_name": "1-1AA1",
@@ -8,14 +8,14 @@
     "cabinet_model": "GCK",
     "cabinet_wiring_method": "上进上出",
     "panel_id": "8cc8572a-dbb1-4c47-867f-db6288372f5c",
-    "panel_type": "默认面板",
-    "panel_operation_method": "抽屉式",
+    "panel_type": "断路器面板",
+    "panel_operation_method": "抽出式",
     "panel_main_circuit_current": 5000,
     "panel_main_circuit_poles": 3,
     "panel_height_module": "",
     "panel_size": [
       1200,
-      2200
+      800
     ],
     "parts": [
       {
@@ -29,7 +29,7 @@
       },
       {
         "part_id": "35c046b5-3621-4dc1-b705-ad8e8f9e977e",
-        "part_type": "按钮开关",
+        "part_type": "指示灯",
         "part_model": "合闸指示",
         "part_size": [
           23,
@@ -47,7 +47,7 @@
       },
       {
         "part_id": "dfa60f81-7ce0-423c-b28d-233339357d20",
-        "part_type": "按钮开关",
+        "part_type": "指示灯",
         "part_model": "分闸指示",
         "part_size": [
           23,
@@ -80,72 +80,56 @@
           800,
           450
         ]
-      },
-      {
-        "part_id": "3b12cbdb-3b47-4b28-96d2-f3464d342a81",
-        "part_type": "隔离开关",
-        "part_model": "铅封锁片",
-        "part_size": [
-          700,
-          480
-        ]
       }
     ]
   },
   "arrange": {
     "fd50f3fe-a58d-4f7d-ab54-f0000b05acf6": {
       "position": [
-        416,
-        565
+        453,
+        162
       ],
       "rotation": 0
     },
     "35c046b5-3621-4dc1-b705-ad8e8f9e977e": {
       "position": [
-        603,
-        610
+        612,
+        162
       ],
       "rotation": 0
     },
     "4dd36ee6-2326-4dd8-9ce7-8a70ad658454": {
       "position": [
-        540,
-        610
+        612,
+        207
       ],
       "rotation": 0
     },
     "dfa60f81-7ce0-423c-b28d-233339357d20": {
       "position": [
-        603,
-        571
+        551,
+        162
       ],
       "rotation": 0
     },
     "2e9e6312-029d-4db9-872f-7ababe269885": {
       "position": [
-        540,
-        571
+        551,
+        207
       ],
       "rotation": 0
     },
     "0f91e176-79e0-40ce-96a5-4ae12650faf0": {
       "position": [
-        676,
-        553
+        675,
+        156
       ],
       "rotation": 0
     },
     "4aaf2727-5884-4b21-b7c8-12d3b64b7798": {
       "position": [
         200,
-        717
-      ],
-      "rotation": 0
-    },
-    "3b12cbdb-3b47-4b28-96d2-f3464d342a81": {
-      "position": [
-        250,
-        1294
+        273
       ],
       "rotation": 0
     }

@@ -1129,10 +1129,11 @@
                 <div class="px-7 py-5 space-y-4">
                     <div>
                         <label class="section-label">元件类型 *</label>
-                        <select v-model="partModal.part.part_type" class="input-field">
-                            <option value="">请选择类型</option>
+                        <input v-model="partModal.part.part_type" list="part-type-options" class="input-field"
+                            placeholder="输入关键字搜索元件类型">
+                        <datalist id="part-type-options">
                             <option v-for="t in PART_TYPE_OPTIONS" :key="t" :value="t">{{ t }}</option>
-                        </select>
+                        </datalist>
                     </div>
                     <div>
                         <label class="section-label">型号 / 规格</label>

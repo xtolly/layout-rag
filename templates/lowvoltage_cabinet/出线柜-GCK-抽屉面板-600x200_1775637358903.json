@@ -1,6 +1,6 @@
 {
   "name": "出线柜-GCK-抽屉面板-600x200",
-  "uuid": "92007f52-a7c9-491e-b567-7d20de821599",
+  "uuid": "9232ffa4-80ab-486d-9c8d-69a7acf23e05",
   "scheme": {
     "cabinet_id": "f24160ee-301e-40ea-a740-3f0adddfc466",
     "cabinet_name": "1-1AA5",
@@ -32,8 +32,17 @@
         "part_type": "多功能表",
         "part_model": "",
         "part_size": [
-          120,
+          80,
           80
+        ]
+      },
+      {
+        "part_id": "f519ecf6-dbdc-4895-9d64-15f009a7f34e",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
         ]
       }
     ]
@@ -48,8 +57,15 @@
     },
     "61182ea2-da30-42e1-b38f-ee00a7ceab31": {
       "position": [
-        357,
-        60
+        437,
+        61
+      ],
+      "rotation": 0
+    },
+    "f519ecf6-dbdc-4895-9d64-15f009a7f34e": {
+      "position": [
+        399,
+        89
       ],
       "rotation": 0
     }

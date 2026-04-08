@@ -1,0 +1,89 @@
+{
+  "name": "出线柜-GCK-抽屉面板-600x300",
+  "uuid": "c1bda809-9b4a-4ceb-8c2f-d5ef1ed2d1bd",
+  "scheme": {
+    "cabinet_id": "e7f35bb2-f46d-47e8-89e7-02a21a37b5f3",
+    "cabinet_name": "1A7",
+    "cabinet_use": "出线柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "",
+    "panel_id": "4ae45ff2-8e6b-4c5c-b10a-880f334bd79f",
+    "panel_type": "抽屉面板",
+    "panel_operation_method": "固定式",
+    "panel_main_circuit_current": 630,
+    "panel_main_circuit_poles": 3,
+    "panel_height_module": "",
+    "panel_size": [
+      600,
+      300
+    ],
+    "parts": [
+      {
+        "part_id": "bc35baf4-ad57-412b-b3bb-8aefad6673bf",
+        "part_type": "塑壳式断路器",
+        "part_model": "NDM3E-630-3P",
+        "part_size": [
+          160,
+          80
+        ]
+      },
+      {
+        "part_id": "52704a51-207c-470e-86ea-72dcc70efe66",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          92,
+          92
+        ]
+      },
+      {
+        "part_id": "11501280-f3e9-4172-b1b4-5571569fbe34",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          22,
+          22
+        ]
+      },
+      {
+        "part_id": "81ecae8e-8a39-484e-824c-2b14987239f8",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          22,
+          22
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "bc35baf4-ad57-412b-b3bb-8aefad6673bf": {
+      "position": [
+        220,
+        114
+      ],
+      "rotation": 0
+    },
+    "52704a51-207c-470e-86ea-72dcc70efe66": {
+      "position": [
+        472,
+        172
+      ],
+      "rotation": 0
+    },
+    "11501280-f3e9-4172-b1b4-5571569fbe34": {
+      "position": [
+        427,
+        207
+      ],
+      "rotation": 0
+    },
+    "81ecae8e-8a39-484e-824c-2b14987239f8": {
+      "position": [
+        427,
+        172
+      ],
+      "rotation": 0
+    }
+  }
+}

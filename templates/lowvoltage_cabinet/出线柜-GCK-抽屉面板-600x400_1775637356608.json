@@ -1,6 +1,6 @@
 {
   "name": "出线柜-GCK-抽屉面板-600x400",
-  "uuid": "3446acbb-4c48-4e25-a118-b8e66d736312",
+  "uuid": "86179b9c-4e99-4469-b917-f8dc4f44e566",
   "scheme": {
     "cabinet_id": "f24160ee-301e-40ea-a740-3f0adddfc466",
     "cabinet_name": "1-1AA5",
@@ -23,8 +23,8 @@
         "part_type": "塑壳式断路器",
         "part_model": "NM1-400H/3P 400A",
         "part_size": [
-          200,
-          200
+          100,
+          100
         ]
       },
       {
@@ -32,8 +32,17 @@
         "part_type": "多功能表",
         "part_model": "",
         "part_size": [
-          120,
+          80,
           80
+        ]
+      },
+      {
+        "part_id": "1c9463a2-46f8-45f1-805e-780d30692583",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
         ]
       }
     ]
@@ -41,15 +50,22 @@
   "arrange": {
     "4af0df53-955f-44e2-a9a3-86a2e076def6": {
       "position": [
-        83,
-        125
+        135,
+        133
       ],
       "rotation": 0
     },
     "6f5bb578-eb6e-4733-bfcf-3edd679bdc16": {
       "position": [
-        368,
-        245
+        438,
+        247
+      ],
+      "rotation": 0
+    },
+    "1c9463a2-46f8-45f1-805e-780d30692583": {
+      "position": [
+        398,
+        276
       ],
       "rotation": 0
     }
