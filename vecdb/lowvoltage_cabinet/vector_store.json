@@ -178,7 +178,7 @@
     },
     "cabinet_use_出线柜": {
       "type": "boolean",
-      "weight": 5.0,
+      "weight": 2.0,
       "display_name": "柜体用途:出线柜",
       "dynamic": true,
       "source": "scheme",
@@ -186,9 +186,19 @@
       "source_name": "cabinet_use_categories",
       "value": "出线柜"
     },
+    "cabinet_use_母联柜": {
+      "type": "boolean",
+      "weight": 2.0,
+      "display_name": "柜体用途:母联柜",
+      "dynamic": true,
+      "source": "scheme",
+      "field": "cabinet_use",
+      "source_name": "cabinet_use_categories",
+      "value": "母联柜"
+    },
     "cabinet_use_电容补偿柜": {
       "type": "boolean",
-      "weight": 5.0,
+      "weight": 2.0,
       "display_name": "柜体用途:电容补偿柜",
       "dynamic": true,
       "source": "scheme",
@@ -198,7 +208,7 @@
     },
     "cabinet_use_进线柜": {
       "type": "boolean",
-      "weight": 5.0,
+      "weight": 2.0,
       "display_name": "柜体用途:进线柜",
       "dynamic": true,
       "source": "scheme",
@@ -340,7 +350,7 @@
       164.62164412459776,
       1.0,
       5000.0,
-      3.0
+      4.0
     ],
     "count_max_log": [
       2.833213344056216,
@@ -376,6 +386,10 @@
     {
       "uuid": "4ca0944c-1f2f-4dae-b5ec-b126d290ee78",
       "source_path": "templates/lowvoltage_cabinet/出线柜-GCK-断路器面板-800x800_1775637354280.json"
+    },
+    {
+      "uuid": "fd8e0f13-808f-4dd6-b34b-4e13d559ad4c",
+      "source_path": "templates/lowvoltage_cabinet/母联柜-GCK-断路器面板-800x700_1775640819249.json"
     },
     {
       "uuid": "d64dc4ac-7ebd-4136-8001-3c68744f9fb3",

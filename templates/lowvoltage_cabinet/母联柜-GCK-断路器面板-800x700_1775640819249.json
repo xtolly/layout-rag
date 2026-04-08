@@ -1,0 +1,169 @@
+{
+  "name": "母联柜-GCK-断路器面板-800x700",
+  "uuid": "fd8e0f13-808f-4dd6-b34b-4e13d559ad4c",
+  "scheme": {
+    "cabinet_id": "679848ac-bece-4e2e-ae57-75c9fbec9047",
+    "cabinet_name": "1A2",
+    "cabinet_use": "母联柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "",
+    "panel_id": "5a7053fb-a570-4868-b154-db401db11978",
+    "panel_type": "断路器面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": 3200,
+    "panel_main_circuit_poles": 4,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      700
+    ],
+    "parts": [
+      {
+        "part_id": "42b6f917-6ae9-4eed-8e6a-8508af90b101",
+        "part_type": "万能式断路器",
+        "part_model": "NDW2-32-32A-3P",
+        "part_size": [
+          376,
+          432
+        ]
+      },
+      {
+        "part_id": "f7b43dc1-dcf2-48f7-a6d2-1acd80bad0ef",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          92,
+          92
+        ]
+      },
+      {
+        "part_id": "9c470b43-1e75-45c8-b24c-a6fc20cd100d",
+        "part_type": "多功能表",
+        "part_model": "",
+        "part_size": [
+          45,
+          45
+        ]
+      },
+      {
+        "part_id": "6ef34b23-2c92-430a-b514-da5bda642492",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "ebf9b859-0778-4cbf-abeb-064da77a5b7d",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "a1888b7f-50a5-47f7-9db7-e2e93e6c6045",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "6b74f8fd-51d4-48ba-ba35-16ec69aa9042",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "c7260782-67c5-4261-ba50-0d1bf7b91558",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      },
+      {
+        "part_id": "eba55d45-1a35-47a5-b18f-df1a468a5f9b",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          23,
+          23
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "42b6f917-6ae9-4eed-8e6a-8508af90b101": {
+      "position": [
+        212,
+        219
+      ],
+      "rotation": 0
+    },
+    "f7b43dc1-dcf2-48f7-a6d2-1acd80bad0ef": {
+      "position": [
+        120,
+        82
+      ],
+      "rotation": 0
+    },
+    "9c470b43-1e75-45c8-b24c-a6fc20cd100d": {
+      "position": [
+        232,
+        106
+      ],
+      "rotation": 0
+    },
+    "6ef34b23-2c92-430a-b514-da5bda642492": {
+      "position": [
+        299,
+        117
+      ],
+      "rotation": 0
+    },
+    "ebf9b859-0778-4cbf-abeb-064da77a5b7d": {
+      "position": [
+        354,
+        117
+      ],
+      "rotation": 0
+    },
+    "a1888b7f-50a5-47f7-9db7-e2e93e6c6045": {
+      "position": [
+        413,
+        117
+      ],
+      "rotation": 0
+    },
+    "6b74f8fd-51d4-48ba-ba35-16ec69aa9042": {
+      "position": [
+        475,
+        117
+      ],
+      "rotation": 0
+    },
+    "c7260782-67c5-4261-ba50-0d1bf7b91558": {
+      "position": [
+        536,
+        117
+      ],
+      "rotation": 0
+    },
+    "eba55d45-1a35-47a5-b18f-df1a468a5f9b": {
+      "position": [
+        588,
+        117
+      ],
+      "rotation": 0
+    }
+  }
+}

@@ -10,10 +10,13 @@
   - 元件之间不能重叠
 
 软约束（优先级 1 > 2）：
-  1. 占位类型的面板（part_type 含 "占位"）：
+  1. 框架面板（part_type 含 "框架"）：
+      - 优先贴四边放置。
+      - 若面板宽度等于柜体宽度，则优先贴顶/贴底；其中高度更大的满宽框架面板优先放在顶部。
+  2. 占位类型的面板（part_type 含 "占位"）：
        - 宽 > 高 → 从上往下排列（权重10000），从左往右排列（权重100）
              - 高 >= 宽 → 从右往左排（权重10000），从下往上排（权重100）
-    2. 其他面板 → 从上往下排列（权重10），从左往右排列（权重1）
+    3. 其他面板 → 从上往下排列（权重10），从左往右排列（权重1）
          且默认面板优先于抽屉面板，默认面板在上，抽屉面板在下。
 """
 
@@ -25,12 +28,15 @@ from ortools.sat.python import cp_model
 
 
 ZHANWEI_KEYWORD = "占位"
+FRAME_PANEL_KEYWORD = "框架"
 DEFAULT_PANEL_KEYWORD = "默认面板"
 DRAWER_PANEL_KEYWORD = "抽屉面板"
 
 # ---------------------------------------------------------------------------
 # 软约束权重
 # ---------------------------------------------------------------------------
+WEIGHT_FRAME_EDGE = 1_000_000
+WEIGHT_FULL_WIDTH_FRAME_TOP = 2_000_000
 WEIGHT_ZHANWEI_WIDE_Y = 10000   # 占位(宽>高) 从上往下
 WEIGHT_ZHANWEI_WIDE_X = 100     # 占位(宽>高) 从左往右
 WEIGHT_ZHANWEI_TALL_X = 10000   # 占位(高>=宽) 从右往左
@@ -42,6 +48,10 @@ WEIGHT_DEFAULT_ABOVE_DRAWER = 100000
 
 def _is_zhanwei_panel(part_type: str) -> bool:
     return ZHANWEI_KEYWORD in part_type
+
+
+def _is_frame_panel(part_type: str) -> bool:
+    return FRAME_PANEL_KEYWORD in part_type
 
 
 def _is_default_panel(part_type: str) -> bool:
@@ -122,7 +132,18 @@ def compute_cabinet_arrange(
 
         # ── 按分类添加软约束代价项 ──
         part_type = type_map[pid]
+        is_frame = _is_frame_panel(part_type)
         is_zhanwei = _is_zhanwei_panel(part_type)
+
+        if is_frame:
+            if w == max_x:
+                edge_gap = model.NewIntVar(0, max(y_hi, 0), f"frame_edge_gap_{pid}")
+                model.AddMinEquality(edge_gap, [y, y_hi - y])
+            else:
+                edge_gap_limit = max(max_x, max_y)
+                edge_gap = model.NewIntVar(0, edge_gap_limit, f"frame_edge_gap_{pid}")
+                model.AddMinEquality(edge_gap, [x, y, x_hi - x, y_hi - y])
+            cost_terms.append(WEIGHT_FRAME_EDGE * edge_gap)
 
         if is_zhanwei and w > h:
             # 占位(宽>高)：从上往下（10000），从左往右（100）
@@ -147,7 +168,7 @@ def compute_cabinet_arrange(
     # ── 软约束：默认面板在上，抽屉面板在下 ──
     part_ids = [p["part_id"] for p in parts]
     for default_id in part_ids:
-        if _is_zhanwei_panel(type_map[default_id]) or not _is_default_panel(type_map[default_id]):
+        if _is_zhanwei_panel(type_map[default_id]) or _is_frame_panel(type_map[default_id]) or not _is_default_panel(type_map[default_id]):
             continue
         default_bottom = model.NewIntVar(0, max_y, f"default_bottom_{default_id}")
         model.Add(default_bottom == y_vars[default_id] + height_map[default_id])
@@ -155,13 +176,31 @@ def compute_cabinet_arrange(
         for drawer_id in part_ids:
             if default_id == drawer_id:
                 continue
-            if _is_zhanwei_panel(type_map[drawer_id]) or not _is_drawer_panel(type_map[drawer_id]):
+            if _is_zhanwei_panel(type_map[drawer_id]) or _is_frame_panel(type_map[drawer_id]) or not _is_drawer_panel(type_map[drawer_id]):
                 continue
 
             default_above = model.NewBoolVar(f"default_above_{default_id}_{drawer_id}")
             model.Add(default_bottom <= y_vars[drawer_id]).OnlyEnforceIf(default_above)
             model.Add(default_bottom >= y_vars[drawer_id] + 1).OnlyEnforceIf(default_above.Not())
             cost_terms.append(WEIGHT_DEFAULT_ABOVE_DRAWER * (1 - default_above))
+
+    # ── 软约束：满宽框架面板中，高度更大的优先在顶部 ──
+    full_width_frame_ids = [
+        part_id
+        for part_id in part_ids
+        if _is_frame_panel(type_map[part_id]) and width_map[part_id] == max_x
+    ]
+    for upper_id in full_width_frame_ids:
+        for lower_id in full_width_frame_ids:
+            if upper_id == lower_id:
+                continue
+            if height_map[upper_id] <= height_map[lower_id]:
+                continue
+
+            taller_above = model.NewBoolVar(f"full_width_frame_above_{upper_id}_{lower_id}")
+            model.Add(y_vars[upper_id] <= y_vars[lower_id]).OnlyEnforceIf(taller_above)
+            model.Add(y_vars[upper_id] >= y_vars[lower_id] + 1).OnlyEnforceIf(taller_above.Not())
+            cost_terms.append(WEIGHT_FULL_WIDTH_FRAME_TOP * (1 - taller_above))
 
     # ── 硬约束：不重叠 ──
     model.AddNoOverlap2D(x_intervals, y_intervals)

@@ -76,7 +76,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
                 "source": "scheme",
                 "field": "cabinet_use",
                 "feature_type": "boolean",
-                "weight": 5.0,
+                "weight": 2.0,
                 "feature_name_template": "cabinet_use_{value}",
                 "display_name_template": "柜体用途:{value}",
             },
@@ -161,7 +161,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
             "margin":             10.0,
             "element_gap":        0.0,
             "y_penalty":          10,
-            "solver_time_limit":  30.0,
+            "solver_time_limit":  5.0,
             "solver_num_workers": 8,
         }
 

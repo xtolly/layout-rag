@@ -292,8 +292,8 @@
           "order": 1,
           "panel_type": "断路器面板",
           "operation_method": "",
-          "main_circuit_current": null,
-          "main_circuit_poles": null,
+          "main_circuit_current": 3200,
+          "main_circuit_poles": 4,
           "panel_width": 800,
           "panel_height": 700,
           "parts": [
