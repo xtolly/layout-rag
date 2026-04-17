@@ -1,0 +1,153 @@
+{
+  "name": "联络柜-GGD-默认面板-1200x2200",
+  "uuid": "ec948544-f8f1-4a67-a558-cfbe6c0a82da",
+  "scheme": {
+    "cabinet_id": "b7521514-92d4-41fe-b141-b6f8d4b6ad2f",
+    "cabinet_name": "P1-5",
+    "cabinet_use": "联络柜",
+    "cabinet_model": "GGD",
+    "cabinet_wiring_method": "",
+    "panel_id": "fb7b6642-f552-4967-a2fe-c7284c7e9b27",
+    "panel_type": "默认面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      1200,
+      2200
+    ],
+    "parts": [
+      {
+        "part_id": "07a217b3-a25f-43ca-89a9-87fd653f720d",
+        "part_type": "双电源自动转换开关（PC级）",
+        "part_model": "3200/5A",
+        "part_size": [
+          300,
+          350
+        ]
+      },
+      {
+        "part_id": "5f832241-09a2-47a7-b649-769bdf65a711",
+        "part_type": "低压电流互感器",
+        "part_model": "3200/5A",
+        "part_size": [
+          80,
+          100
+        ]
+      },
+      {
+        "part_id": "79d4d793-ba4a-4e26-8887-8bbe0fd31938",
+        "part_type": "多功能表",
+        "part_model": "PQ903-ESN",
+        "part_size": [
+          96,
+          96
+        ]
+      },
+      {
+        "part_id": "4ce49025-e614-4c00-95a2-896a68de56cf",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          30,
+          30
+        ]
+      },
+      {
+        "part_id": "db8f4028-76ac-43a6-a833-517a08e7bce3",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          30,
+          30
+        ]
+      },
+      {
+        "part_id": "b9428438-efe3-4a27-8304-33934d60172c",
+        "part_type": "中间继电器",
+        "part_model": "",
+        "part_size": [
+          50,
+          80
+        ]
+      },
+      {
+        "part_id": "f6d3f76c-8cde-4501-8531-c847e4169741",
+        "part_type": "时间继电器",
+        "part_model": "",
+        "part_size": [
+          50,
+          80
+        ]
+      },
+      {
+        "part_id": "f389988b-da7f-44d6-b5ee-34d87ac1eb20",
+        "part_type": "电压表",
+        "part_model": "",
+        "part_size": [
+          72,
+          72
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "07a217b3-a25f-43ca-89a9-87fd653f720d": {
+      "position": [
+        502,
+        925
+      ],
+      "rotation": 0
+    },
+    "5f832241-09a2-47a7-b649-769bdf65a711": {
+      "position": [
+        244,
+        1175
+      ],
+      "rotation": 0
+    },
+    "79d4d793-ba4a-4e26-8887-8bbe0fd31938": {
+      "position": [
+        571,
+        254
+      ],
+      "rotation": 0
+    },
+    "4ce49025-e614-4c00-95a2-896a68de56cf": {
+      "position": [
+        897,
+        309
+      ],
+      "rotation": 0
+    },
+    "db8f4028-76ac-43a6-a833-517a08e7bce3": {
+      "position": [
+        472,
+        392
+      ],
+      "rotation": 0
+    },
+    "b9428438-efe3-4a27-8304-33934d60172c": {
+      "position": [
+        266,
+        762
+      ],
+      "rotation": 0
+    },
+    "f6d3f76c-8cde-4501-8531-c847e4169741": {
+      "position": [
+        452,
+        762
+      ],
+      "rotation": 0
+    },
+    "f389988b-da7f-44d6-b5ee-34d87ac1eb20": {
+      "position": [
+        244,
+        1025
+      ],
+      "rotation": 0
+    }
+  }
+}

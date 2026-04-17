@@ -1,0 +1,89 @@
+{
+  "name": "出线柜-GGD-抽屉面板-800x600",
+  "uuid": "3bdf9ee8-568a-4e41-bf6f-f387ee375a5b",
+  "scheme": {
+    "cabinet_id": "9fb5f67d-d00d-465e-9f2e-b656b30e140c",
+    "cabinet_name": "P1-6",
+    "cabinet_use": "出线柜",
+    "cabinet_model": "GGD",
+    "cabinet_wiring_method": "",
+    "panel_id": "aa1cb0c5-e336-401f-9290-3204d5e7bc1d",
+    "panel_type": "抽屉面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      600
+    ],
+    "parts": [
+      {
+        "part_id": "5e4710ce-7a62-424d-ae39-c32bac11083b",
+        "part_type": "塑壳式断路器",
+        "part_model": "NMB2-20C/12/3/KT2",
+        "part_size": [
+          100,
+          150
+        ]
+      },
+      {
+        "part_id": "8eafb5a3-a3ed-4aa5-b16b-6a260f702629",
+        "part_type": "低压电流互感器",
+        "part_model": "1250/5A",
+        "part_size": [
+          80,
+          100
+        ]
+      },
+      {
+        "part_id": "0030aa41-e698-4472-a52c-e06294d66059",
+        "part_type": "多功能表",
+        "part_model": "PQ903-ESN",
+        "part_size": [
+          96,
+          96
+        ]
+      },
+      {
+        "part_id": "60ea9c54-3080-4a94-99d9-8d392bc17877",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          30,
+          30
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "5e4710ce-7a62-424d-ae39-c32bac11083b": {
+      "position": [
+        293,
+        228
+      ],
+      "rotation": 0
+    },
+    "8eafb5a3-a3ed-4aa5-b16b-6a260f702629": {
+      "position": [
+        469,
+        278
+      ],
+      "rotation": 0
+    },
+    "0030aa41-e698-4472-a52c-e06294d66059": {
+      "position": [
+        629,
+        344
+      ],
+      "rotation": 0
+    },
+    "60ea9c54-3080-4a94-99d9-8d392bc17877": {
+      "position": [
+        569,
+        414
+      ],
+      "rotation": 0
+    }
+  }
+}

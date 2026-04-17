@@ -1,0 +1,185 @@
+{
+  "name": "电容补偿柜-GGD-默认面板-800x2000",
+  "uuid": "6fbf1ca7-02a2-4938-85f5-e0f2d219458e",
+  "scheme": {
+    "cabinet_id": "945534e1-9fdc-4b22-a5a5-3a69711197a0",
+    "cabinet_name": "P1-4",
+    "cabinet_use": "电容补偿柜",
+    "cabinet_model": "GGD",
+    "cabinet_wiring_method": "",
+    "panel_id": "bc15510a-ac35-4d58-8002-ad82e937a7d5",
+    "panel_type": "默认面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      2000
+    ],
+    "parts": [
+      {
+        "part_id": "924330a2-5009-4a33-ae42-4bc04c588c7c",
+        "part_type": "塑壳式断路器",
+        "part_model": "NMB6-630M/3358 630A",
+        "part_size": [
+          200,
+          250
+        ]
+      },
+      {
+        "part_id": "dc2cdfb4-9a4f-483b-a455-165b6e0eac8d",
+        "part_type": "低压电流互感器",
+        "part_model": "600/5A",
+        "part_size": [
+          80,
+          100
+        ]
+      },
+      {
+        "part_id": "66fd992e-a31a-49a5-85d9-002eda6a79e8",
+        "part_type": "多功能表",
+        "part_model": "PQ903-ESN",
+        "part_size": [
+          96,
+          96
+        ]
+      },
+      {
+        "part_id": "ff9f7d48-72a6-4796-86fe-5e19398b5aed",
+        "part_type": "低压无功补偿控制器",
+        "part_model": "PQC-BOX-F",
+        "part_size": [
+          144,
+          144
+        ]
+      },
+      {
+        "part_id": "beda819d-20f3-4eca-a6b8-a2935d0ee37c",
+        "part_type": "低压并联电容器",
+        "part_model": "PQCS-380-100-100",
+        "part_size": [
+          150,
+          300
+        ]
+      },
+      {
+        "part_id": "2ec658c0-c144-45cf-b9b7-ba5395f59138",
+        "part_type": "低压并联电容器",
+        "part_model": "PQCS-380-100-100",
+        "part_size": [
+          150,
+          300
+        ]
+      },
+      {
+        "part_id": "88406157-fa8a-4a33-97dd-69fe38277904",
+        "part_type": "有源电力滤波器模块",
+        "part_model": "PQCA-380-100-100",
+        "part_size": [
+          200,
+          300
+        ]
+      },
+      {
+        "part_id": "37765e66-8de5-43c5-b8e0-7f2e67cbe09e",
+        "part_type": "电容器投切开关",
+        "part_model": "",
+        "part_size": [
+          100,
+          150
+        ]
+      },
+      {
+        "part_id": "a1cd6bec-78cf-463b-8a27-51f775f47640",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          30,
+          30
+        ]
+      },
+      {
+        "part_id": "044a8e0e-674d-40a5-8716-fe06af0310dc",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          30,
+          30
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "924330a2-5009-4a33-ae42-4bc04c588c7c": {
+      "position": [
+        325,
+        625
+      ],
+      "rotation": 0
+    },
+    "dc2cdfb4-9a4f-483b-a455-165b6e0eac8d": {
+      "position": [
+        95,
+        1622
+      ],
+      "rotation": 0
+    },
+    "66fd992e-a31a-49a5-85d9-002eda6a79e8": {
+      "position": [
+        381,
+        231
+      ],
+      "rotation": 0
+    },
+    "ff9f7d48-72a6-4796-86fe-5e19398b5aed": {
+      "position": [
+        137,
+        195
+      ],
+      "rotation": 0
+    },
+    "beda819d-20f3-4eca-a6b8-a2935d0ee37c": {
+      "position": [
+        354,
+        998
+      ],
+      "rotation": 0
+    },
+    "2ec658c0-c144-45cf-b9b7-ba5395f59138": {
+      "position": [
+        175,
+        998
+      ],
+      "rotation": 0
+    },
+    "88406157-fa8a-4a33-97dd-69fe38277904": {
+      "position": [
+        398,
+        1422
+      ],
+      "rotation": 0
+    },
+    "37765e66-8de5-43c5-b8e0-7f2e67cbe09e": {
+      "position": [
+        225,
+        1572
+      ],
+      "rotation": 0
+    },
+    "a1cd6bec-78cf-463b-8a27-51f775f47640": {
+      "position": [
+        598,
+        281
+      ],
+      "rotation": 0
+    },
+    "044a8e0e-674d-40a5-8716-fe06af0310dc": {
+      "position": [
+        315,
+        357
+      ],
+      "rotation": 0
+    }
+  }
+}

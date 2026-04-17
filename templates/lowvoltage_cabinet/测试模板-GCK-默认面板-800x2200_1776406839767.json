@@ -1,0 +1,137 @@
+{
+  "name": "进线柜-GCK-默认面板-800x2200",
+  "uuid": "e9757c18-48b0-420c-bc79-c4f933e12891",
+  "scheme": {
+    "cabinet_id": "f582d12f-6ae8-4cb9-8cfe-efe50e7aba73",
+    "cabinet_name": "P1-1",
+    "cabinet_use": "进线柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "上进上出",
+    "panel_id": "dac033a3-0331-4cde-ad27-a5065bb83cad",
+    "panel_type": "默认面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      2200
+    ],
+    "parts": [
+      {
+        "part_id": "68afceb2-98ba-4018-8b58-1233c0fc9aa8",
+        "part_type": "框架式隔离开关",
+        "part_model": "NM2-32C/32/3/KY2",
+        "part_size": [
+          200,
+          300
+        ]
+      },
+      {
+        "part_id": "d48aba30-8ff7-4cb3-ae2e-b7cdd8be823f",
+        "part_type": "塑壳式断路器",
+        "part_model": "NM1-125 C100/3",
+        "part_size": [
+          150,
+          200
+        ]
+      },
+      {
+        "part_id": "6f390cc6-d678-49af-b7ac-1d5ec5aabd71",
+        "part_type": "低压电流互感器",
+        "part_model": "3200/5A",
+        "part_size": [
+          100,
+          150
+        ]
+      },
+      {
+        "part_id": "4eae6d97-8814-4d87-bb61-96ec0087842a",
+        "part_type": "电能表",
+        "part_model": "DT862-4",
+        "part_size": [
+          120,
+          150
+        ]
+      },
+      {
+        "part_id": "2170e401-4ba1-4b17-ba41-25b38addf772",
+        "part_type": "电压表",
+        "part_model": "6L2-V",
+        "part_size": [
+          80,
+          80
+        ]
+      },
+      {
+        "part_id": "5b26b58e-d707-4bee-8f47-8bb15dfcb0d6",
+        "part_type": "电流表",
+        "part_model": "6L2-A",
+        "part_size": [
+          80,
+          80
+        ]
+      },
+      {
+        "part_id": "a65ca345-4417-463c-a4aa-32a5e8a6e1db",
+        "part_type": "指示灯",
+        "part_model": "AD16-22",
+        "part_size": [
+          30,
+          30
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "68afceb2-98ba-4018-8b58-1233c0fc9aa8": {
+      "position": [
+        325,
+        950
+      ],
+      "rotation": 0
+    },
+    "d48aba30-8ff7-4cb3-ae2e-b7cdd8be823f": {
+      "position": [
+        350,
+        266
+      ],
+      "rotation": 0
+    },
+    "6f390cc6-d678-49af-b7ac-1d5ec5aabd71": {
+      "position": [
+        594,
+        289
+      ],
+      "rotation": 0
+    },
+    "4eae6d97-8814-4d87-bb61-96ec0087842a": {
+      "position": [
+        365,
+        671
+      ],
+      "rotation": 0
+    },
+    "2170e401-4ba1-4b17-ba41-25b38addf772": {
+      "position": [
+        602,
+        576
+      ],
+      "rotation": 0
+    },
+    "5b26b58e-d707-4bee-8f47-8bb15dfcb0d6": {
+      "position": [
+        146,
+        568
+      ],
+      "rotation": 0
+    },
+    "a65ca345-4417-463c-a4aa-32a5e8a6e1db": {
+      "position": [
+        218,
+        791
+      ],
+      "rotation": 0
+    }
+  }
+}

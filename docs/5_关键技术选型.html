@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>5_关键技术选型.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="layout-rag-智能辅助设计平台关键技术选型与工程考量">Layout-RAG 智能辅助设计平台：关键技术选型与工程考量</h1>
+<p>系统并非是各类市面火爆的 AI 概念叠加，而是极度克制地选择了特定纯净底座以解决高低压柜自动排版中的特定难题。以下是经过慎重论证的关键选型清单。</p>
+<h2 id="1-前端技术栈与交互引擎">1. 前端技术栈与交互引擎</h2>
+<h3 id="a-视图框架vue-3-与响应式状态管理">A. 视图框架：Vue 3 与响应式状态管理</h3>
+<p><strong>选型原因</strong>：系统的交互包含复杂的聊天面板与重度数据绑定的二维编辑器，需要对共享状态（如选中的部件、当前的方案数据）进行高强度的双向通信同步。
+<strong>选型决定</strong>：采用 Vue 3 作为总控前端架构。利用 Vue 灵活的组件化机制与响应式 Proxy，我们可以高效地在流式对话侧边栏与渲染视图区域之间实现无缝状态传递与视图重绘更新控制。</p>
+<h3 id="b-布局编辑器碰撞检测与自动挤出">B. 布局编辑器、碰撞检测与自动挤出</h3>
+<p><strong>选型原理</strong>：二维排版核心在于提供符合人类直觉且符合物理干涉约束的推演画板，而非一个静态图像。
+<strong>核心实现</strong>：</p>
+<ul>
+<li><strong>二维工作台 (<code>layout_workbench</code>)</strong>：封装和实现定制的独立图形渲染系统交互区，负责承载海量高低压柜元器件的高刷渲染与空间位置标定。</li>
+<li><strong>动态碰撞检测 (Collision Detection) 与自动挤出 (Auto-Extrusion)</strong>：为提高人为设计的效率，平台拒绝死板的强制报错机制。前端底层通过 AABB 等算法持续进行轮询。当拖拽组件相互挤压或放入拥挤的轨道时，系统会基于干涉轴动态进行拓扑位移修正（“自动挤出”及“边缘吸附/Snapping”），像“推箱子”一样平滑解决部件间的空间冲突，从而彻底消除微距像素重叠对工程师造成的校准痛苦。</li>
+</ul>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A[用户操作拖拽与缩放] --> B[Vue 3 响应式状态管理]
+    B --> C{动态碰撞检测 AABB 轮询}
+    C -->|发生干涉受挤压| D[干涉轴拓扑位移修正]
+    C -->|无干涉安全域| E[二维工作台高效定位渲染]
+    D -->|自动挤出与边缘吸附补偿| E
+</div></code></pre>
+<h2 id="2-智能体-agent-技术栈">2. 智能体 (Agent) 技术栈</h2>
+<p>系统并未采取极其松散且毫无约束的简单对话链，而是深度结合业务逻辑打造了专属的<strong>工业场景结构化 Agent 底座</strong>。</p>
+<h3 id="a-基于-langgraph-的-react-拓扑与思维穿透-reasoning-extraction">A. 基于 LangGraph 的 ReAct 拓扑与思维穿透 (Reasoning Extraction)</h3>
+<p><strong>状态机架构</strong>：依托 LangGraph 构建了带有持久化内存（<code>InMemorySaver</code>）的确定性流转状态机（ReAct 模式）。大模型在推理节点（<code>agent</code>）与工具节点（<code>tools</code>）间反复拉锯判定，直到彻底确信用户的物理配置变更已被全量覆盖且无需再下发指令时，才会路由至 <code>END</code> 节点退出，构筑了高强度的自我校验闭环。
+<strong>思维流穿透</strong>：鉴于工业选型往往带有极其复杂的上下文推演过程，系统在底层专门覆写了 LangChain 的 <code>ChatOpenAI</code> 驱动卡（通过介入 <code>_convert_chunk_to_generation_chunk</code> 响应流方法），独家打通了最新一代推理大语言模型（如 Qwen / DeepSeek）的 <code>reasoning_content</code>。从而直接萃取出模型的私有思维链下行，做到了让模型面对重型图纸配置时不仅“干得坚决”，底层的“谋划过程”更为全盘透明。</p>
+<h3 id="b-上下文绑定-contextvar-与-pydantic-原子级工具簇">B. 上下文绑定 (ContextVar) 与 Pydantic 原子级工具簇</h3>
+<p><strong>状态穿透无断点</strong>：工程师的口令中极易出现“把开关加到当前这里”、“修改这个面板高度”等模糊代词。为彻底解决代词地雷，网络层利用 Python 协程安全的 <code>ContextVar</code> 实现超低延时状态注水。底层工具函数（例如 <code>get_current_selection</code>）被调用时可瞬间穿透读取前端界面的 UUID 画板焦点映射矩阵，彻底告别盲点乱操作。
+<strong>工具簇微观管束</strong>：为了抑制大模型极易产生的幻觉，Agent 完全摒弃了让模型直出数万行巨大 JSON 结构谱的疯狂要求。转而提供极为克制、拆分至最小粒度的原子操作宏（如 <code>add_cabinets</code> / <code>edit_panel</code> / <code>add_parts</code>）。更精妙的是，平台重度引入了 <code>Pydantic Schema</code> 中的 <code>BeforeValidator</code> 预清洗钩子与 <code>StrEnum</code> 强验证拦截，将大量的备板尺寸推测（如宽未指定时基于 <code>柜体模数</code> 进行回退）、错误分类洗白强行压入最底层验证数据流。从入口处直接“封死”了非法规格涌入布局系统的可能性。</p>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A([终端业务口令输入]) -->|SSE 极速推流交互| B[LangGraph ReAct 状态循环]
+    B --> C{ChatOpenAI 自定义驱动解析}
+    C -->|提取 Reasoning Content| D(深度思维链分离及流式透传)
+    C -->|产出 Tool Calls 严苛口令| E[Pydantic 原子化增删改工具簇]
+    E --> F[BeforeValidator 防幻觉数据强制清洗]
+    F -->|ContextVar 上下文安全注入| G[(瞬间穿透前端 UUID 选中画板焦点)]
+    G --> B
+    B -->|确切履行无需干预后| H([跳出状态机闭环大循环])
+</div></code></pre>
+<h2 id="3-特征向量提取与检索相关技术">3. 特征向量提取与检索相关技术</h2>
+<h3 id="a-基于专家经验的结构化特征降维空间-feature-extractor">A. 基于专家经验的结构化特征降维空间 (Feature Extractor)</h3>
+<p><strong>选型与重构动机</strong>：在低压电气配电柜设计中，图纸本身完全由高度结构化的物理属性构成，极度依赖于电气参数、面板尺寸与特定开关类目的枚举组合匹配，几乎不包含开放式长文本意图。因此，传统的通用大语言模型文本 Embedding （如 BERT 等）特征在工业图纸排版检索中不仅算力开销极大，更会直接丢失原本精准的几何边界与强硬的电气业务关联规则。
+<strong>核心工程落地</strong>：果断摒弃“万物皆可深度学习大模型 Embedding”的盲目方案，转向构建极度贴合工业场景的轻量级特征探针流线。探针通过解析柜体原始文档树与部件字典，精准提取出三类决定排版成败的核心专家特征：</p>
+<ol>
+<li><strong>连续物理量</strong>（箱体尺寸参数、坐标、内部构件外包盒尺度等）；</li>
+<li><strong>离散统计量</strong>（各类断路器 <code>part_type</code> 的搭载数量、母排频次等）；</li>
+<li><strong>布尔状态量</strong>（进线/出线配置逻辑、绝缘挡板等特殊标识）。
+这套由手工特征工程打造的流水线，等同于数字化复刻了资深电气工程师“扫一眼图纸就知道怎么排”的天然焦点。成功将体积极大且嵌套繁冗的 JSON 配电图蓝图，浓缩降维成了极具抗噪性、计算极快且物理涵义完全透明的领域特征库。</li>
+</ol>
+<h3 id="b-异构特征的分组隔离与归一化机制">B. 异构特征的分组隔离与归一化机制</h3>
+<p><strong>痛点分析</strong>：提取出的特征是由“柜内各类型开关数量”（计数类特征）、“外包框尺寸等空间物理量”（连续型特征）与“是否包含特定功能块”（布尔型特征）等物理涵义完全不同的异构数据组成。如果直接用于检索计算欧氏距离，尺度极大的物理参数将会彻底吞噬其他数量或布尔特征的权重。
+<strong>机制实现</strong>：为了解决异构标尺导致的权重失效，提升特征之间的平等检索表达，并且方便未来向更专业的向量检索引擎平滑演进，系统将特征数据划分为三组，在向量化构建时执行了完全隔离的数值归一化处理：</p>
+<ul>
+<li><strong>连续型特征（Continuous, 如尺寸/包围框）</strong>：采用 Min-Max 归一化（Min-Max Scaling），将各维度的数值严格压缩至 <code>[0, 1]</code> 区间范围内。</li>
+<li><strong>计数型特征（Count, 如各类元器件频次）</strong>：采用 Log1p（对数平滑）并辅以最大值缩放（Max Scaling），对于存在极端长尾数量波动的统计型指标起到收敛效果，最终同样映射至 <code>[0, 1]</code> 区间。</li>
+<li><strong>布尔型特征（Boolean, 状态位等）</strong>：采用向下/向上强制逼近（Clip 截断）操作至 <code>[0, 1]</code>，以彻底洗去原始提取时可能产生的非二值噪音干涉。
+最终，所有处于相纲下的特征群再叠加预设好的关注点融合权重（Weights），从而在距离累加计算（加权平方欧氏距离，Weighted Squared Euclidean Distance）中获得公平表现，极大抑制了特征由于天然取值尺度差异造成的距离计算坍塌。</li>
+</ul>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A([JSON 原始配置化树结构解析]) --> B[自研专家知识降维专属流线]
+    B --> C{完全隔离的数据切割通道}
+    C -->|箱体物理尺寸连续量| D(运行 Min-Max 极致缩放归一化)
+    C -->|部件极化断路器枚举数| E(挂接 Log1p 对数削峰以及极值收敛)
+    C -->|特定隔离板布尔配置符| F(激活 Clip 非此即彼强力洗白截断)
+    D --> G((引入宏观商业关注度权重配比))
+    E --> G
+    F --> G
+    G --> H[最终压出度量统一的高维 Dense Vector]
+    H -->|未来迭代预留极速接口| I[(无缝对切并入专业 Milvus 检索引擎)]
+</div></code></pre>
+<h2 id="4-约束求解器与排版算法技术">4. 约束求解器与排版算法技术</h2>
+<p>平台完全摒弃了依赖大语言模型盲目生成预测坐标的脆弱方案，也放弃了由于缺乏绝对边界掌控力极易翻车的启发算法（如遗传算法），而是自研构建了**“基于四维梯级模板映射 + CP-SAT 刚性约束突围”** 的两步走混合驱动引擎（LayoutOptimizer）。</p>
+<h3 id="a-阶段一极速降维的模板期望映射-target-generation">A. 阶段一：极速降维的模板期望映射 (Target Generation)</h3>
+<p><strong>痛点解算</strong>：若将海量待排元器件丢向物理跨幅极广的全空背板，CP-SAT 会瞬间跌入阶乘爆炸级的搜算陷阱，引发崩溃宕机超时。
+<strong>策略落地</strong>：为了极限压缩运筹学的盲搜域，系统于第一阶段巧妙引入了四级瀑布流权重衰减映射（Confidence Weight Array），根据各类图纸提供预置定海神针坐标：</p>
+<ol>
+<li><strong>主模板精确强锁定（权重 1000）</strong>：利用贪心策略强行吸附同型 <code>part_type</code> 与相似宽高比面板的元部件，执行绝对刚性的等比例主控追踪。</li>
+<li><strong>多源模板降维补位（权重 120）</strong>：若主件图集残次，自动触发副系备选模板的类型下接进行残板复原锚定。</li>
+<li><strong>同源聚簇游标折行（权重 10）</strong>：若属于新增批量件扩容，采用沿着相同类型密集锚点自动追尾的游标续排（支持饱和边缘溢出后垂直换行）。</li>
+<li><strong>兜底无援（权重 5）</strong>：强制压入面板底安全池域。
+依靠这种阶梯型工程学常识重构机制将 RAG 推理发挥到极致，实现了非随机起步的原点控制。</li>
+</ol>
+<h3 id="b-阶段二整数规划求解与-y-轴重力偏置-constraint-optimization">B. 阶段二：整数规划求解与 Y 轴重力偏置 (Constraint Optimization)</h3>
+<p><strong>绝对硬边界不可突破</strong>：“任何两个接线元件绝不能存在即便是 1mm 的空间咬合”。针对这等零容忍的物理法则壁垒，只有经典运筹学 <code>Google OR-Tools (CP-SAT)</code> 才能给到 100% 绝对安全不返工的坚实承诺。
+<strong>物理数学转化模型</strong>：</p>
+<ul>
+<li><strong>底线性命</strong>：平台全面下放底层干涉限制 <code>model.AddNoOverlap2D()</code> 并对每一个边缘引入避障间隔（Margin 与 Gap）确保非穿透矩形间隙合法化。</li>
+<li><strong>目标追寻（极速推箱子）</strong>：向约束空间声明加权曼哈顿距离拉平目标：<code>Minimize ∑ weight_i * (|x_i - tx_i| + y_penalty * |y_i - ty_i|)</code> 寻求总体偏离最小化。</li>
+<li><strong>美学偏置惩罚 (Y_Penalty)</strong>：尤其出彩的是，优化引擎对于坐标在 Y 轴的流转施加了高倍的纵向极性阻力（<code>y_penalty</code> 默认10倍以上）。当遭遇极其紧缺冲突的布局时，求解器在惩罚力驱动下本能倾向往水平轨道（同行）滑移疏解。这种设计极为有效地让同一行的开关能够对齐在一根横轴水准线上，最大限度从算法基层还原了工业布线的齐整美观！</li>
+</ul>
+<h3 id="c-演进规划可插拔的业务排布规则与知识矩阵深化-business-rules-integration">C. 演进规划：可插拔的业务排布规则与知识矩阵深化 (Business Rules Integration)</h3>
+<p><strong>后续深化方向</strong>：虽然当前的“四级模板映射 + CP-SAT 干涉与推移兜底”机制已经足以解决绝大部分通用的空间重构难题，但电气成套装备针对不同细分业务（如低压抽屉柜、高压中置柜、重载变频柜）仍伴随着高度定制且不可违逆的技术“潜规则”。
+<strong>落地拓展路径</strong>：得益于 <code>LayoutOptimizer</code> 在架构设计上高度解耦了策略映射与底层数学求解的过程，系统已预留了丰富的领域规则接入卡槽，未来计划通过以下维度持续深化演进：</p>
+<ol>
+<li><strong>特定领域硬性约束（Hard Constraints）的植入</strong>：将“大功率发热元器件四周必须保留特定宽幅散热风道”、“强弱电元器件必须在 Y 轴或不同隔断实行严格隔离（强弱电禁跨）”等行业禁忌，无缝转化为 CP-SAT 可强解的多目标非重叠惩罚域。</li>
+<li><strong>基于商业降本的自适应软性权重</strong>：针对排版中的“进出线母排路径敷设最短（节省纯铜物料）”、“机柜整体受力抗震重心均衡”等高级需求，提供更为立体的目标追寻机制，通过动态扩充多维度函数惩罚量（Cost Weights），引导求解器探寻最具经济学视角的空间解。</li>
+<li><strong>专家经验引擎驱动</strong>：配合大模型推理的不断深化，支持不同工厂能够以声明式的方式随时挂载或抽离特定产品线的国标规范约束，最终从单一“几何抄绘避障平台”彻底蜕变为“全自驱的正向工程设计大脑”。</li>
+</ol>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A([海量待重置排列的初始乱序元器件]) --> B[第一阶段: 瀑布推演下放矩阵映射]
+    B --> C1[1.主模板精确强锁强迫匹配 Weight 1000]
+    B --> C2[2.多源副模板退化降层补位 Weight 120]
+    B --> C3[3.同源聚簇沿紧密点游标折行 Weight 10]
+    B --> C4[4.打入面板底部边距盲区兜底 Weight 5]
+    C1 --> D
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    D[重构完备的基础原点 Target 域区] --> E[第二阶段: CP-SAT 并发计算高压推挤]
+    E -->|捍卫不可侵犯底线| F1(投射 NoOverlap2D 包含 Gap 间距不重叠域)
+    E -->|极速迫近最佳目标| F2(向曼哈顿时空施加追寻极小化推离惩罚)
+    E -->|人为美学干涉干预| F3(强加极夸张的 Y_Penalty 阻力防止脱轨)
+    F1 --> G
+    F2 --> G
+    F3 --> G
+    G([渲染出 100% 物理合法且精妙对齐的高维整列])
+</div></code></pre>
+
+</body>
+</html>

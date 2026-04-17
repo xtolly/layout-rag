@@ -1,0 +1,137 @@
+{
+  "name": "母联柜-GGD-默认面板-800x2200",
+  "uuid": "52306430-04ee-4d8f-8aa3-bca1b3a96991",
+  "scheme": {
+    "cabinet_id": "37161b4e-301c-4382-8aeb-ebb992fb0c24",
+    "cabinet_name": "P1-2",
+    "cabinet_use": "母联柜",
+    "cabinet_model": "GGD",
+    "cabinet_wiring_method": "",
+    "panel_id": "7dbc2d59-607b-4a85-84df-80138df98bca",
+    "panel_type": "默认面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      2200
+    ],
+    "parts": [
+      {
+        "part_id": "4f14bb80-9365-454b-bd8e-f00a8777647b",
+        "part_type": "塑壳式断路器",
+        "part_model": "NMB2-32C/32/4/KT2",
+        "part_size": [
+          150,
+          200
+        ]
+      },
+      {
+        "part_id": "1377f81a-6ddc-466d-857d-1ae09c931cc7",
+        "part_type": "低压电流互感器",
+        "part_model": "3200/5A",
+        "part_size": [
+          80,
+          100
+        ]
+      },
+      {
+        "part_id": "9a7b7a32-a849-4934-8e50-bf7367a04cf1",
+        "part_type": "多功能表",
+        "part_model": "PQ903-ESN",
+        "part_size": [
+          96,
+          96
+        ]
+      },
+      {
+        "part_id": "1d1982d3-f300-43ce-bab9-fe0efea4f1ee",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          30,
+          30
+        ]
+      },
+      {
+        "part_id": "e14a6c2d-16f3-46c9-949e-55f83442ca2e",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          30,
+          30
+        ]
+      },
+      {
+        "part_id": "6ae58198-43cd-4adf-9ef6-7bda24f79271",
+        "part_type": "中间继电器",
+        "part_model": "",
+        "part_size": [
+          50,
+          80
+        ]
+      },
+      {
+        "part_id": "47383f12-fd41-4496-b561-4c8bd6a1ddb5",
+        "part_type": "时间继电器",
+        "part_model": "",
+        "part_size": [
+          50,
+          80
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "4f14bb80-9365-454b-bd8e-f00a8777647b": {
+      "position": [
+        325,
+        687
+      ],
+      "rotation": 0
+    },
+    "1377f81a-6ddc-466d-857d-1ae09c931cc7": {
+      "position": [
+        354,
+        1099
+      ],
+      "rotation": 0
+    },
+    "9a7b7a32-a849-4934-8e50-bf7367a04cf1": {
+      "position": [
+        120,
+        257
+      ],
+      "rotation": 0
+    },
+    "1d1982d3-f300-43ce-bab9-fe0efea4f1ee": {
+      "position": [
+        354,
+        367
+      ],
+      "rotation": 0
+    },
+    "e14a6c2d-16f3-46c9-949e-55f83442ca2e": {
+      "position": [
+        299,
+        367
+      ],
+      "rotation": 0
+    },
+    "6ae58198-43cd-4adf-9ef6-7bda24f79271": {
+      "position": [
+        143,
+        747
+      ],
+      "rotation": 0
+    },
+    "47383f12-fd41-4496-b561-4c8bd6a1ddb5": {
+      "position": [
+        615,
+        747
+      ],
+      "rotation": 0
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "name": "联络柜-GCK-默认面板-1200x2200",
+  "uuid": "7d5dcbef-f098-4507-8730-56e47bf0310d",
+  "scheme": {
+    "cabinet_id": "ca85a56f-83ab-40da-9a4d-dd09c602cf5a",
+    "cabinet_name": "P1-5",
+    "cabinet_use": "联络柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "上进上出",
+    "panel_id": "17698e77-f3a0-4157-8fa3-98cdd9fbeaa4",
+    "panel_type": "默认面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      1200,
+      2200
+    ],
+    "parts": [
+      {
+        "part_id": "adb7b07f-0300-4121-9350-344d28023f7d",
+        "part_type": "双电源自动转换开关（PC级）",
+        "part_model": "WOTPC3200",
+        "part_size": [
+          300,
+          400
+        ]
+      },
+      {
+        "part_id": "d901c9fb-b89c-4d20-9354-6a8836115c0f",
+        "part_type": "低压电流互感器",
+        "part_model": "3200/5A",
+        "part_size": [
+          100,
+          150
+        ]
+      },
+      {
+        "part_id": "74b46a57-ca40-459d-afc6-4eaec6072bbb",
+        "part_type": "低压电流互感器",
+        "part_model": "600/5A",
+        "part_size": [
+          100,
+          150
+        ]
+      },
+      {
+        "part_id": "a37490a9-5e43-48cb-bc92-5e7e9d891194",
+        "part_type": "电压表",
+        "part_model": "6L2-V",
+        "part_size": [
+          80,
+          80
+        ]
+      },
+      {
+        "part_id": "53fcd8a0-301a-4540-ab74-bcee1e9bc98b",
+        "part_type": "频率表",
+        "part_model": "6L2-Hz",
+        "part_size": [
+          80,
+          80
+        ]
+      },
+      {
+        "part_id": "5139103c-859f-4fa0-84bf-47e73a38ade9",
+        "part_type": "指示灯",
+        "part_model": "AD16-22",
+        "part_size": [
+          30,
+          30
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "adb7b07f-0300-4121-9350-344d28023f7d": {
+      "position": [
+        502,
+        925
+      ],
+      "rotation": 0
+    },
+    "d901c9fb-b89c-4d20-9354-6a8836115c0f": {
+      "position": [
+        244,
+        1175
+      ],
+      "rotation": 0
+    },
+    "74b46a57-ca40-459d-afc6-4eaec6072bbb": {
+      "position": [
+        344,
+        1175
+      ],
+      "rotation": 0
+    },
+    "a37490a9-5e43-48cb-bc92-5e7e9d891194": {
+      "position": [
+        244,
+        1025
+      ],
+      "rotation": 0
+    },
+    "53fcd8a0-301a-4540-ab74-bcee1e9bc98b": {
+      "position": [
+        927,
+        1245
+      ],
+      "rotation": 0
+    },
+    "5139103c-859f-4fa0-84bf-47e73a38ade9": {
+      "position": [
+        379,
+        1050
+      ],
+      "rotation": 0
+    }
+  }
+}

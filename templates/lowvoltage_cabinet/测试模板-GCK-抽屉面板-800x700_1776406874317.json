@@ -1,0 +1,73 @@
+{
+  "name": "配电柜-GCK-抽屉面板-800x700",
+  "uuid": "7f61ce18-8619-4c19-9f3f-4223c1591bd7",
+  "scheme": {
+    "cabinet_id": "097c3e22-1c46-4402-a23e-84bfac778881",
+    "cabinet_name": "P1-6",
+    "cabinet_use": "配电柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "上进下出",
+    "panel_id": "9719d8b4-5651-4965-9938-9e01a11121db",
+    "panel_type": "抽屉面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": 1250,
+    "panel_main_circuit_poles": 3,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      700
+    ],
+    "parts": [
+      {
+        "part_id": "26c79272-d4d4-46dd-a71b-0bd7ab2aab30",
+        "part_type": "双电源自动转换开关（CB级）",
+        "part_model": "NDM2-20C/12/3/KY2",
+        "part_size": [
+          200,
+          250
+        ]
+      },
+      {
+        "part_id": "5c6e4d29-ff89-42ba-b536-79ffe7ad413b",
+        "part_type": "低压电流互感器",
+        "part_model": "1250/5A",
+        "part_size": [
+          100,
+          150
+        ]
+      },
+      {
+        "part_id": "631e0d86-00c6-4c99-abe1-03b9a186edb8",
+        "part_type": "塑壳式断路器",
+        "part_model": "RTO3-630",
+        "part_size": [
+          150,
+          200
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "26c79272-d4d4-46dd-a71b-0bd7ab2aab30": {
+      "position": [
+        523,
+        241
+      ],
+      "rotation": 0
+    },
+    "5c6e4d29-ff89-42ba-b536-79ffe7ad413b": {
+      "position": [
+        152,
+        310
+      ],
+      "rotation": 0
+    },
+    "631e0d86-00c6-4c99-abe1-03b9a186edb8": {
+      "position": [
+        293,
+        266
+      ],
+      "rotation": 0
+    }
+  }
+}

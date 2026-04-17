@@ -1,0 +1,153 @@
+{
+  "name": "进线柜-GGD-默认面板-800x2200",
+  "uuid": "4e03d8fe-59f0-4086-8e35-cf8b9d803710",
+  "scheme": {
+    "cabinet_id": "2f8a94fb-8c37-426c-8027-8c92c82b846a",
+    "cabinet_name": "P1-1",
+    "cabinet_use": "进线柜",
+    "cabinet_model": "GGD",
+    "cabinet_wiring_method": "",
+    "panel_id": "db5ab881-5fa2-4882-bcbf-20c1ea742208",
+    "panel_type": "默认面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      2200
+    ],
+    "parts": [
+      {
+        "part_id": "c2fd5d85-6da5-4827-ab7d-9bc8680c068a",
+        "part_type": "塑壳式断路器",
+        "part_model": "NMB1-125 C100/3",
+        "part_size": [
+          100,
+          150
+        ]
+      },
+      {
+        "part_id": "0ba4f2a0-e3e8-48dc-8d4c-c176cb6c6b45",
+        "part_type": "低压电流互感器",
+        "part_model": "3200/5A",
+        "part_size": [
+          80,
+          100
+        ]
+      },
+      {
+        "part_id": "3f008f84-9813-44f4-8836-a9aa5dad15d0",
+        "part_type": "多功能表",
+        "part_model": "PQ903-ESN",
+        "part_size": [
+          96,
+          96
+        ]
+      },
+      {
+        "part_id": "66f02c49-ec6b-4022-8c20-f92597f819aa",
+        "part_type": "指示灯",
+        "part_model": "",
+        "part_size": [
+          30,
+          30
+        ]
+      },
+      {
+        "part_id": "4d1aa2d8-e3f0-40ef-857c-a2ca922c9bed",
+        "part_type": "按钮开关",
+        "part_model": "",
+        "part_size": [
+          30,
+          30
+        ]
+      },
+      {
+        "part_id": "66e34404-0591-4e57-8fbf-684cb26dae7e",
+        "part_type": "中间继电器",
+        "part_model": "",
+        "part_size": [
+          50,
+          80
+        ]
+      },
+      {
+        "part_id": "ed8fa0d9-37c4-4650-8b80-3d730d711603",
+        "part_type": "电压表",
+        "part_model": "",
+        "part_size": [
+          72,
+          72
+        ]
+      },
+      {
+        "part_id": "6e90e18a-91c1-41b9-b22e-24c14c6ff239",
+        "part_type": "电流表",
+        "part_model": "",
+        "part_size": [
+          72,
+          72
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "c2fd5d85-6da5-4827-ab7d-9bc8680c068a": {
+      "position": [
+        350,
+        266
+      ],
+      "rotation": 0
+    },
+    "0ba4f2a0-e3e8-48dc-8d4c-c176cb6c6b45": {
+      "position": [
+        594,
+        289
+      ],
+      "rotation": 0
+    },
+    "3f008f84-9813-44f4-8836-a9aa5dad15d0": {
+      "position": [
+        134,
+        293
+      ],
+      "rotation": 0
+    },
+    "66f02c49-ec6b-4022-8c20-f92597f819aa": {
+      "position": [
+        218,
+        791
+      ],
+      "rotation": 0
+    },
+    "4d1aa2d8-e3f0-40ef-857c-a2ca922c9bed": {
+      "position": [
+        385,
+        791
+      ],
+      "rotation": 0
+    },
+    "66e34404-0591-4e57-8fbf-684cb26dae7e": {
+      "position": [
+        375,
+        568
+      ],
+      "rotation": 0
+    },
+    "ed8fa0d9-37c4-4650-8b80-3d730d711603": {
+      "position": [
+        602,
+        576
+      ],
+      "rotation": 0
+    },
+    "6e90e18a-91c1-41b9-b22e-24c14c6ff239": {
+      "position": [
+        146,
+        568
+      ],
+      "rotation": 0
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "name": "电容补偿柜-GCK-默认面板-800x2000",
+  "uuid": "36296860-04fd-45f8-8823-963c790a1502",
+  "scheme": {
+    "cabinet_id": "0b92c8a1-4c43-45cc-aaa8-9a5450e71e8d",
+    "cabinet_name": "P1-3",
+    "cabinet_use": "电容补偿柜",
+    "cabinet_model": "GCK",
+    "cabinet_wiring_method": "上进上出",
+    "panel_id": "613618fe-743f-4c94-8b1c-5302ef4849c2",
+    "panel_type": "默认面板",
+    "panel_operation_method": "",
+    "panel_main_circuit_current": null,
+    "panel_main_circuit_poles": null,
+    "panel_height_module": "",
+    "panel_size": [
+      800,
+      2000
+    ],
+    "parts": [
+      {
+        "part_id": "bdc99e91-f206-4d8c-bb1a-1ffff9d2af4a",
+        "part_type": "塑壳式断路器",
+        "part_model": "NMG6-630M/3358 630A",
+        "part_size": [
+          200,
+          300
+        ]
+      },
+      {
+        "part_id": "c1ffd4cb-16c2-4e80-be72-650c20baea7e",
+        "part_type": "低压无功补偿控制器",
+        "part_model": "PQC-EMC-F",
+        "part_size": [
+          150,
+          200
+        ]
+      },
+      {
+        "part_id": "38e8eae6-89f5-4e59-9ef1-20566c9e7e86",
+        "part_type": "静止无功发生器模块",
+        "part_model": "SVG:PQCS-380-100-100",
+        "part_size": [
+          200,
+          300
+        ]
+      },
+      {
+        "part_id": "b60d2d42-f146-489c-a301-c4643040b584",
+        "part_type": "有源电力滤波器模块",
+        "part_model": "APF:PQA-380-100-100",
+        "part_size": [
+          200,
+          300
+        ]
+      },
+      {
+        "part_id": "0bf65d98-6c1d-4fad-9d8c-10f73badfafd",
+        "part_type": "低压电流互感器",
+        "part_model": "600/5A",
+        "part_size": [
+          100,
+          150
+        ]
+      },
+      {
+        "part_id": "88372fb7-9caf-4eab-9cf5-84e5f2493fc2",
+        "part_type": "功率因数表",
+        "part_model": "6L2-cosφ",
+        "part_size": [
+          80,
+          80
+        ]
+      }
+    ]
+  },
+  "arrange": {
+    "bdc99e91-f206-4d8c-bb1a-1ffff9d2af4a": {
+      "position": [
+        325,
+        625
+      ],
+      "rotation": 0
+    },
+    "c1ffd4cb-16c2-4e80-be72-650c20baea7e": {
+      "position": [
+        137,
+        195
+      ],
+      "rotation": 0
+    },
+    "38e8eae6-89f5-4e59-9ef1-20566c9e7e86": {
+      "position": [
+        87,
+        625
+      ],
+      "rotation": 0
+    },
+    "b60d2d42-f146-489c-a301-c4643040b584": {
+      "position": [
+        325,
+        1046
+      ],
+      "rotation": 0
+    },
+    "0bf65d98-6c1d-4fad-9d8c-10f73badfafd": {
+      "position": [
+        425,
+        220
+      ],
+      "rotation": 0
+    },
+    "88372fb7-9caf-4eab-9cf5-84e5f2493fc2": {
+      "position": [
+        592,
+        290
+      ],
+      "rotation": 0
+    }
+  }
+}
