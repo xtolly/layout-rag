@@ -8,6 +8,7 @@
       "wiring_method": "上进上出",
       "cabinet_width": 1200,
       "cabinet_height": 2200,
+      "cabinet_depth": 1000,
       "panels": [
         {
           "order": 1,

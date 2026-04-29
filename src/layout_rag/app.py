@@ -13,7 +13,7 @@ from layout_rag.services.layout_service import LayoutService
 
 # --- 业务领域初始化 ---
 # 如需切换到其他业务，只需替换此处的 domain 实例，其余代码不变。
-domain = LowvoltageCabinetDomain()
+domain = DistributionBoxDomain()
 
 # --- 应用初始化 ---
 app = FastAPI(title="智能元件布局系统 API")

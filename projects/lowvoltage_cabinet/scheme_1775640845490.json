@@ -9,6 +9,7 @@
       "wiring_method": "",
       "cabinet_width": 800,
       "cabinet_height": 2200,
+      "cabinet_depth": 1000,
       "panels": [
         {
           "panel_id": "a3b135a7-6a95-4e4e-a80a-007e2ebd2b60",
