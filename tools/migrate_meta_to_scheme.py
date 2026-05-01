@@ -16,9 +16,9 @@ def migrate_file(file_path: Path):
     
     for key, value in data.items():
         if key in ("meta", "schema"):
-            new_data["scheme"] = value
+            new_data["schema"] = value
             modified = True
-            print(f"  {file_path.name}: renamed {key} -> scheme")
+            print(f"  {file_path.name}: renamed {key} -> schema")
         else:
             new_data[key] = value
 

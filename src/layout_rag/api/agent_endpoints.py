@@ -53,7 +53,7 @@ async def chat_stream(payload: dict = Body(...)):
       {"type": "error",  "message": "..."}     — 发生错误
     """
     message = payload.get("message", "")
-    scheme  = payload.get("scheme", {"cabinets": []})
+    schema  = payload.get("schema", {"cabinets": []})
     image   = payload.get("image")          # base64 data-url 或 None
     selection = payload.get("selection", {})  # {cabinet_id, panel_id}
     session_id = _resolve_session_id(payload)
@@ -63,9 +63,9 @@ async def chat_stream(payload: dict = Body(...)):
             agent = _get_agent()
 
             # 写入选中状态 & 当前方案，供工具读取
-            from layout_rag.agent.configurator_agent import set_current_selection, set_current_scheme
+            from layout_rag.agent.configurator_agent import set_current_selection, set_current_schema
             set_current_selection(selection)
-            set_current_scheme(scheme)
+            set_current_schema(schema)
 
             # 构造消息内容：纯文本 / 图文混合（OpenAI Vision 格式）
             msg_text = (message or '请根据图片生成配置方案') if image else message
@@ -84,7 +84,7 @@ async def chat_stream(payload: dict = Body(...)):
 
             init_state = {
                 "messages": [human_msg],
-                "current_scheme": scheme,
+                "current_schema": schema,
             }
 
             # astream_events 可拿到 token 级 on_chat_model_stream 事件
@@ -154,16 +154,16 @@ async def chat_stream(payload: dict = Body(...)):
 @agent_router.post("/chat")
 async def chat(payload: dict = Body(...)):
     message = payload.get("message", "")
-    scheme  = payload.get("scheme", {"cabinets": []})
+    schema  = payload.get("schema", {"cabinets": []})
     image   = payload.get("image")
     selection = payload.get("selection", {})
     session_id = _resolve_session_id(payload)
     try:
         agent = _get_agent()
 
-        from layout_rag.agent.configurator_agent import set_current_selection, set_current_scheme
+        from layout_rag.agent.configurator_agent import set_current_selection, set_current_schema
         set_current_selection(selection)
-        set_current_scheme(scheme)
+        set_current_schema(schema)
 
         msg_text = message
         if image:
@@ -177,7 +177,7 @@ async def chat(payload: dict = Body(...)):
         result = agent.invoke(
             {
                 "messages": [human_msg],
-                "current_scheme": scheme,
+                "current_schema": schema,
             },
             config=_agent_run_config(session_id),
         )

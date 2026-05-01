@@ -331,7 +331,7 @@
       "weight": 2.0,
       "display_name": "柜体用途:出线柜",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_use",
       "source_name": "cabinet_use_categories",
       "value": "出线柜"
@@ -371,7 +371,7 @@
       "weight": 2.0,
       "display_name": "柜体用途:进线柜",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_use",
       "source_name": "cabinet_use_categories",
       "value": "进线柜"
@@ -401,7 +401,7 @@
       "weight": 1.0,
       "display_name": "柜体型号:GGD",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_model",
       "source_name": "cabinet_model_categories",
       "value": "GGD"
@@ -411,7 +411,7 @@
       "weight": 1.0,
       "display_name": "进出线方式:上进上出",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_wiring_method",
       "source_name": "cabinet_wiring_method_categories",
       "value": "上进上出"
@@ -421,7 +421,7 @@
       "weight": 1.0,
       "display_name": "进出线方式:上进下出",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_wiring_method",
       "source_name": "cabinet_wiring_method_categories",
       "value": "上进下出"
@@ -461,7 +461,7 @@
       "weight": 2.0,
       "display_name": "面板类型:抽屉面板",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_type",
       "source_name": "panel_type_categories",
       "value": "抽屉面板"
@@ -481,7 +481,7 @@
       "weight": 2.0,
       "display_name": "面板类型:默认面板",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_type",
       "source_name": "panel_type_categories",
       "value": "默认面板"
@@ -491,7 +491,7 @@
       "weight": 1.0,
       "display_name": "操作方式:固定式",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_operation_method",
       "source_name": "panel_operation_method_categories",
       "value": "固定式"
@@ -511,7 +511,7 @@
       "weight": 1.0,
       "display_name": "操作方式:抽屉式",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_operation_method",
       "source_name": "panel_operation_method_categories",
       "value": "抽屉式"

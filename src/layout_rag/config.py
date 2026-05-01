@@ -118,28 +118,36 @@ def iter_layout_samples(data_dir=DATA_DIR):
             continue
 
 
-def load_distinct_values(data_dir=DATA_DIR, source="scheme", field=""):
+def load_distinct_values(data_dir=DATA_DIR, source="schema", field=""):
     """
     扫描所有布局样本，收集指定字段的所有不重复值。
 
     Args:
         data_dir: 布局 JSON 文件目录
         source:   数据来源节点：
-                    "scheme"       → layout_json["scheme"][field]
-                    "parts"        → layout_json["scheme"]["parts"][*][field]
+                    "schema"       → layout_json["schema"][field]
+                    "parts"        → layout_json["schema"]["parts"][*][field]
         field:    目标字段名
     """
     values = set()
     for layout_sample in iter_layout_samples(data_dir):
-        scheme = layout_sample.get("scheme", {})
+        schema = layout_sample.get("schema", {})
 
         if source == "parts":
-            for item in scheme.get("parts", []):
+            # 1. 直接检查 schema.get("parts") (旧版结构兼容)
+            for item in schema.get("parts", []):
                 value = str(item.get(field, "")).strip()
                 if value:
                     values.add(value)
-        else:  # source == "scheme" or fallback
-            value = str(scheme.get(field, "")).strip()
+            
+            # 2. 检查 schema.get("panels") 下的所有 parts (新版结构适配)
+            for panel in schema.get("panels", []):
+                for item in panel.get("parts", []):
+                    value = str(item.get(field, "")).strip()
+                    if value:
+                        values.add(value)
+        else:  # source == "schema" or fallback
+            value = str(schema.get(field, "")).strip()
             if value:
                 values.add(value)
     return sorted(values)

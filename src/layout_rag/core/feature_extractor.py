@@ -38,10 +38,10 @@ class FeatureExtractor:
         # 同时记录每个字段对应的 source（"meta" | "schema"），用于提取时路由
         self.categorical_feature_source: dict[str, str] = {}
         for src_cfg in domain.dynamic_feature_sources.values():
-            if src_cfg["feature_type"] == "boolean" and src_cfg["source"] == "scheme":
+            if src_cfg["feature_type"] == "boolean" and src_cfg["source"] == "schema":
                 field = src_cfg["field"]
                 self.categorical_feature_map.setdefault(field, [])
-                self.categorical_feature_source[field] = "scheme"
+                self.categorical_feature_source[field] = "schema"
 
         if schema:
             for feature_name in schema:
@@ -64,10 +64,10 @@ class FeatureExtractor:
           5. 分类 meta 特征（动态 boolean，如 cabinet_type_XXX）
           6. 大型元件比例
         """
-        # 全局统一使用 scheme 节点
-        scheme = layout_json.get("scheme", {})
-        panel_size = scheme.get("panel_size", [0.0, 0.0])
-        parts      = scheme.get("parts",      [])
+        # 全局统一使用 schema 节点
+        schema = layout_json.get("schema", {})
+        panel_size = schema.get("panel_size", [0.0, 0.0])
+        parts      = schema.get("parts",      [])
 
         panel_w, panel_h = float(panel_size[0]), float(panel_size[1])
         panel_area = panel_w * panel_h
@@ -106,11 +106,11 @@ class FeatureExtractor:
             features[f"count_{pt}"] = count
 
         # ── 4. 业务结构特征（委托给 domain）──
-        features.update(self.domain.extract_structural_features(parts, scheme))
+        features.update(self.domain.extract_structural_features(parts, schema))
 
-        # ── 5. 分类特征（scheme boolean）──
+        # ── 5. 分类特征（schema boolean）──
         for field_name, values in self.categorical_feature_map.items():
-            current_value = str(scheme.get(field_name, "")).strip()
+            current_value = str(schema.get(field_name, "")).strip()
             for value in values:
                 features[f"{field_name}_{value}"] = 1.0 if current_value == value else 0.0
 

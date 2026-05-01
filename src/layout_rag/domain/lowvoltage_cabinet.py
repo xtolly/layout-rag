@@ -5,8 +5,8 @@
 对应向量库目录：vecdb/lowvoltage_cabinet/
 
 数据结构说明：
-  低压柜模板 JSON 的字段存储在 ``scheme`` 节点（统一全项目入口键）。
-  FeatureExtractor 已支持 source="scheme" 路由。
+  低压柜模板 JSON 的字段存储在 ``schema`` 节点（统一全项目入口键）。
+  FeatureExtractor 已支持 source="schema" 路由。
 """
 
 from __future__ import annotations
@@ -62,9 +62,9 @@ class LowvoltageCabinetDomain(BusinessDomain):
     @property
     def dynamic_feature_sources(self) -> dict[str, dict]:
         return {
-            # ── 每种元件类型的数量（来自 scheme.parts）──
+            # ── 每种元件类型的数量（来自 schema.parts）──
             "part_type_counts": {
-                "source": "parts",         # 统一由 FeatureExtractor 路由到 scheme.parts
+                "source": "parts",         # 统一由 FeatureExtractor 路由到 schema.parts
                 "field": "part_type",
                 "feature_type": "count",
                 "weight": 1.0,
@@ -73,7 +73,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
             },
             # ── 柜体用途（进线柜 / 出线柜 / …）──
             "cabinet_use_categories": {
-                "source": "scheme",
+                "source": "schema",
                 "field": "cabinet_use",
                 "feature_type": "boolean",
                 "weight": 2.0,
@@ -82,7 +82,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
             },
             # ── 柜体型号（GCK / GCS / MNS / GGD）──
             "cabinet_model_categories": {
-                "source": "scheme",
+                "source": "schema",
                 "field": "cabinet_model",
                 "feature_type": "boolean",
                 "weight": 1.0,
@@ -91,7 +91,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
             },
             # ── 进出线方式（上进上出 / 上进下出 / …）──
             "cabinet_wiring_method_categories": {
-                "source": "scheme",
+                "source": "schema",
                 "field": "cabinet_wiring_method",
                 "feature_type": "boolean",
                 "weight": 1.0,
@@ -100,7 +100,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
             },
             # ── 面板类型（默认面板 / 抽屉面板）──
             "panel_type_categories": {
-                "source": "scheme",
+                "source": "schema",
                 "field": "panel_type",
                 "feature_type": "boolean",
                 "weight": 2.0,
@@ -109,7 +109,7 @@ class LowvoltageCabinetDomain(BusinessDomain):
             },
             # ── 操作方式（手动机构 / 电动操作 / 抽屉式）──
             "panel_operation_method_categories": {
-                "source": "scheme",
+                "source": "schema",
                 "field": "panel_operation_method",
                 "feature_type": "boolean",
                 "weight": 1.0,

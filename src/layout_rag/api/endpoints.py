@@ -53,16 +53,16 @@ async def cabinet_layout(payload: Dict[str, Any] = Body(...)):
 
     对前端已转换完成的布局数据执行柜体级初始布局计算。
 
-    输入 payload: { name, uuid, scheme: { panel_size, parts, ... }, arrange }
-    返回: { name, uuid, scheme, arrange }
+    输入 payload: { name, uuid, schema: { panel_size, parts, ... }, arrange }
+    返回: { name, uuid, schema, arrange }
     """
     from layout_rag.core.cabinet_layout_optimizer import compute_cabinet_arrange
 
-    scheme = payload.get("scheme") or {}
-    panel_size = scheme.get("panel_size") or [800, 2200]
+    schema = payload.get("schema") or {}
+    panel_size = schema.get("panel_size") or [800, 2200]
     cabinet_width = float(panel_size[0] or 800)
     cabinet_height = float(panel_size[1] or 2200)
-    parts = scheme.get("parts") or []
+    parts = schema.get("parts") or []
 
     arrange = compute_cabinet_arrange(cabinet_width, cabinet_height, parts) if parts else {}
     result = dict(payload)

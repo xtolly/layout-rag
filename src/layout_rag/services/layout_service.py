@@ -13,7 +13,7 @@ from layout_rag.config import (
 from layout_rag.core.feature_extractor import FeatureExtractor
 from layout_rag.core.layout_optimizer import LayoutOptimizer
 from layout_rag.core.vector_store import VectorStore
-
+from layout_rag.core.neo4j_client import Neo4jClient, neo4j_client
 
 class LayoutService:
     """
@@ -67,22 +67,9 @@ class LayoutService:
 
         return "green" if q_value == t_value else "red"
 
-    def _load_template_data(self, template_uuid: str) -> Optional[dict]:
-        tpl_entry = next(
-            (e for e in self.store.entries if e.get("uuid") == template_uuid), None
-        )
-        if not tpl_entry:
-            return None
-
-        tpl_path = tpl_entry.get("source_path")
-        if not tpl_path or not os.path.exists(tpl_path):
-            return None
-
-        with open(tpl_path, 'r', encoding='utf-8') as f:
-            tpl_data = json.load(f)
-
-        tpl_data.setdefault("uuid", template_uuid)
-        return tpl_data
+    def _load_template_data(self, template_id: str) -> Optional[dict]:
+        """从 Neo4j 数据库加载指定 ID 的布局模板数据。"""
+        return neo4j_client.get_layout_by_id(template_id)
 
     def _load_other_templates(self, template_uuids: List[str], selected_uuid: str) -> List[dict]:
         templates, seen = [], set()
@@ -148,44 +135,53 @@ class LayoutService:
         return diff_list
 
     def search_recommendations(self, project_data: dict, top_k: int = 10) -> list:
-        """执行推荐搜索全流程，返回按评分降序排列的模板列表。"""
-        current_uuid   = project_data.get("uuid")
+        """执行推荐搜索全流程，采用“搜 ID + 批量取详情”两步走。"""
         query_features = self.extractor.extract(project_data)
-        top_k_results  = self.store.search(query_features, top_k=top_k)
+        query_vector = self.store.encode_for_neo4j(query_features)
+
+        # 1. 第一步：向 Neo4j 发起向量检索，仅召回 ID 和分数
+        search_results = neo4j_client.search_similar_panel(query_vector, top_k)
+        if not search_results:
+            return []
+            
+        panel_ids = [r["panel_id"] for r in search_results]
+        scores_map = {r["panel_id"]: r["score"] for r in search_results}
+
+        # 2. 第二步：批量从数据库获取这些面板的完整拓扑数据
+        details_from_db = neo4j_client.get_layouts_by_ids(panel_ids)
 
         templates = []
-        for entry, distance in top_k_results:
-            if current_uuid and entry.get("uuid") == current_uuid:
-                continue
-
-            source_path = entry.get("source_path")
-            if not source_path or not os.path.exists(source_path):
-                continue
-
-            with open(source_path, 'r', encoding='utf-8') as f:
-                tpl_data = json.load(f)
-
-            tpl_meta     = tpl_data.get("scheme", {})
-            tpl_arrange  = tpl_data.get("arrange", {})
+        for tpl_data in details_from_db:
+            tpl_meta = tpl_data.get("schema", {})
+            panel_id = tpl_meta.get("panel_id")
+            
+            # 提取特征用于差异比对
             tpl_features = self.extractor.extract(tpl_data)
 
-            diff_info     = self.calculate_diff_info(project_data["scheme"]["parts"], tpl_meta.get("parts", []))
+            # 计算零件和特征差异
+            query_parts = project_data.get("schema", {}).get("parts", [])
+            template_parts = tpl_meta.get("parts", [])
+            diff_info = self.calculate_diff_info(query_parts, template_parts)
             feature_diffs = self.get_feature_diff_list(query_features, t_features=tpl_features)
 
-            safe_distance = max(0.0, distance) + diff_info["extra"] * 0.03
-            score = min(100, round(100 * math.exp(-safe_distance / 6.0)))
+            # 综合评分：结合向量得分和零件数量差异
+            # 使用 scores_map 找回该 ID 对应的向量得分
+            distance = 1.0 - scores_map.get(panel_id, 0.0)
+            safe_distance = max(0.0, distance) + diff_info["extra"] * 0.1
+            score = min(100, round(100 * math.exp(-safe_distance / 4.0)))
 
             templates.append({
-                "uuid":         entry["uuid"],
+                "uuid":         tpl_data["uuid"],
                 "name":         tpl_data.get("name"),
                 "score":        score,
                 "showFeatures": False,
-                "scheme":       tpl_meta,
+                "schema":       tpl_meta,
                 "diffInfo":     diff_info,
                 "featureDiffs": feature_diffs,
-                "arrange":      tpl_arrange,
+                "arrange":      tpl_meta.get("arrange", {}),
             })
 
+        # 按综合评分降序排列
         templates.sort(key=lambda x: x["score"], reverse=True)
         return templates
 
