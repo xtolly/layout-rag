@@ -1,0 +1,217 @@
+{
+    "name": "中船国际数科城项目系统图_3e830430_b118b70b",
+    "uuid": "f0dd6e14-94dc-4c13-9d49-ffa5738a9326",
+    "schema": {
+        "cabinet_id": "3e830430-f6e8-40f8-91a5-30b4b3d77464",
+        "industry": "",
+        "box_classify": "标准电表箱",
+        "series": "DNB",
+        "cabinet_width": 800.0,
+        "cabinet_height": 1100.0,
+        "cabinet_depth": 200.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "b118b70b-5028-4e22-b645-47e84800e4fc",
+        "panel_type": "安装板",
+        "panel_size": [
+            800.0,
+            1100.0
+        ],
+        "parts": [
+            {
+                "part_id": "e82af3c6-5bc0-40a0-9dbd-ed0fa7273e7f",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX160F TMD 160 3P3D F",
+                "pole": "3P",
+                "current": "160",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "93f1c651-d414-478d-a019-6861cc92d4fa",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 40A 30mA A ELE",
+                "pole": "2P",
+                "current": "40",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "ef1bfa1a-491e-410d-bf6c-9b1a49137134",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 40A 30mA A ELE",
+                "pole": "2P",
+                "current": "40",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "51555c8f-d528-4fee-9ab9-56b8f7b1cd3e",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 40A 30mA A ELE",
+                "pole": "2P",
+                "current": "40",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "c27ebbae-e29f-40b7-bf24-2cefc353f1c4",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 40A 30mA A ELE",
+                "pole": "2P",
+                "current": "40",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "07d7f0b2-e659-43e5-9fc0-9912172042c9",
+                "part_type": "电能表",
+                "part_size": [
+                    170.0,
+                    222.5
+                ],
+                "part_model": "DDSY1946-L 0.1-0.5(80)A",
+                "pole": "NA",
+                "current": "NA",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "76b74d19-b608-43c5-b5b2-531bb381b4ba",
+                "part_type": "电能表",
+                "part_size": [
+                    170.0,
+                    222.5
+                ],
+                "part_model": "DDSY1946-L 0.1-0.5(80)A",
+                "pole": "NA",
+                "current": "NA",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "a46b571f-a988-42f0-b145-5e839ebc891e",
+                "part_type": "电能表",
+                "part_size": [
+                    170.0,
+                    222.5
+                ],
+                "part_model": "DDSY1946-L 0.1-0.5(80)A",
+                "pole": "NA",
+                "current": "NA",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "676972de-f188-4803-acf0-205bc92c2a28",
+                "part_type": "电能表",
+                "part_size": [
+                    170.0,
+                    222.5
+                ],
+                "part_model": "DDSY1946-L 0.1-0.5(80)A",
+                "pole": "NA",
+                "current": "NA",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            }
+        ]
+    },
+    "arrange": {
+        "e82af3c6-5bc0-40a0-9dbd-ed0fa7273e7f": {
+            "position": [
+                237.87,
+                469.38
+            ],
+            "rotation": 0
+        },
+        "93f1c651-d414-478d-a019-6861cc92d4fa": {
+            "position": [
+                377.54,
+                1142.12
+            ],
+            "rotation": 0
+        },
+        "ef1bfa1a-491e-410d-bf6c-9b1a49137134": {
+            "position": [
+                448.84,
+                1142.12
+            ],
+            "rotation": 0
+        },
+        "51555c8f-d528-4fee-9ab9-56b8f7b1cd3e": {
+            "position": [
+                520.14,
+                1142.12
+            ],
+            "rotation": 0
+        },
+        "c27ebbae-e29f-40b7-bf24-2cefc353f1c4": {
+            "position": [
+                591.44,
+                1142.12
+            ],
+            "rotation": 0
+        },
+        "07d7f0b2-e659-43e5-9fc0-9912172042c9": {
+            "position": [
+                504.8,
+                303.9
+            ],
+            "rotation": 0
+        },
+        "76b74d19-b608-43c5-b5b2-531bb381b4ba": {
+            "position": [
+                684.8,
+                303.9
+            ],
+            "rotation": 0
+        },
+        "a46b571f-a988-42f0-b145-5e839ebc891e": {
+            "position": [
+                504.8,
+                663.9
+            ],
+            "rotation": 0
+        },
+        "676972de-f188-4803-acf0-205bc92c2a28": {
+            "position": [
+                684.8,
+                663.9
+            ],
+            "rotation": 0
+        }
+    }
+}

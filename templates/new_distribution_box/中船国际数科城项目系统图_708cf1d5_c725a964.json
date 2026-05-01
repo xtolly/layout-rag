@@ -1,0 +1,26 @@
+{
+    "name": "中船国际数科城项目系统图_708cf1d5_c725a964",
+    "uuid": "c9e686a3-3880-4fda-91c1-b6c41992f1a7",
+    "schema": {
+        "cabinet_id": "708cf1d5-3f3a-47f5-8272-61afa1b2fe26",
+        "industry": "",
+        "box_classify": "标准电表箱",
+        "series": "DNB",
+        "cabinet_width": 1000.0,
+        "cabinet_height": 1400.0,
+        "cabinet_depth": 200.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "c725a964-71ec-49f8-9e16-9a9ac59bfb0e",
+        "panel_type": "门板",
+        "panel_size": [
+            1000.0,
+            1400.0
+        ],
+        "parts": []
+    },
+    "arrange": {}
+}

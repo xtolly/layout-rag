@@ -8,12 +8,12 @@ from layout_rag.config import STATIC_DIR
 
 from layout_rag.api.agent_endpoints import agent_router
 from layout_rag.api.endpoints import router as api_router
-from layout_rag.domain import LowvoltageCabinetDomain, DistributionBoxDomain
+from layout_rag.domain import NewDistributionBoxDomain, DistributionBoxDomain
 from layout_rag.services.layout_service import LayoutService
 
 # --- 业务领域初始化 ---
 # 如需切换到其他业务，只需替换此处的 domain 实例，其余代码不变。
-domain = DistributionBoxDomain()
+domain = NewDistributionBoxDomain()
 
 # --- 应用初始化 ---
 app = FastAPI(title="智能元件布局系统 API")
@@ -43,6 +43,12 @@ async def get_configurator():
 @app.get("/layout")
 async def get_layout():
     return FileResponse(STATIC_DIR / "layout_workbench.html")
+
+# --- 动态 UI 元数据接口 ---
+@app.get("/api/ui-metadata")
+async def get_ui_metadata():
+    """获取当前业务的 UI 元数据（动态生成前端表单和列）"""
+    return domain.ui_schema()
 
 # --- API 路由挂载 ---
 app.include_router(api_router, prefix="/api")

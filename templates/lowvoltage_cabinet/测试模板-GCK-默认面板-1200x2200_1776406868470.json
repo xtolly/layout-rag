@@ -1,7 +1,7 @@
 {
   "name": "联络柜-GCK-默认面板-1200x2200",
   "uuid": "7d5dcbef-f098-4507-8730-56e47bf0310d",
-  "scheme": {
+  "schema": {
     "cabinet_id": "ca85a56f-83ab-40da-9a4d-dd09c602cf5a",
     "cabinet_name": "P1-5",
     "cabinet_use": "联络柜",

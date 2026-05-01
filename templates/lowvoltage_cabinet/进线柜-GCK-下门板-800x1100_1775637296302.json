@@ -1,7 +1,7 @@
 {
   "name": "进线柜-GCK-下门板-800x1100",
   "uuid": "6708f2d2-d82c-48c0-b02b-63dde4681c9d",
-  "scheme": {
+  "schema": {
     "cabinet_id": "0199dda0-2fbb-41af-8de8-b894cf93cda8",
     "cabinet_name": "1A1",
     "cabinet_use": "进线柜",

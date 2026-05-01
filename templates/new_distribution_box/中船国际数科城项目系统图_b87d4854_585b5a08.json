@@ -1,0 +1,322 @@
+{
+    "name": "中船国际数科城项目系统图_b87d4854_585b5a08",
+    "uuid": "35fdff6b-522f-4681-9911-7f86d01717f4",
+    "schema": {
+        "cabinet_id": "b87d4854-fe73-439f-a895-df1562fe1f3b",
+        "industry": "",
+        "box_classify": "配电箱",
+        "series": "XM1",
+        "cabinet_width": 700.0,
+        "cabinet_height": 1200.0,
+        "cabinet_depth": 200.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "585b5a08-25fc-4e11-a964-049d497c4ef1",
+        "panel_type": "安装板",
+        "panel_size": [
+            700.0,
+            1200.0
+        ],
+        "parts": [
+            {
+                "part_id": "ce6b4255-734e-48da-b977-a5d3a6f164d6",
+                "part_type": "双电源自动转换开关",
+                "part_size": [
+                    422.0,
+                    298.0
+                ],
+                "part_model": "TBBQ31-400/4P 400III+CII",
+                "pole": "4P",
+                "current": "4",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "a250e9f7-4965-47a9-a5f0-b779186b86f3",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 16A 30mA A ELE",
+                "pole": "2P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "2d3099b9-ca18-4642-95dc-4758353f6e8c",
+                "part_type": "微型断路器",
+                "part_size": [
+                    17.7,
+                    94.0
+                ],
+                "part_model": "iC65N-C16A/1P",
+                "pole": "1P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "894ebc4c-1184-4d7e-b70f-2eabde3910bb",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D16A/3P",
+                "pole": "3P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "c1900e4e-2cf7-44d4-92e9-14808bb97ace",
+                "part_type": "微型断路器",
+                "part_size": [
+                    70.8,
+                    94.0
+                ],
+                "part_model": "iC65N-C20A/4P",
+                "pole": "4P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "e24c63f2-1ae9-4ae6-a38b-0daf52907fd7",
+                "part_type": "微型断路器",
+                "part_size": [
+                    70.8,
+                    94.0
+                ],
+                "part_model": "iC65N-C20A/4P",
+                "pole": "4P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "96f765a1-bb6e-4289-a527-c7355d736b01",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    160.0,
+                    155.0
+                ],
+                "part_model": "MB41L-100/4300B Y 100A-300mA",
+                "pole": "4P",
+                "current": "100",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "36f312c8-0d90-4031-82ce-cff779b42399",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    180.0,
+                    165.0
+                ],
+                "part_model": "MB41L-250/4300B Y 125A-300mA",
+                "pole": "4P",
+                "current": "125",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "ea8d061c-3eb2-407f-80d2-7adf91312319",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    180.0,
+                    165.0
+                ],
+                "part_model": "MB41L-250/4300B Y 125A-300mA",
+                "pole": "4P",
+                "current": "125",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "26aa73f8-6761-45bb-8f88-9d1af93d7f4c",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    180.0,
+                    165.0
+                ],
+                "part_model": "MB41L-250/4300B Y 160A-300mA",
+                "pole": "4P",
+                "current": "160",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "1d07fe83-4714-4682-9714-ea0718c11537",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    77.0
+                ],
+                "part_model": "LC1D32M7C",
+                "pole": "3P",
+                "current": "32",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "1ebbe9dd-4bc2-42a0-9343-936e55f0aa3e",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    60.0
+                ],
+                "part_model": "LRD12C",
+                "pole": "3P",
+                "current": "NA",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "0f2775b2-324f-4f24-ba28-906207811b18",
+                "part_type": "浪涌后备保护器",
+                "part_size": [
+                    72.0,
+                    82.0
+                ],
+                "part_model": "MUH1-20/4P",
+                "pole": "4P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "6c89e464-19de-4b97-b5a7-10fdd5429bf2",
+                "part_type": "电涌保护器",
+                "part_size": [
+                    72.0,
+                    92.0
+                ],
+                "part_model": "MU1-20/275/4P",
+                "pole": "4P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            }
+        ]
+    },
+    "arrange": {
+        "ce6b4255-734e-48da-b977-a5d3a6f164d6": {
+            "position": [
+                139.0,
+                120.0
+            ],
+            "rotation": 0
+        },
+        "a250e9f7-4965-47a9-a5f0-b779186b86f3": {
+            "position": [
+                38.15,
+                518.0
+            ],
+            "rotation": 0
+        },
+        "2d3099b9-ca18-4642-95dc-4758353f6e8c": {
+            "position": [
+                109.45,
+                521.5
+            ],
+            "rotation": 0
+        },
+        "894ebc4c-1184-4d7e-b70f-2eabde3910bb": {
+            "position": [
+                127.15,
+                521.5
+            ],
+            "rotation": 0
+        },
+        "c1900e4e-2cf7-44d4-92e9-14808bb97ace": {
+            "position": [
+                180.25,
+                521.5
+            ],
+            "rotation": 0
+        },
+        "e24c63f2-1ae9-4ae6-a38b-0daf52907fd7": {
+            "position": [
+                251.05,
+                521.5
+            ],
+            "rotation": 0
+        },
+        "96f765a1-bb6e-4289-a527-c7355d736b01": {
+            "position": [
+                321.85,
+                491.0
+            ],
+            "rotation": 0
+        },
+        "36f312c8-0d90-4031-82ce-cff779b42399": {
+            "position": [
+                481.85,
+                486.0
+            ],
+            "rotation": 0
+        },
+        "ea8d061c-3eb2-407f-80d2-7adf91312319": {
+            "position": [
+                212.0,
+                781.5
+            ],
+            "rotation": 0
+        },
+        "26aa73f8-6761-45bb-8f88-9d1af93d7f4c": {
+            "position": [
+                392.0,
+                781.5
+            ],
+            "rotation": 0
+        },
+        "1d07fe83-4714-4682-9714-ea0718c11537": {
+            "position": [
+                587.0,
+                825.5
+            ],
+            "rotation": 0
+        },
+        "1ebbe9dd-4bc2-42a0-9343-936e55f0aa3e": {
+            "position": [
+                587.0,
+                902.5
+            ],
+            "rotation": 0
+        },
+        "0f2775b2-324f-4f24-ba28-906207811b18": {
+            "position": [
+                68.0,
+                823.0
+            ],
+            "rotation": 0
+        },
+        "6c89e464-19de-4b97-b5a7-10fdd5429bf2": {
+            "position": [
+                140.0,
+                818.0
+            ],
+            "rotation": 0
+        }
+    }
+}

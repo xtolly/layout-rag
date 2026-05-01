@@ -68,39 +68,62 @@ const getAdjacentOrder = (items, currentId, idField) => {
 const App = {
     setup() {
 
-        const CABINET_USE_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.cabinet_use_options]);
-        const CABINET_MODEL_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.cabinet_model_options]);
-        const PANEL_TYPE_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.panel_type_options]);
-        const WIRING_METHOD_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.wiring_method_options]);
-        const OPERATION_METHOD_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.operation_method_options]);
-        const PART_TYPE_OPTIONS = ref([...EMPTY_SELECTION_CONFIG.part_type_options]);
+        const uiMetadata = ref(null);
 
-        const applySelectionConfig = (config = EMPTY_SELECTION_CONFIG) => {
-            CABINET_USE_OPTIONS.value = normalizeOptionList(config.cabinet_use_options);
-            CABINET_MODEL_OPTIONS.value = normalizeOptionList(config.cabinet_model_options);
-            PANEL_TYPE_OPTIONS.value = normalizeOptionList(config.panel_type_options);
-            WIRING_METHOD_OPTIONS.value = normalizeOptionList(config.wiring_method_options);
-            OPERATION_METHOD_OPTIONS.value = normalizeOptionList(config.operation_method_options);
-            PART_TYPE_OPTIONS.value = normalizeOptionList(config.part_type_options);
-        };
-
-        const loadSelectionConfig = async () => {
+        const loadUiMetadata = async () => {
             try {
-                const response = await fetch(SELECTION_CONFIG_URL, { cache: 'no-store' });
+                const response = await fetch(`${API}/ui-metadata`, { cache: 'no-store' });
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                applySelectionConfig(await response.json());
+                uiMetadata.value = await response.json();
+                console.log('UI Metadata loaded:', uiMetadata.value);
             } catch (error) {
-                console.warn('selection config load failed', error);
+                console.warn('UI metadata load failed', error);
             }
         };
 
-        const getFirstOption = (optionsRef, fallback = '') => optionsRef.value[0] || fallback;
-        const makePart = (o = {}) => ({ part_id: uid(), order: getOrder(), part_type: '', part_model: '', part_width: 60, part_height: 80, ...o });
-        const makePanel = (o = {}) => ({ panel_id: uid(), order: getOrder(), panel_type: getFirstOption(PANEL_TYPE_OPTIONS), operation_method: '', height_module: '', main_circuit_current: null, main_circuit_poles: null, panel_width: 600, panel_height: 1400, parts: [], arrange: {}, ...o });
-        const makeCabinet = (o = {}) => ({ cabinet_id: uid(), order: getOrder(), cabinet_name: '', cabinet_use: getFirstOption(CABINET_USE_OPTIONS), cabinet_model: getFirstOption(CABINET_MODEL_OPTIONS), wiring_method: '', cabinet_width: 800, cabinet_height: 2200, panels: [], ...o });
+        const getFirstOption = (options, fallback = '') => (options && options.length > 0) ? options[0] : fallback;
+
+        const makePart = (o = {}) => {
+            const part = { part_id: uid(), order: getOrder() };
+            if (uiMetadata.value?.part_fields) {
+                uiMetadata.value.part_fields.forEach(f => {
+                    part[f.key] = f.type === 'number' ? 0 : (f.options ? f.options[0] : '');
+                });
+            } else {
+                // Fallback
+                Object.assign(part, { part_type: '', part_model: '', part_width: 60, part_height: 80 });
+            }
+            return { ...part, ...o };
+        };
+
+        const makePanel = (o = {}) => {
+            const panel = { panel_id: uid(), order: getOrder(), parts: [], arrange: {} };
+            if (uiMetadata.value?.panel_fields) {
+                uiMetadata.value.panel_fields.forEach(f => {
+                    if (f.key === 'panel_id') return;
+                    panel[f.key] = f.type === 'number' ? 0 : (f.options ? f.options[0] : '');
+                });
+            } else {
+                Object.assign(panel, { panel_type: '默认面板', panel_width: 600, panel_height: 1400 });
+            }
+            return { ...panel, ...o };
+        };
+
+        const makeCabinet = (o = {}) => {
+            const cabinet = { cabinet_id: uid(), order: getOrder(), panels: [] };
+            if (uiMetadata.value?.cabinet_fields) {
+                uiMetadata.value.cabinet_fields.forEach(f => {
+                    if (f.key === 'cabinet_id') return;
+                    cabinet[f.key] = f.type === 'number' ? 0 : (f.options ? f.options[0] : '');
+                });
+            } else {
+                Object.assign(cabinet, { cabinet_name: '', cabinet_width: 800, cabinet_height: 2200 });
+            }
+            return { ...cabinet, ...o };
+        };
 
         // ── 数据 ──────────────────────────────────────────────────
-        const scheme = reactive({ cabinets: [] });
+        const schema = reactive({ cabinets: [] });
         const selectedCabinetId = ref(null);
         const selectedPanelId = ref(null);
         const isLoading = ref(false);
@@ -122,41 +145,41 @@ const App = {
             }
         };
 
-        loadSelectionConfig();
+        loadUiMetadata();
         loadAgentStatus();
 
         // ── 从 sessionStorage 恢复备份数据 ───────────────────────────
-        const _backup = sessionStorage.getItem('configurator_scheme_backup');
+        const _backup = sessionStorage.getItem('configurator_schema_backup');
         if (_backup) {
             try {
-                const { scheme: saved, selectedCabinetId: savedCabId, selectedPanelId: savedPanelId } = JSON.parse(_backup);
+                const { schema: saved, selectedCabinetId: savedCabId, selectedPanelId: savedPanelId } = JSON.parse(_backup);
                 if (saved?.cabinets?.length) {
-                    scheme.cabinets = saved.cabinets;
+                    schema.cabinets = saved.cabinets;
                     // 延迟设置选中等待 Vue 响应式就绪
                     setTimeout(() => {
-                        if (savedCabId && scheme.cabinets.find(c => c.cabinet_id === savedCabId)) {
+                        if (savedCabId && schema.cabinets.find(c => c.cabinet_id === savedCabId)) {
                             selectedCabinetId.value = savedCabId;
                         }
                         if (savedPanelId) {
-                            const cab = scheme.cabinets.find(c => c.cabinet_id === savedCabId);
+                            const cab = schema.cabinets.find(c => c.cabinet_id === savedCabId);
                             if (cab?.panels.find(p => p.panel_id === savedPanelId)) {
                                 selectedPanelId.value = savedPanelId;
                             }
                         }
                     }, 0);
                 }
-            } catch (e) { console.warn('scheme backup restore failed', e); }
-            sessionStorage.removeItem('configurator_scheme_backup');
+            } catch (e) { console.warn('schema backup restore failed', e); }
+            sessionStorage.removeItem('configurator_schema_backup');
         }
 
         const layoutPanelResult = sessionStorage.getItem('layoutPanelResult');
         if (layoutPanelResult) {
             try {
                 const data = JSON.parse(layoutPanelResult);
-                if (data && data.scheme && data.scheme.panel_id) {
-                    const targetPanelId = data.scheme.panel_id;
+                if (data && data.schema && data.schema.panel_id) {
+                    const targetPanelId = data.schema.panel_id;
                     let foundPanel = null;
-                    for (const cab of scheme.cabinets) {
+                    for (const cab of schema.cabinets) {
                         const p = cab.panels.find(x => x.panel_id === targetPanelId);
                         if (p) {
                             p.arrange = data.arrange || {};
@@ -188,13 +211,13 @@ const App = {
 
         const buildWorkbenchInfo = (data, opts = {}) => {
             const wbMode = opts.workbenchMode || 'layout';
-            if (opts.title || data?.scheme) {
+            if (opts.title || data?.schema) {
                 return {
-                    title: opts.title || (data?.scheme?.panel_type || '安装板'),
+                    title: opts.title || (data?.schema?.panel_type || '安装板'),
                     layout_mode: wbMode,
-                    panel_type: data?.scheme?.panel_type || null,
-                    panel_size: data?.scheme?.panel_size || null,
-                    parts_count: Array.isArray(data) ? data.reduce((sum, item) => sum + (item.scheme?.parts?.length || 0), 0) : (data?.scheme?.parts?.length || 0),
+                    panel_type: data?.schema?.panel_type || null,
+                    panel_size: data?.schema?.panel_size || null,
+                    parts_count: Array.isArray(data) ? data.reduce((sum, item) => sum + (item.schema?.parts?.length || 0), 0) : (data?.schema?.parts?.length || 0),
                 };
             }
             return {
@@ -220,18 +243,18 @@ const App = {
         };
 
         const applyLayoutPanelResult = (data) => {
-            if (!data?.scheme?.panel_id) return;
-            const targetId = data.scheme.panel_id;
+            if (!data?.schema?.panel_id) return;
+            const targetId = data.schema.panel_id;
             const arrange = data.arrange || {};
             // 先尝试按 cabinet_id 匹配（柜体布局模式）
-            const matchedCab = scheme.cabinets.find(c => c.cabinet_id === targetId);
+            const matchedCab = schema.cabinets.find(c => c.cabinet_id === targetId);
             if (matchedCab) {
                 matchedCab.arrange = arrange;
                 showToast('布局已更新');
                 return;
             }
             // 再按 panel_id 匹配（面板布局模式）
-            for (const cab of scheme.cabinets) {
+            for (const cab of schema.cabinets) {
                 const p = cab.panels.find(x => x.panel_id === targetId);
                 if (p) {
                     p.arrange = arrange;
@@ -387,13 +410,13 @@ const App = {
 
 
         // ── 计算属性 ──────────────────────────────────────────────
-        const selectedCabinet = computed(() => scheme.cabinets.find(c => c.cabinet_id === selectedCabinetId.value) || null);
+        const selectedCabinet = computed(() => schema.cabinets.find(c => c.cabinet_id === selectedCabinetId.value) || null);
         const selectedPanel = computed(() => selectedCabinet.value?.panels.find(p => p.panel_id === selectedPanelId.value) || null);
-        const totalCabinets = computed(() => scheme.cabinets.length);
-        const totalPanels = computed(() => scheme.cabinets.reduce((s, c) => s + c.panels.length, 0));
-        const totalParts = computed(() => scheme.cabinets.reduce((s, c) => s + c.panels.reduce((sp, p) => sp + p.parts.length, 0), 0));
+        const totalCabinets = computed(() => schema.cabinets.length);
+        const totalPanels = computed(() => schema.cabinets.reduce((s, c) => s + c.panels.length, 0));
+        const totalParts = computed(() => schema.cabinets.reduce((s, c) => s + c.panels.reduce((sp, p) => sp + p.parts.length, 0), 0));
 
-        const sortedCabinets = computed(() => [...scheme.cabinets].sort((a, b) => (a.order || 0) - (b.order || 0)));
+        const sortedCabinets = computed(() => [...schema.cabinets].sort((a, b) => (a.order || 0) - (b.order || 0)));
         const sortedPanels = computed(() => selectedCabinet.value ? [...selectedCabinet.value.panels].sort((a, b) => (a.order || 0) - (b.order || 0)) : []);
         const sortedParts = computed(() => selectedPanel.value ? [...selectedPanel.value.parts].sort((a, b) => (a.order || 0) - (b.order || 0)) : []);
 
@@ -413,7 +436,7 @@ const App = {
         //  柜体操作
         // ══════════════════════════════════════════════════════════
         const openAddCabinet = () => {
-            cabinetModal.cabinet = makeCabinet({ cabinet_name: `柜${scheme.cabinets.length + 1}` });
+            cabinetModal.cabinet = makeCabinet({ cabinet_name: `柜${schema.cabinets.length + 1}` });
             cabinetModal.isNew = true;
             cabinetModal.show = true;
         };
@@ -425,14 +448,14 @@ const App = {
         const saveCabinetModal = () => {
             if (!cabinetModal.cabinet.cabinet_name.trim()) return showToast('请填写柜名称', 'warn');
             if (cabinetModal.isNew) {
-                scheme.cabinets.push({ ...cabinetModal.cabinet, panels: cabinetModal.cabinet.panels || [] });
+                schema.cabinets.push({ ...cabinetModal.cabinet, panels: cabinetModal.cabinet.panels || [] });
                 selectCabinet(cabinetModal.cabinet.cabinet_id);
                 showToast('已添加柜体');
             } else {
-                const idx = scheme.cabinets.findIndex(c => c.cabinet_id === cabinetModal.cabinet.cabinet_id);
+                const idx = schema.cabinets.findIndex(c => c.cabinet_id === cabinetModal.cabinet.cabinet_id);
                 if (idx !== -1) {
-                    const panels = scheme.cabinets[idx].panels; // 保留原 panels
-                    Object.assign(scheme.cabinets[idx], { ...cabinetModal.cabinet, panels });
+                    const panels = schema.cabinets[idx].panels; // 保留原 panels
+                    Object.assign(schema.cabinets[idx], { ...cabinetModal.cabinet, panels });
                 }
                 showToast('已保存柜体');
             }
@@ -440,14 +463,14 @@ const App = {
         };
         const removeCabinet = (id) => {
             if (!confirm('确定删除此柜体及其所有面板和元件？')) return;
-            const idx = scheme.cabinets.findIndex(c => c.cabinet_id === id);
-            if (idx !== -1) scheme.cabinets.splice(idx, 1);
+            const idx = schema.cabinets.findIndex(c => c.cabinet_id === id);
+            if (idx !== -1) schema.cabinets.splice(idx, 1);
             if (selectedCabinetId.value === id) { selectedCabinetId.value = null; selectedPanelId.value = null; }
             showToast('已删除', 'warn');
         };
         const duplicateCabinet = (cab) => {
             const copy = JSON.parse(JSON.stringify(cab));
-            copy.cabinet_id = uid(); copy.cabinet_name += '_副本'; copy.order = getAdjacentOrder(scheme.cabinets, cab.cabinet_id, 'cabinet_id');
+            copy.cabinet_id = uid(); copy.cabinet_name += '_副本'; copy.order = getAdjacentOrder(schema.cabinets, cab.cabinet_id, 'cabinet_id');
             copy.panels.forEach(p => {
                 p.panel_id = uid(); p.order = getOrder();
                 const idMap = {};
@@ -465,13 +488,13 @@ const App = {
                     p.arrange = newArrange;
                 }
             });
-            const idx = scheme.cabinets.findIndex(c => c.cabinet_id === cab.cabinet_id);
-            scheme.cabinets.splice(idx + 1, 0, copy);
+            const idx = schema.cabinets.findIndex(c => c.cabinet_id === cab.cabinet_id);
+            schema.cabinets.splice(idx + 1, 0, copy);
             showToast('已复制柜体');
         };
         const selectCabinet = (id) => {
             selectedCabinetId.value = id;
-            const cab = scheme.cabinets.find(c => c.cabinet_id === id);
+            const cab = schema.cabinets.find(c => c.cabinet_id === id);
             if (cab && cab.panels.length > 0) {
                 selectedPanelId.value = cab.panels[0].panel_id;
             } else {
@@ -492,7 +515,7 @@ const App = {
             panelModal.show = true;
         };
         const savePanelModal = () => {
-            const cab = scheme.cabinets.find(c => c.cabinet_id === panelModal.cabinetId);
+            const cab = schema.cabinets.find(c => c.cabinet_id === panelModal.cabinetId);
             if (!cab) return;
             const normalizedPanel = {
                 ...panelModal.panel,
@@ -514,7 +537,7 @@ const App = {
         };
         const removePanel = (cabinetId, panelId) => {
             if (!confirm('确定删除此面板及其所有元件？')) return;
-            const cab = scheme.cabinets.find(c => c.cabinet_id === cabinetId);
+            const cab = schema.cabinets.find(c => c.cabinet_id === cabinetId);
             if (!cab) return;
             const idx = cab.panels.findIndex(p => p.panel_id === panelId);
             if (idx !== -1) cab.panels.splice(idx, 1);
@@ -523,7 +546,7 @@ const App = {
         };
         const selectPanel = (id) => { selectedPanelId.value = id; };
         const duplicatePanel = (cabinetId, panel) => {
-            const cab = scheme.cabinets.find(c => c.cabinet_id === cabinetId);
+            const cab = schema.cabinets.find(c => c.cabinet_id === cabinetId);
             if (!cab) return;
             const copy = JSON.parse(JSON.stringify(panel));
             copy.panel_id = uid(); copy.order = getAdjacentOrder(cab.panels, panel.panel_id, 'panel_id');
@@ -558,7 +581,7 @@ const App = {
             partModal.cabinetId = cabinetId; partModal.panelId = panelId; partModal.part = JSON.parse(JSON.stringify(part)); partModal.isNew = false; partModal.show = true;
         };
         const savePartModal = () => {
-            const cab = scheme.cabinets.find(c => c.cabinet_id === partModal.cabinetId);
+            const cab = schema.cabinets.find(c => c.cabinet_id === partModal.cabinetId);
             const panel = cab?.panels.find(p => p.panel_id === partModal.panelId);
             if (!panel) return;
             if (partModal.isNew) {
@@ -575,14 +598,14 @@ const App = {
             partModal.show = false;
         };
         const removePart = (cabinetId, panelId, partId) => {
-            const panel = scheme.cabinets.find(c => c.cabinet_id === cabinetId)?.panels.find(p => p.panel_id === panelId);
+            const panel = schema.cabinets.find(c => c.cabinet_id === cabinetId)?.panels.find(p => p.panel_id === panelId);
             if (!panel) return;
             const idx = panel.parts.findIndex(p => p.part_id === partId);
             if (idx !== -1) panel.parts.splice(idx, 1);
             showToast('已删除', 'warn');
         };
         const duplicatePart = (cabinetId, panelId, part) => {
-            const panel = scheme.cabinets.find(c => c.cabinet_id === cabinetId)?.panels.find(p => p.panel_id === panelId);
+            const panel = schema.cabinets.find(c => c.cabinet_id === cabinetId)?.panels.find(p => p.panel_id === panelId);
             if (!panel) return;
             const copy = JSON.parse(JSON.stringify(part));
             copy.part_id = uid();
@@ -604,24 +627,24 @@ const App = {
                 try {
                     const parsed = JSON.parse(ev.target.result);
                     if (!parsed.cabinets) throw new Error('缺少 cabinets 字段');
-                    scheme.cabinets = parsed.cabinets;
-                    const firstCab = scheme.cabinets[0];
+                    schema.cabinets = parsed.cabinets;
+                    const firstCab = schema.cabinets[0];
                     if (firstCab) selectCabinet(firstCab.cabinet_id);
-                    showToast(`已导入 ${scheme.cabinets.length} 个柜体`);
+                    showToast(`已导入 ${schema.cabinets.length} 个柜体`);
                 } catch (err) { showToast('JSON 格式错误: ' + err.message, 'error'); }
             };
             r.readAsText(file); e.target.value = '';
         };
         const exportJson = () => {
-            const blob = new Blob([JSON.stringify({ cabinets: scheme.cabinets }, null, 2)], { type: 'application/json' });
+            const blob = new Blob([JSON.stringify({ cabinets: schema.cabinets }, null, 2)], { type: 'application/json' });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-            a.download = `scheme_${Date.now()}.json`; a.click(); showToast('已导出');
+            a.download = `schema_${Date.now()}.json`; a.click(); showToast('已导出');
         };
 
         const exportPanelData = () => {
             if (!selectedPanel.value) return showToast('请先选择一个面板', 'warn');
             const exportData = buildPanelLayoutData(selectedPanel.value, selectedCabinet.value || {});
-            const rawName = exportData.name || exportData.scheme?.panel_type || 'panel';
+            const rawName = exportData.name || exportData.schema?.panel_type || 'panel';
             const safeName = String(rawName).replace(/[\\/:*?"<>|]+/g, '_');
 
             const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
@@ -722,18 +745,18 @@ const App = {
             if (!action || !action.action) return;
             const { action: type } = action;
 
-            if (type === 'replace_scheme' && action.scheme?.cabinets) {
-                scheme.cabinets = action.scheme.cabinets;
-                showToast(`AI 已生成 ${scheme.cabinets.length} 个柜体方案`);
+            if (type === 'replace_schema' && action.schema?.cabinets) {
+                schema.cabinets = action.schema.cabinets;
+                showToast(`AI 已生成 ${schema.cabinets.length} 个柜体方案`);
             }
             else if (type === 'add_cabinets' && action.cabinets?.length) {
                 action.cabinets.forEach(cab => {
-                    scheme.cabinets.push({ ...cab, panels: cab.panels || [] });
+                    schema.cabinets.push({ ...cab, panels: cab.panels || [] });
                 });
                 showToast(`已批量添加 ${action.cabinets.length} 个柜体`);
             }
             else if (type === 'add_panels' && action.panels?.length) {
-                const cab = scheme.cabinets.find(c => c.cabinet_id === action.cabinet_id);
+                const cab = schema.cabinets.find(c => c.cabinet_id === action.cabinet_id);
                 if (cab) {
                     action.panels.forEach(p => cab.panels.push(p));
                     showToast(`已批量添加 ${action.panels.length} 个面板`);
@@ -741,7 +764,7 @@ const App = {
             }
             else if (type === 'add_parts' && action.parts?.length) {
                 let foundPanel = null;
-                for (const cab of scheme.cabinets) {
+                for (const cab of schema.cabinets) {
                     const panel = cab.panels.find(p => p.panel_id === action.panel_id);
                     if (panel) { foundPanel = panel; break; }
                 }
@@ -751,17 +774,17 @@ const App = {
                 }
             }
             else if (type === 'edit_cabinet' && action.updates) {
-                const cab = scheme.cabinets.find(c => c.cabinet_id === action.cabinet_id);
+                const cab = schema.cabinets.find(c => c.cabinet_id === action.cabinet_id);
                 if (cab) { Object.assign(cab, action.updates); showToast('已修改柜体'); }
             }
             else if (type === 'edit_panel' && action.updates) {
-                for (const cab of scheme.cabinets) {
+                for (const cab of schema.cabinets) {
                     const panel = cab.panels.find(p => p.panel_id === action.panel_id);
                     if (panel) { Object.assign(panel, action.updates); showToast('已修改面板'); break; }
                 }
             }
             else if (type === 'edit_part' && action.updates) {
-                for (const cab of scheme.cabinets) {
+                for (const cab of schema.cabinets) {
                     for (const panel of cab.panels) {
                         const part = panel.parts.find(pt => pt.part_id === action.part_id);
                         if (part) { Object.assign(part, action.updates); showToast('已修改元件'); return; }
@@ -769,9 +792,9 @@ const App = {
                 }
             }
             else if (type === 'delete_cabinet') {
-                const idx = scheme.cabinets.findIndex(c => c.cabinet_id === action.cabinet_id);
+                const idx = schema.cabinets.findIndex(c => c.cabinet_id === action.cabinet_id);
                 if (idx !== -1) {
-                    scheme.cabinets.splice(idx, 1);
+                    schema.cabinets.splice(idx, 1);
                     if (selectedCabinetId.value === action.cabinet_id) {
                         selectedCabinetId.value = null;
                         selectedPanelId.value = null;
@@ -780,7 +803,7 @@ const App = {
                 }
             }
             else if (type === 'delete_panel') {
-                for (const cab of scheme.cabinets) {
+                for (const cab of schema.cabinets) {
                     const idx = cab.panels.findIndex(p => p.panel_id === action.panel_id);
                     if (idx !== -1) {
                         cab.panels.splice(idx, 1);
@@ -793,7 +816,7 @@ const App = {
                 }
             }
             else if (type === 'delete_part') {
-                for (const cab of scheme.cabinets) {
+                for (const cab of schema.cabinets) {
                     for (const panel of cab.panels) {
                         const idx = panel.parts.findIndex(pt => pt.part_id === action.part_id);
                         if (idx !== -1) {
@@ -817,12 +840,12 @@ const App = {
             chatInput.value = ''; if (chatTextarea.value) chatTextarea.value.style.height = 'auto';
             chatLoading.value = true; scrollChat();
 
-            const currentScheme = { cabinets: JSON.parse(JSON.stringify(scheme.cabinets)) };
+            const currentSchema = { cabinets: JSON.parse(JSON.stringify(schema.cabinets)) };
             const imageData = chatImagePreview.value || null;
             const payload = {
                 session_id: chatSessionId.value,
                 message: text || '请根据图片生成配置方案',
-                scheme: currentScheme,
+                schema: currentSchema,
                 image: imageData,
                 selection: {
                     cabinet_id: selectedCabinetId.value || '',
@@ -951,140 +974,127 @@ const App = {
             return JSON.parse(JSON.stringify(arrange));
         };
 
-        const mapLayoutInput = (input, transformer) => {
-            if (Array.isArray(input)) return input.map((item, index) => transformer(item, index));
-            return transformer(input, 0);
-        };
-
-        const transformPartsToLayoutParts = (parts) => {
-            if (!Array.isArray(parts)) return [];
-            return parts.map((part) => {
-                const item = {
-                    part_id: part?.part_id || createLayoutUuid(),
-                    part_type: part?.part_type || '',
-                    part_model: part?.part_model || '',
-                    part_size: [
-                        toLayoutNumber(part?.part_size?.[0], toLayoutNumber(part?.part_width, 80)),
-                        toLayoutNumber(part?.part_size?.[1], toLayoutNumber(part?.part_height, 100)),
-                    ],
-                };
-                if (part?.arrange && typeof part.arrange === 'object') {
-                    item.arrange = cloneLayoutArrange(part.arrange);
-                }
-                const children = transformPartsToLayoutParts(part?.parts);
-                if (children.length) {
-                    item.parts = children;
-                }
-                return item;
-            });
-        };
-
-        const buildLayoutDocument = ({ name = '', scheme = {}, arrange = {} } = {}) => ({
+        const buildLayoutDocument = ({ name = '', schema = {}, arrange = {} } = {}) => ({
             name,
             uuid: createLayoutUuid(),
-            scheme,
+            schema,
             arrange: cloneLayoutArrange(arrange),
         });
 
         const buildPanelAsLayoutPart = (panel) => {
-            const item = {
-                part_id: panel?.panel_id || createLayoutUuid(),
-                part_type: panel?.panel_type || '',
-                part_model: panel?.operation_method || '',
-                part_size: [
-                    toLayoutNumber(panel?.panel_width, 600),
-                    toLayoutNumber(panel?.panel_height, 1400),
-                ],
-                parts: transformPartsToLayoutParts(panel?.parts),
-            };
-            if (panel?.arrange && typeof panel.arrange === 'object') {
+            const item = { ...panel };
+            item.part_id = panel.panel_id || createLayoutUuid();
+            item.part_size = [
+                toLayoutNumber(panel.panel_width, 600),
+                toLayoutNumber(panel.panel_height, 1400),
+            ];
+            if (Array.isArray(panel.parts)) {
+                item.parts = transformPartsToLayoutParts(panel.parts);
+            }
+            if (Array.isArray(panel.panels)) {
+                item.panels = panel.panels.map(p => buildPanelAsLayoutPart(p));
+            }
+            if (panel.arrange && typeof panel.arrange === 'object') {
                 item.arrange = cloneLayoutArrange(panel.arrange);
             }
             return item;
         };
 
-        const buildLayoutScheme = ({
-            cabinet_id = '',
-            cabinet_name = '',
-            cabinet_use = '',
-            cabinet_model = '',
-            cabinet_wiring_method = '',
-            panel_id = '',
-            panel_type = '',
-            panel_operation_method = '',
-            panel_main_circuit_current = null,
-            panel_main_circuit_poles = null,
-            panel_height_module = '',
-            panel_size = [600, 1400],
-            parts = [],
-        } = {}) => ({
-            cabinet_id,
-            cabinet_name,
-            cabinet_use,
-            cabinet_model,
-            cabinet_wiring_method,
-            panel_id,
-            panel_type,
-            panel_operation_method,
-            panel_main_circuit_current,
-            panel_main_circuit_poles,
-            panel_height_module,
-            panel_size,
-            parts,
-        });
+        const mapLayoutInput = (input, transformer) => {
+            if (Array.isArray(input)) return input.map((item, index) => transformer(item, index));
+            return transformer(input, 0);
+        };
 
-        const buildPanelLayoutData = (panel, cabinet = {}) => buildLayoutDocument({
-            name: `${cabinet.cabinet_use || ''}-${cabinet.cabinet_model || ''}-${panel?.panel_type || ''}-${panel?.panel_width || 600}x${panel?.panel_height || 1400}`,
-            scheme: buildLayoutScheme({
-                cabinet_id: cabinet.cabinet_id || '',
-                cabinet_name: cabinet.cabinet_name || '',
-                cabinet_use: cabinet.cabinet_use || '',
-                cabinet_model: cabinet.cabinet_model || '',
-                cabinet_wiring_method: cabinet.wiring_method || '',
-                panel_id: panel?.panel_id || '',
-                panel_type: panel?.panel_type || '',
-                panel_operation_method: panel?.operation_method || '',
-                panel_main_circuit_current: panel?.main_circuit_current ?? null,
-                panel_main_circuit_poles: panel?.main_circuit_poles ?? null,
-                panel_height_module: panel?.height_module || '',
-                panel_size: [
-                    toLayoutNumber(panel?.panel_width, 600),
-                    toLayoutNumber(panel?.panel_height, 1400),
-                ],
-                parts: transformPartsToLayoutParts(panel?.parts),
-            }),
-            arrange: panel?.arrange,
-        });
+        const buildLayoutSchema = (cabinet = {}, panel = null, parts = []) => {
+            const schema = {};
+            
+            // 1. 提取柜体所有属性 (排除内部结构字段)
+            const internalCabinetKeys = ['panels', 'order', 'cabinet_id'];
+            Object.keys(cabinet).forEach(key => {
+                if (!internalCabinetKeys.includes(key)) {
+                    schema[key] = cabinet[key];
+                }
+            });
+            schema.cabinet_id = cabinet.cabinet_id || '';
 
-        const convertPanelsToLayoutData = (panelOrPanels, cabinet = {}) => mapLayoutInput(
-            panelOrPanels,
-            (panel) => buildPanelLayoutData(panel, cabinet)
-        );
+            // 2. 提取面板所有属性 (如果存在)
+            if (panel) {
+                const internalPanelKeys = ['parts', 'order', 'arrange', 'panel_id'];
+                Object.keys(panel).forEach(key => {
+                    if (!internalPanelKeys.includes(key)) {
+                        schema[key] = panel[key];
+                    }
+                });
+                schema.panel_id = panel.panel_id || '';
+                schema.panel_size = [
+                    toLayoutNumber(panel.panel_width, 600),
+                    toLayoutNumber(panel.panel_height, 1400)
+                ];
+            }
+
+            // 3. 挂载处理后的元件
+            schema.parts = parts;
+            return schema;
+        };
+
+        const transformPartsToLayoutParts = (parts) => {
+            if (!Array.isArray(parts)) return [];
+            return parts.map((part) => {
+                const item = { ...part };
+                // 标准化尺寸字段，布局引擎强制需要 part_size
+                item.part_size = [
+                    toLayoutNumber(part.part_width, 80),
+                    toLayoutNumber(part.part_height, 100),
+                ];
+                // 递归处理子元件
+                if (Array.isArray(part.parts)) {
+                    item.parts = transformPartsToLayoutParts(part.parts);
+                }
+                // 递归处理子面板 (如果元件包含面板)
+                if (Array.isArray(part.panels)) {
+                    item.panels = part.panels.map(p => buildPanelAsLayoutPart(p));
+                }
+                return item;
+            });
+        };
+
+        const buildPanelLayoutData = (panel, cabinet = {}) => {
+            const parts = transformPartsToLayoutParts(panel?.parts);
+            const schema = buildLayoutSchema(cabinet, panel, parts);
+            const nameParts = [
+                cabinet.cabinet_name || '未命名柜',
+                panel.panel_type || '面板',
+                `${schema.panel_size[0]}x${schema.panel_size[1]}`
+            ];
+            return buildLayoutDocument({
+                name: nameParts.filter(Boolean).join('-'),
+                schema: schema,
+                arrange: panel?.arrange || {},
+            });
+        };
 
         const buildCabinetLayoutData = (cabinet) => {
             const cabinetWidth = toLayoutNumber(cabinet?.cabinet_width, 800);
             const cabinetHeight = toLayoutNumber(cabinet?.cabinet_height, 2200);
             const parts = Array.isArray(cabinet?.panels)
-                ? cabinet.panels.map((panel) => buildPanelAsLayoutPart(panel))
+                ? cabinet.panels.map((panel) => {
+                    return buildPanelAsLayoutPart(panel);
+                })
                 : [];
-
+            const schema = buildLayoutSchema(cabinet, null, parts);
+            schema.panel_id = cabinet.cabinet_id;
+            schema.panel_size = [cabinetWidth, cabinetHeight];
             return buildLayoutDocument({
-                name: `${cabinet?.cabinet_use || ''}-${cabinet?.cabinet_name || ''}-${Math.round(cabinetWidth)}x${Math.round(cabinetHeight)}`,
-                scheme: buildLayoutScheme({
-                    cabinet_id: cabinet?.cabinet_id || '',
-                    cabinet_name: cabinet?.cabinet_name || '',
-                    cabinet_use: cabinet?.cabinet_use || '',
-                    cabinet_model: cabinet?.cabinet_model || '',
-                    cabinet_wiring_method: cabinet?.wiring_method || '',
-                    panel_type: `${cabinet?.cabinet_use || ''}-${cabinet?.cabinet_name || ''}`,
-                    panel_id: cabinet?.cabinet_id || '',
-                    panel_operation_method: '',
-                    panel_size: [cabinetWidth, cabinetHeight],
-                    parts,
-                }),
-                arrange: cabinet?.arrange,
+                name: `柜体布局-${cabinet.cabinet_name || cabinet.cabinet_id}`,
+                schema: schema,
+                arrange: cabinet?.arrange || {},
             });
         };
+
+        const convertPanelsToLayoutData = (panelOrPanels, cabinet = {}) => mapLayoutInput(
+            panelOrPanels,
+            (panel) => buildPanelLayoutData(panel, cabinet)
+        );
 
         const convertCabinetsToLayoutData = (cabinetOrCabinets) => mapLayoutInput(
             cabinetOrCabinets,
@@ -1162,7 +1172,7 @@ const App = {
         const startBatchLayout = async () => {
             // 构建任务列表
             const items = [];
-            for (const cab of scheme.cabinets) {
+            for (const cab of schema.cabinets) {
                 for (const pnl of cab.panels) {
                     const id = `panel_${pnl.panel_id}`;
                     if (_isPanelLayoutReady(pnl)) {
@@ -1208,7 +1218,7 @@ const App = {
         };
 
         const _batchLayoutPanel = async (item) => {
-            const cab = scheme.cabinets.find(c => c.cabinet_id === item.cabId);
+            const cab = schema.cabinets.find(c => c.cabinet_id === item.cabId);
             const pnl = cab?.panels.find(p => p.panel_id === item.panelId);
             if (!pnl) throw new Error('面板已删除');
 
@@ -1218,7 +1228,7 @@ const App = {
             const recRes = await fetch(`${API}/recommend`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ scheme: layoutData.scheme }),
+                body: JSON.stringify({ schema: layoutData.schema }),
             });
             if (!recRes.ok) throw new Error('推荐失败: ' + recRes.status);
             const recData = await recRes.json();
@@ -1233,7 +1243,7 @@ const App = {
                 body: JSON.stringify({
                     template_uuid: templates[0].uuid,
                     other_template_uuids: templates.slice(1).map(t => t.uuid),
-                    project_data: { scheme: layoutData.scheme },
+                    project_data: { schema: layoutData.schema },
                 }),
             });
             if (!applyRes.ok) throw new Error('应用失败: ' + applyRes.status);
@@ -1248,7 +1258,7 @@ const App = {
         };
 
         const _batchLayoutCabinet = async (item) => {
-            const cab = scheme.cabinets.find(c => c.cabinet_id === item.cabId);
+            const cab = schema.cabinets.find(c => c.cabinet_id === item.cabId);
             if (!cab) throw new Error('柜体已删除');
 
             item.msg = '计算柜体布局…';
@@ -1262,7 +1272,7 @@ const App = {
             const layoutData = await res.json();
             // layoutData is array of panels with arrange, or direct object
             if (Array.isArray(layoutData)) {
-                // 柜体级别的 arrange 在返回的 scheme 中
+                // 柜体级别的 arrange 在返回的 schema 中
                 const firstWithArrange = layoutData.find(d => d.arrange && Object.keys(d.arrange).length > 0);
                 if (firstWithArrange) {
                     cab.arrange = firstWithArrange.arrange;
@@ -1285,7 +1295,7 @@ const App = {
         const viewBatchLayoutResult = () => {
             batchLayoutViewLoading.value = true;
             try {
-                const sourceCabinets = scheme.cabinets.filter((cab) => cab.panels.length > 0);
+                const sourceCabinets = schema.cabinets.filter((cab) => cab.panels.length > 0);
                 const results = convertCabinetsToLayoutData(sourceCabinets);
                 if (!results.length) {
                     showToast('无可查看的布局结果', 'warn');
@@ -1318,7 +1328,7 @@ const App = {
         };
 
         return {
-            scheme, selectedCabinetId, selectedPanelId,
+            schema, selectedCabinetId, selectedPanelId,
             selectedCabinet, selectedPanel,
             sortedCabinets, sortedPanels, sortedParts,
             isLoading, loadingText, toast,
@@ -1326,8 +1336,7 @@ const App = {
             cabinetModal, panelModal, partModal,
             jsonFileInput, chatImageInput,
             totalCabinets, totalPanels, totalParts,
-            CABINET_USE_OPTIONS, CABINET_MODEL_OPTIONS, PANEL_TYPE_OPTIONS, PART_TYPE_OPTIONS,
-            WIRING_METHOD_OPTIONS, OPERATION_METHOD_OPTIONS,
+            uiMetadata,
             // 拖拽 & 折叠
             cabinetWidth, panelWidth, chatWidth, chatCollapsed, startResize, toggleChat,
             // 柜体

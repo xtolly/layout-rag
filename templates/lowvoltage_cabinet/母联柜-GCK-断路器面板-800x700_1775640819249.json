@@ -1,7 +1,7 @@
 {
   "name": "母联柜-GCK-断路器面板-800x700",
   "uuid": "fd8e0f13-808f-4dd6-b34b-4e13d559ad4c",
-  "scheme": {
+  "schema": {
     "cabinet_id": "679848ac-bece-4e2e-ae57-75c9fbec9047",
     "cabinet_name": "1A2",
     "cabinet_use": "母联柜",

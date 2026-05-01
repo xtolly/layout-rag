@@ -1,0 +1,26 @@
+{
+    "name": "中船国际数科城项目系统图_f91802e2_a2dbaf9b",
+    "uuid": "db7297aa-505c-4ef5-aeed-d2a9d58c7543",
+    "schema": {
+        "cabinet_id": "f91802e2-2b34-432c-bcb6-2ee29d9b4eb1",
+        "industry": "",
+        "box_classify": "配电箱",
+        "series": "HW",
+        "cabinet_width": 700.0,
+        "cabinet_height": 1300.0,
+        "cabinet_depth": 250.0,
+        "install_type": "户外挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "a2dbaf9b-362b-4682-96dc-e58c97c2dbf9",
+        "panel_type": "门板",
+        "panel_size": [
+            700.0,
+            1300.0
+        ],
+        "parts": []
+    },
+    "arrange": {}
+}

@@ -1,7 +1,7 @@
 {
   "name": "进线柜-GGD-默认面板-800x2200",
   "uuid": "4e03d8fe-59f0-4086-8e35-cf8b9d803710",
-  "scheme": {
+  "schema": {
     "cabinet_id": "2f8a94fb-8c37-426c-8027-8c92c82b846a",
     "cabinet_name": "P1-1",
     "cabinet_use": "进线柜",

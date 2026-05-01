@@ -1,0 +1,157 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_id": "bf756c87-0bb8-4167-b543-31a6ad97c0e7",
+      "cabinet_name": "中船国际数科城项目系统图_bf756c87_85c6841f",
+      "box_classify": "配电箱",
+      "series": "XM1",
+      "cabinet_width": 400.0,
+      "cabinet_height": 600.0,
+      "cabinet_depth": 200.0,
+      "install_type": "户内挂墙",
+      "inline_mode": "进线器件上置",
+      "fixup_type": "板式安装",
+      "door_type": "左开门",
+      "cable_in_out_type": "上进下出",
+      "panels": [
+        {
+          "order": 1,
+          "panel_id": "85c6841f-9a6a-4731-b033-45c4e17f5aae",
+          "panel_type": "安装板",
+          "operation_method": "",
+          "panel_width": 400.0,
+          "panel_height": 600.0,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "双电源自动转换开关",
+              "part_model": "TBBQ3c-125/4P 32A III",
+              "part_width": 277.5,
+              "part_height": 165.0,
+              "part_depth": 0,
+              "pole": "4P",
+              "current": "32",
+              "in_line": true,
+              "part_id": "4850e24c-1944-4136-ba82-9c238e116098"
+            },
+            {
+              "order": 2,
+              "part_type": "剩余电流动作微型断路器",
+              "part_model": "iC65N Vigi+ 2P C 16A 30mA A ELE",
+              "part_width": 71.3,
+              "part_height": 101.0,
+              "part_depth": 0,
+              "pole": "2P",
+              "current": "16",
+              "in_line": false,
+              "part_id": "173aa45f-a524-472c-be7f-ae43e08328e3"
+            },
+            {
+              "order": 3,
+              "part_type": "微型断路器",
+              "part_model": "iC65N-C16A/1P",
+              "part_width": 17.7,
+              "part_height": 94.0,
+              "part_depth": 0,
+              "pole": "1P",
+              "current": "16",
+              "in_line": false,
+              "part_id": "97c5acf0-ba5e-47fd-b8ba-527116fa075c"
+            },
+            {
+              "order": 4,
+              "part_type": "微型断路器",
+              "part_model": "iC65N-C16A/1P",
+              "part_width": 17.7,
+              "part_height": 94.0,
+              "part_depth": 0,
+              "pole": "1P",
+              "current": "16",
+              "in_line": false,
+              "part_id": "9442620b-fe11-48ac-9cab-3f4cba38e189"
+            },
+            {
+              "order": 5,
+              "part_type": "浪涌后备保护器",
+              "part_model": "MUH1-20/4P",
+              "part_width": 72.0,
+              "part_height": 82.0,
+              "part_depth": 0,
+              "pole": "4P",
+              "current": "20",
+              "in_line": false,
+              "part_id": "f4529302-d7df-4d5f-b45e-edbaa5da7eb8"
+            },
+            {
+              "order": 6,
+              "part_type": "电涌保护器",
+              "part_model": "MU1-20/275/4P",
+              "part_width": 72.0,
+              "part_height": 92.0,
+              "part_depth": 0,
+              "pole": "4P",
+              "current": "20",
+              "in_line": false,
+              "part_id": "898099c0-443d-4ffa-8e2f-7bca0897c9ed"
+            }
+          ],
+          "arrange": {
+            "4850e24c-1944-4136-ba82-9c238e116098": {
+              "position": [
+                61.25,
+                120.0
+              ],
+              "rotation": 0
+            },
+            "173aa45f-a524-472c-be7f-ae43e08328e3": {
+              "position": [
+                218.65,
+                375.5
+              ],
+              "rotation": 0
+            },
+            "97c5acf0-ba5e-47fd-b8ba-527116fa075c": {
+              "position": [
+                289.95,
+                379.0
+              ],
+              "rotation": 0
+            },
+            "9442620b-fe11-48ac-9cab-3f4cba38e189": {
+              "position": [
+                307.65,
+                379.0
+              ],
+              "rotation": 0
+            },
+            "f4529302-d7df-4d5f-b45e-edbaa5da7eb8": {
+              "position": [
+                74.65,
+                385.0
+              ],
+              "rotation": 0
+            },
+            "898099c0-443d-4ffa-8e2f-7bca0897c9ed": {
+              "position": [
+                146.65,
+                380.0
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "order": 2,
+          "panel_id": "d9b8037e-8577-4d38-a88b-8d7435d83b0c",
+          "panel_type": "门板",
+          "operation_method": "",
+          "panel_width": 400.0,
+          "panel_height": 600.0,
+          "parts": [],
+          "arrange": {}
+        }
+      ]
+    }
+  ]
+}

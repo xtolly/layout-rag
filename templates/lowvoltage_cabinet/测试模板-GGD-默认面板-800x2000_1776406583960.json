@@ -1,7 +1,7 @@
 {
   "name": "电容补偿柜-GGD-默认面板-800x2000",
   "uuid": "3c7cdfd9-7acb-4071-b969-141717e5c90e",
-  "scheme": {
+  "schema": {
     "cabinet_id": "db24c11a-33e5-44be-b5b7-e34ccb1a7ce3",
     "cabinet_name": "P1-3",
     "cabinet_use": "电容补偿柜",

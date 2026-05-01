@@ -1,7 +1,7 @@
 {
   "name": "母联柜-GGD-默认面板-800x2200",
   "uuid": "52306430-04ee-4d8f-8aa3-bca1b3a96991",
-  "scheme": {
+  "schema": {
     "cabinet_id": "37161b4e-301c-4382-8aeb-ebb992fb0c24",
     "cabinet_name": "P1-2",
     "cabinet_use": "母联柜",

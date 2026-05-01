@@ -1,7 +1,7 @@
 {
   "name": "电容补偿柜-GCK-中门板-1000x400",
   "uuid": "3c4205ed-b343-4567-9616-6ace23ca584b",
-  "scheme": {
+  "schema": {
     "cabinet_id": "40d1fc4b-1180-4f4f-bea0-5076c2d609ec",
     "cabinet_name": "1-1AA2",
     "cabinet_use": "电容补偿柜",

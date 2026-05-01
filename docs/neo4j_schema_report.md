@@ -1,6 +1,6 @@
 # 低压开关柜 Neo4j 图数据库结构报告
 
-> 生成时间：2026-04-27 | 数据源：`scheme_1775637254389.json` + `scheme_1775640845490.json`  
+> 生成时间：2026-04-27 | 数据源：`schema_1775637254389.json` + `schema_1775640845490.json`  
 > 数据库：`lowvoltagecabinet` @ `neo4j://127.0.0.1:7687`
 
 ---
@@ -39,7 +39,7 @@ graph TD
 |--------|------|
 | 节点总数 | **199** |
 | 关系总数 | **828** |
-| 数据来源 | 2 个 scheme 文件 → 8 个柜体 → 43 个面板 → 112 个元件 |
+| 数据来源 | 2 个 schema 文件 → 8 个柜体 → 43 个面板 → 112 个元件 |
 
 ---
 
@@ -69,7 +69,7 @@ graph TD
 | `height` | int | 柜体高度 (mm) | `2200` |
 | `depth` | int/null | 柜体深度 (mm) | `1000` |
 | `wiring_method` | str | 接线方式 | `上进上出` |
-| `source_file` | str | 来源文件名 | `scheme_1775637254389.json` |
+| `source_file` | str | 来源文件名 | `schema_1775637254389.json` |
 
 ### 2.3 PanelTemplate（面板模板）— 10 个
 
@@ -97,7 +97,7 @@ graph TD
 | `order_val` | int | 排列顺序 | `1` |
 | `main_circuit_current` | int/null | 主回路电流 (A) | `3200` |
 | `main_circuit_poles` | int/null | 主回路极数 | `3` |
-| `source_file` | str | 来源文件 | `scheme_1775640845490.json` |
+| `source_file` | str | 来源文件 | `schema_1775640845490.json` |
 | **feat_total_parts** | int | 元件总数 | `9` |
 | **feat_unique_types** | int | 元件种类数 | `4` |
 | **feat_total_parts_area** | float | 元件总面积 (mm²) | `176095` |

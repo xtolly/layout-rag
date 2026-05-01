@@ -1,0 +1,138 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_id": "419e5d03-0a28-47f3-9748-6e294dd975b4",
+      "cabinet_name": "中船国际数科城项目系统图_419e5d03_6492b2a0",
+      "box_classify": "户箱",
+      "series": "MZ",
+      "cabinet_width": 283.0,
+      "cabinet_height": 252.0,
+      "cabinet_depth": 117.0,
+      "install_type": "户内挂墙",
+      "inline_mode": "进线器件左置",
+      "fixup_type": "板式安装",
+      "door_type": "左开门",
+      "cable_in_out_type": "上进下出",
+      "panels": [
+        {
+          "order": 1,
+          "panel_id": "6492b2a0-6b0b-4ed0-ae29-d793be35ae46",
+          "panel_type": "安装板",
+          "operation_method": "",
+          "panel_width": 283.0,
+          "panel_height": 252.0,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "微型断路器",
+              "part_model": "iC65N-D50A/4P",
+              "part_width": 70.8,
+              "part_height": 94.0,
+              "part_depth": 0,
+              "pole": "4P",
+              "current": "50",
+              "in_line": true,
+              "part_id": "ea546f14-69b6-48f0-a880-46cc3b68eeb2"
+            },
+            {
+              "order": 2,
+              "part_type": "微型断路器",
+              "part_model": "iC65N-D25A/1P",
+              "part_width": 17.7,
+              "part_height": 94.0,
+              "part_depth": 0,
+              "pole": "1P",
+              "current": "25",
+              "in_line": false,
+              "part_id": "935d8c86-1e7a-451e-96fd-ccf8521927a2"
+            },
+            {
+              "order": 3,
+              "part_type": "微型断路器",
+              "part_model": "iC65N-D25A/1P",
+              "part_width": 17.7,
+              "part_height": 94.0,
+              "part_depth": 0,
+              "pole": "1P",
+              "current": "25",
+              "in_line": false,
+              "part_id": "47cb9e19-2d14-4024-a53c-c1d6de187d5d"
+            },
+            {
+              "order": 4,
+              "part_type": "微型断路器",
+              "part_model": "iC65N-D25A/2P",
+              "part_width": 35.4,
+              "part_height": 94.0,
+              "part_depth": 0,
+              "pole": "2P",
+              "current": "25",
+              "in_line": false,
+              "part_id": "f42ffec1-8e7c-4a9c-b977-dab2385189eb"
+            },
+            {
+              "order": 5,
+              "part_type": "微型断路器",
+              "part_model": "iC65N-D25A/2P",
+              "part_width": 35.4,
+              "part_height": 94.0,
+              "part_depth": 0,
+              "pole": "2P",
+              "current": "25",
+              "in_line": false,
+              "part_id": "ceca8ec9-f4bd-4b90-b8f2-2a82c26bc4a9"
+            }
+          ],
+          "arrange": {
+            "ea546f14-69b6-48f0-a880-46cc3b68eeb2": {
+              "position": [
+                470.4,
+                179.25
+              ],
+              "rotation": 0
+            },
+            "935d8c86-1e7a-451e-96fd-ccf8521927a2": {
+              "position": [
+                541.2,
+                179.25
+              ],
+              "rotation": 0
+            },
+            "47cb9e19-2d14-4024-a53c-c1d6de187d5d": {
+              "position": [
+                558.9,
+                179.25
+              ],
+              "rotation": 0
+            },
+            "f42ffec1-8e7c-4a9c-b977-dab2385189eb": {
+              "position": [
+                576.6,
+                179.25
+              ],
+              "rotation": 0
+            },
+            "ceca8ec9-f4bd-4b90-b8f2-2a82c26bc4a9": {
+              "position": [
+                612.0,
+                179.25
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "order": 2,
+          "panel_id": "ae856242-0034-41aa-9a11-cca614e91a24",
+          "panel_type": "门板",
+          "operation_method": "",
+          "panel_width": 283.0,
+          "panel_height": 252.0,
+          "parts": [],
+          "arrange": {}
+        }
+      ]
+    }
+  ]
+}

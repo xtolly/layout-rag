@@ -1,7 +1,7 @@
 """
-将低压开关柜 scheme 数据构建为 Neo4j 图数据库。
+将低压开关柜 schema 数据构建为 Neo4j 图数据库。
 
-数据源：projects/lowvoltage_cabinet/scheme_*.json（完整柜体层级）
+数据源：projects/lowvoltage_cabinet/schema_*.json（完整柜体层级）
 数据库：lowvoltagecabinet @ neo4j://127.0.0.1:7687
 
 用法：
@@ -44,20 +44,20 @@ COLUMN_TOLERANCE = 30
 PANEL_ADJACENCY_GAP = 50  # 面板间距 ≤ 此值认为邻接
 
 
-def load_schemes() -> list[dict]:
-    """加载所有 scheme JSON 文件。"""
-    schemes = []
-    for fp in sorted(DATA_DIR.glob("scheme_*.json")):
+def load_schemas() -> list[dict]:
+    """加载所有 schema JSON 文件。"""
+    schemas = []
+    for fp in sorted(DATA_DIR.glob("schema_*.json")):
         if "no_arrange" in fp.name:
             continue
         try:
             with fp.open("r", encoding="utf-8") as f:
                 data = json.load(f)
             data["_source"] = fp.name
-            schemes.append(data)
+            schemas.append(data)
         except Exception as e:
             print(f"  ✗ {fp.name}: {e}")
-    return schemes
+    return schemas
 
 
 def euclidean(p1, p2):
@@ -141,9 +141,9 @@ class Neo4jBuilder:
         self._run("MATCH (n) DETACH DELETE n")
         print("  ✓ 数据库已清空")
 
-    def ingest_scheme(self, scheme: dict):
-        source = scheme.get("_source", "")
-        for cab in scheme.get("cabinets", []):
+    def ingest_schema(self, schema: dict):
+        source = schema.get("_source", "")
+        for cab in schema.get("cabinets", []):
             self._ingest_cabinet(cab, source)
 
     def _ingest_cabinet(self, cab: dict, source: str):
@@ -466,7 +466,7 @@ class Neo4jBuilder:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="低压开关柜 scheme → Neo4j 图数据库")
+    parser = argparse.ArgumentParser(description="低压开关柜 schema → Neo4j 图数据库")
     parser.add_argument("--uri", default="neo4j://127.0.0.1:7687")
     parser.add_argument("--user", default="neo4j")
     parser.add_argument("--password", default="a3213964")
@@ -475,14 +475,14 @@ def main():
     args = parser.parse_args()
 
     print("=" * 60)
-    print("  低压开关柜 scheme → Neo4j 图数据库构建")
+    print("  低压开关柜 schema → Neo4j 图数据库构建")
     print("=" * 60)
     print(f"  数据目录: {DATA_DIR}")
 
-    schemes = load_schemes()
-    if not schemes:
-        print("未找到 scheme 文件"); return
-    print(f"✓ 已加载 {len(schemes)} 个 scheme 文件\n")
+    schemas = load_schemas()
+    if not schemas:
+        print("未找到 schema 文件"); return
+    print(f"✓ 已加载 {len(schemas)} 个 schema 文件\n")
 
     builder = Neo4jBuilder(args.uri, args.user, args.password, args.database)
     try:
@@ -491,11 +491,11 @@ def main():
             builder.clear()
 
         print("\n写入图数据...")
-        for i, sch in enumerate(schemes, 1):
+        for i, sch in enumerate(schemas, 1):
             src = sch.get("_source", "")
             cabs = len(sch.get("cabinets", []))
-            print(f"  [{i}/{len(schemes)}] {src} ({cabs} 个柜体)")
-            builder.ingest_scheme(sch)
+            print(f"  [{i}/{len(schemas)}] {src} ({cabs} 个柜体)")
+            builder.ingest_schema(sch)
 
         builder.print_stats()
         print("\n✅ 图数据库构建完成！")

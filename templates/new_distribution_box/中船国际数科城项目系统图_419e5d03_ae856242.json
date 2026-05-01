@@ -1,0 +1,26 @@
+{
+    "name": "中船国际数科城项目系统图_419e5d03_ae856242",
+    "uuid": "c906ea7a-52b8-49f3-9ff9-49cbcd43aa04",
+    "schema": {
+        "cabinet_id": "419e5d03-0a28-47f3-9748-6e294dd975b4",
+        "industry": "",
+        "box_classify": "户箱",
+        "series": "MZ",
+        "cabinet_width": 283.0,
+        "cabinet_height": 252.0,
+        "cabinet_depth": 117.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件左置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "ae856242-0034-41aa-9a11-cca614e91a24",
+        "panel_type": "门板",
+        "panel_size": [
+            283.0,
+            252.0
+        ],
+        "parts": []
+    },
+    "arrange": {}
+}

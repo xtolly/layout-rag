@@ -1,7 +1,7 @@
 {
   "name": "出线柜-GCK-抽屉面板-600x400",
   "uuid": "86179b9c-4e99-4469-b917-f8dc4f44e566",
-  "scheme": {
+  "schema": {
     "cabinet_id": "f24160ee-301e-40ea-a740-3f0adddfc466",
     "cabinet_name": "1-1AA5",
     "cabinet_use": "出线柜",

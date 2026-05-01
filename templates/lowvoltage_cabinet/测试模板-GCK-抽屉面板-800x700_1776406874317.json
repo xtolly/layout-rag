@@ -1,7 +1,7 @@
 {
   "name": "配电柜-GCK-抽屉面板-800x700",
   "uuid": "7f61ce18-8619-4c19-9f3f-4223c1591bd7",
-  "scheme": {
+  "schema": {
     "cabinet_id": "097c3e22-1c46-4402-a23e-84bfac778881",
     "cabinet_name": "P1-6",
     "cabinet_use": "配电柜",

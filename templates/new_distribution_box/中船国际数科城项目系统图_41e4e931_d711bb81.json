@@ -1,0 +1,322 @@
+{
+    "name": "中船国际数科城项目系统图_41e4e931_d711bb81",
+    "uuid": "e8452321-92cc-4a80-816a-2c17160f8dc9",
+    "schema": {
+        "cabinet_id": "41e4e931-d099-4f55-be49-ae2241afdd11",
+        "industry": "",
+        "box_classify": "配电箱",
+        "series": "XM1",
+        "cabinet_width": 700.0,
+        "cabinet_height": 900.0,
+        "cabinet_depth": 200.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "d711bb81-f921-4870-8dc2-f97224c991aa",
+        "panel_type": "安装板",
+        "panel_size": [
+            700.0,
+            900.0
+        ],
+        "parts": [
+            {
+                "part_id": "2e27fb8f-011c-4390-bc2b-d82fb0e9d821",
+                "part_type": "双电源自动转换开关",
+                "part_size": [
+                    277.5,
+                    165.0
+                ],
+                "part_model": "TBBQ3c-125/4P 63A III",
+                "pole": "4P",
+                "current": "63",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "9631d00b-3932-4645-a6f0-53b4ba33f01f",
+                "part_type": "剩余电流式电气火灾监控探测器",
+                "part_size": [
+                    104.0,
+                    24.0
+                ],
+                "part_model": "DK-5206S",
+                "pole": "NA",
+                "current": "NA",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "84fdc4e1-90f6-4c8a-a8e9-b7e4276d4539",
+                "part_type": "电源监控",
+                "part_size": [
+                    54.0,
+                    81.0
+                ],
+                "part_model": "DK-5102/250",
+                "pole": "NA",
+                "current": "NA",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "1145116f-d0ae-4e91-b66c-4b22992c4e0f",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX100F TMD 25 3P3D F",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "ce917d7b-65ad-4791-9ac7-c9e77dae5c54",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX100F TMD 25 3P3D F",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "c3d5763e-68cd-4ec1-be4d-1210efdd3c33",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX100F TMD 25 3P3D F",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "24a56928-28e4-4e08-868b-b2176d491d6d",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 16A 30mA A ELE",
+                "pole": "2P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "e518b5b3-ea68-4c56-bd17-a8bb57af2d5f",
+                "part_type": "微型断路器",
+                "part_size": [
+                    17.7,
+                    94.0
+                ],
+                "part_model": "iC65N-C16A/1P",
+                "pole": "1P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "a7bb98e3-a234-44f8-8a16-9e791cc7f681",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    77.0
+                ],
+                "part_model": "LC1D32M7C",
+                "pole": "3P",
+                "current": "32",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "05efce48-d23f-4a86-96ac-2e0066c69d54",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    60.0
+                ],
+                "part_model": "LRD21C",
+                "pole": "3P",
+                "current": "21",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "f4d9ce61-6f51-4c6f-8c07-11a2f5fc85ef",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    77.0
+                ],
+                "part_model": "LC1D32M7C",
+                "pole": "3P",
+                "current": "32",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "e9d6de4b-b992-4e79-bf5e-62bd71e89271",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    60.0
+                ],
+                "part_model": "LRD21C",
+                "pole": "3P",
+                "current": "21",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "07e9cc2a-7ffc-471f-a580-d461d759d565",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    77.0
+                ],
+                "part_model": "LC1D32M7C",
+                "pole": "3P",
+                "current": "32",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "343d0038-d3e2-4432-bea7-7a7758c0512e",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    60.0
+                ],
+                "part_model": "LRD21C",
+                "pole": "3P",
+                "current": "21",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            }
+        ]
+    },
+    "arrange": {
+        "2e27fb8f-011c-4390-bc2b-d82fb0e9d821": {
+            "position": [
+                248.25,
+                120.0
+            ],
+            "rotation": 0
+        },
+        "9631d00b-3932-4645-a6f0-53b4ba33f01f": {
+            "position": [
+                335.0,
+                335.0
+            ],
+            "rotation": 0
+        },
+        "84fdc4e1-90f6-4c8a-a8e9-b7e4276d4539": {
+            "position": [
+                174.25,
+                120.0
+            ],
+            "rotation": 0
+        },
+        "1145116f-d0ae-4e91-b66c-4b22992c4e0f": {
+            "position": [
+                35.95,
+                459.0
+            ],
+            "rotation": 0
+        },
+        "ce917d7b-65ad-4791-9ac7-c9e77dae5c54": {
+            "position": [
+                155.65,
+                459.0
+            ],
+            "rotation": 0
+        },
+        "c3d5763e-68cd-4ec1-be4d-1210efdd3c33": {
+            "position": [
+                275.35,
+                459.0
+            ],
+            "rotation": 0
+        },
+        "24a56928-28e4-4e08-868b-b2176d491d6d": {
+            "position": [
+                395.05,
+                459.0
+            ],
+            "rotation": 0
+        },
+        "e518b5b3-ea68-4c56-bd17-a8bb57af2d5f": {
+            "position": [
+                466.35,
+                462.5
+            ],
+            "rotation": 0
+        },
+        "a7bb98e3-a234-44f8-8a16-9e791cc7f681": {
+            "position": [
+                499.05,
+                471.0
+            ],
+            "rotation": 0
+        },
+        "05efce48-d23f-4a86-96ac-2e0066c69d54": {
+            "position": [
+                499.05,
+                548.0
+            ],
+            "rotation": 0
+        },
+        "f4d9ce61-6f51-4c6f-8c07-11a2f5fc85ef": {
+            "position": [
+                559.05,
+                471.0
+            ],
+            "rotation": 0
+        },
+        "e9d6de4b-b992-4e79-bf5e-62bd71e89271": {
+            "position": [
+                559.05,
+                548.0
+            ],
+            "rotation": 0
+        },
+        "07e9cc2a-7ffc-471f-a580-d461d759d565": {
+            "position": [
+                619.05,
+                471.0
+            ],
+            "rotation": 0
+        },
+        "343d0038-d3e2-4432-bea7-7a7758c0512e": {
+            "position": [
+                619.05,
+                548.0
+            ],
+            "rotation": 0
+        }
+    }
+}

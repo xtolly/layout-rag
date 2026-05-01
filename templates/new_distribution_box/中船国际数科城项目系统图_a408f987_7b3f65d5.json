@@ -1,0 +1,175 @@
+{
+    "name": "中船国际数科城项目系统图_a408f987_7b3f65d5",
+    "uuid": "dbefeb97-965e-4b26-8a9a-ccc42b503c15",
+    "schema": {
+        "cabinet_id": "a408f987-6b3c-4124-a778-563fdebc30c3",
+        "industry": "",
+        "box_classify": "配电箱",
+        "series": "XM1",
+        "cabinet_width": 500.0,
+        "cabinet_height": 800.0,
+        "cabinet_depth": 200.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "7b3f65d5-e195-49dd-81af-915afd7817f5",
+        "panel_type": "安装板",
+        "panel_size": [
+            500.0,
+            800.0
+        ],
+        "parts": [
+            {
+                "part_id": "092c61e2-0f7e-4719-aec9-415565405790",
+                "part_type": "双电源自动转换开关",
+                "part_size": [
+                    277.5,
+                    165.0
+                ],
+                "part_model": "TBBQ3c-125/4P 80A III",
+                "pole": "4P",
+                "current": "80",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "f23299b2-19a7-4d0b-8f8f-da167e95f2c2",
+                "part_type": "剩余电流式电气火灾监控探测器",
+                "part_size": [
+                    104.0,
+                    24.0
+                ],
+                "part_model": "DK-5206S",
+                "pole": "NA",
+                "current": "NA",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "d1e19663-ad0a-4cb1-9255-d99452dca429",
+                "part_type": "电源监控",
+                "part_size": [
+                    54.0,
+                    81.0
+                ],
+                "part_model": "DK-5102/250",
+                "pole": "NA",
+                "current": "NA",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "34720ea2-daeb-4575-ba62-4a3372b64206",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX100F TMD 50 3P3D F",
+                "pole": "3P",
+                "current": "50",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "2e125808-2409-4ca0-8643-6e4345cf7ae6",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D20A/3P",
+                "pole": "3P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "44fd82d7-17c2-4275-9bd2-740498834648",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D20A/3P",
+                "pole": "3P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "b7d1faab-2051-45a0-823d-f62284866b15",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D20A/3P",
+                "pole": "3P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            }
+        ]
+    },
+    "arrange": {
+        "092c61e2-0f7e-4719-aec9-415565405790": {
+            "position": [
+                148.25,
+                120.0
+            ],
+            "rotation": 0
+        },
+        "f23299b2-19a7-4d0b-8f8f-da167e95f2c2": {
+            "position": [
+                235.0,
+                335.0
+            ],
+            "rotation": 0
+        },
+        "d1e19663-ad0a-4cb1-9255-d99452dca429": {
+            "position": [
+                74.25,
+                120.0
+            ],
+            "rotation": 0
+        },
+        "34720ea2-daeb-4575-ba62-4a3372b64206": {
+            "position": [
+                110.5,
+                459.0
+            ],
+            "rotation": 0
+        },
+        "2e125808-2409-4ca0-8643-6e4345cf7ae6": {
+            "position": [
+                230.2,
+                459.0
+            ],
+            "rotation": 0
+        },
+        "44fd82d7-17c2-4275-9bd2-740498834648": {
+            "position": [
+                283.3,
+                459.0
+            ],
+            "rotation": 0
+        },
+        "b7d1faab-2051-45a0-823d-f62284866b15": {
+            "position": [
+                336.4,
+                459.0
+            ],
+            "rotation": 0
+        }
+    }
+}

@@ -1,7 +1,7 @@
 {
   "name": "进线柜-GCK-断路器面板-1200x800",
   "uuid": "b7de99fb-df6f-4dce-a46b-84941f05ee85",
-  "scheme": {
+  "schema": {
     "cabinet_id": "ba25b025-a9cd-4ac4-b909-d267c7d62363",
     "cabinet_name": "1-1AA1",
     "cabinet_use": "进线柜",

@@ -376,7 +376,7 @@
       "weight": 5.0,
       "display_name": "柜用途:配电柜",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_use",
       "source_name": "cabinet_use_categories",
       "value": "配电柜"
@@ -386,7 +386,7 @@
       "weight": 5.0,
       "display_name": "面板类型:默认面板",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_type",
       "source_name": "panel_type_categories",
       "value": "默认面板"

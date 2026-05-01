@@ -1,0 +1,133 @@
+{
+    "name": "中船国际数科城项目系统图_6435cc9b_f4e2f6c0",
+    "uuid": "3aa3b11b-9535-40ac-9278-5190bd06a2d2",
+    "schema": {
+        "cabinet_id": "6435cc9b-1051-43c2-af7a-ec6384a4b8d1",
+        "industry": "",
+        "box_classify": "户箱",
+        "series": "MZ",
+        "cabinet_width": 427.0,
+        "cabinet_height": 252.0,
+        "cabinet_depth": 117.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件左置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "f4e2f6c0-fe36-497d-9288-945d7a7d54a7",
+        "panel_type": "安装板",
+        "panel_size": [
+            427.0,
+            252.0
+        ],
+        "parts": [
+            {
+                "part_id": "ad9a251f-9e24-48c5-a7e4-d9f84b34ee47",
+                "part_type": "微型断路器",
+                "part_size": [
+                    70.8,
+                    94.0
+                ],
+                "part_model": "iC65N-D50A/4P",
+                "pole": "4P",
+                "current": "50",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "c7cee4ac-db11-4c01-a19b-fb37b587b656",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "f04a74bf-2415-400c-be4a-47dcd369adc2",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "c9351401-c0ed-40ca-84c6-91e713bcca54",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "63433a77-f4a6-47d8-a66d-12dfe566c9b2",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            }
+        ]
+    },
+    "arrange": {
+        "ad9a251f-9e24-48c5-a7e4-d9f84b34ee47": {
+            "position": [
+                614.78,
+                184.86
+            ],
+            "rotation": 0
+        },
+        "c7cee4ac-db11-4c01-a19b-fb37b587b656": {
+            "position": [
+                685.58,
+                184.86
+            ],
+            "rotation": 0
+        },
+        "f04a74bf-2415-400c-be4a-47dcd369adc2": {
+            "position": [
+                738.68,
+                184.86
+            ],
+            "rotation": 0
+        },
+        "c9351401-c0ed-40ca-84c6-91e713bcca54": {
+            "position": [
+                791.78,
+                184.86
+            ],
+            "rotation": 0
+        },
+        "63433a77-f4a6-47d8-a66d-12dfe566c9b2": {
+            "position": [
+                844.88,
+                184.86
+            ],
+            "rotation": 0
+        }
+    }
+}

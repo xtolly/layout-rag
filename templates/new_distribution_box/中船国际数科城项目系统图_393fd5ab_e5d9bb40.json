@@ -1,0 +1,175 @@
+{
+    "name": "中船国际数科城项目系统图_393fd5ab_e5d9bb40",
+    "uuid": "b7d10ef4-d302-4a36-bae5-b637dd914d74",
+    "schema": {
+        "cabinet_id": "393fd5ab-bf18-496a-ba2a-ec6d2d853505",
+        "industry": "",
+        "box_classify": "户箱",
+        "series": "MZ",
+        "cabinet_width": 319.0,
+        "cabinet_height": 475.0,
+        "cabinet_depth": 117.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件左置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "e5d9bb40-0c90-4b9b-bbe2-2c0c509002cc",
+        "panel_type": "安装板",
+        "panel_size": [
+            319.0,
+            475.0
+        ],
+        "parts": [
+            {
+                "part_id": "4eef0df2-b160-495e-923e-c10d72d698a4",
+                "part_type": "微型断路器",
+                "part_size": [
+                    70.8,
+                    94.0
+                ],
+                "part_model": "iC65N-D50A/4P",
+                "pole": "4P",
+                "current": "50",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "79b7367c-eef3-4963-a839-6c33baacdd25",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "47f99d25-340d-44ea-98e2-0bf5e677659c",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "421adc98-e641-4779-bfaf-bac1eff5b626",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "f6d3f582-cfd9-4cc0-9e8a-244c755b6ea9",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "1daca058-afc7-4f83-b737-e733d07313e8",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "618ad9db-fbf9-4c49-a421-6da24d1a191e",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            }
+        ]
+    },
+    "arrange": {
+        "4eef0df2-b160-495e-923e-c10d72d698a4": {
+            "position": [
+                511.5,
+                180.87
+            ],
+            "rotation": 0
+        },
+        "79b7367c-eef3-4963-a839-6c33baacdd25": {
+            "position": [
+                582.3,
+                180.87
+            ],
+            "rotation": 0
+        },
+        "47f99d25-340d-44ea-98e2-0bf5e677659c": {
+            "position": [
+                635.4,
+                180.87
+            ],
+            "rotation": 0
+        },
+        "421adc98-e641-4779-bfaf-bac1eff5b626": {
+            "position": [
+                511.5,
+                400.87
+            ],
+            "rotation": 0
+        },
+        "f6d3f582-cfd9-4cc0-9e8a-244c755b6ea9": {
+            "position": [
+                564.6,
+                400.87
+            ],
+            "rotation": 0
+        },
+        "1daca058-afc7-4f83-b737-e733d07313e8": {
+            "position": [
+                617.7,
+                400.87
+            ],
+            "rotation": 0
+        },
+        "618ad9db-fbf9-4c49-a421-6da24d1a191e": {
+            "position": [
+                670.8,
+                400.87
+            ],
+            "rotation": 0
+        }
+    }
+}

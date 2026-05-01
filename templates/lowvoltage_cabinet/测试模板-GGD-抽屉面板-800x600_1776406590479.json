@@ -1,7 +1,7 @@
 {
   "name": "出线柜-GGD-抽屉面板-800x600",
   "uuid": "55f0dedb-3d89-4093-808c-cec98dc6fdf4",
-  "scheme": {
+  "schema": {
     "cabinet_id": "9fb5f67d-d00d-465e-9f2e-b656b30e140c",
     "cabinet_name": "P1-6",
     "cabinet_use": "出线柜",

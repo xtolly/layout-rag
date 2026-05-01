@@ -166,9 +166,7 @@ class LayoutService:
 
             # 综合评分：结合向量得分和零件数量差异
             # 使用 scores_map 找回该 ID 对应的向量得分
-            distance = 1.0 - scores_map.get(panel_id, 0.0)
-            safe_distance = max(0.0, distance) + diff_info["extra"] * 0.1
-            score = min(100, round(100 * math.exp(-safe_distance / 4.0)))
+            score = round(scores_map.get(panel_id, 0.0) * 100)
 
             templates.append({
                 "uuid":         tpl_data["uuid"],
@@ -178,7 +176,7 @@ class LayoutService:
                 "schema":       tpl_meta,
                 "diffInfo":     diff_info,
                 "featureDiffs": feature_diffs,
-                "arrange":      tpl_meta.get("arrange", {}),
+                "arrange":      tpl_data.get("arrange", {}),
             })
 
         # 按综合评分降序排列

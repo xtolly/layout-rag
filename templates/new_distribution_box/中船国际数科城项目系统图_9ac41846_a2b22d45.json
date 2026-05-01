@@ -1,0 +1,217 @@
+{
+    "name": "中船国际数科城项目系统图_9ac41846_a2b22d45",
+    "uuid": "3b49908d-ade5-4ffb-a714-d70783f16efa",
+    "schema": {
+        "cabinet_id": "9ac41846-f9cf-444c-9614-430e3584d794",
+        "industry": "",
+        "box_classify": "配电箱",
+        "series": "XM1",
+        "cabinet_width": 500.0,
+        "cabinet_height": 600.0,
+        "cabinet_depth": 200.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "a2b22d45-34c8-4775-b8a1-7b5fc0b49341",
+        "panel_type": "安装板",
+        "panel_size": [
+            500.0,
+            600.0
+        ],
+        "parts": [
+            {
+                "part_id": "9eadf611-8bf7-4e01-ab37-d70fd1e2685a",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-C25A/3P",
+                "pole": "3P",
+                "current": "25",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "54633801-c93a-44e4-a73f-90ccb20099bc",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 20A 30mA A ELE",
+                "pole": "2P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "6c805c18-f35c-4f3e-9900-b9c8fd8cd88a",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 20A 30mA A ELE",
+                "pole": "2P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "1b50ef08-e3dc-40d5-a73d-7991b91d1297",
+                "part_type": "微型断路器",
+                "part_size": [
+                    53.1,
+                    94.0
+                ],
+                "part_model": "iC65N-D16A/3P",
+                "pole": "3P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "991bd34a-6ae8-4ffa-92a0-865e4fa040b1",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 16A 30mA A ELE",
+                "pole": "2P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "59918ed9-947b-4bfc-ad75-08c7909ebea4",
+                "part_type": "微型断路器",
+                "part_size": [
+                    17.7,
+                    94.0
+                ],
+                "part_model": "iC65N-C16A/1P",
+                "pole": "1P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "5c2430be-056f-4f64-a0e8-9fef2bdae543",
+                "part_type": "微型断路器",
+                "part_size": [
+                    17.7,
+                    94.0
+                ],
+                "part_model": "iC65N-C16A/1P",
+                "pole": "1P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "e55f480c-48a8-43a0-85f8-cbed1e4c7daf",
+                "part_type": "接触器",
+                "part_size": [
+                    45.0,
+                    77.0
+                ],
+                "part_model": "LC1D25M7C",
+                "pole": "3P",
+                "current": "25",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "94392098-7d83-4cdc-9c7f-5ff04b1542df",
+                "part_type": "热继电器",
+                "part_size": [
+                    45.0,
+                    60.0
+                ],
+                "part_model": "LRD10C",
+                "pole": "3P",
+                "current": "10",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            }
+        ]
+    },
+    "arrange": {
+        "9eadf611-8bf7-4e01-ab37-d70fd1e2685a": {
+            "position": [
+                223.45,
+                100.0
+            ],
+            "rotation": 0
+        },
+        "54633801-c93a-44e4-a73f-90ccb20099bc": {
+            "position": [
+                68.8,
+                294.0
+            ],
+            "rotation": 0
+        },
+        "6c805c18-f35c-4f3e-9900-b9c8fd8cd88a": {
+            "position": [
+                140.1,
+                294.0
+            ],
+            "rotation": 0
+        },
+        "1b50ef08-e3dc-40d5-a73d-7991b91d1297": {
+            "position": [
+                211.4,
+                297.5
+            ],
+            "rotation": 0
+        },
+        "991bd34a-6ae8-4ffa-92a0-865e4fa040b1": {
+            "position": [
+                264.5,
+                294.0
+            ],
+            "rotation": 0
+        },
+        "59918ed9-947b-4bfc-ad75-08c7909ebea4": {
+            "position": [
+                335.8,
+                297.5
+            ],
+            "rotation": 0
+        },
+        "5c2430be-056f-4f64-a0e8-9fef2bdae543": {
+            "position": [
+                353.5,
+                297.5
+            ],
+            "rotation": 0
+        },
+        "e55f480c-48a8-43a0-85f8-cbed1e4c7daf": {
+            "position": [
+                386.2,
+                306.0
+            ],
+            "rotation": 0
+        },
+        "94392098-7d83-4cdc-9c7f-5ff04b1542df": {
+            "position": [
+                386.2,
+                383.0
+            ],
+            "rotation": 0
+        }
+    }
+}

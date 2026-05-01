@@ -1,0 +1,196 @@
+{
+    "name": "中船国际数科城项目系统图_316b9885_420d581a",
+    "uuid": "6b407efb-db2a-4713-bdd0-0ed816953222",
+    "schema": {
+        "cabinet_id": "316b9885-14b6-4cd4-ba61-da93e0e9acc9",
+        "industry": "",
+        "box_classify": "配电箱",
+        "series": "XM1",
+        "cabinet_width": 700.0,
+        "cabinet_height": 1300.0,
+        "cabinet_depth": 250.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "420d581a-7a26-4c25-83a7-ca08ae8f1730",
+        "panel_type": "安装板",
+        "panel_size": [
+            700.0,
+            1300.0
+        ],
+        "parts": [
+            {
+                "part_id": "53653f91-7293-40e0-b09f-85cccd543235",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    140.0,
+                    254.9
+                ],
+                "part_model": "NSX630F TMD 500 3P3D F",
+                "pole": "3P",
+                "current": "500",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "d21125a2-abd9-4145-99c7-4fcf21ca5880",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX100F TMD 80 3P3D F",
+                "pole": "3P",
+                "current": "80",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "29be55d0-0a49-4f25-b922-a8f8f119a2a3",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX160F TMD 160 3P3D F",
+                "pole": "3P",
+                "current": "160",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "7fc9b45a-b21d-4f1e-9962-e3d7fc06932d",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX160F TMD 160 3P3D F",
+                "pole": "3P",
+                "current": "160",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "757bea0e-f896-47e2-9b7e-e4db880d0902",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX160F TMD 160 3P3D F",
+                "pole": "3P",
+                "current": "160",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "1c7d17dd-4e70-404d-918b-dd80916625f5",
+                "part_type": "塑壳断路器",
+                "part_size": [
+                    104.7,
+                    161.2
+                ],
+                "part_model": "NSX160F TMD 160 3P3D F",
+                "pole": "3P",
+                "current": "160",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "618ee597-b135-400f-a72f-5ef1da08623b",
+                "part_type": "浪涌后备保护器",
+                "part_size": [
+                    72.0,
+                    82.0
+                ],
+                "part_model": "MUH1-20/4P",
+                "pole": "4P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "23f26731-0df5-43f0-8e82-ef50d810ad13",
+                "part_type": "电涌保护器",
+                "part_size": [
+                    72.0,
+                    92.0
+                ],
+                "part_model": "MU1-20/275/4P",
+                "pole": "4P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            }
+        ]
+    },
+    "arrange": {
+        "53653f91-7293-40e0-b09f-85cccd543235": {
+            "position": [
+                280.0,
+                400.0
+            ],
+            "rotation": 0
+        },
+        "d21125a2-abd9-4145-99c7-4fcf21ca5880": {
+            "position": [
+                28.25,
+                754.9
+            ],
+            "rotation": 0
+        },
+        "29be55d0-0a49-4f25-b922-a8f8f119a2a3": {
+            "position": [
+                162.95,
+                754.9
+            ],
+            "rotation": 0
+        },
+        "7fc9b45a-b21d-4f1e-9962-e3d7fc06932d": {
+            "position": [
+                297.65,
+                754.9
+            ],
+            "rotation": 0
+        },
+        "757bea0e-f896-47e2-9b7e-e4db880d0902": {
+            "position": [
+                432.35,
+                754.9
+            ],
+            "rotation": 0
+        },
+        "1c7d17dd-4e70-404d-918b-dd80916625f5": {
+            "position": [
+                567.05,
+                754.9
+            ],
+            "rotation": 0
+        },
+        "618ee597-b135-400f-a72f-5ef1da08623b": {
+            "position": [
+                25.0,
+                1016.1
+            ],
+            "rotation": 0
+        },
+        "23f26731-0df5-43f0-8e82-ef50d810ad13": {
+            "position": [
+                97.0,
+                1011.1
+            ],
+            "rotation": 0
+        }
+    }
+}

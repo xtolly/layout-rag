@@ -1,0 +1,154 @@
+{
+    "name": "中船国际数科城项目系统图_bf756c87_85c6841f",
+    "uuid": "817f261c-5238-409e-b6c4-d40fe86d420b",
+    "schema": {
+        "cabinet_id": "bf756c87-0bb8-4167-b543-31a6ad97c0e7",
+        "industry": "",
+        "box_classify": "配电箱",
+        "series": "XM1",
+        "cabinet_width": 400.0,
+        "cabinet_height": 600.0,
+        "cabinet_depth": 200.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "85c6841f-9a6a-4731-b033-45c4e17f5aae",
+        "panel_type": "安装板",
+        "panel_size": [
+            400.0,
+            600.0
+        ],
+        "parts": [
+            {
+                "part_id": "4850e24c-1944-4136-ba82-9c238e116098",
+                "part_type": "双电源自动转换开关",
+                "part_size": [
+                    277.5,
+                    165.0
+                ],
+                "part_model": "TBBQ3c-125/4P 32A III",
+                "pole": "4P",
+                "current": "32",
+                "in_line": true,
+                "part_type_code": 1,
+                "is_guide_part": false
+            },
+            {
+                "part_id": "173aa45f-a524-472c-be7f-ae43e08328e3",
+                "part_type": "剩余电流动作微型断路器",
+                "part_size": [
+                    71.3,
+                    101.0
+                ],
+                "part_model": "iC65N Vigi+ 2P C 16A 30mA A ELE",
+                "pole": "2P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "97c5acf0-ba5e-47fd-b8ba-527116fa075c",
+                "part_type": "微型断路器",
+                "part_size": [
+                    17.7,
+                    94.0
+                ],
+                "part_model": "iC65N-C16A/1P",
+                "pole": "1P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "9442620b-fe11-48ac-9cab-3f4cba38e189",
+                "part_type": "微型断路器",
+                "part_size": [
+                    17.7,
+                    94.0
+                ],
+                "part_model": "iC65N-C16A/1P",
+                "pole": "1P",
+                "current": "16",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "f4529302-d7df-4d5f-b45e-edbaa5da7eb8",
+                "part_type": "浪涌后备保护器",
+                "part_size": [
+                    72.0,
+                    82.0
+                ],
+                "part_model": "MUH1-20/4P",
+                "pole": "4P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            },
+            {
+                "part_id": "898099c0-443d-4ffa-8e2f-7bca0897c9ed",
+                "part_type": "电涌保护器",
+                "part_size": [
+                    72.0,
+                    92.0
+                ],
+                "part_model": "MU1-20/275/4P",
+                "pole": "4P",
+                "current": "20",
+                "in_line": false,
+                "part_type_code": 1,
+                "is_guide_part": true
+            }
+        ]
+    },
+    "arrange": {
+        "4850e24c-1944-4136-ba82-9c238e116098": {
+            "position": [
+                61.25,
+                120.0
+            ],
+            "rotation": 0
+        },
+        "173aa45f-a524-472c-be7f-ae43e08328e3": {
+            "position": [
+                218.65,
+                375.5
+            ],
+            "rotation": 0
+        },
+        "97c5acf0-ba5e-47fd-b8ba-527116fa075c": {
+            "position": [
+                289.95,
+                379.0
+            ],
+            "rotation": 0
+        },
+        "9442620b-fe11-48ac-9cab-3f4cba38e189": {
+            "position": [
+                307.65,
+                379.0
+            ],
+            "rotation": 0
+        },
+        "f4529302-d7df-4d5f-b45e-edbaa5da7eb8": {
+            "position": [
+                74.65,
+                385.0
+            ],
+            "rotation": 0
+        },
+        "898099c0-443d-4ffa-8e2f-7bca0897c9ed": {
+            "position": [
+                146.65,
+                380.0
+            ],
+            "rotation": 0
+        }
+    }
+}

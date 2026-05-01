@@ -457,7 +457,7 @@
                 :style="{ width: cabinetWidth + 'px' }">
                 <div class="px-3 py-2.5 border-b border-slate-200 flex justify-between items-center bg-slate-100/80">
                     <span class="section-label mb-0" style="color:#374151">柜体列表
-                        <span class="stat-chip ml-1.5">{{ scheme.cabinets.length }}</span>
+                        <span class="stat-chip ml-1.5">{{ schema.cabinets.length }}</span>
                     </span>
                     <button @click="openAddCabinet" class="toolbar-btn w-6 h-6 p-0 hover:text-indigo-600" title="添加柜体">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -467,7 +467,7 @@
                     </button>
                 </div>
                 <div class="flex-1 overflow-y-auto p-2.5 space-y-1.5">
-                    <div v-if="!scheme.cabinets.length" class="empty-hint py-10">
+                    <div v-if="!schema.cabinets.length" class="empty-hint py-10">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -518,13 +518,13 @@
                             <span>·</span>
                             <span>{{ cab.cabinet_width }}×{{ cab.cabinet_height }}mm</span>
                         </div>
-                        <div class="flex flex-wrap gap-1 mt-2">
-                            <span class="tag" style="background:rgba(79,70,229,0.1);color:#4f46e5">{{ cab.cabinet_use
-                                }}</span>
-                            <span v-if="cab.cabinet_model" class="tag"
-                                style="background:rgba(59,130,246,0.12);color:#1d4ed8">{{ cab.cabinet_model }}</span>
-                            <span class="tag" v-if="cab.wiring_method"
-                                style="background:rgba(6,182,212,0.12);color:#0e7490">{{ cab.wiring_method }}</span>
+                        <div class="flex flex-wrap gap-1 mt-2" v-if="uiMetadata">
+                            <template v-for="field in uiMetadata.cabinet_fields" :key="field.key">
+                                <span v-if="field.type === 'select' && cab[field.key]" class="tag"
+                                    style="background:rgba(79,70,229,0.1);color:#4f46e5">
+                                    {{ cab[field.key] }}
+                                </span>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -601,15 +601,17 @@
                             <span>·</span>
                             <span>{{ panel.panel_width }}×{{ panel.panel_height }}mm</span>
                         </div>
-                        <div class="flex flex-wrap gap-1 mt-2">
-                            <span v-if="panel.operation_method" class="tag"
-                                style="background:rgba(79,70,229,0.1);color:#4f46e5">{{ panel.operation_method }}</span>
-                            <span v-if="panel.main_circuit_current !== null && panel.main_circuit_current !== undefined && panel.main_circuit_current !== ''"
-                                class="tag" style="background:rgba(14,165,233,0.1);color:#0369a1">{{
-                                panel.main_circuit_current }}A</span>
-                            <span v-if="panel.main_circuit_poles !== null && panel.main_circuit_poles !== undefined && panel.main_circuit_poles !== ''"
-                                class="tag" style="background:rgba(249,115,22,0.1);color:#c2410c">{{
-                                panel.main_circuit_poles }}P</span>
+                        <div class="flex flex-wrap gap-1 mt-2" v-if="uiMetadata">
+                            <template v-for="field in uiMetadata.panel_fields" :key="field.key">
+                                <span v-if="field.type === 'select' && panel[field.key]" class="tag"
+                                    style="background:rgba(79,70,229,0.1);color:#4f46e5">
+                                    {{ panel[field.key] }}
+                                </span>
+                                <span v-else-if="field.type === 'number' && !field.key.includes('width') && !field.key.includes('height') && panel[field.key]" 
+                                    class="tag" style="background:rgba(249,115,22,0.1);color:#c2410c">
+                                    {{ panel[field.key] }}{{ field.key.includes('current') ? 'A' : (field.key.includes('poles') ? 'P' : '') }}
+                                </span>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -702,18 +704,20 @@
                                 </div>
                             </div>
                             <div v-else class="space-y-1.5">
-                                <div class="grid gap-x-3 px-3 py-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-200"
-                                    style="grid-template-columns:1fr 1fr 90px 60px">
-                                    <span>类型</span><span>型号</span><span class="text-center">尺寸(W×H)</span><span></span>
+                                <div v-if="uiMetadata" class="grid gap-x-3 px-3 py-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-200"
+                                    :style="{ 'grid-template-columns': `repeat(${uiMetadata.part_fields.length}, 1fr) 60px` }">
+                                    <span v-for="field in uiMetadata.part_fields" :key="field.key">{{ field.label }}</span>
+                                    <span></span>
                                 </div>
                                 <div v-for="part in sortedParts" :key="part.part_id"
                                     class="part-row grid gap-x-3 items-center px-3 py-2.5 rounded-xl border border-slate-100 bg-white/70"
-                                    style="grid-template-columns:1fr 1fr 90px 60px">
-                                    <div class="font-semibold text-slate-700 text-sm truncate">{{ part.part_type||'—' }}
-                                    </div>
-                                    <div class="text-slate-500 text-sm truncate">{{ part.part_model||'—' }}</div>
-                                    <div class="text-xs text-slate-400 font-mono text-center">{{ part.part_width }}×{{
-                                        part.part_height }}</div>
+                                    :style="{ 'grid-template-columns': uiMetadata ? `repeat(${uiMetadata.part_fields.length}, 1fr) 60px` : '1fr 1fr 90px 60px' }">
+                                    <template v-if="uiMetadata">
+                                        <div v-for="field in uiMetadata.part_fields" :key="field.key" 
+                                             class="text-sm truncate" :class="field.type === 'number' ? 'text-slate-500 font-mono' : 'text-slate-700 font-semibold'">
+                                            {{ part[field.key] }}
+                                        </div>
+                                    </template>
                                     <div class="flex items-center justify-end gap-0.5">
                                         <button
                                             @click="openEditPart(selectedCabinet.cabinet_id, selectedPanel.panel_id, part)"
@@ -1018,50 +1022,21 @@
                     <h3 class="font-display font-bold text-xl text-slate-800">{{ cabinetModal.isNew?'添加柜体':'编辑柜体' }}
                     </h3>
                 </div>
-                <div class="px-7 py-5 space-y-4">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="section-label">柜名称 *</label>
-                            <input v-model="cabinetModal.cabinet.cabinet_name" class="input-field" placeholder="如 1AL">
-                        </div>
-                        <div>
-                            <label class="section-label">柜体用途 *</label>
-                            <select v-model="cabinetModal.cabinet.cabinet_use" class="input-field">
-                                <option v-for="o in CABINET_USE_OPTIONS" :key="o" :value="o">{{ o }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="section-label">柜体型号</label>
-                        <div class="grid grid-cols-4 gap-2 mb-3">
-                            <button v-for="m in CABINET_MODEL_OPTIONS" :key="m"
-                                @click="cabinetModal.cabinet.cabinet_model = (cabinetModal.cabinet.cabinet_model === m ? '' : m)"
-                                class="py-2 rounded-xl border text-[11px] font-semibold transition-all"
-                                :class="cabinetModal.cabinet.cabinet_model===m ? 'border-indigo-400 bg-indigo-50 text-indigo-700' : 'border-slate-200 text-slate-500 hover:border-slate-300'">
-                                {{ m }}
-                            </button>
-                        </div>
-                        <label class="section-label">进出线方式</label>
-                        <div class="grid grid-cols-4 gap-2">
-                            <button v-for="w in WIRING_METHOD_OPTIONS" :key="w"
-                                @click="cabinetModal.cabinet.wiring_method = (cabinetModal.cabinet.wiring_method === w ? '' : w)"
-                                class="py-2 rounded-xl border text-[11px] font-semibold transition-all"
-                                :class="cabinetModal.cabinet.wiring_method===w ? 'border-emerald-400 bg-emerald-50 text-emerald-700' : 'border-slate-200 text-slate-500 hover:border-slate-300'">
-                                {{ w }}
-                            </button>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="section-label">柜宽 (mm)</label>
-                            <input v-model.number="cabinetModal.cabinet.cabinet_width" type="number" min="400"
-                                class="input-field">
-                        </div>
-                        <div>
-                            <label class="section-label">柜高 (mm)</label>
-                            <input v-model.number="cabinetModal.cabinet.cabinet_height" type="number" min="800"
-                                class="input-field">
-                        </div>
+                <div class="px-7 py-5 space-y-4" v-if="uiMetadata">
+                    <div v-for="field in uiMetadata.cabinet_fields" :key="field.key">
+                        <label class="section-label">{{ field.label }} {{ field.required ? '*' : '' }}</label>
+                        
+                        <!-- 下拉框 -->
+                        <select v-if="field.type === 'select'" v-model="cabinetModal.cabinet[field.key]" class="input-field">
+                            <option v-for="opt in field.options" :key="opt" :value="opt">{{ opt }}</option>
+                        </select>
+                        
+                        <!-- 数字 -->
+                        <input v-else-if="field.type === 'number'" v-model.number="cabinetModal.cabinet[field.key]" 
+                               type="number" class="input-field">
+                        
+                        <!-- 文本 -->
+                        <input v-else v-model="cabinetModal.cabinet[field.key]" type="text" class="input-field">
                     </div>
                 </div>
                 <div class="px-7 pb-7 flex justify-end gap-3">
@@ -1078,46 +1053,18 @@
                 <div class="px-7 pt-7 pb-2">
                     <h3 class="font-display font-bold text-xl text-slate-800">{{ panelModal.isNew?'添加面板':'编辑面板' }}</h3>
                 </div>
-                <div class="px-7 py-5 space-y-4">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="section-label">面板类型 *</label>
-                            <select v-model="panelModal.panel.panel_type" class="input-field">
-                                <option v-for="t in PANEL_TYPE_OPTIONS" :key="t" :value="t">{{ t }}</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="section-label">操作方式</label>
-                            <select v-model="panelModal.panel.operation_method" class="input-field">
-                                <option value="">未指定</option>
-                                <option v-for="opt in OPERATION_METHOD_OPTIONS" :key="opt" :value="opt">{{ opt }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="section-label">宽度 (mm)</label>
-                            <input v-model.number="panelModal.panel.panel_width" type="number" min="100"
-                                class="input-field">
-                        </div>
-                        <div>
-                            <label class="section-label">高度 (mm)</label>
-                            <input v-model.number="panelModal.panel.panel_height" type="number" min="100"
-                                class="input-field">
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="section-label">主回路电流 (A)</label>
-                            <input v-model.number="panelModal.panel.main_circuit_current" type="number" min="0"
-                                step="1" class="input-field" placeholder="例如 630">
-                        </div>
-                        <div>
-                            <label class="section-label">主回路极数</label>
-                            <input v-model.number="panelModal.panel.main_circuit_poles" type="number" min="0"
-                                step="1" class="input-field" placeholder="例如 3">
-                        </div>
+                <div class="px-7 py-5 space-y-4" v-if="uiMetadata">
+                    <div v-for="field in uiMetadata.panel_fields" :key="field.key" v-show="field.key !== 'panel_id'">
+                        <label class="section-label">{{ field.label }}</label>
+                        
+                        <select v-if="field.type === 'select'" v-model="panelModal.panel[field.key]" class="input-field">
+                            <option v-for="opt in field.options" :key="opt" :value="opt">{{ opt }}</option>
+                        </select>
+                        
+                        <input v-else-if="field.type === 'number'" v-model.number="panelModal.panel[field.key]" 
+                               type="number" class="input-field" :disabled="!field.editable">
+                        
+                        <input v-else v-model="panelModal.panel[field.key]" type="text" class="input-field" :disabled="!field.editable">
                     </div>
                 </div>
                 <div class="px-7 pb-7 flex justify-end gap-3">
@@ -1134,33 +1081,22 @@
                 <div class="px-7 pt-7 pb-2">
                     <h3 class="font-display font-bold text-xl text-slate-800">{{ partModal.isNew?'添加元件':'编辑元件' }}</h3>
                 </div>
-                <div class="px-7 py-5 space-y-4">
-                    <div>
-                        <label class="section-label">元件类型 *</label>
-                        <input v-model="partModal.part.part_type" list="part-type-options" class="input-field"
-                            placeholder="输入关键字搜索元件类型">
-                        <datalist id="part-type-options">
-                            <option v-for="t in PART_TYPE_OPTIONS" :key="t" :value="t">{{ t }}</option>
-                        </datalist>
+                <div class="px-7 py-5 space-y-4" v-if="uiMetadata">
+                    <div v-if="partModal.isNew">
+                        <label class="section-label">添加数量</label>
+                        <input v-model.number="partModal.quantity" type="number" min="1" class="input-field">
                     </div>
-                    <div>
-                        <label class="section-label">型号 / 规格</label>
-                        <input v-model="partModal.part.part_model" class="input-field" placeholder="如：DZ47-60 D20">
-                    </div>
-                    <div class="grid grid-cols-3 gap-3">
-                        <div v-if="partModal.isNew">
-                            <label class="section-label">数量</label>
-                            <input v-model.number="partModal.quantity" type="number" min="1" class="input-field">
-                        </div>
-                        <div>
-                            <label class="section-label">宽 (mm)</label>
-                            <input v-model.number="partModal.part.part_width" type="number" min="1" class="input-field">
-                        </div>
-                        <div>
-                            <label class="section-label">高 (mm)</label>
-                            <input v-model.number="partModal.part.part_height" type="number" min="1"
-                                class="input-field">
-                        </div>
+                    <div v-for="field in uiMetadata.part_fields" :key="field.key">
+                        <label class="section-label">{{ field.label }}</label>
+                        
+                        <select v-if="field.type === 'select'" v-model="partModal.part[field.key]" class="input-field">
+                            <option v-for="opt in field.options" :key="opt" :value="opt">{{ opt }}</option>
+                        </select>
+                        
+                        <input v-else-if="field.type === 'number'" v-model.number="partModal.part[field.key]" 
+                               type="number" class="input-field" :disabled="!field.editable">
+                        
+                        <input v-else v-model="partModal.part[field.key]" type="text" class="input-field" :disabled="!field.editable">
                     </div>
                 </div>
                 <div class="px-7 pb-7 flex justify-end gap-3">

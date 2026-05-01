@@ -1,0 +1,26 @@
+{
+    "name": "中船国际数科城项目系统图_e0dbbb38_d3496ace",
+    "uuid": "f1630ba9-138b-42cd-a251-bae881060c09",
+    "schema": {
+        "cabinet_id": "e0dbbb38-c5c5-42d3-b507-d9d99b08d512",
+        "industry": "",
+        "box_classify": "配电箱",
+        "series": "XM1",
+        "cabinet_width": 500.0,
+        "cabinet_height": 800.0,
+        "cabinet_depth": 200.0,
+        "install_type": "户内挂墙",
+        "inline_mode": "进线器件上置",
+        "fixup_type": "板式安装",
+        "door_type": "左开门",
+        "cable_in_out_type": "上进下出",
+        "panel_id": "d3496ace-c3be-40e8-ad24-f2d04776d1d7",
+        "panel_type": "门板",
+        "panel_size": [
+            500.0,
+            800.0
+        ],
+        "parts": []
+    },
+    "arrange": {}
+}

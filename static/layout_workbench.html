@@ -180,20 +180,20 @@
                                     <div class="flex-1 rounded-2xl overflow-hidden flex items-center justify-center p-3 border border-slate-100 shadow-[inset_0_2px_12px_rgba(0,0,0,0.02)] transition-all"
                                         style="background:#f4f7fa">
                                         <div class="relative flex-shrink-0 bg-white overflow-hidden shadow-sm rounded border border-slate-200"
-                                            :style="getPreviewPanelStyle(tpl.scheme?.panel_size || tpl.meta?.panel_size)">
+                                            :style="getPreviewPanelStyle(tpl.schema?.panel_size || tpl.meta?.panel_size)">
                                             <div class="absolute inset-0 layout-panel opacity-40"></div>
                                             <div class="absolute top-0 left-0"
-                                                :style="getPreviewInnerStyle(tpl.scheme?.panel_size || tpl.meta?.panel_size)">
+                                                :style="getPreviewInnerStyle(tpl.schema?.panel_size || tpl.meta?.panel_size)">
                                                 <div v-for="(posObj, partId) in getPreviewParts(tpl)" :key="partId"
                                                     class="absolute border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] overflow-hidden text-[7px] font-bold text-white flex items-center justify-center"
-                                                    :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
+                                                    :style="{ left: posObj.position?.[0] + 'px', top: posObj.position?.[1] + 'px', width: posObj.part_size?.[0] + 'px', height: posObj.part_size?.[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
                                                     {{ posObj.part_type.substring(0, 1) }}
                                                     <!-- 子元件 -->
                                                     <template v-if="posObj.parts && posObj.parts.length">
                                                         <div v-for="child in posObj.parts"
                                                             :key="'prev-thumb-'+child.part_id"
                                                             class="absolute border border-black/10 overflow-hidden text-[5px] font-bold text-white flex items-center justify-center"
-                                                            :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (posObj.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (posObj.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }">
+                                                            :style="{ width: child.part_size?.[0] + 'px', height: child.part_size?.[1] + 'px', left: (posObj.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (posObj.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }">
                                                         </div>
                                                     </template>
                                                 </div>
@@ -304,9 +304,9 @@
                                     class="card p-5 xl:h-full flex flex-col overflow-hidden shrink-0 xl:shrink xl:flex-1 min-h-[400px] xl:min-h-0">
                                     <div class="flex items-center justify-between mb-4 flex-shrink-0 gap-4">
                                         <div class="flex items-center gap-3 text-sm text-slate-500 flex-wrap">
-                                            <span>面板尺寸: {{ (previewTemplate.scheme?.panel_size?.[0] ||
+                                            <span>面板尺寸: {{ (previewTemplate.schema?.panel_size?.[0] ||
                                                 previewTemplate.meta?.panel_size?.[0]) || 0 }} × {{
-                                                (previewTemplate.scheme?.panel_size?.[1] ||
+                                                (previewTemplate.schema?.panel_size?.[1] ||
                                                 previewTemplate.meta?.panel_size?.[1]) || 0 }} mm</span>
                                             <span
                                                 class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
@@ -324,10 +324,10 @@
                                             :style="{ transform: `translate(${previewPanX}px, ${previewPanY}px) scale(${previewCanvasScale})`, transformOrigin: '0 0' }">
                                             <div class="layout-panel bg-white shadow-lg ring-1 ring-slate-300 relative"
                                                 :style="{ width: previewPanelSize[0] + 'px', height: previewPanelSize[1] + 'px' }">
-                                                <div v-for="(posObj, partId) in getPreviewParts(previewTemplate)"
+                                                    <div v-for="(posObj, partId) in getPreviewParts(previewTemplate)"
                                                     :key="'modal-' + partId"
                                                     class="absolute border border-black/15 rounded-[4px] shadow-sm overflow-hidden text-white font-bold flex flex-col items-center justify-center text-center leading-tight px-1"
-                                                    :style="{ left: posObj.position[0] + 'px', top: posObj.position[1] + 'px', width: posObj.part_size[0] + 'px', height: posObj.part_size[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
+                                                    :style="{ left: posObj.position?.[0] + 'px', top: posObj.position?.[1] + 'px', width: posObj.part_size?.[0] + 'px', height: posObj.part_size?.[1] + 'px', backgroundColor: getColor(posObj.part_type) }">
                                                     <span class="text-[11px] break-words line-clamp-3">{{
                                                         posObj.part_type }}</span>
                                                     <span class="text-[10px] opacity-85 mt-1">{{ partId.substring(0,
@@ -338,8 +338,8 @@
                                                         <div v-for="child in posObj.parts"
                                                             :key="'modal-child-'+child.part_id"
                                                             class="absolute border border-black/15 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold"
-                                                            :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (posObj.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (posObj.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
-                                                            :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                            :style="{ width: child.part_size?.[0] + 'px', height: child.part_size?.[1] + 'px', left: (posObj.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (posObj.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                            :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size?.[0])} × ${formatValue(child.part_size?.[1])} mm`">
                                                             <span class="text-[9px] break-words line-clamp-2">{{
                                                                 child.part_type }}</span>
                                                         </div>
@@ -496,8 +496,8 @@
                                         <div v-for="part in tplPlacedParts" :key="'tpl-'+part.part_id"
                                             class="absolute border border-black/20 rounded-[4px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider opacity-90"
                                             style="pointer-events:auto;cursor:default"
-                                            :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: getColor(part.part_type) }"
-                                            :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
+                                            :style="{ width: part.part_size?.[0] + 'px', height: part.part_size?.[1] + 'px', left: part.position?.[0] + 'px', top: part.position?.[1] + 'px', backgroundColor: getColor(part.part_type) }"
+                                            :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size?.[0])} × ${formatValue(part.part_size?.[1])} mm`">
                                             <span
                                                 class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
                                                 part.part_type }}</span>
@@ -509,8 +509,8 @@
                                                 style="pointer-events:none">
                                                 <div v-for="child in part.parts" :key="'tpl-child-'+child.part_id"
                                                     class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
-                                                    :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
-                                                    :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                    :style="{ width: child.part_size?.[0] + 'px', height: child.part_size?.[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                    :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size?.[0])} × ${formatValue(child.part_size?.[1])} mm`">
                                                     <span
                                                         class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{
                                                         child.part_type }}</span>
@@ -590,8 +590,8 @@
                                                     :style="{ width: panel.panelSize[0] + 'px', height: panel.panelSize[1] + 'px' }">
                                                     <div v-for="part in panel.parts" :key="part.part_id"
                                                         class="component-box absolute border border-black/30 shadow flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
-                                                        :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: getColor(part.part_type) }"
-                                                        :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
+                                                        :style="{ width: part.part_size?.[0] + 'px', height: part.part_size?.[1] + 'px', left: part.position?.[0] + 'px', top: part.position?.[1] + 'px', backgroundColor: getColor(part.part_type) }"
+                                                        :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size?.[0])} × ${formatValue(part.part_size?.[1])} mm`">
                                                         <span
                                                             class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
                                                             part.part_type }}</span>
@@ -604,8 +604,8 @@
                                                             <div v-for="child in part.parts"
                                                                 :key="'mp-child-'+child.part_id"
                                                                 class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
-                                                                :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
-                                                                :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                                :style="{ width: child.part_size?.[0] + 'px', height: child.part_size?.[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                                :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size?.[0])} × ${formatValue(child.part_size?.[1])} mm`">
                                                                 <span
                                                                     class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{
                                                                     child.part_type }}</span>
@@ -636,9 +636,9 @@
                                             <div v-for="part in placedParts" :key="part.part_id"
                                                 class="component-box absolute border border-black/30 shadow flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
                                                 :class="{ 'is-invalid': part.isInvalid, 'cursor-move': !isSpaceDown && !isPanning, 'pointer-events-none': isSpaceDown || isPanning }"
-                                                :style="{ width: part.part_size[0] + 'px', height: part.part_size[1] + 'px', left: part.position[0] + 'px', top: part.position[1] + 'px', backgroundColor: part.isInvalid ? '' : getColor(part.part_type) }"
+                                                :style="{ width: part.part_size?.[0] + 'px', height: part.part_size?.[1] + 'px', left: part.position?.[0] + 'px', top: part.position?.[1] + 'px', backgroundColor: part.isInvalid ? '' : getColor(part.part_type) }"
                                                 @mousedown="startMove($event, part)"
-                                                :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size[0])} × ${formatValue(part.part_size[1])} mm`">
+                                                :title="`类型：${part.part_type}\n编号：${part.part_id}\n尺寸：${formatValue(part.part_size?.[0])} × ${formatValue(part.part_size?.[1])} mm`">
                                                 <span
                                                     class="text-sm drop-shadow-md px-1 text-center leading-tight break-words line-clamp-3">{{
                                                     part.part_type }}</span>
@@ -650,8 +650,8 @@
                                                     style="pointer-events:none">
                                                     <div v-for="child in part.parts" :key="'prj-child-'+child.part_id"
                                                         class="absolute border border-black/20 rounded-[3px] shadow-sm flex flex-col items-center justify-center text-white overflow-hidden font-bold tracking-wider"
-                                                        :style="{ width: child.part_size[0] + 'px', height: child.part_size[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
-                                                        :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size[0])} × ${formatValue(child.part_size[1])} mm`">
+                                                        :style="{ width: child.part_size?.[0] + 'px', height: child.part_size?.[1] + 'px', left: (part.arrange?.[child.part_id]?.position?.[0] ?? 0) + 'px', top: (part.arrange?.[child.part_id]?.position?.[1] ?? 0) + 'px', backgroundColor: getColor(child.part_type) }"
+                                                        :title="`类型：${child.part_type}\n编号：${child.part_id}\n尺寸：${formatValue(child.part_size?.[0])} × ${formatValue(child.part_size?.[1])} mm`">
                                                         <span
                                                             class="text-[10px] drop-shadow-md px-0.5 text-center leading-tight break-words line-clamp-2">{{
                                                             child.part_type }}</span>

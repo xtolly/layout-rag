@@ -1,7 +1,7 @@
 {
   "name": "电容补偿柜-GCK-断路器面板-800x400",
   "uuid": "782f5b29-2545-4e8d-abee-001833b675c8",
-  "scheme": {
+  "schema": {
     "cabinet_id": "2d883baf-4cf3-4e28-a387-7275390eac61",
     "cabinet_name": "1A3",
     "cabinet_use": "电容补偿柜",

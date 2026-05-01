@@ -17,8 +17,8 @@ def extract_part_types(source_dir: Path) -> list[str]:
             print(f"Skipping invalid file: {json_file}")
             continue
 
-        scheme = data.get("scheme", {})
-        for part in scheme.get("parts", []):
+        schema = data.get("schema", {})
+        for part in schema.get("parts", []):
             part_type = str(part.get("part_type", "") or "").strip()
             if part_type:
                 part_types.add(part_type)

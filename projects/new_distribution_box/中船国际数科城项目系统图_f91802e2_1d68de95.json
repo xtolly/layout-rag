@@ -1,0 +1,195 @@
+{
+  "cabinets": [
+    {
+      "order": 1,
+      "cabinet_id": "f91802e2-2b34-432c-bcb6-2ee29d9b4eb1",
+      "cabinet_name": "中船国际数科城项目系统图_f91802e2_1d68de95",
+      "box_classify": "配电箱",
+      "series": "HW",
+      "cabinet_width": 700.0,
+      "cabinet_height": 1300.0,
+      "cabinet_depth": 250.0,
+      "install_type": "户外挂墙",
+      "inline_mode": "进线器件上置",
+      "fixup_type": "板式安装",
+      "door_type": "左开门",
+      "cable_in_out_type": "上进下出",
+      "panels": [
+        {
+          "order": 1,
+          "panel_id": "1d68de95-d12a-4a1c-a793-1fce891c486b",
+          "panel_type": "安装板",
+          "operation_method": "",
+          "panel_width": 700.0,
+          "panel_height": 1300.0,
+          "parts": [
+            {
+              "order": 1,
+              "part_type": "塑壳断路器",
+              "part_model": "NSX630F TMD 500 3P3D F",
+              "part_width": 140.0,
+              "part_height": 254.9,
+              "part_depth": 0,
+              "pole": "3P",
+              "current": "500",
+              "in_line": true,
+              "part_id": "9fc49c7b-c899-40c4-9f17-52bd87c21a2e"
+            },
+            {
+              "order": 2,
+              "part_type": "塑壳断路器",
+              "part_model": "NSX100F TMD 16 3P3D F",
+              "part_width": 104.7,
+              "part_height": 161.2,
+              "part_depth": 0,
+              "pole": "3P",
+              "current": "16",
+              "in_line": false,
+              "part_id": "f3cd1150-4b4d-468f-b51e-d27282f54609"
+            },
+            {
+              "order": 3,
+              "part_type": "塑壳断路器",
+              "part_model": "NSX160F TMD 160 3P3D F",
+              "part_width": 104.7,
+              "part_height": 161.2,
+              "part_depth": 0,
+              "pole": "3P",
+              "current": "160",
+              "in_line": false,
+              "part_id": "4200cc09-88c2-4144-92ef-741d8372a980"
+            },
+            {
+              "order": 4,
+              "part_type": "塑壳断路器",
+              "part_model": "NSX160F TMD 160 3P3D F",
+              "part_width": 104.7,
+              "part_height": 161.2,
+              "part_depth": 0,
+              "pole": "3P",
+              "current": "160",
+              "in_line": false,
+              "part_id": "12e1c2bd-1ebe-45a9-a6c9-b0a39653408a"
+            },
+            {
+              "order": 5,
+              "part_type": "塑壳断路器",
+              "part_model": "NSX160F TMD 160 3P3D F",
+              "part_width": 104.7,
+              "part_height": 161.2,
+              "part_depth": 0,
+              "pole": "3P",
+              "current": "160",
+              "in_line": false,
+              "part_id": "6cbd6c24-9454-4971-8b4c-8fca33a3cab9"
+            },
+            {
+              "order": 6,
+              "part_type": "塑壳断路器",
+              "part_model": "NSX160F TMD 160 3P3D F",
+              "part_width": 104.7,
+              "part_height": 161.2,
+              "part_depth": 0,
+              "pole": "3P",
+              "current": "160",
+              "in_line": false,
+              "part_id": "28621c87-d2de-45eb-a020-dbf6bcd13b16"
+            },
+            {
+              "order": 7,
+              "part_type": "浪涌后备保护器",
+              "part_model": "MUH1-20/4P",
+              "part_width": 72.0,
+              "part_height": 82.0,
+              "part_depth": 0,
+              "pole": "4P",
+              "current": "20",
+              "in_line": false,
+              "part_id": "a998b8ca-5346-4e77-8080-6deac3eab7d1"
+            },
+            {
+              "order": 8,
+              "part_type": "电涌保护器",
+              "part_model": "MU1-20/275/4P",
+              "part_width": 72.0,
+              "part_height": 92.0,
+              "part_depth": 0,
+              "pole": "4P",
+              "current": "20",
+              "in_line": false,
+              "part_id": "eb34e38c-8124-4549-a120-d52f0dcc38c9"
+            }
+          ],
+          "arrange": {
+            "9fc49c7b-c899-40c4-9f17-52bd87c21a2e": {
+              "position": [
+                280.0,
+                400.0
+              ],
+              "rotation": 0
+            },
+            "f3cd1150-4b4d-468f-b51e-d27282f54609": {
+              "position": [
+                28.25,
+                754.9
+              ],
+              "rotation": 0
+            },
+            "4200cc09-88c2-4144-92ef-741d8372a980": {
+              "position": [
+                162.95,
+                754.9
+              ],
+              "rotation": 0
+            },
+            "12e1c2bd-1ebe-45a9-a6c9-b0a39653408a": {
+              "position": [
+                297.65,
+                754.9
+              ],
+              "rotation": 0
+            },
+            "6cbd6c24-9454-4971-8b4c-8fca33a3cab9": {
+              "position": [
+                432.35,
+                754.9
+              ],
+              "rotation": 0
+            },
+            "28621c87-d2de-45eb-a020-dbf6bcd13b16": {
+              "position": [
+                567.05,
+                754.9
+              ],
+              "rotation": 0
+            },
+            "a998b8ca-5346-4e77-8080-6deac3eab7d1": {
+              "position": [
+                25.0,
+                1016.1
+              ],
+              "rotation": 0
+            },
+            "eb34e38c-8124-4549-a120-d52f0dcc38c9": {
+              "position": [
+                97.0,
+                1011.1
+              ],
+              "rotation": 0
+            }
+          }
+        },
+        {
+          "order": 2,
+          "panel_id": "a2dbaf9b-362b-4682-96dc-e58c97c2dbf9",
+          "panel_type": "门板",
+          "operation_method": "",
+          "panel_width": 700.0,
+          "panel_height": 1300.0,
+          "parts": [],
+          "arrange": {}
+        }
+      ]
+    }
+  ]
+}

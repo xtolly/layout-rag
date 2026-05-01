@@ -341,7 +341,7 @@
       "weight": 2.0,
       "display_name": "柜体用途:母联柜",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_use",
       "source_name": "cabinet_use_categories",
       "value": "母联柜"
@@ -351,7 +351,7 @@
       "weight": 2.0,
       "display_name": "柜体用途:电容补偿柜",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_use",
       "source_name": "cabinet_use_categories",
       "value": "电容补偿柜"
@@ -361,7 +361,7 @@
       "weight": 2.0,
       "display_name": "柜体用途:联络柜",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_use",
       "source_name": "cabinet_use_categories",
       "value": "联络柜"
@@ -381,7 +381,7 @@
       "weight": 2.0,
       "display_name": "柜体用途:配电柜",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_use",
       "source_name": "cabinet_use_categories",
       "value": "配电柜"
@@ -391,7 +391,7 @@
       "weight": 1.0,
       "display_name": "柜体型号:GCK",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "cabinet_model",
       "source_name": "cabinet_model_categories",
       "value": "GCK"
@@ -431,7 +431,7 @@
       "weight": 2.0,
       "display_name": "面板类型:上门板",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_type",
       "source_name": "panel_type_categories",
       "value": "上门板"
@@ -441,7 +441,7 @@
       "weight": 2.0,
       "display_name": "面板类型:下门板",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_type",
       "source_name": "panel_type_categories",
       "value": "下门板"
@@ -451,7 +451,7 @@
       "weight": 2.0,
       "display_name": "面板类型:中门板",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_type",
       "source_name": "panel_type_categories",
       "value": "中门板"
@@ -471,7 +471,7 @@
       "weight": 2.0,
       "display_name": "面板类型:断路器面板",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_type",
       "source_name": "panel_type_categories",
       "value": "断路器面板"
@@ -501,7 +501,7 @@
       "weight": 1.0,
       "display_name": "操作方式:抽出式",
       "dynamic": true,
-      "source": "scheme",
+      "source": "schema",
       "field": "panel_operation_method",
       "source_name": "panel_operation_method_categories",
       "value": "抽出式"

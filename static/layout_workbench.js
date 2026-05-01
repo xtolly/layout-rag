@@ -63,7 +63,7 @@ const App = {
         const partColorMap           = ref({});
         const unknownPartColor       = ref(DEFAULT_UNKNOWN_COLOR);
 
-        const uploadDataMeta     = computed(() => originalUploadJson.value?.scheme);
+        const uploadDataMeta     = computed(() => originalUploadJson.value?.schema);
         const totalFeatureCount  = computed(() => {
             const schemaCount = Object.keys(featureSchema.value || {}).length;
             if (schemaCount > 0) return schemaCount;
@@ -80,7 +80,7 @@ const App = {
         const tplCanvasContainer = ref(null);
 
         // ── 预览模态画板状态 ──────────────────────────────────
-        const previewPanelSize       = computed(() => previewTemplate.value?.scheme?.panel_size || previewTemplate.value?.meta?.panel_size || [600, 1600]);
+        const previewPanelSize       = computed(() => previewTemplate.value?.schema?.panel_size || previewTemplate.value?.meta?.panel_size || [600, 1600]);
         const previewCanvasScale     = ref(1);
         const previewPanX            = ref(0);
         const previewPanY            = ref(0);
@@ -187,7 +187,7 @@ const App = {
             reader.onload = async (ev) => {
                 try {
                     const json = JSON.parse(ev.target.result);
-                    if (!json.scheme || !json.scheme.parts) throw new Error('JSON 格式缺少 scheme 或 parts 节点');
+                    if (!json.schema || !json.schema.parts) throw new Error('JSON 格式缺少 schema 或 parts 节点');
                     originalUploadJson.value = json;
                     isLoading.value = true;
                     loadingText.value = '正在进行特征匹配...';
@@ -227,9 +227,9 @@ const App = {
 
         const getPreviewParts = (tpl) => {
             const info = {};
-            const schemeData = tpl.scheme || tpl.meta || {};
-            if (schemeData.parts) {
-                schemeData.parts.forEach(p => {
+            const schemaData = tpl.schema || tpl.meta || {};
+            if (schemaData.parts) {
+                schemaData.parts.forEach(p => {
                     if (tpl.arrange?.[p.part_id]) {
                         const entry = { part_type: p.part_type, part_size: p.part_size, position: tpl.arrange[p.part_id].position };
                         if (p.parts && p.parts.length) { entry.parts = p.parts; entry.arrange = p.arrange; }
@@ -526,18 +526,18 @@ const App = {
                 originalUploadJson.value = prjData;
 
                 // 模板画板
-                tplPanelSize.value = tplData.scheme.panel_size || [600, 1600];
-                tplPanelType.value = tplData.scheme.panel_type || '安装板';
-                tplPlacedParts.value = tplData.scheme.parts
+                tplPanelSize.value = tplData.schema.panel_size || [600, 1600];
+                tplPanelType.value = tplData.schema.panel_type || '安装板';
+                tplPlacedParts.value = tplData.schema.parts
                     .filter(p => tplData.arrange?.[p.part_id])
                     .map(p => ({ part_id: p.part_id, part_type: p.part_type, part_size: p.part_size, position: tplData.arrange[p.part_id].position, ...(p.parts?.length ? { parts: p.parts, arrange: p.arrange } : {}) }));
 
                 // 项目画板
                 if (Array.isArray(prjData)) {
                     multiPanels.value = prjData.map(item => ({
-                        panelSize: item.scheme?.panel_size || [600, 1600],
-                        panelType: item.scheme?.panel_type || '安装板',
-                        parts: (item.scheme?.parts || []).map(p => ({
+                        panelSize: item.schema?.panel_size || [600, 1600],
+                        panelType: item.schema?.panel_type || '安装板',
+                        parts: (item.schema?.parts || []).map(p => ({
                             part_id:   p.part_id,
                             part_type: p.part_type,
                             part_size: p.part_size,
@@ -552,9 +552,9 @@ const App = {
                     placedParts.value  = [];
                 } else {
                     multiPanels.value = [];
-                    prjPanelSize.value = prjData.scheme.panel_size || [600, 1600];
-                    prjPanelType.value = prjData.scheme.panel_type || '安装板';
-                    placedParts.value  = prjData.scheme.parts.map(p => ({
+                    prjPanelSize.value = prjData.schema.panel_size || [600, 1600];
+                    prjPanelType.value = prjData.schema.panel_type || '安装板';
+                    placedParts.value  = prjData.schema.parts.map(p => ({
                         part_id: p.part_id, part_type: p.part_type, part_size: p.part_size,
                         position: prjData.arrange?.[p.part_id]?.position || [0, 0],
                         isInvalid: false,
@@ -613,9 +613,9 @@ const App = {
                 isLayoutPanelMode.value = true;
                 isManualLayoutMode.value = true;
                 multiPanels.value = layoutJson.map(item => ({
-                    panelSize: item.scheme?.panel_size || [600, 1600],
-                    panelType: item.scheme?.panel_type || '安装板',
-                    parts: (item.scheme?.parts || []).map(p => ({
+                    panelSize: item.schema?.panel_size || [600, 1600],
+                    panelType: item.schema?.panel_type || '安装板',
+                    parts: (item.schema?.parts || []).map(p => ({
                         part_id:   p.part_id,
                         part_type: p.part_type,
                         part_size: p.part_size,
@@ -636,9 +636,9 @@ const App = {
             layoutPanelSource.value = layoutJson;
             originalUploadJson.value = layoutJson;
 
-            const panelSize = layoutJson.scheme?.panel_size || [600, 1600];
-            const panelType = layoutJson.scheme?.panel_type || '安装板';
-            const parts     = layoutJson.scheme?.parts || [];
+            const panelSize = layoutJson.schema?.panel_size || [600, 1600];
+            const panelType = layoutJson.schema?.panel_type || '安装板';
+            const parts     = layoutJson.schema?.parts || [];
             const arrange   = layoutJson.arrange || {};
 
             // 无模板参考，左侧画板置空
@@ -694,7 +694,7 @@ const App = {
                 exportData.arrange[p.part_id] = { position: [p.position[0], p.position[1]], rotation: 0 }; 
             });
 
-            const result = { scheme: exportData.scheme, arrange: exportData.arrange };
+            const result = { schema: exportData.schema, arrange: exportData.arrange };
             window.parent.postMessage({ type: 'workbench:layoutPanelResult', payload: JSON.parse(JSON.stringify(result)) }, window.location.origin);
         };
 

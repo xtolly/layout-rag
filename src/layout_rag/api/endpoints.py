@@ -43,7 +43,7 @@ async def apply_template(
 async def submit_layout(project_data: Dict[str, Any] = Body(...)):
     """接口 3：接收最终的人工微调结果"""
     # 实际生产中这里应有持久化逻辑
-    print("收到最终提交的布局数据，包含元件数:", len(project_data.get("meta", {}).get("parts", [])))
+    print("收到最终提交的布局数据，包含元件数:", len(project_data.get("schema", {}).get("parts", [])))
     return {"status": "success", "message": "布局数据保存成功"}
 
 @router.post("/cabinet-layout")

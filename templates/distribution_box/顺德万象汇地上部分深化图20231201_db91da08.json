@@ -1,7 +1,7 @@
 {
     "name": "顺德万象汇地上部分深化图20231201_db91da08",
     "uuid": "440ba471-bb3a-403f-8ab9-c61c0789bcdb",
-    "scheme": {
+    "schema": {
         "industry": "",
         "cabinet_use": "配电柜",
         "panel_type": "默认面板",

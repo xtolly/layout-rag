@@ -1,7 +1,7 @@
 {
   "name": "进线柜-GCK-默认面板-800x2200",
   "uuid": "e9757c18-48b0-420c-bc79-c4f933e12891",
-  "scheme": {
+  "schema": {
     "cabinet_id": "f582d12f-6ae8-4cb9-8cfe-efe50e7aba73",
     "cabinet_name": "P1-1",
     "cabinet_use": "进线柜",

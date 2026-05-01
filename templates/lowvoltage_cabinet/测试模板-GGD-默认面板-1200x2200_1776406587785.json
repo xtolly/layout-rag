@@ -1,7 +1,7 @@
 {
   "name": "联络柜-GGD-默认面板-1200x2200",
   "uuid": "ec948544-f8f1-4a67-a558-cfbe6c0a82da",
-  "scheme": {
+  "schema": {
     "cabinet_id": "b7521514-92d4-41fe-b141-b6f8d4b6ad2f",
     "cabinet_name": "P1-5",
     "cabinet_use": "联络柜",

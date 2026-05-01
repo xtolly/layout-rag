@@ -73,33 +73,31 @@ class VectorStore:
 
     def encode_for_neo4j(self, feature_dict: dict) -> List[float]:
         """
-        阶段二：特征编码（骗过 Neo4j 的核心魔术）
-        对特征进行归一化，并乘以权重的平方根。返回一维 Float 数组。
-        无论是【历史数据入库 Neo4j】，还是【新订单请求查询 Neo4j】，都必须经过此方法！
+        阶段二：特征编码 (欧氏距离适配版本)
+        对特征进行严格的 [0, 1] 归一化，并乘以权重的平方根以实现加权欧氏距离计算。
+        返回一维 Float 数组。
         """
         q_raw = self._dict_to_vector(feature_dict)
-        final_vector = []
+        # 预先分配与 feature_names 等长的零矩阵，严格保持 Schema 原始顺序
+        final_vector = np.zeros(len(self.feature_names), dtype=float)
         
-        # 1. 连续特征: 归一化 + 乘以【权重平方根】
+        # 1. 连续特征: 严格归一化到 [0, 1]
         if self.idx_cont:
             q_cont = np.clip((q_raw[self.idx_cont] - self.cont_min) / self.cont_range, 0.0, 1.0)
-            scaled_cont = q_cont * np.sqrt(self.w_cont)
-            final_vector.extend(scaled_cont.tolist())
+            final_vector[self.idx_cont] = q_cont * np.sqrt(self.w_cont)
             
-        # 2. 计数特征: 归一化 + 乘以【权重平方根】
+        # 2. 计数特征: 严格归一化到 [0, 1]
         if self.idx_count:
             q_count_log = np.log1p(np.maximum(q_raw[self.idx_count], 0))
             q_count = np.clip(q_count_log / self.count_max_log, 0.0, 1.0)
-            scaled_count = q_count * np.sqrt(self.w_count)
-            final_vector.extend(scaled_count.tolist())
+            final_vector[self.idx_count] = q_count * np.sqrt(self.w_count)
             
-        # 3. 布尔特征: 强制截断 + 乘以【权重平方根】
+        # 3. 布尔特征: 截断保持 [0, 1]
         if self.idx_bool:
             q_bool = np.clip(q_raw[self.idx_bool], 0.0, 1.0)
-            scaled_bool = q_bool * np.sqrt(self.w_bool)
-            final_vector.extend(scaled_bool.tolist())
+            final_vector[self.idx_bool] = q_bool * np.sqrt(self.w_bool)
             
-        return final_vector
+        return final_vector.tolist()
 
     def search_via_neo4j(self, query_features: dict, neo4j_session, top_k: int = 5) -> List[Tuple[str, float]]:
         """
@@ -129,10 +127,12 @@ class VectorStore:
         return [(record["instance_id"], float(record["score"])) for record in result]
 
     def save_to_disk(self, filepath: str):
-        """仅保存特征 Schema 和拟合出来的标尺极值，彻底抛弃笨重的 .npz 矩阵。"""
+        """
+        仅保存依据历史数据拟合出的统计极值（标尺）。
+        彻底剥离 Schema 配置，避免与 Python 源码产生冲突。
+        """
         meta_data = {
-            "version": "6.0_neo4j_encoder", 
-            "schema": self.schema,
+            "version": "6.1_stat_params_only", # 标记版本变更
             "params": {
                 "cont_min": self.cont_min.tolist(),
                 "cont_range": self.cont_range.tolist(),
@@ -141,29 +141,31 @@ class VectorStore:
         }
         with open(filepath, 'w+', encoding='utf-8') as f:
             json.dump(meta_data, f, ensure_ascii=False, indent=2)
-        print(f"标尺已保存至 {filepath}")
+        print(f"数据统计标尺已纯净保存至 {filepath}")
 
     def load_from_disk(self, filepath: str):
-        """恢复基准标尺，让编码器准备就绪。"""
+        """
+        仅恢复基准标尺极值。
+        特征配置(Schema)和权重完全由初始化时传入的 Python 源码主导。
+        """
         with open(filepath, 'r', encoding='utf-8') as f:
             data = json.load(f)
             
-        self.schema = data["schema"]
-        self.feature_names = list(self.schema.keys())
-        self.default_values = {f: self.schema[f].get("default", 0.0) for f in self.feature_names}
+        params = data.get("params", {})
         
-        # 恢复索引和权重
-        self.idx_cont = [i for i, f in enumerate(self.feature_names) if self.schema[f]["type"] == "continuous"]
-        self.idx_count = [i for i, f in enumerate(self.feature_names) if self.schema[f]["type"] == "count"]
-        self.idx_bool = [i for i, f in enumerate(self.feature_names) if self.schema[f]["type"] == "boolean"]
+        # 提取极值
+        saved_cont_min = np.array(params.get("cont_min", []))
         
-        self.w_cont = np.array([self.schema[self.feature_names[i]]["weight"] for i in self.idx_cont])
-        self.w_count = np.array([self.schema[self.feature_names[i]]["weight"] for i in self.idx_count])
-        self.w_bool = np.array([self.schema[self.feature_names[i]]["weight"] for i in self.idx_bool])
-        
+        # 防呆校验：如果代码里增删了连续特征，导致维度和硬盘里的旧标尺对不上，必须报错阻止
+        if len(self.idx_cont) > 0 and len(self.idx_cont) != len(saved_cont_min):
+            raise ValueError(
+                "Python源码中的特征数量与本地 store.json 的标尺维度不匹配！\n"
+                "请删除旧的 store.json 并重新运行导入脚本进行全量拟合。"
+            )
+            
         # 恢复统计极值
-        self.cont_min = np.array(data["params"]["cont_min"])
-        self.cont_range = np.array(data["params"]["cont_range"])
-        self.count_max_log = np.array(data["params"]["count_max_log"])
+        self.cont_min = saved_cont_min
+        self.cont_range = np.array(params.get("cont_range", []))
+        self.count_max_log = np.array(params.get("count_max_log", []))
         
-        print("标尺已加载，编码器就绪。")
+        print("纯净标尺极值加载完毕，特征权重已完全听从 Python 代码指挥。")

@@ -1,7 +1,7 @@
 {
   "name": "电容补偿柜-GCK-默认面板-800x2000",
   "uuid": "36296860-04fd-45f8-8823-963c790a1502",
-  "scheme": {
+  "schema": {
     "cabinet_id": "0b92c8a1-4c43-45cc-aaa8-9a5450e71e8d",
     "cabinet_name": "P1-3",
     "cabinet_use": "电容补偿柜",
