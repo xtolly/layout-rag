@@ -77,6 +77,21 @@ class BusinessDomain(ABC):
         从布局 JSON 中提取完整特征字典。
         """
 
+    @abstractmethod
+    def ui_schema(self) -> dict:
+        """
+        返回 UI 元数据，供前端表单和 AI Agent 动态生成工具 schema。
+
+        返回格式：
+        {
+            "cabinet_fields": [{"key": str, "label": str, "type": "text"|"select"|"number"|"boolean", ...}],
+            "panel_fields":   [...],
+            "part_fields":    [...],
+        }
+
+        select 类型字段必须包含 "options": list[str]。
+        """
+
     # ------------------------------------------------------------------
     # 3. 大型元件判断阈值（影响 large_part_ratio 特征）
     # ------------------------------------------------------------------

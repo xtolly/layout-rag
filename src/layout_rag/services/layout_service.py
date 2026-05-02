@@ -1,6 +1,5 @@
 import os
 import json
-import math
 from typing import List, Dict, Optional
 
 from layout_rag.domain.base import BusinessDomain
@@ -241,8 +240,7 @@ class LayoutService:
         panels_data = neo4j_client.get_layouts_by_ids(all_panel_ids) if all_panel_ids else []
         panel_data_map = {p["uuid"]: p for p in panels_data}
 
-        max_env_score = max(env_score_map.values()) if env_score_map else 1.0
-        max_bom_score = max(bom_score_map.values()) if bom_score_map else 1.0
+        total_recall_panels = len(all_panel_ids) or 1
 
         candidates: Dict[tuple, dict] = {}
 
@@ -263,15 +261,24 @@ class LayoutService:
                     "graph_weight": 0,
                     "source_panels": [],
                     "appear_count": 0,
+                    "qty_sum": 0,
                 }
             return candidates[key]
 
-        def _process_panel_parts(pid, score_map, max_score, channel_name):
+        def _process_panel_parts(pid, score_map, channel_name):
             panel = panel_data_map.get(pid)
             if not panel:
                 return
-            s = score_map.get(pid, 0.0) / max_score if max_score > 0 else 0.0
-            for part in panel.get("schema", {}).get("parts", []):
+            s = score_map.get(pid, 0.0)  # 直接使用 Neo4j 原始相似度，不做二次归一化
+            panel_parts = panel.get("schema", {}).get("parts", [])
+            # 统计当前面板中每个型号的出现次数
+            model_qty_in_panel = {}
+            for part in panel_parts:
+                m = part.get("part_model", "")
+                if m:
+                    model_qty_in_panel[m] = model_qty_in_panel.get(m, 0) + 1
+
+            for part in panel_parts:
                 model = part.get("part_model", "")
                 ptype = part.get("part_type", "")
                 if not model or not ptype:
@@ -287,12 +294,13 @@ class LayoutService:
                     c["sources"].append(channel_name)
                 if pid not in c["source_panels"]:
                     c["source_panels"].append(pid)
+                    c["qty_sum"] += model_qty_in_panel.get(model, 1)
                 c["appear_count"] += 1
 
         for pid in env_panel_ids:
-            _process_panel_parts(pid, env_score_map, max_env_score, "env")
+            _process_panel_parts(pid, env_score_map, "env")
         for pid in bom_panel_ids:
-            _process_panel_parts(pid, bom_score_map, max_bom_score, "bom")
+            _process_panel_parts(pid, bom_score_map, "bom")
 
         max_graph_weight = 1
         if graph_neighbors:
@@ -313,7 +321,7 @@ class LayoutService:
 
         # ── 阶段 4：互补过滤 + 精排 ──
 
-        best_per_type: Dict[str, dict] = {}
+        type_candidates: Dict[str, dict] = {}
         for _, c in candidates.items():
             ptype = c["part_type"]
             if ptype in current_types:
@@ -328,37 +336,56 @@ class LayoutService:
                 active_weight += w_bom
                 weighted_sum += w_bom * c["bom_score"]
             if "graph" in c["sources"]:
-                s_graph = math.log(1 + c["graph_weight"]) / math.log(1 + max_graph_weight) if max_graph_weight > 0 else 0
+                s_graph = c["graph_weight"] / max_graph_weight if max_graph_weight > 0 else 0
                 active_weight += w_graph
                 weighted_sum += w_graph * s_graph
 
-            confidence = round(weighted_sum / active_weight * 100) if active_weight > 0 else 0
+            base_confidence = weighted_sum / active_weight if active_weight > 0 else 0
+
+            # 多源加成：被越多独立通道召回，置信度越高
+            num_sources = len(c["sources"])
+            source_bonus = {1: 1.0, 2: 1.2, 3: 1.4}.get(num_sources, 1.0)
+            base_confidence *= source_bonus
+
+            # 频率加权：在召回面板中的出现率越高，置信度越高
+            num_source_panels = len(c["source_panels"]) or 1
+            frequency = min(num_source_panels / total_recall_panels, 1.0)
+            base_confidence *= (0.7 + 0.3 * frequency)
+
+            confidence = round(base_confidence * 100)
             confidence = min(confidence, 100)
 
+            # 进出线互补加分（比例式，上浮 10%）
             if c["in_line"] and not has_inline:
-                confidence = min(confidence + 15, 100)
+                confidence = min(round(confidence * 1.1), 100)
             elif not c["in_line"] and not has_outline:
-                confidence = min(confidence + 15, 100)
+                confidence = min(round(confidence * 1.1), 100)
 
             c["confidence"] = confidence
 
-            if ptype not in best_per_type or confidence > best_per_type[ptype]["confidence"]:
-                best_per_type[ptype] = c
+            # 推荐数量：基于历史面板中该型号的平均出现次数
+            avg_qty = c["qty_sum"] / num_source_panels if num_source_panels > 0 else 1
+            c["recommended_qty"] = max(1, round(avg_qty))
 
-        results = sorted(best_per_type.values(), key=lambda x: -x["confidence"])
+            if ptype not in type_candidates or confidence > type_candidates[ptype]["confidence"]:
+                type_candidates[ptype] = c
+
+        results = sorted(type_candidates.values(), key=lambda x: -x["confidence"])
+
+        results.sort(key=lambda x: -x["confidence"])
 
         return [{
-            "part_type":      c["part_type"],
-            "part_model":     c["part_model"],
-            "part_width":     c["part_width"],
-            "part_height":    c["part_height"],
-            "pole":           c["pole"],
-            "current":        c["current"],
-            "in_line":        c["in_line"],
-            "confidence":     c["confidence"],
-            "recommended_qty": 1,
-            "sources":        c["sources"],
-            "source_panels":  c["source_panels"][:5],
+            "part_type":        c["part_type"],
+            "part_model":       c["part_model"],
+            "part_width":       c["part_width"],
+            "part_height":      c["part_height"],
+            "pole":             c["pole"],
+            "current":          c["current"],
+            "in_line":          c["in_line"],
+            "confidence":       c["confidence"],
+            "recommended_qty":  c["recommended_qty"],
+            "sources":          c["sources"],
+            "source_panels":    c["source_panels"][:5],
         } for c in results]
 
     def get_part_color_map(self) -> Dict[str, object]:

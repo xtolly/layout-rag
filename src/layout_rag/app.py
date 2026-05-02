@@ -19,6 +19,7 @@ domain = NewDistributionBoxDomain()
 app = FastAPI(title="智能元件布局系统 API")
 
 # 将业务服务实例挂载到 app.state 中，以便 API 端点可以通过 Request 访问单例
+app.state.domain = domain
 app.state.layout_service = LayoutService(domain)
 
 # --- 静态资源配置 ---

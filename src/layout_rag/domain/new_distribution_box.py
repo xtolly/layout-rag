@@ -121,7 +121,7 @@ class NewDistributionBoxDomain(BusinessDomain):
         
         # ── 元件类型计数（BOM）──
         for part_type in part_types:
-            features[f"count_{part_type}"] = {"type": "count", "weight": 3.0, "display_name": f"{part_type} 数量", "from_bom": True}
+            features[f"count_{part_type}"] = {"type": "count", "weight": 5.0, "display_name": f"{part_type} 数量", "from_bom": True}
         return features
 
     # ------------------------------------------------------------------

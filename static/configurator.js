@@ -717,6 +717,24 @@ const App = {
             item.recommended_qty = Math.max(1, (item.recommended_qty || 1) + delta);
         };
 
+        // 推荐度颜色：红(0) -> 橙(30) -> 黄(50) -> 绿(100) 分段插值
+        const confColor = (v) => {
+            const stops = [
+                { p: 0,   r: 239, g: 68,  b: 68  },  // 红
+                { p: 30,  r: 249, g: 115, b: 22  },  // 橙
+                { p: 55,  r: 234, g: 179, b: 8   },  // 黄
+                { p: 100, r: 16,  g: 185, b: 129 },  // 绿
+            ];
+            const t = Math.max(0, Math.min(100, v));
+            let a = stops[0], b = stops[stops.length - 1];
+            for (let i = 0; i < stops.length - 1; i++) {
+                if (t >= stops[i].p && t <= stops[i + 1].p) { a = stops[i]; b = stops[i + 1]; break; }
+            }
+            const ratio = (t - a.p) / (b.p - a.p || 1);
+            const lerp = (x, y) => Math.round(x + (y - x) * ratio);
+            return `rgb(${lerp(a.r, b.r)},${lerp(a.g, b.g)},${lerp(a.b, b.b)})`;
+        };
+
         const exportPanelData = () => {
             if (!selectedPanel.value) return showToast('请先选择一个面板', 'warn');
             const exportData = buildPanelLayoutData(selectedPanel.value, selectedCabinet.value || {});
@@ -1410,7 +1428,7 @@ const App = {
             isLoading, loadingText, toast,
             agentStatus,
             cabinetModal, panelModal, partModal, bomModal,
-            openBomRecommend, applyBomRecommend, toggleBomItem, bumpBomQty,
+            openBomRecommend, applyBomRecommend, toggleBomItem, bumpBomQty, confColor,
             jsonFileInput, chatImageInput,
             totalCabinets, totalPanels, totalParts,
             uiMetadata,

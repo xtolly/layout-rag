@@ -1148,7 +1148,7 @@
                         </div>
                         <div>
                             <h3 class="font-display font-bold text-xl text-slate-800 leading-tight">BOM 智能推荐</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">基于相似柜型、电气配置、元件搭配三路召回</p>
+                            <p class="text-xs text-slate-400 mt-0.5">基于相似箱柜、BOM配置、元件搭配三路召回</p>
                         </div>
                     </div>
                     <button @click="bomModal.show=false" class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors">
@@ -1173,17 +1173,18 @@
 
                 <!-- 推荐列表 -->
                 <div v-else class="flex-1 overflow-y-auto">
+                    <!-- 权重: 勾选=0 进出线=1 元件类型=1 型号=1.5 尺寸=2 推荐度=1 数量=2.5 来源=2.5 -->
                     <table class="w-full table-fixed">
                         <thead class="sticky top-0 bg-white z-10">
                             <tr class="text-left text-xs text-slate-400 font-medium border-b border-slate-200">
                                 <th class="py-3 pl-5 pr-3 w-12"></th>
                                 <th class="py-3 px-3 w-16">进出线</th>
-                                <th class="py-3 px-3" style="width:18%">元件类型</th>
-                                <th class="py-3 px-3" style="width:18%">型号</th>
+                                <th class="py-3 px-3" style="width:15%">元件类型</th>
+                                <th class="py-3 px-3" style="width:15%">型号</th>
                                 <th class="py-3 px-3 w-24">尺寸</th>
-                                <th class="py-3 px-3" style="width:18%">置信度</th>
+                                <th class="py-3 px-3" style="width:18%">推荐度</th>
                                 <th class="py-3 px-3 w-24 text-center">数量</th>
-                                <th class="py-3 px-3" style="width:15%">来源</th>
+                                <th class="py-3 px-3" style="width:20%">来源</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1196,37 +1197,36 @@
                                         class="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer">
                                 </td>
                                 <!-- 进/出线 -->
-                                <td class="py-3 px-3 align-middle">
+                                <td class="py-3 px-3 align-middle whitespace-nowrap">
                                     <span v-if="item.in_line" class="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-sky-50 text-sky-600 border border-sky-100">进线</span>
                                     <span v-else class="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-amber-50 text-amber-600 border border-amber-100">出线</span>
                                 </td>
                                 <!-- 元件类型 -->
-                                <td class="py-3 px-3 align-middle" @click.stop>
-                                    <input v-model="item.part_type"
-                                        class="w-full bg-transparent border-b border-transparent hover:border-slate-300 focus:border-emerald-500 focus:outline-none py-0.5 text-sm text-slate-700">
+                                <td class="py-3 px-3 align-middle text-sm text-slate-700 font-medium whitespace-nowrap truncate">
+                                    {{ item.part_type }}
                                 </td>
                                 <!-- 型号 -->
-                                <td class="py-3 px-3 align-middle" @click.stop>
+                                <td class="py-3 px-3 align-middle whitespace-nowrap" @click.stop>
                                     <input v-model="item.part_model"
                                         class="w-full bg-transparent border-b border-transparent hover:border-slate-300 focus:border-emerald-500 focus:outline-none py-0.5 text-sm text-slate-600">
                                 </td>
                                 <!-- 尺寸 -->
-                                <td class="py-3 px-3 align-middle text-sm text-slate-500">
+                                <td class="py-3 px-3 align-middle text-sm text-slate-500 whitespace-nowrap">
                                     <span v-if="item.part_width && item.part_height">{{ item.part_width }}x{{ item.part_height }}</span>
                                     <span v-else class="text-slate-300">-</span>
                                 </td>
-                                <!-- 置信度进度条 -->
-                                <td class="py-3 px-3 align-middle">
+                                <!-- 推荐度进度条 -->
+                                <td class="py-3 px-3 align-middle whitespace-nowrap">
                                     <div class="flex items-center gap-2">
                                         <div class="flex-1 h-2 rounded-full bg-slate-100 overflow-hidden">
                                             <div class="h-full rounded-full transition-all"
                                                 :style="{
                                                     width: item.confidence + '%',
-                                                    backgroundColor: item.confidence >= 85 ? '#10b981' : item.confidence >= 60 ? '#f59e0b' : '#ef4444'
+                                                    backgroundColor: confColor(item.confidence)
                                                 }"></div>
                                         </div>
                                         <span class="text-xs font-semibold w-9 text-right"
-                                            :class="item.confidence >= 85 ? 'text-emerald-600' : item.confidence >= 60 ? 'text-amber-600' : 'text-red-500'">
+                                            :style="{ color: confColor(item.confidence) }">
                                             {{ item.confidence }}%
                                         </span>
                                     </div>
@@ -1240,14 +1240,14 @@
                                     </div>
                                 </td>
                                 <!-- 来源标签 -->
-                                <td class="py-3 px-3 align-middle">
+                                <td class="py-3 px-3 align-middle whitespace-nowrap">
                                     <div class="flex flex-wrap gap-1">
                                         <span v-if="item.sources.includes('env')"
                                             class="inline-block px-1.5 py-0.5 rounded text-xs bg-blue-50 text-blue-600 border border-blue-100"
-                                            title="该元件在与你柜体尺寸、安装方式相似的历史项目中频繁出现">相似柜型</span>
+                                            title="该元件在与你柜体尺寸、安装方式相似的历史项目中频繁出现">相似箱柜</span>
                                         <span v-if="item.sources.includes('bom')"
                                             class="inline-block px-1.5 py-0.5 rounded text-xs bg-purple-50 text-purple-600 border border-purple-100"
-                                            title="该元件在与你电气配置相似的历史 BOM 中频繁出现">相似电气</span>
+                                            title="该元件在与你电气配置相似的历史 BOM 中频繁出现">相似BOM</span>
                                         <span v-if="item.sources.includes('graph')"
                                             class="inline-block px-1.5 py-0.5 rounded text-xs bg-orange-50 text-orange-600 border border-orange-100"
                                             title="该元件与你已选元件在历史项目中经常搭配使用">常搭元件</span>
@@ -1444,7 +1444,7 @@
         </transition>
     </div>
 
-    <script src="/static/configurator.js?v=20260408-duplicate-part-fix"></script>
+    <script src="/static/configurator.js?v=20260502-conf-color"></script>
     <style>
         .workbench-overlay-enter-active {
             transition: opacity 0.2s ease;

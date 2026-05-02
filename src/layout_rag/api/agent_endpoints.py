@@ -14,16 +14,17 @@ import traceback
 import uuid
 from typing import Any
 
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, Request
 from fastapi.responses import StreamingResponse
 from langchain_core.messages import HumanMessage
 
 agent_router = APIRouter(prefix="/agent")
 
 
-def _get_agent():
+def _get_agent(request: Request):
     from layout_rag.agent.configurator_agent import get_agent
-    return get_agent()
+    domain = request.app.state.domain
+    return get_agent(domain=domain)
 
 
 def _sse(data: Any) -> str:
@@ -43,7 +44,7 @@ def _agent_run_config(session_id: str) -> dict:
 #  SSE 流式接口（astream_events — token 级流式）
 # ──────────────────────────────────────────────────────────────
 @agent_router.post("/chat/stream")
-async def chat_stream(payload: dict = Body(...)):
+async def chat_stream(request: Request, payload: dict = Body(...)):
     """
     SSE 协议，事件类型：
       {"type": "token",  "content": "..."}    — LLM 生成的文字片段
@@ -60,7 +61,7 @@ async def chat_stream(payload: dict = Body(...)):
 
     async def event_stream():
         try:
-            agent = _get_agent()
+            agent = _get_agent(request)
 
             # 写入选中状态 & 当前方案，供工具读取
             from layout_rag.agent.configurator_agent import set_current_selection, set_current_schema
@@ -152,14 +153,14 @@ async def chat_stream(payload: dict = Body(...)):
 #  非流式接口（备用）
 # ──────────────────────────────────────────────────────────────
 @agent_router.post("/chat")
-async def chat(payload: dict = Body(...)):
+async def chat(request: Request, payload: dict = Body(...)):
     message = payload.get("message", "")
     schema  = payload.get("schema", {"cabinets": []})
     image   = payload.get("image")
     selection = payload.get("selection", {})
     session_id = _resolve_session_id(payload)
     try:
-        agent = _get_agent()
+        agent = _get_agent(request)
 
         from layout_rag.agent.configurator_agent import set_current_selection, set_current_schema
         set_current_selection(selection)
