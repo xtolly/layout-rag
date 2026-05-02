@@ -11,9 +11,8 @@ if str(SRC_DIR) not in sys.path:
 
 # 假设这些是你已有的领域类和配置
 from layout_rag.domain.new_distribution_box import NewDistributionBoxDomain
-from layout_rag.core.feature_extractor import FeatureExtractor
 from layout_rag.core.vector_store import VectorStore
-from layout_rag.config import get_domain_paths, get_feature_schema, load_part_types
+from layout_rag.config import get_domain_paths
 from layout_rag.core.neo4j_client import Neo4jClient, neo4j_client
 
 # ==========================================
@@ -75,14 +74,14 @@ def group_components_by_y_with_tolerance(parts, arrange, tolerance=2.0):
 class PLMGraphImporter:
     def __init__(self, db_client: Neo4jClient):
         self.db_client = db_client
-        
+
         # 初始化特征提取与编码组件
         self.domain = NewDistributionBoxDomain()
         paths = get_domain_paths(self.domain)
-        self.schema = get_feature_schema(self.domain, paths["data_dir"])
-        self.part_types = load_part_types(self.domain, paths["data_dir"])
         
-        self.extractor = FeatureExtractor(self.domain, self.part_types, self.schema)
+        self.schema = {name: cfg.copy() for name, cfg in self.domain.feature_schema_def.items()}
+        self.part_types = self.domain.get_part_types()
+        
         self.vector_store = VectorStore(self.schema)
         self.vector_store_path = str(paths["vector_store_path"])
         
@@ -110,7 +109,7 @@ class PLMGraphImporter:
             }
         }
         try:
-            feature_dict = self.extractor.extract(dummy_sample)
+            feature_dict = self.domain.extract_features(dummy_sample)
             full_dim = len(self.vector_store.encode_for_neo4j(feature_dict))
             bom_dim = self.vector_store.bom_dimension
             non_bom_dim = self.vector_store.non_bom_dimension
@@ -238,7 +237,7 @@ class PLMGraphImporter:
         non_bom_vector_list = []
         if self.encoder_ready:
             try:
-                feature_dict = self.extractor.extract(data)
+                feature_dict = self.domain.extract_features(data)
                 vector_list = self.vector_store.encode_for_neo4j(feature_dict)
                 bom_vector_list = self.vector_store.encode_for_neo4j(feature_dict, mode="from_bom")
                 non_bom_vector_list = self.vector_store.encode_for_neo4j(feature_dict, mode="not_from_bom")
@@ -452,7 +451,7 @@ if __name__ == "__main__":
     for data in all_data:
         try:
             # 仅提取字典格式的特征，用于统计极值
-            feature_dict = importer.extractor.extract(data)
+            feature_dict = importer.domain.extract_features(data)
             all_raw_features.append({"features": feature_dict})
         except Exception as e:
             print(f"[警告] 数据提取失败，跳过拟合: {e}")

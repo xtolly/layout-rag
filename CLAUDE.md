@@ -80,8 +80,6 @@ uv run python tools/new_neo4j.py
 所有业务逻辑通过 `BusinessDomain` 抽象基类解耦。活跃领域在 `app.py` 中实例化（当前为 `NewDistributionBoxDomain`）。每个领域定义：
 - `domain_key` -- 目录路径的唯一标识
 - `feature_schema_def` -- 静态特征定义（类型、权重、显示名称）
-- `dynamic_feature_sources` -- 动态布尔/计数特征源
-- `extract_structural_features()` -- 领域特定的结构特征提取
 - `layout_constraints` -- 求解器参数（precision_scale, margin, element_gap, y_penalty, time_limit）
 - `default_panel_size`、`large_part_area_threshold`
 
@@ -177,7 +175,7 @@ cabinets[] -> cabinet_id, cabinet_name, cabinet_width, cabinet_height, order, ar
 ## 开发注意事项
 
 - Neo4j 必须在本地 `neo4j://127.0.0.1:7687` 运行，需有 `distributionbox` 和 `lowvoltagecabinet` 两个数据库
-- 修改任何领域的 `feature_schema_def` 或 `dynamic_feature_sources` 后，必须重建 Neo4j 数据和 vecdb
+- 修改任何领域的 `feature_schema_def` ,必须重建 Neo4j 数据和 vecdb
 - `VectorStore` 不再本地存储向量 -- 仅保存归一化参数。实际向量搜索委托给 Neo4j 的 HNSW 索引
 - 前端无构建步骤，直接编辑 HTML/JS/CSS 并刷新即可
 - CORS 完全开放（允许所有来源）-- 无身份认证

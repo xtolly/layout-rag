@@ -145,17 +145,23 @@ class VectorStore:
         # 提取极值
         saved_cont_min = np.array(params.get("cont_min", []))
         
-        # 防呆校验：如果代码里增删了连续特征，导致维度和硬盘里的旧标尺对不上，必须报错阻止
+        # 防呆校验：如果代码里增删了特征，导致维度和硬盘里的旧标尺对不上，必须报错阻止
+        saved_count_max_log = np.array(params.get("count_max_log", []))
         if len(self.idx_cont) > 0 and len(self.idx_cont) != len(saved_cont_min):
             raise ValueError(
-                "Python源码中的特征数量与本地 store.json 的标尺维度不匹配！\n"
-                "请删除旧的 store.json 并重新运行导入脚本进行全量拟合。"
+                f"连续特征维度不匹配：代码 {len(self.idx_cont)} vs 标尺 {len(saved_cont_min)}。\n"
+                "请删除旧的 vector_store.json 并重新运行拟合。"
+            )
+        if len(self.idx_count) > 0 and len(self.idx_count) != len(saved_count_max_log):
+            raise ValueError(
+                f"计数特征维度不匹配：代码 {len(self.idx_count)} vs 标尺 {len(saved_count_max_log)}。\n"
+                "请删除旧的 vector_store.json 并重新运行拟合。"
             )
             
         # 恢复统计极值
         self.cont_min = saved_cont_min
         self.cont_range = np.array(params.get("cont_range", []))
-        self.count_max_log = np.array(params.get("count_max_log", []))
+        self.count_max_log = saved_count_max_log
         
         print("纯净标尺极值加载完毕，特征权重已完全听从 Python 代码指挥。")
 

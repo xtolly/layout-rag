@@ -13,6 +13,8 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any, Dict
 
+import numpy as np
+
 
 class BusinessDomain(ABC):
     """
@@ -58,42 +60,22 @@ class BusinessDomain(ABC):
         """
         ...
 
-    @property
     @abstractmethod
-    def dynamic_feature_sources(self) -> dict[str, dict]:
+    def get_part_types(self) -> list[str]:
         """
-        动态特征来源定义字典，格式：
-        {
-            "source_group_name": {
-                "source": "meta" | "parts",
-                "field": str,                         # JSON 字段名
-                "feature_type": "boolean" | "count",
-                "weight": float,
-                "feature_name_template": str,         # 含 {value} 占位符
-                "display_name_template": str,         # 含 {value} 占位符
-            }, ...
-        }
+        返回该业务领域已知的所有元件类型列表（硬编码）。
+        用于生成 count_{part_type} 特征的固定维度。
+
+        示例返回值：
+          ["剩余电流动作微型断路器", "塑壳断路器", "微型断路器", ...]
         """
         ...
 
-    # ------------------------------------------------------------------
-    # 2. 结构化特征提取（业务自定义的 has_XXX 等特征）
-    # ------------------------------------------------------------------
-
     @abstractmethod
-    def extract_structural_features(self, parts: list[dict], meta: dict) -> dict[str, float]:
+    def extract_features(self, layout_json: dict) -> dict[str, float]:
         """
-        从 parts 列表和 meta 字典中提取业务专有的布尔/结构特征。
-
-        Args:
-            parts: 元件列表（每项含 part_type、part_size 等字段）
-            meta:  布局 JSON 的 meta 节点
-
-        Returns:
-            特征名 → 0.0/1.0（或连续值）的字典，
-            这些特征将合并到最终特征向量中。
+        从布局 JSON 中提取完整特征字典。
         """
-        ...
 
     # ------------------------------------------------------------------
     # 3. 大型元件判断阈值（影响 large_part_ratio 特征）
@@ -155,121 +137,66 @@ class BusinessDomain(ABC):
             (58, 54),
         )
         
-    def calculate_gower_similarity(self, 
-                                   query_features: Dict[str, float], 
-                                   template_features: Dict[str, float], 
+    def calculate_gower_similarity(self,
+                                   query_features: Dict[str, float],
+                                   template_features: Dict[str, float],
                                    feature_ranges: Dict[str, float]) -> float:
         """
-        通用的加权 Gower 相似度计算器。
-        
-        基于当前业务域定义的静态和动态 Schema，自动提取权重，并区分连续变量与离散/布尔变量，
-        计算异构特征集合之间的高精度相似度。
+        加权 Gower 相似度计算器。
+
+        基于 feature_schema_def 中定义的特征类型和权重，区分连续/计数型与布尔型变量，
+        计算异构特征集合之间的加权相似度。
 
         Args:
-            query_features:    查询项目的特征字典 (键值对)。
-            template_features: 数据库模板提取的特征字典 (键值对)。
-            feature_ranges:    所有连续特征的全局极差(Ruler)，用于归一化误差。
-                               (需从外部 vector_store.json 或配置中传入)
+            query_features:    查询项目的特征字典。
+            template_features: 模板的特征字典。
+            feature_ranges:    连续特征的全局极差（用于归一化误差）。
 
         Returns:
-            float: 加权相似度得分 (范围 0.0 ~ 1.0)。
+            float: 加权相似度得分 (0.0 ~ 1.0)。
         """
+        # 从 feature_schema_def 构建查找表（一次遍历）
+        schema = self.feature_schema_def
+
+        all_keys = set(query_features.keys()) | set(template_features.keys())
         total_weight = 0.0
-        weighted_similarity_sum = 0.0
-        
-        # 预先构建当前领域所有可能特征的权重和类型查找表
-        # 这可以在实例化时缓存，这里为了清晰写在函数内部
-        feature_metadata = self._build_feature_metadata_lookup()
-
-        # 为了保证严谨性，我们需要遍历查询向量和模板向量的键集的并集
-        # 因为某些动态特征（比如 count_塑壳断路器）可能只存在于其中一方
-        all_keys = set(query_features.keys()).union(set(template_features.keys()))
-
-        # 新增一个内部辅助函数，专门处理前缀匹配
-        def _get_meta_for_key(k: str, lookup: dict) -> dict:
-            # 1. 尝试直接命中静态特征 (如 "panel_width")
-            if k in lookup and not lookup[k].get("is_dynamic_prefix"):
-                return lookup[k]
-            
-            # 2. 尝试前缀匹配动态特征 (如 "box_classify_配电箱" 匹配 "box_classify_")
-            for _, config in lookup.items():
-                if config.get("is_dynamic_prefix"):
-                    prefix = config.get("prefix", "___NULL___")
-                    if k.startswith(prefix):
-                        return config
-            
-            # 3. 兜底
-            return {"weight": 1.0, "type": "continuous"}
+        weighted_sim = 0.0
 
         for key in all_keys:
-            # 获取特征值
             q_val = float(query_features.get(key, 0.0))
             t_val = float(template_features.get(key, 0.0))
-            
-            # 2. 查找元数据（权重和类型）
-            meta = _get_meta_for_key(key, feature_metadata)
-            weight = float(meta.get("weight", 1.0))
-            f_type = meta.get("type", "continuous")
-            
-            
+
+            meta = schema.get(key)
+            if meta:
+                weight = float(meta.get("weight", 1.0))
+                f_type = meta.get("type", "continuous")
+            else:
+                # 未在 schema 中定义的特征，使用默认权重
+                weight = 1.0
+                f_type = "continuous"
+
             total_weight += weight
-            
-            # 3. 根据特征类型计算当前维度的 Gower 相似度 S_ijk
-            sim = 0.0
-            
-            # 连续型变量 (continuous, count 等需要计算绝对误差的)
-            if f_type in ("continuous", "count"):
-                # 如果这个特征在我们拟合的极差字典中
+
+            # 计算单维度 Gower 相似度
+            if f_type == "count":
+                # count 特征先做 log1p 变换，再用 count_max_log 归一化
                 range_val = feature_ranges.get(key, 0.0)
-                
                 if range_val <= 0.0:
-                    # 极差为 0 说明全局该特征都一样，只要值相等就是 1.0
                     sim = 1.0 if q_val == t_val else 0.0
                 else:
-                    # 核心归一化逻辑
-                    diff = abs(q_val - t_val)
-                    sim = max(0.0, 1.0 - (diff / range_val))
-            
-            # 离散型/布尔型变量 (boolean) - 严格匹配
-            elif f_type == "boolean":
-                sim = 1.0 if q_val == t_val else 0.0
-                
+                    q_log = np.log1p(max(q_val, 0.0))
+                    t_log = np.log1p(max(t_val, 0.0))
+                    sim = max(0.0, 1.0 - abs(q_log - t_log) / range_val)
+            elif f_type == "continuous":
+                range_val = feature_ranges.get(key, 0.0)
+                if range_val <= 0.0:
+                    sim = 1.0 if q_val == t_val else 0.0
+                else:
+                    sim = max(0.0, 1.0 - abs(q_val - t_val) / range_val)
             else:
-                # 兜底：未知类型降级为严等匹配
+                # boolean / 离散型：严格匹配
                 sim = 1.0 if q_val == t_val else 0.0
-                
-            # 4. 累加加权分数
-            weighted_similarity_sum += (sim * weight)
 
-        # 5. 返回归一化后的总得分
-        if total_weight > 0:
-            return weighted_similarity_sum / total_weight
-        return 0.0
-    
-    def _build_feature_metadata_lookup(self) -> Dict[str, Dict]:
-        lookup = {}
-        
-        # 1. 静态特征注入
-        for f_name, config in self.feature_schema_def.items():
-            lookup[f_name] = {
-                "weight": config.get("weight", 1.0),
-                "type": config.get("type", "continuous")
-            }
-            
-        # 2. 动态特征注入 (利用你提到的 field 优化)
-        for source_key, config in self.dynamic_feature_sources.items():
-            f_type = config.get("feature_type", "boolean")
-            weight = config.get("weight", 1.0)
-            
-            # 直接使用 field 加上下划线作为前缀，比解析模板字符串更安全
-            field_name = config.get("field", "")
-            prefix = f"{field_name}_" 
-            
-            lookup[source_key] = {
-                "weight": weight,
-                "type": f_type,
-                "is_dynamic_prefix": True,
-                "prefix": prefix  # 记录精准的匹配前缀
-            }
-            
-        return lookup
+            weighted_sim += sim * weight
+
+        return weighted_sim / total_weight if total_weight > 0 else 0.0

@@ -6,11 +6,8 @@ from typing import List, Dict, Optional
 from layout_rag.domain.base import BusinessDomain
 from layout_rag.config import (
     get_domain_paths,
-    get_feature_schema,
-    load_part_color_payload,
-    load_part_types,
+    load_part_color_payload
 )
-from layout_rag.core.feature_extractor import FeatureExtractor
 from layout_rag.core.layout_optimizer import LayoutOptimizer
 from layout_rag.core.vector_store import VectorStore
 from layout_rag.core.neo4j_client import Neo4jClient, neo4j_client
@@ -33,12 +30,11 @@ class LayoutService:
         data_dir         = paths["data_dir"]
         vector_store_path = paths["vector_store_path"]
 
-        self.schema_def = get_feature_schema(domain, str(data_dir))
-        self.part_types = load_part_types(domain, str(data_dir))
+        self.schema_def = {name: cfg.copy() for name, cfg in domain.feature_schema_def.items()}
+        self.part_types = domain.get_part_types()
 
         self.store = VectorStore(self.schema_def)
         self.store.load_ruler(str(vector_store_path))
-        self.extractor = FeatureExtractor(domain, self.part_types, self.schema_def)
 
     # ------------------------------------------------------------------
     # 内部工具
@@ -135,9 +131,9 @@ class LayoutService:
         return diff_list
 
     def search_recommendations(self, project_data: dict, top_k: int = 10) -> list:
-        """执行推荐搜索全流程，采用“搜 ID + 批量取详情”两步走。"""
-        
-        query_features = self.extractor.extract(project_data)
+        """执行推荐搜索全流程，采用”搜 ID + 批量取详情”两步走。"""
+
+        query_features = self.domain.extract_features(project_data)
         query_vector = self.store.encode_for_neo4j(query_features)
 
         # 1. 扩大召回（宽进）：向 Neo4j 发起向量检索，获取更多的候选集
@@ -162,7 +158,7 @@ class LayoutService:
             panel_id = tpl_meta.get("panel_id")
             
             # 提取模板特征
-            tpl_features = self.extractor.extract(tpl_data)
+            tpl_features = self.domain.extract_features(tpl_data)
 
             # ====== 核心修复：调用领域基类的 Gower 算法进行精排算分 ======
             # self.domain 是 NewDistributionBoxDomain 的实例
@@ -172,7 +168,7 @@ class LayoutService:
                 feature_ranges=feature_ranges
             )
             # 转换为百分比整数
-            final_score = round(exact_similarity * 100)
+            final_score = round(exact_similarity * 100, 1)
             # ====================================================
 
             # 计算前端展示用的差异列表
@@ -208,7 +204,7 @@ class LayoutService:
         只推荐当前面板缺少的元件，目标是补全一份完整 BOM。
         """
         # ── 阶段 1：状态感知 ──
-        query_features = self.extractor.extract(project_data)
+        query_features = self.domain.extract_features(project_data)
         env_vector = self.store.encode_for_neo4j(query_features, mode="not_from_bom")
         bom_vector = self.store.encode_for_neo4j(query_features, mode="from_bom")
 
@@ -250,7 +246,7 @@ class LayoutService:
 
         candidates: Dict[tuple, dict] = {}
 
-        def _ensure_candidate(part_type: str, model: str, part_detail: dict = None):
+        def _ensure_candidate(part_type: str, model: str, part_detail: dict = {}):
             key = (part_type, model)
             if key not in candidates:
                 candidates[key] = {
@@ -349,7 +345,7 @@ class LayoutService:
             if ptype not in best_per_type or confidence > best_per_type[ptype]["confidence"]:
                 best_per_type[ptype] = c
 
-        results = sorted(best_per_type.values(), key=lambda x: (-x["in_line"], -x["confidence"]))
+        results = sorted(best_per_type.values(), key=lambda x: -x["confidence"])
 
         return [{
             "part_type":      c["part_type"],
