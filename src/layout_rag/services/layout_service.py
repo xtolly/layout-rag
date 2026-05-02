@@ -37,7 +37,7 @@ class LayoutService:
         self.part_types = load_part_types(domain, str(data_dir))
 
         self.store = VectorStore(self.schema_def)
-        self.store.load_from_disk(str(vector_store_path))
+        self.store.load_ruler(str(vector_store_path))
         self.extractor = FeatureExtractor(domain, self.part_types, self.schema_def)
 
     # ------------------------------------------------------------------

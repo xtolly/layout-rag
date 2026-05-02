@@ -1,6 +1,6 @@
 from neo4j import GraphDatabase
 import traceback
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, cast, LiteralString
 
 # ==========================================
 # 1. 独立的基础图数据库访问类 (Neo4jClient)
@@ -33,37 +33,41 @@ class Neo4jClient:
             print("清空数据库失败！")
             traceback.print_exc()
 
-    def create_vector_index_if_not_exists(self, dimension: int):
-        """强制删除并重新创建向量索引。"""
-        if not isinstance(dimension, int) or dimension <= 0:
-            raise ValueError(f"无效的向量维度: {dimension}")
+    def create_vector_index_if_not_exists(self, full_dim: int, bom_dim: int, non_bom_dim: int):
+        """强制删除并重新创建全部三个向量索引。"""
+        indexes = [
+            ("panel_vector_index",   "FeatureVector",      full_dim),
+            ("bom_vector_index",     "BomFeatureVector",    bom_dim),
+            ("non_bom_vector_index", "NonBomFeatureVector", non_bom_dim),
+        ]
 
         with self.driver.session(database=self.database) as session:
-            # 1. 尝试删除旧索引
-            try:
-                session.run("DROP INDEX panel_vector_index")
-                print("[初始化] 已删除旧的向量索引 'panel_vector_index'")
-            except Exception:
-                # 忽略索引不存在的错误
-                pass
-
-            # 2. 创建新索引 (使用 cosine 相似度)
-            create_query = f"""
-            CREATE VECTOR INDEX panel_vector_index
-            FOR (p:PanelInstance) ON (p.FeatureVector)
-            OPTIONS {{
-              indexConfig: {{
-                `vector.dimensions`: {dimension},
-                `vector.similarity_function`: 'euclidean'
-              }}
-            }}
-            """
-            try:
-                session.run(create_query)
-                print(f"[初始化] 向量索引 'panel_vector_index' (维度: {dimension}, 相似度: euclidean) 重建完毕。")
-            except Exception as e:
-                print(f"创建向量索引失败: {e}")
-                traceback.print_exc()
+            for index_name, prop_name, dim in indexes:
+                if dim <= 0:
+                    print(f"[跳过] 向量索引 '{index_name}' 维度为 0，跳过创建。")
+                    continue
+                # 删除旧索引
+                drop_query = cast(LiteralString, "DROP INDEX " + index_name)
+                try:
+                    session.run(drop_query)
+                    print(f"[初始化] 已删除旧的向量索引 '{index_name}'")
+                except Exception:
+                    pass
+                # 创建新索引
+                create_query = cast(LiteralString, (
+                    "CREATE VECTOR INDEX " + index_name
+                    + " FOR (p:PanelInstance) ON (p." + prop_name + ")"
+                    + " OPTIONS { indexConfig: {"
+                    + " `vector.dimensions`: " + str(dim)
+                    + ", `vector.similarity_function`: 'euclidean'"
+                    + "} }"
+                ))
+                try:
+                    session.run(create_query)
+                    print(f"[初始化] 向量索引 '{index_name}' (维度: {dim}, euclidean) 重建完毕。")
+                except Exception as e:
+                    print(f"创建向量索引 '{index_name}' 失败: {e}")
+                    traceback.print_exc()
 
     def execute_write_transaction(self, work_func, *args, **kwargs):
         """执行显式写事务，发生异常自动回滚"""
@@ -74,7 +78,30 @@ class Neo4jClient:
                 print(f"事务执行失败并已回滚，错误信息: {e}")
                 traceback.print_exc()
                 raise
+            
+    def execute_write_query(self, query: str, parameters: dict) -> list:
+        """
+        执行带有重试机制的单条 Cypher 写操作查询
+        
+        :param query: Cypher 查询语句
+        :param parameters: 查询参数字典
+        :return: 查询结果记录的列表 (包含 dict)
+        """
+        parameters = parameters or {}
+        
+        # 定义一个内部的事务函数，供 execute_write 调用
+        def _tx_run_query(tx, q, params):
+            result = tx.run(q, params)
+            # 将 Neo4j 的 Record 对象转换为标准的 Python 字典列表
+            return [record.data() for record in result]
 
+        # 确保使用 session 来管理连接
+        # 注意：如果你的架构中显式指定了 database，请在 session() 中传入 database=self.database_name
+        with self.driver.session() as session:
+            # execute_write 会自动处理死锁重试和连接中断重连
+            result_data = session.execute_write(_tx_run_query, query, parameters)
+            return result_data
+        
     def _record_to_layout_json(self, record) -> dict:
         """将 Neo4j 查询记录转换为标准布局 JSON 结构。"""
         raw_parts = record["raw_parts"]
@@ -129,6 +156,30 @@ class Neo4jClient:
         cypher_query = """
         MATCH (pi:PanelInstance)
         SEARCH pi IN (VECTOR INDEX panel_vector_index FOR $query_vector LIMIT $topn ) SCORE AS score
+        RETURN pi.ID AS panel_id, score
+        ORDER BY score DESC
+        """
+        with self.driver.session(database=self.database) as session:
+            records = session.run(cypher_query, topn=top_n, query_vector=query_vector)
+            return [{"panel_id": r["panel_id"], "score": r["score"]} for r in records]
+
+    def search_similar_panel_bom(self, query_vector: list[float], top_n: int = 5) -> list[dict]:
+        """使用 BOM 子向量索引搜索。"""
+        cypher_query = """
+        MATCH (pi:PanelInstance)
+        SEARCH pi IN (VECTOR INDEX bom_vector_index FOR $query_vector LIMIT $topn) SCORE AS score
+        RETURN pi.ID AS panel_id, score
+        ORDER BY score DESC
+        """
+        with self.driver.session(database=self.database) as session:
+            records = session.run(cypher_query, topn=top_n, query_vector=query_vector)
+            return [{"panel_id": r["panel_id"], "score": r["score"]} for r in records]
+
+    def search_similar_panel_non_bom(self, query_vector: list[float], top_n: int = 5) -> list[dict]:
+        """使用非 BOM 子向量索引搜索。"""
+        cypher_query = """
+        MATCH (pi:PanelInstance)
+        SEARCH pi IN (VECTOR INDEX non_bom_vector_index FOR $query_vector LIMIT $topn) SCORE AS score
         RETURN pi.ID AS panel_id, score
         ORDER BY score DESC
         """

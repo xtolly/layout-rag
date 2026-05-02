@@ -1,6 +1,7 @@
 import json
 import sys
 import os
+import traceback
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -87,7 +88,7 @@ class PLMGraphImporter:
         
         try:
             # 修复：只加载不保存，避免初始化时误覆盖有效标尺
-            self.vector_store.load_from_disk(self.vector_store_path)
+            self.vector_store.load_ruler(self.vector_store_path)
             self.encoder_ready = True
             
             # --- 通过提取“空数据”来动态推断向量维度，并创建索引 ---
@@ -99,7 +100,6 @@ class PLMGraphImporter:
 
     def _init_vector_index(self):
         """使用空数据样本探测特征提取器的实际输出维度，并通知DB建立索引"""
-        # 构造最小可用依赖的空样本，防止 extract 时报 KeyError
         dummy_sample = {
             "schema": {
                 "cabinet_width": 0, "cabinet_height": 0, "cabinet_depth": 0,
@@ -111,15 +111,12 @@ class PLMGraphImporter:
         }
         try:
             feature_dict = self.extractor.extract(dummy_sample)
-            dummy_vector = self.vector_store.encode_for_neo4j(feature_dict)
-            dimension = len(dummy_vector)
-            
-            if dimension > 0:
-                print(f"[初始化] 自动探测到特征向量维度为: {dimension} 维")
-                # 调用客户端创建索引
-                self.db_client.create_vector_index_if_not_exists(dimension)
-            else:
-                print("[警告] 探测到的向量维度为 0，跳过索引创建。")
+            full_dim = len(self.vector_store.encode_for_neo4j(feature_dict))
+            bom_dim = self.vector_store.bom_dimension
+            non_bom_dim = self.vector_store.non_bom_dimension
+
+            print(f"[初始化] 向量维度 — 全量: {full_dim}, BOM: {bom_dim}, 非BOM: {non_bom_dim}")
+            self.db_client.create_vector_index_if_not_exists(full_dim, bom_dim, non_bom_dim)
         except Exception as e:
             print(f"[警告] 自动探测特征向量维度失败，将不会自动创建索引。原因: {e}")
 
@@ -138,7 +135,43 @@ class PLMGraphImporter:
             box_data, panels_data, rails_data, comps_data, rel_below_data, rel_left_data
         )
         print(f"[SUCCESS] 配电箱 {box_data['box_id']} (包含其面板拓扑) 批量导入成功！")
+        
+    def build_co_occurrence_graph(self, min_freq=2):
+        """
+        利用 Neo4j 内部运算，在 ComponentTemplate 之间建立频繁共现边。
+        min_freq: 最小共现阈值。只为在同一面板中共同出现超过该次数的元件型号建立关联。
+        """
+        print(f"\n--- 阶段三：正在图数据库内挖掘并建立元件共现关系 (阈值 >= {min_freq}) ---")
 
+        # Cypher 逻辑解析：
+        # 1. 找到同一个 PanelInstance 下所有的 ComponentInstance 及其对应的 ComponentTemplate
+        # 2. WHERE t1.Name < t2.Name 确保只计算一次 A-B 组合，避免重复和自环
+        # 3. 按 Name 聚合防止冗余节点分流，统计共同出现的面板数
+        # 4. 过滤掉低于阈值的组合
+        # 5. 在两个模板之间建立 CO_OCCURS_WITH 边，并记录频次权重
+        cypher = """
+        MATCH (t1:ComponentTemplate)<-[:INSTANCE_OF]-(c1:ComponentInstance)<-[:CONTAINS]-(:Rail)<-[:CONTAINS]-(p:PanelInstance)
+        MATCH (p)-[:CONTAINS]->(:Rail)-[:CONTAINS]->(c2:ComponentInstance)-[:INSTANCE_OF]->(t2:ComponentTemplate)
+        // 修复：使用 elementId 进行比较去重
+        WHERE elementId(t1) < elementId(t2) 
+        WITH t1, t2, count(DISTINCT p) AS freq
+        WHERE freq >= $min_freq
+        MERGE (t1)-[r:CO_OCCURS_WITH]->(t2)
+        SET r.weight = freq, r.rule_type = '同一面板'
+        RETURN count(r) AS created_edges
+        """
+
+        try:
+            with self.db_client.driver.session(database=self.db_client.database) as session:
+                result = session.run(cypher, min_freq=min_freq)
+                summary = result.consume()
+                created = summary.counters.relationships_created
+                set_props = summary.counters.properties_set
+                print(f"[SUCCESS] 共现关系网构建完成，新建 {created} 条边，更新 {set_props} 个属性。")
+        except Exception as e:
+            print(f"[ERROR] 构建共现关系时发生异常: {e}")
+            traceback.print_exc()
+            
     def _prepare_box_data(self, data):
         """解析 Box 级别的数据"""
         schema = data.get("schema", {})
@@ -195,12 +228,16 @@ class PLMGraphImporter:
         pt_name = f"{panel_cat_name}_{pw}x{ph}x0"
         pi_name = f"{pt_name}_{panel_id}"
 
-        # 特征向量编码
+        # 特征向量编码（全量 + BOM 子集 + 非 BOM 子集）
         vector_list = []
+        bom_vector_list = []
+        non_bom_vector_list = []
         if self.encoder_ready:
             try:
                 feature_dict = self.extractor.extract(data)
                 vector_list = self.vector_store.encode_for_neo4j(feature_dict)
+                bom_vector_list = self.vector_store.encode_for_neo4j(feature_dict, mode="from_bom")
+                non_bom_vector_list = self.vector_store.encode_for_neo4j(feature_dict, mode="not_from_bom")
             except Exception as e:
                 print(f"[警告] 特征提取失败: {e}")
 
@@ -211,6 +248,8 @@ class PLMGraphImporter:
             "pi_name": pi_name,
             "w": pw, "h": ph,
             "vector_list": vector_list,
+            "bom_vector_list": bom_vector_list,
+            "non_bom_vector_list": non_bom_vector_list,
             "box_id": box_id
         })
 
@@ -320,7 +359,10 @@ class PLMGraphImporter:
                 MERGE (pt)-[:BELONGS_TO]->(pc)
                 
                 MERGE (pi:PanelInstance {ID: p.panel_id})
-                SET pi.Name = p.pi_name, pi.FeatureVector = p.vector_list
+                SET pi.Name = p.pi_name,
+                    pi.FeatureVector = p.vector_list,
+                    pi.BomFeatureVector = p.bom_vector_list,
+                    pi.NonBomFeatureVector = p.non_bom_vector_list
                 MERGE (pi)-[:INSTANCE_OF]->(pt)
                 MERGE (bi)-[:CONTAINS]->(pi)
             """, panels=panels)
@@ -412,12 +454,8 @@ if __name__ == "__main__":
             print(f"[警告] 数据提取失败，跳过拟合: {e}")
             
     if all_raw_features:
-        # 基于真实极值拟合出全新的标尺
-        importer.vector_store.build(all_raw_features)
-        # 将新标尺持久化
-        importer.vector_store.save_to_disk(importer.vector_store_path)
-        # 通知编码器：标尺已就绪，可以安全编码
-        importer.encoder_ready = True
+        # 拟合标尺并持久化
+        importer.encoder_ready = importer.vector_store.fit_and_save_ruler(importer.vector_store_path, all_raw_features)
         # 此时有了维度数据，可顺畅建立 Neo4j 的欧氏距离索引
         importer._init_vector_index()
     else:
@@ -437,3 +475,9 @@ if __name__ == "__main__":
             print(f"处理失败跳过，原因: {e}")
     
     print(f"\n[OK] 导入完成，共成功处理并编码 {count} 个模板文件。")
+    
+    # ========================================================
+    # 阶段三：挖掘图谱，构建型号之间的共现网络
+    # ========================================================
+    # 设定阈值：例如至少在2个以上不同的面板里共同出现过，才认为是有效的电气配套逻辑
+    importer.build_co_occurrence_graph(min_freq=2)

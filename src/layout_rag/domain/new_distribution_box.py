@@ -49,24 +49,24 @@ class NewDistributionBoxDomain(BusinessDomain):
     @property
     def feature_schema_def(self) -> dict[str, dict]:
         return {
-            # ── 面板尺寸特征 ──
-            "panel_width":        {"type": "continuous", "weight": 1.0, "display_name": "面板宽度"},
-            "panel_height":       {"type": "continuous", "weight": 1.0, "display_name": "面板高度"},
-            "panel_area":         {"type": "continuous", "weight": 1.0, "display_name": "面板总面积"},
-            "panel_aspect_ratio": {"type": "continuous", "weight": 1.0, "display_name": "面板纵横比"},
-            # ── 元件统计特征 ──
-            "total_parts":        {"type": "count",      "weight": 1.0, "display_name": "元器件总数"},
-            "unique_types":       {"type": "count",      "weight": 1.0, "display_name": "元件种类数"},
-            "total_parts_area":   {"type": "continuous", "weight": 1.0, "display_name": "元器件总面积"},
-            "fill_ratio":         {"type": "continuous", "weight": 1.0, "display_name": "空间填充率"},
-            "avg_part_width":     {"type": "continuous", "weight": 1.0, "display_name": "元件平均宽度"},
-            "avg_part_height":    {"type": "continuous", "weight": 1.0, "display_name": "元件平均高度"},
-            "max_part_width":     {"type": "continuous", "weight": 1.0, "display_name": "元件最大宽度"},
-            "max_part_height":    {"type": "continuous", "weight": 1.0, "display_name": "元件最大高度"},
-            "width_std":          {"type": "continuous", "weight": 1.0, "display_name": "元件宽度标准差"},
-            "height_std":         {"type": "continuous", "weight": 1.0, "display_name": "元件高度标准差"},
-            # ── 大型元件比例 ──
-            "large_part_ratio":   {"type": "continuous", "weight": 1.0, "display_name": "大型元件占比"},
+            # ── 面板尺寸特征（非 BOM）──
+            "panel_width":        {"type": "continuous", "weight": 1.0, "display_name": "面板宽度",   "from_bom": False},
+            "panel_height":       {"type": "continuous", "weight": 1.0, "display_name": "面板高度",   "from_bom": False},
+            "panel_area":         {"type": "continuous", "weight": 1.0, "display_name": "面板总面积", "from_bom": False},
+            "panel_aspect_ratio": {"type": "continuous", "weight": 1.0, "display_name": "面板纵横比", "from_bom": False},
+            # ── 元件统计特征（BOM）──
+            "total_parts":        {"type": "count",      "weight": 1.0, "display_name": "元器件总数",   "from_bom": True},
+            "unique_types":       {"type": "count",      "weight": 1.0, "display_name": "元件种类数",   "from_bom": True},
+            "total_parts_area":   {"type": "continuous", "weight": 1.0, "display_name": "元器件总面积", "from_bom": True},
+            "fill_ratio":         {"type": "continuous", "weight": 1.0, "display_name": "空间填充率",   "from_bom": True},
+            "avg_part_width":     {"type": "continuous", "weight": 1.0, "display_name": "元件平均宽度", "from_bom": True},
+            "avg_part_height":    {"type": "continuous", "weight": 1.0, "display_name": "元件平均高度", "from_bom": True},
+            "max_part_width":     {"type": "continuous", "weight": 1.0, "display_name": "元件最大宽度", "from_bom": True},
+            "max_part_height":    {"type": "continuous", "weight": 1.0, "display_name": "元件最大高度", "from_bom": True},
+            "width_std":          {"type": "continuous", "weight": 1.0, "display_name": "元件宽度标准差", "from_bom": True},
+            "height_std":         {"type": "continuous", "weight": 1.0, "display_name": "元件高度标准差", "from_bom": True},
+            # ── 大型元件比例（BOM）──
+            "large_part_ratio":   {"type": "continuous", "weight": 1.0, "display_name": "大型元件占比", "from_bom": True},
         }
 
     # ------------------------------------------------------------------
@@ -76,7 +76,7 @@ class NewDistributionBoxDomain(BusinessDomain):
     @property
     def dynamic_feature_sources(self) -> dict[str, dict]:
         return {
-            # ── 每种元件类型的数量（来自 schema.parts）──
+            # ── 每种元件类型的数量（来自 BOM）──
             "part_type_counts": {
                 "source": "parts",
                 "field": "part_type",
@@ -84,8 +84,9 @@ class NewDistributionBoxDomain(BusinessDomain):
                 "weight": 0.5,
                 "feature_name_template": "count_{value}",
                 "display_name_template": "{value} 数量",
+                "from_bom": True,
             },
-            # ── 箱体分类（配电箱 / 户箱 / 标准电表箱 / 非标电表箱）──
+            # ── 箱体分类（非 BOM）──
             "box_classify_categories": {
                 "source": "schema",
                 "field": "box_classify",
@@ -93,8 +94,9 @@ class NewDistributionBoxDomain(BusinessDomain):
                 "weight": 5.0,
                 "feature_name_template": "box_classify_{value}",
                 "display_name_template": "箱体分类:{value}",
+                "from_bom": False,
             },
-            # ── 箱体系列（XM1 / XM2 / MZ / HW / DNB）──
+            # ── 箱体系列 ──
             "series_categories": {
                 "source": "schema",
                 "field": "series",
@@ -102,8 +104,9 @@ class NewDistributionBoxDomain(BusinessDomain):
                 "weight": 3.0,
                 "feature_name_template": "series_{value}",
                 "display_name_template": "系列:{value}",
+                "from_bom": False,
             },
-            # ── 进线方式（来自 schema.inline_mode）──
+            # ── 进线方式 ──
             "inline_mode_categories": {
                 "source": "schema",
                 "field": "inline_mode",
@@ -111,6 +114,7 @@ class NewDistributionBoxDomain(BusinessDomain):
                 "weight": 3.0,
                 "feature_name_template": "inline_mode_{value}",
                 "display_name_template": "进线方式:{value}",
+                "from_bom": False,
             },
             # ── 安装方式 ──
             "install_type_categories": {
@@ -120,6 +124,7 @@ class NewDistributionBoxDomain(BusinessDomain):
                 "weight": 3.0,
                 "feature_name_template": "install_type_{value}",
                 "display_name_template": "安装方式:{value}",
+                "from_bom": False,
             },
             # ── 固定方式 ──
             "fixup_type_categories": {
@@ -129,6 +134,7 @@ class NewDistributionBoxDomain(BusinessDomain):
                 "weight": 3.0,
                 "feature_name_template": "fixup_type_{value}",
                 "display_name_template": "固定方式:{value}",
+                "from_bom": False,
             },
             # ── 门型 ──
             "door_type_categories": {
@@ -138,8 +144,9 @@ class NewDistributionBoxDomain(BusinessDomain):
                 "weight": 3.0,
                 "feature_name_template": "door_type_{value}",
                 "display_name_template": "门型:{value}",
+                "from_bom": False,
             },
-            # ── 电缆进出方式（上进下出 / 上进上出 / ...）──
+            # ── 电缆进出方式 ──
             "cable_in_out_type_categories": {
                 "source": "schema",
                 "field": "cable_in_out_type",
@@ -147,17 +154,18 @@ class NewDistributionBoxDomain(BusinessDomain):
                 "weight": 3.0,
                 "feature_name_template": "cable_in_out_type_{value}",
                 "display_name_template": "进出线方式:{value}",
+                "from_bom": False,
             },
         }
+
+    # ------------------------------------------------------------------
+    # 3. 结构特征提取
+    # ------------------------------------------------------------------
 
     def extract_structural_features(self, parts: list[dict], meta: dict) -> dict[str, float]:
         """提取特定的结构布尔特征。"""
 
         return {}
-
-    # ------------------------------------------------------------------
-    # 3. 结构特征提取
-    # ------------------------------------------------------------------
 
     def ui_schema(self) -> dict:
         """定义前端 UI 需要展示和编辑的字段元数据"""

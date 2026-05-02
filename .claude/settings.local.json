@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(xargs -I{} cat \"/e/Documents/Code/layout-rag/projects/distribution_box/{}\")",
+      "Bash(xargs -I{} cat \"/e/Documents/Code/layout-rag/templates/new_distribution_box/{}\")",
+      "Bash(python3 -c 'import json; d=json.load\\(open\\('\\\\''__TRACKED_VAR__'\\\\''\\)\\); parts=d.get\\('\\\\''schema'\\\\'',{}\\).get\\('\\\\''parts'\\\\'',[]\\); print\\(f'\\\\''{len\\(parts\\)} parts: __TRACKED_VAR__'\\\\''\\)')",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('src/layout_rag/core/neo4j_client.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK'\\)\")",
+      "Bash(python -c \"from src.layout_rag.core.neo4j_client import Neo4jClient; print\\('Import OK'\\)\")"
+    ]
+  }
+}

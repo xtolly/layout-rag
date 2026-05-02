@@ -191,6 +191,7 @@ def get_feature_schema(domain: BusinessDomain, data_dir=DATA_DIR) -> dict:
                 "field":        feature_config["field"],
                 "source_name":  source_name,
                 "value":        value,
+                "from_bom":     feature_config.get("from_bom", False),
             }
     return schema
 
