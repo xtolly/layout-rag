@@ -92,33 +92,6 @@ class VectorStore:
     def non_bom_dimension(self) -> int:
         return len(self.idx_not_from_bom)
 
-    def search_via_neo4j(self, query_features: dict, neo4j_session, top_k: int = 5) -> List[Tuple[str, float]]:
-        """
-        阶段三：毫秒级在线推荐
-        不再使用本地 for 循环比对，直接向 Neo4j 发起原生向量索引检索。
-        
-        参数:
-            query_features: 新订单的特征字典
-            neo4j_session: Neo4j 的 active session
-            top_k: 需要返回的最相似面板数量
-        返回:
-            List[Tuple[InstanceID, Score]]
-        """
-        # 1. 本地特征预缩放编码
-        target_vector = self.encode_for_neo4j(query_features)
-        
-        # 2. 使用 Neo4j HNSW 向量索引查询 (请确保数据库中已创建名为 Panel_Feature_Index 的索引)
-        cypher_query = """
-        CALL db.index.vector.queryNodes('Panel_Feature_Index', $top_k, $target_vector) 
-        YIELD node AS panel, score
-        RETURN panel.InstanceID AS instance_id, score
-        """
-        
-        # 3. 移交算力，拉取结果
-        result = neo4j_session.run(cypher_query, top_k=top_k, target_vector=target_vector)
-        
-        return [(record["instance_id"], float(record["score"])) for record in result]
-
     def fit_and_save_ruler(self, filepath: str, raw_data_list: List[dict]):
         """
         基于历史数据拟合统计极值（标尺）并持久化到磁盘。
@@ -185,3 +158,28 @@ class VectorStore:
         self.count_max_log = np.array(params.get("count_max_log", []))
         
         print("纯净标尺极值加载完毕，特征权重已完全听从 Python 代码指挥。")
+
+    def get_feature_ranges(self) -> dict[str, float]:
+        """
+        获取连续型和计数型特征的全局极差 (Ruler)。
+        直接从 VectorStore 的内部 numpy 数组 (cont_range, count_max_log) 中提取，
+        并映射回具体的特征键名，供 Gower 算法进行精确归一化计算。
+        """
+        ranges_dict = {}
+
+        # 1. 映射连续型特征的极差 (cont_range)
+        # self.idx_cont 记录了连续特征在 feature_names 中的位置
+        for i, f_idx in enumerate(self.idx_cont):
+            feature_name = self.feature_names[f_idx]
+            if i < len(self.cont_range):
+                ranges_dict[feature_name] = float(self.cont_range[i])
+
+        # 2. 映射计数型特征的极差 (count_max_log)
+        # 注意：由于你的向量化逻辑对 count 特征使用了 log1p 处理，
+        # 这里的极差返回的是对数化后的最大值。
+        for i, f_idx in enumerate(self.idx_count):
+            feature_name = self.feature_names[f_idx]
+            if i < len(self.count_max_log):
+                ranges_dict[feature_name] = float(self.count_max_log[i])
+
+        return ranges_dict

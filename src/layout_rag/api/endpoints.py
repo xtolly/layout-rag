@@ -39,6 +39,15 @@ async def apply_template(
     updated_data = service.apply_layout_template(template_uuid, project_data, other_template_uuids)
     return updated_data
 
+@router.post("/recommend-bom")
+async def recommend_bom(
+    project_data: Dict[str, Any] = Body(...),
+    service=Depends(get_service)
+):
+    """智能 BOM 推荐：多路召回 + 精排"""
+    items = service.recommend_bom(project_data)
+    return {"items": items}
+
 @router.post("/submit")
 async def submit_layout(project_data: Dict[str, Any] = Body(...)):
     """接口 3：接收最终的人工微调结果"""

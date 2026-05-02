@@ -124,10 +124,14 @@ class PLMGraphImporter:
         """解析并使用批处理显式事务导入全量数据"""
         box_data = self._prepare_box_data(data)
         if not box_data["box_id"]:
-            print("数据中缺少箱体 UUID，跳过导入。")
-            return
+            raise ValueError("数据中缺少箱体 UUID，跳过导入。")
             
         panels_data, rails_data, comps_data, rel_below_data, rel_left_data = self._prepare_internal_data(data)
+        
+        if not panels_data or not comps_data:
+            raise ValueError("面板或部件数据缺失，无法完成导入。")
+        
+         # 传递给事务执行器
 
         # 传递给事务执行器
         self.db_client.execute_write_transaction(

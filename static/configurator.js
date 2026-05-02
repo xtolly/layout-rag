@@ -83,14 +83,18 @@ const App = {
 
         const getFirstOption = (options, fallback = '') => (options && options.length > 0) ? options[0] : fallback;
 
+        const defaultFor = (f) => {
+            if (f.default !== undefined) return f.default;
+            if (f.type === 'number') return 0;
+            if (f.type === 'boolean') return false;
+            return f.options ? f.options[0] : '';
+        };
+
         const makePart = (o = {}) => {
             const part = { part_id: uid(), order: getOrder() };
             if (uiMetadata.value?.part_fields) {
-                uiMetadata.value.part_fields.forEach(f => {
-                    part[f.key] = f.type === 'number' ? 0 : (f.options ? f.options[0] : '');
-                });
+                uiMetadata.value.part_fields.forEach(f => { part[f.key] = defaultFor(f); });
             } else {
-                // Fallback
                 Object.assign(part, { part_type: '', part_model: '', part_width: 60, part_height: 80 });
             }
             return { ...part, ...o };
@@ -101,7 +105,7 @@ const App = {
             if (uiMetadata.value?.panel_fields) {
                 uiMetadata.value.panel_fields.forEach(f => {
                     if (f.key === 'panel_id') return;
-                    panel[f.key] = f.type === 'number' ? 0 : (f.options ? f.options[0] : '');
+                    panel[f.key] = defaultFor(f);
                 });
             } else {
                 Object.assign(panel, { panel_type: '默认面板', panel_width: 600, panel_height: 1400 });
@@ -114,7 +118,7 @@ const App = {
             if (uiMetadata.value?.cabinet_fields) {
                 uiMetadata.value.cabinet_fields.forEach(f => {
                     if (f.key === 'cabinet_id') return;
-                    cabinet[f.key] = f.type === 'number' ? 0 : (f.options ? f.options[0] : '');
+                    cabinet[f.key] = defaultFor(f);
                 });
             } else {
                 Object.assign(cabinet, { cabinet_name: '', cabinet_width: 800, cabinet_height: 2200 });
@@ -407,6 +411,7 @@ const App = {
         const cabinetModal = reactive({ show: false, isNew: true, cabinet: makeCabinet() });
         const panelModal = reactive({ show: false, cabinetId: null, isNew: true, panel: makePanel() });
         const partModal = reactive({ show: false, cabinetId: null, panelId: null, isNew: true, quantity: 1, part: makePart() });
+        const bomModal = reactive({ show: false, loading: false, items: [], panelId: null, cabinetId: null });
 
 
         // ── 计算属性 ──────────────────────────────────────────────
@@ -419,6 +424,7 @@ const App = {
         const sortedCabinets = computed(() => [...schema.cabinets].sort((a, b) => (a.order || 0) - (b.order || 0)));
         const sortedPanels = computed(() => selectedCabinet.value ? [...selectedCabinet.value.panels].sort((a, b) => (a.order || 0) - (b.order || 0)) : []);
         const sortedParts = computed(() => selectedPanel.value ? [...selectedPanel.value.parts].sort((a, b) => (a.order || 0) - (b.order || 0)) : []);
+        const gridPartFields = computed(() => (uiMetadata.value?.part_fields || []).filter(f => f.type !== 'boolean'));
 
         watch([rightPaneTab, selectedCabinet, selectedPanel], () => {
             syncEmbeddedWorkbench();
@@ -639,6 +645,76 @@ const App = {
             const blob = new Blob([JSON.stringify({ cabinets: schema.cabinets }, null, 2)], { type: 'application/json' });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
             a.download = `schema_${Date.now()}.json`; a.click(); showToast('已导出');
+        };
+
+        // ══════════════════════════════════════════════════════════
+        //  BOM 智能推荐
+        // ══════════════════════════════════════════════════════════
+        const openBomRecommend = async () => {
+            const panel = selectedPanel.value;
+            const cabinet = selectedCabinet.value;
+            if (!panel) return showToast('请先选择一个面板', 'warn');
+
+            bomModal.panelId = panel.panel_id;
+            bomModal.cabinetId = cabinet?.cabinet_id || null;
+            bomModal.loading = true;
+            bomModal.items = [];
+            bomModal.show = true;
+
+            try {
+                const projectData = buildPanelLayoutData(panel, cabinet || {});
+                const resp = await fetch(`${API}/recommend-bom`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(projectData),
+                });
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                bomModal.items = (data.items || []).map(item => ({
+                    ...item,
+                    checked: item.confidence >= 80,
+                }));
+            } catch (err) {
+                showToast('BOM 推荐失败: ' + err.message, 'error');
+                bomModal.show = false;
+            } finally {
+                bomModal.loading = false;
+            }
+        };
+
+        const applyBomRecommend = () => {
+            const panel = selectedPanel.value;
+            if (!panel) return showToast('目标面板不存在', 'error');
+
+            const selected = bomModal.items.filter(i => i.checked);
+            if (!selected.length) return showToast('请至少勾选一项', 'warn');
+
+            for (const item of selected) {
+                const qty = Math.max(1, Math.round(item.recommended_qty || 1));
+                for (let i = 0; i < qty; i++) {
+                    panel.parts.push(makePart({
+                        part_type: item.part_type,
+                        part_model: item.part_model,
+                        part_width: item.part_width || 0,
+                        part_height: item.part_height || 0,
+                        pole: item.pole || '',
+                        current: item.current || '',
+                        in_line: item.in_line || false,
+                    }));
+                }
+            }
+
+            bomModal.show = false;
+            showToast(`已添加 ${selected.length} 类元件`);
+        };
+
+        const toggleBomItem = (idx) => {
+            bomModal.items[idx].checked = !bomModal.items[idx].checked;
+        };
+
+        const bumpBomQty = (idx, delta) => {
+            const item = bomModal.items[idx];
+            item.recommended_qty = Math.max(1, (item.recommended_qty || 1) + delta);
         };
 
         const exportPanelData = () => {
@@ -1330,10 +1406,11 @@ const App = {
         return {
             schema, selectedCabinetId, selectedPanelId,
             selectedCabinet, selectedPanel,
-            sortedCabinets, sortedPanels, sortedParts,
+            sortedCabinets, sortedPanels, sortedParts, gridPartFields,
             isLoading, loadingText, toast,
             agentStatus,
-            cabinetModal, panelModal, partModal,
+            cabinetModal, panelModal, partModal, bomModal,
+            openBomRecommend, applyBomRecommend, toggleBomItem, bumpBomQty,
             jsonFileInput, chatImageInput,
             totalCabinets, totalPanels, totalParts,
             uiMetadata,

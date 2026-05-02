@@ -190,16 +190,18 @@ class Neo4jClient:
     def get_layouts_by_ids(self, panel_ids: list[str]) -> list[dict]:
         """第二步：批量获取详情。"""
         cypher_query = """
-        MATCH (pi:PanelInstance) WHERE pi.ID IN $panel_ids
-        WITH pi, null AS score
-        
+        UNWIND range(0, size($panel_ids)-1) AS idx
+        WITH $panel_ids[idx] AS pid, idx
+        MATCH (pi:PanelInstance) WHERE pi.ID = pid
+        WITH pi, idx, null AS score
+
         MATCH (bi:BoxInstance)-[:CONTAINS]->(pi)
         MATCH (bi)-[:INSTANCE_OF]->(bt:BoxTemplate)
         MATCH (pi)-[:INSTANCE_OF]->(pt:PanelTemplate)-[:BELONGS_TO]->(pc:PanelCategory)
-        
+
         OPTIONAL MATCH (pi)-[:CONTAINS]->(r:Rail)-[:CONTAINS]->(ci:ComponentInstance)-[:INSTANCE_OF]->(ct:ComponentTemplate)-[:BELONGS_TO]->(cc:ComponentCategory)
-        
-        WITH bi, bt, pi, pt, pc, score,
+
+        WITH bi, bt, pi, pt, pc, score, idx,
             collect(CASE WHEN ci IS NOT NULL THEN {
                 part_id: ci.ID,
                 part_type: cc.Name,
@@ -212,8 +214,8 @@ class Neo4jClient:
                 x: ci.X,
                 y: ci.Y
             } ELSE null END) AS raw_parts
-            
-        RETURN 
+
+        RETURN
             bi.Name AS box_name, bi.ID AS box_uuid, bi.Industry AS industry,
             bt.BoxClassify AS box_classify, bt.Series AS series,
             bt.Width AS cabinet_width, bt.Height AS cabinet_height, bt.Depth AS cabinet_depth,
@@ -223,6 +225,7 @@ class Neo4jClient:
             pi.ID AS panel_id, pc.Name AS panel_type,
             pt.Width AS panel_width, pt.Height AS panel_height,
             raw_parts, score
+        ORDER BY idx
         """
         with self.driver.session(database=self.database) as session:
             records = session.run(cypher_query, panel_ids=panel_ids)
@@ -232,5 +235,24 @@ class Neo4jClient:
         """获取单个详情。"""
         res = self.get_layouts_by_ids([panel_id])
         return res[0] if res else None
+
+    def get_co_occurring_parts(self, current_models: list[str], min_weight: int = 2) -> list[dict]:
+        """
+        通过 CO_OCCURS_WITH 图谱查找与当前元件型号高频共现的邻居元件。
+        使用 ModelType 匹配（非 Name），因为前端传入的是型号而非完整模板名。
+        """
+        if not current_models:
+            return []
+        cypher = """
+        MATCH (t1:ComponentTemplate)-[r:CO_OCCURS_WITH]->(t2:ComponentTemplate)
+        WHERE t1.ModelType IN $current_models AND r.weight >= $min_weight
+        RETURN t2.ModelType AS part_model,
+               t2.Name AS full_name,
+               max(r.weight) AS max_weight
+        ORDER BY max_weight DESC
+        """
+        with self.driver.session(database=self.database) as session:
+            records = session.run(cypher, current_models=current_models, min_weight=min_weight)
+            return [{"part_model": r["part_model"], "full_name": r["full_name"], "weight": r["max_weight"]} for r in records]
 
 neo4j_client = Neo4jClient("neo4j://127.0.0.1:7687", "neo4j", "a3213964", "distributionbox")
