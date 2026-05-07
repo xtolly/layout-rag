@@ -1,4 +1,5 @@
 @echo off
+set ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-binaries/
 setlocal enabledelayedexpansion
 
 :: 1. Set Path Variables
@@ -44,7 +45,7 @@ if %errorlevel% neq 0 (
 popd
 
 echo.
-echo [4/5] Running Electron Build...
+echo [4/5] Running Electron Builder...
 pushd "%APP_DIR%"
 call npm run build
 if %errorlevel% neq 0 (
@@ -58,4 +59,5 @@ popd
 echo.
 echo [5/5] Done!
 echo Output: %DIST_DIR%
+echo Look for ".exe" (installer) or "win-portable" (no install) in the dist folder.
 pause

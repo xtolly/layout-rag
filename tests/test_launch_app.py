@@ -8,7 +8,7 @@ def test_launch_electron():
     # 1. 配置文件路径
     json_path = os.path.abspath(r"electron-app/testdata.json")
     # 优先检查打包后的 exe，如果没有则使用 npm start
-    exe_path = os.path.abspath(r"electron-app/dist/Layout RAG Client-win32-x64/Layout RAG Client.exe")
+    exe_path = os.path.abspath(r"electron-app/dist/win-unpacked/Layout RAG Client.exe")
     
     if not os.path.exists(json_path):
         print(f"错误: 找不到测试数据文件: {json_path}")

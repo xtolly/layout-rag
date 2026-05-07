@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . \"Layout RAG Client\" --platform=win32 --arch=x64 --out=dist --overwrite --ignore=node_modules --electron-version=42.0.0"
+    "build": "electron-builder --win --x64"
   },
   "build": {
     "appId": "com.layoutrag.client",
@@ -20,8 +20,19 @@
           "arch": [
             "x64"
           ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
         }
       ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true
     },
     "extraResources": [
       {
@@ -31,6 +42,13 @@
           "**/*"
         ]
       }
+    ],
+    "files": [
+      "**/*",
+      "!dist",
+      "!*.log",
+      "!node_modules/@electron/builder${/*}",
+      "!node_modules/electron${/*}"
     ]
   },
   "author": {
@@ -39,7 +57,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@electron/packager": "^20.0.0",
-    "electron": "^42.0.0"
+    "electron": "^42.0.0",
+    "electron-builder": "^24.13.3"
   }
 }
