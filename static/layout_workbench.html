@@ -290,9 +290,9 @@
                     <div class="flex-1 pt-6 px-8 pb-3 overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100/50">
                         <div class="h-full flex flex-col gap-4 min-h-0">
                             <!-- 标题 -->
-                            <div class="flex-shrink-0 flex items-center gap-4">
-                                <div class="w-2 h-8 rounded-full bg-blue-500"></div>
-                                <h3 class="text-3xl font-display font-bold text-slate-800 leading-tight">{{
+                            <div class="flex-shrink-0 flex items-center gap-4 min-w-0">
+                                <div class="w-2 h-8 rounded-full bg-blue-500 flex-shrink-0"></div>
+                                <h3 class="text-3xl font-display font-bold text-slate-800 leading-tight truncate">{{
                                     previewTemplate.name || (previewTemplate.uuid ? '#' +
                                     previewTemplate.uuid.substring(0, 6) : '未命名方案') }}</h3>
                             </div>
@@ -434,9 +434,9 @@
 
                     <!-- 底部操作栏 -->
                     <div
-                        class="px-8 py-5 border-t border-slate-200/60 bg-white/80 backdrop-blur-md flex justify-end gap-4 flex-shrink-0">
-                        <button @click="closeTemplatePreview" class="btn-ghost min-w-[120px]">关闭</button>
-                        <button @click="applyTemplate(previewTemplate)" class="btn-primary min-w-[140px]">应用此方案</button>
+                        class="px-8 py-3 border-t border-slate-200/60 bg-white/80 backdrop-blur-md flex justify-end gap-3 flex-shrink-0">
+                        <button @click="closeTemplatePreview" class="btn-ghost min-w-[100px] text-sm px-4 py-1.5">关闭</button>
+                        <button @click="applyTemplate(previewTemplate)" class="btn-primary min-w-[120px] text-sm px-4 py-1.5">应用此方案</button>
                     </div>
                 </div>
             </div>

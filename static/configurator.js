@@ -11,16 +11,6 @@ const { createApp, ref, reactive, computed, nextTick, watch } = Vue;
 // ── 工具 ──────────────────────────────────────────────────────
 const uid = () => crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
 const API = `${window.location.origin}/api`;
-const SELECTION_CONFIG_URL = '/static/configurator_options.json';
-
-const EMPTY_SELECTION_CONFIG = Object.freeze({
-    cabinet_use_options: [],
-    cabinet_model_options: [],
-    panel_type_options: [],
-    wiring_method_options: [],
-    operation_method_options: [],
-    part_type_options: [],
-});
 
 const normalizeOptionList = (values) => {
     if (!Array.isArray(values)) return [];
@@ -151,6 +141,33 @@ const App = {
 
         loadUiMetadata();
         loadAgentStatus();
+
+        // ── 处理外部自动加载逻辑 ───────────────────────────
+        const handleExternalData = async () => {
+            const params = new URLSearchParams(window.location.search);
+            if (!params.has('data_key')) return;
+
+            try {
+                isLoading.value = true;
+                loadingText.value = '正在加载外部数据...';
+                // 从 Electron 内部服务器获取暂存的数据
+                const resp = await fetch('/external-data');
+                if (!resp.ok) throw new Error('无法获取外部数据');
+                const data = await resp.json();
+                
+                // 直接进入布局排版工作台的“推荐”模式
+                openLayoutWorkbench('layoutPanel', data);
+                
+                // 清理 URL 参数，防止刷新重复触发
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } catch (err) {
+                showToast('外部数据加载失败: ' + err.message, 'error');
+            } finally {
+                isLoading.value = false;
+            }
+        };
+
+        handleExternalData();
 
         // ── 从 sessionStorage 恢复备份数据 ───────────────────────────
         const _backup = sessionStorage.getItem('configurator_schema_backup');
@@ -720,10 +737,10 @@ const App = {
         // 推荐度颜色：红(0) -> 橙(30) -> 黄(50) -> 绿(100) 分段插值
         const confColor = (v) => {
             const stops = [
-                { p: 0,   r: 239, g: 68,  b: 68  },  // 红
-                { p: 30,  r: 249, g: 115, b: 22  },  // 橙
-                { p: 55,  r: 234, g: 179, b: 8   },  // 黄
-                { p: 100, r: 16,  g: 185, b: 129 },  // 绿
+                { p: 0, r: 239, g: 68, b: 68 },  // 红
+                { p: 30, r: 249, g: 115, b: 22 },  // 橙
+                { p: 55, r: 234, g: 179, b: 8 },  // 黄
+                { p: 100, r: 16, g: 185, b: 129 },  // 绿
             ];
             const t = Math.max(0, Math.min(100, v));
             let a = stops[0], b = stops[stops.length - 1];
@@ -1101,7 +1118,7 @@ const App = {
 
         const buildLayoutSchema = (cabinet = {}, panel = null, parts = []) => {
             const schema = {};
-            
+
             // 1. 提取柜体所有属性 (排除内部结构字段)
             const internalCabinetKeys = ['panels', 'order', 'cabinet_id'];
             Object.keys(cabinet).forEach(key => {

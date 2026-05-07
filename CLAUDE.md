@@ -41,7 +41,6 @@ src/layout_rag/           # 主 Python 包
 static/                   # 前端静态资源（FastAPI StaticFiles 托管）
   configurator.html/js    # 主配置器 SPA（柜体/面板/元件 CRUD + AI 对话）
   layout_workbench.html/js/css  # 布局工作台 SPA（上传 -> 推荐 -> 应用 -> 微调）
-  configurator_options.json  # 共享下拉选项（90+ 元件类型、柜体类型等）
   part.color              # ~90 种元件类型的 HSL 颜色映射
   vue.global.prod.js      # Vue 3（打包 CDN）
   tailwind.js             # Tailwind CSS（打包 CDN）
@@ -78,6 +77,7 @@ uv run python tools/new_neo4j.py
 ### 领域驱动设计
 
 所有业务逻辑通过 `BusinessDomain` 抽象基类解耦。活跃领域在 `app.py` 中实例化（当前为 `NewDistributionBoxDomain`）。每个领域定义：
+
 - `domain_key` -- 目录路径的唯一标识
 - `feature_schema_def` -- 静态特征定义（类型、权重、显示名称）
 - `layout_constraints` -- 求解器参数（precision_scale, margin, element_gap, y_penalty, time_limit）
@@ -108,6 +108,7 @@ uv run python tools/new_neo4j.py
 ### 前端架构
 
 两个 Vue 3 SPA 通过 `postMessage` 通信（iframe 组合）：
+
 - **配置器**（`/`）：柜体/面板/元件 CRUD、AI 对话、图片上传、可调列宽
 - **布局工作台**（`/layout`）：上传 JSON -> 查看推荐 -> 选择模板 -> 可视化布局编辑
 
@@ -131,17 +132,20 @@ uv run python tools/new_neo4j.py
 ## Neo4j 图模型
 
 **new_distribution_box 领域：**
+
 - 节点：`BoxInstance`、`BoxTemplate`、`PanelInstance`、`PanelTemplate`、`PanelCategory`、`ComponentInstance`、`ComponentTemplate`、`ComponentCategory`、`Rail`
 - 关系：`INSTANCE_OF`、`CONTAINS`、`BELONGS_TO`
 - 向量索引：`panel_vector_index`，基于 `PanelInstance.FeatureVector`（欧氏距离 HNSW）
 
 **lowvoltage_cabinet 领域：**
+
 - 节点：`CabinetTemplate/Variant/Instance`、`PanelTemplate/Variant/Instance`、`PartTemplate/Instance`
 - 关系：`HAS_VARIANT`、`HAS_INSTANCE`、`CONTAINS_PANEL`、`CONTAINS_PART`、`ADJACENT_TO`、`SAME_ROW`、`SAME_COLUMN` 等
 
 ## 数据格式
 
 布局 JSON（存储于 `templates/<domain_key>/`）：
+
 ```json
 {
   "name": "项目名称",
@@ -159,6 +163,7 @@ uv run python tools/new_neo4j.py
 ```
 
 柜体级 schema（由配置器管理）：
+
 ```
 cabinets[] -> cabinet_id, cabinet_name, cabinet_width, cabinet_height, order, arrange{}, panels[]
   -> panels[] -> panel_id, panel_type, panel_width, panel_height, order, arrange{}, parts[]

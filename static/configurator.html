@@ -1034,29 +1034,31 @@
         <!-- ── 柜体弹窗 ── -->
         <div v-if="cabinetModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
             style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)">
-            <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-200/60">
-                <div class="px-7 pt-7 pb-2">
+            <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-lg border border-slate-200/60 flex flex-col" style="max-height:85vh">
+                <div class="px-7 pt-7 pb-2 flex-shrink-0">
                     <h3 class="font-display font-bold text-xl text-slate-800">{{ cabinetModal.isNew?'添加柜体':'编辑柜体' }}
                     </h3>
                 </div>
-                <div class="px-7 py-5 space-y-4" v-if="uiMetadata">
-                    <div v-for="field in uiMetadata.cabinet_fields" :key="field.key">
-                        <label class="section-label">{{ field.label }} {{ field.required ? '*' : '' }}</label>
-                        
-                        <!-- 下拉框 -->
-                        <select v-if="field.type === 'select'" v-model="cabinetModal.cabinet[field.key]" class="input-field">
-                            <option v-for="opt in field.options" :key="opt" :value="opt">{{ opt }}</option>
-                        </select>
-                        
-                        <!-- 数字 -->
-                        <input v-else-if="field.type === 'number'" v-model.number="cabinetModal.cabinet[field.key]" 
-                               type="number" class="input-field">
-                        
-                        <!-- 文本 -->
-                        <input v-else v-model="cabinetModal.cabinet[field.key]" type="text" class="input-field">
+                <div class="px-7 py-5 overflow-y-auto flex-1 min-h-0" v-if="uiMetadata">
+                    <div class="grid grid-cols-2 gap-x-5 gap-y-4">
+                        <div v-for="field in uiMetadata.cabinet_fields" :key="field.key">
+                            <label class="section-label">{{ field.label }} {{ field.required ? '*' : '' }}</label>
+
+                            <!-- 下拉框 -->
+                            <select v-if="field.type === 'select'" v-model="cabinetModal.cabinet[field.key]" class="input-field">
+                                <option v-for="opt in field.options" :key="opt" :value="opt">{{ opt }}</option>
+                            </select>
+
+                            <!-- 数字 -->
+                            <input v-else-if="field.type === 'number'" v-model.number="cabinetModal.cabinet[field.key]"
+                                   type="number" class="input-field">
+
+                            <!-- 文本 -->
+                            <input v-else v-model="cabinetModal.cabinet[field.key]" type="text" class="input-field">
+                        </div>
                     </div>
                 </div>
-                <div class="px-7 pb-7 flex justify-end gap-3">
+                <div class="px-7 pb-7 flex justify-end gap-3 flex-shrink-0">
                     <button @click="cabinetModal.show=false" class="btn-ghost">取消</button>
                     <button @click="saveCabinetModal" class="btn-primary">{{ cabinetModal.isNew?'添加':'保存' }}</button>
                 </div>
@@ -1066,25 +1068,27 @@
         <!-- ── 面板弹窗 ── -->
         <div v-if="panelModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
             style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)">
-            <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-xl border border-slate-200/60">
-                <div class="px-7 pt-7 pb-2">
+            <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-2xl border border-slate-200/60 flex flex-col" style="max-height:85vh">
+                <div class="px-7 pt-7 pb-2 flex-shrink-0">
                     <h3 class="font-display font-bold text-xl text-slate-800">{{ panelModal.isNew?'添加面板':'编辑面板' }}</h3>
                 </div>
-                <div class="px-7 py-5 space-y-4" v-if="uiMetadata">
-                    <div v-for="field in uiMetadata.panel_fields" :key="field.key" v-show="field.key !== 'panel_id'">
-                        <label class="section-label">{{ field.label }}</label>
-                        
-                        <select v-if="field.type === 'select'" v-model="panelModal.panel[field.key]" class="input-field">
-                            <option v-for="opt in field.options" :key="opt" :value="opt">{{ opt }}</option>
-                        </select>
-                        
-                        <input v-else-if="field.type === 'number'" v-model.number="panelModal.panel[field.key]" 
-                               type="number" class="input-field" :disabled="!field.editable">
-                        
-                        <input v-else v-model="panelModal.panel[field.key]" type="text" class="input-field" :disabled="!field.editable">
+                <div class="px-7 py-5 overflow-y-auto flex-1 min-h-0" v-if="uiMetadata">
+                    <div class="grid grid-cols-2 gap-x-5 gap-y-4">
+                        <div v-for="field in uiMetadata.panel_fields" :key="field.key" v-show="field.key !== 'panel_id'">
+                            <label class="section-label">{{ field.label }}</label>
+
+                            <select v-if="field.type === 'select'" v-model="panelModal.panel[field.key]" class="input-field">
+                                <option v-for="opt in field.options" :key="opt" :value="opt">{{ opt }}</option>
+                            </select>
+
+                            <input v-else-if="field.type === 'number'" v-model.number="panelModal.panel[field.key]"
+                                   type="number" class="input-field" :disabled="!field.editable">
+
+                            <input v-else v-model="panelModal.panel[field.key]" type="text" class="input-field" :disabled="!field.editable">
+                        </div>
                     </div>
                 </div>
-                <div class="px-7 pb-7 flex justify-end gap-3">
+                <div class="px-7 pb-7 flex justify-end gap-3 flex-shrink-0">
                     <button @click="panelModal.show=false" class="btn-ghost">取消</button>
                     <button @click="savePanelModal" class="btn-primary">{{ panelModal.isNew?'添加':'保存' }}</button>
                 </div>
@@ -1094,39 +1098,41 @@
         <!-- ── 元件弹窗 ── -->
         <div v-if="partModal.show" class="fixed inset-0 z-50 flex items-center justify-center p-6 modal-backdrop"
             style="background:rgba(15,23,42,.5);backdrop-filter:blur(8px)">
-            <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-200/60">
-                <div class="px-7 pt-7 pb-2">
+            <div class="modal-box bg-white rounded-3xl shadow-2xl w-full max-w-lg border border-slate-200/60 flex flex-col" style="max-height:85vh">
+                <div class="px-7 pt-7 pb-2 flex-shrink-0">
                     <h3 class="font-display font-bold text-xl text-slate-800">{{ partModal.isNew?'添加元件':'编辑元件' }}</h3>
                 </div>
-                <div class="px-7 py-5 space-y-4" v-if="uiMetadata">
-                    <div v-if="partModal.isNew">
-                        <label class="section-label">添加数量</label>
-                        <input v-model.number="partModal.quantity" type="number" min="1" class="input-field">
-                    </div>
-                    <div v-for="field in uiMetadata.part_fields" :key="field.key">
-                        <label class="section-label">{{ field.label }}</label>
-
-                        <select v-if="field.type === 'select'" v-model="partModal.part[field.key]" class="input-field">
-                            <option v-for="opt in field.options" :key="opt" :value="opt">{{ opt }}</option>
-                        </select>
-
-                        <div v-else-if="field.type === 'boolean'" class="flex items-center gap-3 h-10">
-                            <button @click="partModal.part[field.key] = !partModal.part[field.key]"
-                                class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
-                                :class="partModal.part[field.key] ? 'bg-emerald-500' : 'bg-slate-300'">
-                                <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform"
-                                    :class="partModal.part[field.key] ? 'translate-x-6' : 'translate-x-1'"></span>
-                            </button>
-                            <span class="text-sm text-slate-600">{{ partModal.part[field.key] ? '进线' : '出线' }}</span>
+                <div class="px-7 py-5 overflow-y-auto flex-1 min-h-0" v-if="uiMetadata">
+                    <div class="grid grid-cols-2 gap-x-5 gap-y-4">
+                        <div v-if="partModal.isNew">
+                            <label class="section-label">添加数量</label>
+                            <input v-model.number="partModal.quantity" type="number" min="1" class="input-field">
                         </div>
+                        <div v-for="field in uiMetadata.part_fields" :key="field.key">
+                            <label class="section-label">{{ field.label }}</label>
 
-                        <input v-else-if="field.type === 'number'" v-model.number="partModal.part[field.key]"
-                               type="number" class="input-field" :disabled="!field.editable">
+                            <select v-if="field.type === 'select'" v-model="partModal.part[field.key]" class="input-field">
+                                <option v-for="opt in field.options" :key="opt" :value="opt">{{ opt }}</option>
+                            </select>
 
-                        <input v-else v-model="partModal.part[field.key]" type="text" class="input-field" :disabled="!field.editable">
+                            <div v-else-if="field.type === 'boolean'" class="flex items-center gap-3 h-10">
+                                <button @click="partModal.part[field.key] = !partModal.part[field.key]"
+                                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                                    :class="partModal.part[field.key] ? 'bg-emerald-500' : 'bg-slate-300'">
+                                    <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform"
+                                        :class="partModal.part[field.key] ? 'translate-x-6' : 'translate-x-1'"></span>
+                                </button>
+                                <span class="text-sm text-slate-600">{{ partModal.part[field.key] ? '进线' : '出线' }}</span>
+                            </div>
+
+                            <input v-else-if="field.type === 'number'" v-model.number="partModal.part[field.key]"
+                                   type="number" class="input-field" :disabled="!field.editable">
+
+                            <input v-else v-model="partModal.part[field.key]" type="text" class="input-field" :disabled="!field.editable">
+                        </div>
                     </div>
                 </div>
-                <div class="px-7 pb-7 flex justify-end gap-3">
+                <div class="px-7 pb-7 flex justify-end gap-3 flex-shrink-0">
                     <button @click="partModal.show=false" class="btn-ghost">取消</button>
                     <button @click="savePartModal" class="btn-primary">{{ partModal.isNew?'添加':'保存' }}</button>
                 </div>

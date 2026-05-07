@@ -48,6 +48,32 @@ const App = {
             requestAnimationFrame(() => {
                 document.documentElement.classList.remove('workbench-booting');
             });
+
+            // ── 处理外部自动加载逻辑 ───────────────────────────
+            const handleExternalData = async () => {
+                const params = new URLSearchParams(window.location.search);
+                if (!params.has('data_key')) return;
+
+                try {
+                    isLoading.value = true;
+                    loadingText.value = '正在加载外部项目数据...';
+                    const resp = await fetch('/external-data');
+                    if (!resp.ok) throw new Error('无法获取外部数据');
+                    const data = await resp.json();
+                    
+                    // 设置模式为布局推荐
+                    workbenchMode.value = 'recommend';
+                    hostMode.value = 'standalone'; // 视为独立运行
+                    
+                    // 初始化流程
+                    initLayoutPanelMode(data);
+                } catch (err) {
+                    alert('数据加载失败: ' + err.message);
+                } finally {
+                    isLoading.value = false;
+                }
+            };
+            handleExternalData();
         });
 
         // ── 全局流程状态 ──────────────────────────────────────
@@ -695,6 +721,13 @@ const App = {
             });
 
             const result = { schema: exportData.schema, arrange: exportData.arrange };
+
+            // 如果是外部传入数据的独立运行模式，直接将结果返回给 Electron (stdout)
+            if (hostMode.value === 'standalone' && window.electronAPI?.submitResult) {
+                window.electronAPI.submitResult(result);
+                return;
+            }
+
             window.parent.postMessage({ type: 'workbench:layoutPanelResult', payload: JSON.parse(JSON.stringify(result)) }, window.location.origin);
         };
 

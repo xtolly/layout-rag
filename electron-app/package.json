@@ -1,0 +1,45 @@
+{
+  "name": "layout-rag-client",
+  "version": "1.0.0",
+  "description": "Layout RAG Frontend Client",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . \"Layout RAG Client\" --platform=win32 --arch=x64 --out=dist --overwrite --ignore=node_modules --electron-version=42.0.0"
+  },
+  "build": {
+    "appId": "com.layoutrag.client",
+    "productName": "Layout RAG Client",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "extraResources": [
+      {
+        "from": "external_tools/",
+        "to": "external_tools/",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  },
+  "author": {
+    "name": "Dev",
+    "email": "dev@example.com"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@electron/packager": "^20.0.0",
+    "electron": "^42.0.0"
+  }
+}
