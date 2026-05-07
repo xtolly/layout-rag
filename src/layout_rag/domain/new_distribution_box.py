@@ -20,7 +20,7 @@
     - 箱体分类（box_classify_配电箱 / box_classify_户箱 / ...）
     - 箱体系列（series_XM1 / series_XM2 / ...）
     - 安装方式（install_type_户内挂墙 / install_type_户外挂墙 / ...）
-    - 进线方式（inline_mode_进线器件上置 / inline_mode_进线器件左置）
+    - 进线方式（inline_mode_上置 / inline_mode_左置）
     - 固定方式（fixup_type_板式安装 / ...）
     - 门型（door_type_左开门 / ...）
 """
@@ -85,7 +85,7 @@ class NewDistributionBoxDomain(BusinessDomain):
             # ── 箱体分类（field 标记 schema 来源字段，extract_features 自动提取）──
             "box_classify_配电箱":     {"type": "boolean", "weight": 3.0, "display_name": "箱体分类:配电箱",     "from_bom": False, "field": "box_classify"},
             "box_classify_户箱":       {"type": "boolean", "weight": 3.0, "display_name": "箱体分类:户箱",       "from_bom": False, "field": "box_classify"},
-            "box_classify_标准电表箱": {"type": "boolean", "weight": 3.0, "display_name": "箱体分类:标准电表箱", "from_bom": False, "field": "box_classify"},
+            "box_classify_电表箱": {"type": "boolean", "weight": 3.0, "display_name": "箱体分类:电表箱", "from_bom": False, "field": "box_classify"},
             "box_classify_非标电表箱": {"type": "boolean", "weight": 3.0, "display_name": "箱体分类:非标电表箱", "from_bom": False, "field": "box_classify"},
             # ── 箱体系列 ──
             "series_DNB": {"type": "boolean", "weight": 1.0, "display_name": "系列:DNB", "from_bom": False, "field": "series"},
@@ -94,8 +94,8 @@ class NewDistributionBoxDomain(BusinessDomain):
             "series_XM1": {"type": "boolean", "weight": 1.0, "display_name": "系列:XM1", "from_bom": False, "field": "series"},
             "series_XM2": {"type": "boolean", "weight": 1.0, "display_name": "系列:XM2", "from_bom": False, "field": "series"},
             # ── 进线方式 ──
-            "inline_mode_进线器件上置": {"type": "boolean", "weight": 2.0, "display_name": "进线方式:进线器件上置", "from_bom": False, "field": "inline_mode"},
-            "inline_mode_进线器件左置": {"type": "boolean", "weight": 2.0, "display_name": "进线方式:进线器件左置", "from_bom": False, "field": "inline_mode"},
+            "inline_mode_上置": {"type": "boolean", "weight": 2.0, "display_name": "进线方式:上置", "from_bom": False, "field": "inline_mode"},
+            "inline_mode_左置": {"type": "boolean", "weight": 2.0, "display_name": "进线方式:左置", "from_bom": False, "field": "inline_mode"},
             # ── 安装方式 ──
             "install_type_户内暗装": {"type": "boolean", "weight": 2.0, "display_name": "安装方式:户内暗装", "from_bom": False, "field": "install_type"},
             "install_type_户内挂墙": {"type": "boolean", "weight": 2.0, "display_name": "安装方式:户内挂墙", "from_bom": False, "field": "install_type"},
@@ -200,9 +200,9 @@ class NewDistributionBoxDomain(BusinessDomain):
         return {
             "cabinet_fields": [
                 {"key": "cabinet_name", "label": "柜体名称", "type": "text", "editable": True},
-                {"key": "box_classify", "label": "箱体分类", "type": "select", "options": ["配电箱", "户箱", "标准电表箱", "非标电表箱"], "editable": True, "default": "配电箱"},
+                {"key": "box_classify", "label": "箱体分类", "type": "select", "options": ["配电箱", "户箱", "电表箱"], "editable": True, "default": "配电箱"},
                 {"key": "series", "label": "箱体系列", "type": "select", "options": ["XM1", "XM2", "MZ", "HW", "DNB"], "editable": True, "default": "XM1"},
-                {"key": "inline_mode", "label": "进线方式", "type": "select", "options": ["进线器件上置", "进线器件左置"], "editable": True, "default": "进线器件上置"},
+                {"key": "inline_mode", "label": "进线方式", "type": "select", "options": ["上置", "左置"], "editable": True, "default": "上置"},
                 {"key": "install_type", "label": "安装方式", "type": "select", "options": ["户内暗装", "户内挂墙", "户内落地", "户外挂墙", "户外落地"], "editable": True, "default": "户内暗装"},
                 {"key": "fixup_type", "label": "固定方式", "type": "select", "options": ["板式安装", "梁式安装"], "editable": True, "default": "板式安装"},
                 {"key": "door_type", "label": "门型", "type": "select", "options": ["左开门", "右开门", "双开门"], "editable": True, "default": "左开门"},

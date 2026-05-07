@@ -58,7 +58,7 @@ def test_launch_electron():
                 print("\n" + "="*50)
                 print("【成功接收到布局结果！】")
                 print(f"包含元件数量: {len(res_json.get('schema', {}).get('parts', []))}")
-                print(f"结果预览 (前100字符): {json.dumps(res_json)[:100]}...")
+                print(f"结果预览 (前100字符): {json.dumps(res_json, ensure_ascii=False)[:100]}...")
                 print("="*50)
                 
                 # 保存结果到本地文件

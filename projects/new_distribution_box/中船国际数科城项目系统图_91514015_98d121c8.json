@@ -10,7 +10,7 @@
       "cabinet_height": 1000.0,
       "cabinet_depth": 200.0,
       "install_type": "户内挂墙",
-      "inline_mode": "进线器件上置",
+      "inline_mode": "上置",
       "fixup_type": "板式安装",
       "door_type": "左开门",
       "cable_in_out_type": "上进下出",

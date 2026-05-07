@@ -15,9 +15,9 @@ public enum BoxClassifyEnum
     [Description("户箱")]
     HouseBox,
     /// <summary>
-    /// 标准电表箱
+    /// 电表箱
     /// </summary>
-    [Description("标准电表箱")]
+    [Description("电表箱")]
     StandardElectricBox,
     /// <summary>
     /// 非标电表箱
@@ -31,14 +31,14 @@ public enum BoxClassifyEnum
 public enum InLineModeEnum
 {
     /// <summary>
-    /// 进线器件上置
+    /// 上置
     /// </summary>
-    [Description("进线器件上置")]
+    [Description("上置")]
     InLineUp,
     /// <summary>
-    /// 进线器件左置
+    /// 左置
     /// </summary>
-    [Description("进线器件左置")]
+    [Description("左置")]
     InLineLeft
 }
 /// <summary>

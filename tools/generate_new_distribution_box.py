@@ -11,7 +11,7 @@
           "box_classify": "配电箱",       # 来自 BoxClassify 枚举
           "series": "XM1",               # 来自 Series
           "install_type": "户内挂墙",     # 来自 InstallType 枚举
-          "inline_mode": "进线器件上置",  # 来自 InLineMode 枚举
+          "inline_mode": "上置",  # 来自 InLineMode 枚举
           "fixup_type": "板式安装",       # 来自 FixUpType 枚举
           "door_type": "左开门",          # 来自 DoorType 枚举
           "panel_size": [500, 800],
@@ -47,9 +47,9 @@ from layout_rag.core.feature_extractor import FeatureExtractor
 
 # ── 枚举映射表（与 new_neo4j.py 保持一致）──
 BOX_CLASSIFY_ENUM = {
-    0: "配电箱", 1: "户箱", 2: "标准电表箱", 3: "非标电表箱"
+    0: "配电箱", 1: "户箱", 2: "电表箱", 3: "非标电表箱"
 }
-INLINE_MODE_ENUM = {0: "进线器件上置", 1: "进线器件左置"}
+INLINE_MODE_ENUM = {0: "上置", 1: "左置"}
 FIXUP_TYPE_ENUM = {0: "板式安装", 1: "梁式安装"}
 DOOR_TYPE_ENUM = {0: "左开门", 1: "右开门", 2: "双开门"}
 INSTALL_TYPE_ENUM = {
