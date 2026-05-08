@@ -94,57 +94,84 @@ function startStaticServer(staticDir) {
 }
 
 let externalData = null;
+let outputFilePath = null;
+let wasSubmitted = false; // 标记是否成功提交方案
+
+
 
 function createWindow() {
+    // 创建主窗口
     const mainWindow = new BrowserWindow({
         width: 1440,
         height: 900,
         title: "Layout RAG Client",
-        autoHideMenuBar: true, // 自动隐藏菜单栏
+        show: true,
+        autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: false,
             contextIsolation: true,
         }
-    })
+    });
 
-    // 彻底移除菜单栏
     mainWindow.setMenuBarVisibility(false);
 
-    // 检查是否有命令行参数传入 Base64 数据
+    // 检查命令行参数：第一个 .json 为输入，第二个 .json 为输出
     const args = process.argv.slice(app.isPackaged ? 1 : 2);
-    let startUrl = `http://${INTERNAL_HOST}:${INTERNAL_PORT}/configurator.html`;
+    let targetUrl = `http://${INTERNAL_HOST}:${INTERNAL_PORT}/configurator.html`;
 
-    // 尝试从所有参数中寻找 Base64 JSON
-    for (const arg of args) {
-        if (!arg || arg.length < 10) continue;
-        try {
-            const jsonStr = Buffer.from(arg, 'base64').toString('utf8');
-            if (jsonStr.startsWith('{') || jsonStr.startsWith('[')) {
-                externalData = JSON.parse(jsonStr);
-                console.log('[External Data] Found and parsed successfully');
-                // 直接加载布局工作台页面
-                startUrl = `http://${INTERNAL_HOST}:${INTERNAL_PORT}/layout_workbench.html?data_key=${Date.now()}`;
-                break;
+    const jsonFiles = args.filter(arg => arg && arg.toLowerCase().endsWith('.json'));
+
+    // 处理输入路径
+    if (jsonFiles.length >= 1) {
+        const inputPath = path.isAbsolute(jsonFiles[0]) ? jsonFiles[0] : path.join(process.cwd(), jsonFiles[0]);
+        if (fs.existsSync(inputPath)) {
+            try {
+                const content = fs.readFileSync(inputPath, 'utf8');
+                externalData = JSON.parse(content);
+                console.log(`[Input Data] Loaded from: ${inputPath}`);
+                targetUrl = `http://${INTERNAL_HOST}:${INTERNAL_PORT}/layout_workbench.html?data_key=${Date.now()}`;
+            } catch (e) {
+                console.error(`[Input Data] Error reading file: ${inputPath}`, e);
             }
-        } catch (e) { }
+        }
     }
 
-    mainWindow.loadURL(startUrl)
-    // mainWindow.webContents.openDevTools()
+    // 处理输出路径
+    if (jsonFiles.length >= 2) {
+        outputFilePath = path.isAbsolute(jsonFiles[1]) ? jsonFiles[1] : path.join(process.cwd(), jsonFiles[1]);
+        console.log(`[Output Path] Set to: ${outputFilePath}`);
+    }
+
+    // 直接加载目标页面
+    mainWindow.loadURL(targetUrl);
 }
 
 function registerIpcHandlers() {
-    // 接收前端提交的最终布局数据并传回给 stdout
+    // 接收前端提交的最终布局数据并保存到文件
     ipcMain.handle('submit-layout-result', async (event, payload) => {
-        const jsonStr = JSON.stringify(payload);
-        const base64Data = Buffer.from(jsonStr).toString('base64');
-        // 输出带前缀的标识符，方便外部脚本解析
-        console.log(`RESULT_DATA:${base64Data}`);
-
-        // 直接退出，console.log 会在进程结束前完成缓冲区刷新
-        app.quit();
+        try {
+            if (outputFilePath) {
+                const jsonStr = JSON.stringify(payload, null, 2);
+                fs.writeFileSync(outputFilePath, jsonStr, 'utf8');
+                console.log(`[Success] Result saved to: ${outputFilePath}`);
+                wasSubmitted = true;
+                app.exit(0); // 成功提交：返回 0
+            } else {
+                console.warn('[Warning] No output path provided');
+                wasSubmitted = true;
+                app.exit(0);
+            }
+        } catch (err) {
+            console.error(`[Error] Failed to save result: ${err.message}`);
+            app.exit(1); // 异常：返回 1
+        }
         return true;
+    });
+
+    ipcMain.on('exit-app', (event, code) => {
+        console.log(`[Exit] App exiting with code: ${code}`);
+        app.exit(code || 0);
     });
 
     ipcMain.handle('run-external-exe', async (event, args) => {
@@ -184,4 +211,13 @@ app.whenReady().then(async () => {
     app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
 });
 
-app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        if (!wasSubmitted) {
+            console.log('[Exit] User closed the window manually (Cancel).');
+            app.exit(2); // 用户手动关闭：返回 2
+        } else {
+            app.quit();
+        }
+    }
+});

@@ -55,77 +55,77 @@ const App = {
                 if (!params.has('data_key')) return;
 
                 try {
-                    isLoading.value = true;
-                    loadingText.value = '正在加载外部项目数据...';
                     const resp = await fetch('/external-data');
                     if (!resp.ok) throw new Error('无法获取外部数据');
                     const data = await resp.json();
-                    
+
                     // 设置模式为布局推荐
                     workbenchMode.value = 'recommend';
                     hostMode.value = 'standalone'; // 视为独立运行
-                    
+
                     // 初始化流程
-                    initLayoutPanelMode(data);
+                    await initLayoutPanelMode(data);
                 } catch (err) {
-                    alert('数据加载失败: ' + err.message);
-                } finally {
-                    isLoading.value = false;
+                    console.error('[Fatal Error]', err);
+                    alert('初始化失败: ' + err.message);
+                    if (window.electronAPI?.exitApp) {
+                        window.electronAPI.exitApp(1); // 如果在 Electron 中，报错后退出
+                    }
                 }
             };
             handleExternalData();
         });
 
         // ── 全局流程状态 ──────────────────────────────────────
-        const step        = ref(0);
-        const isLoading   = ref(false);
+        const step = ref(0);
+        const isLoading = ref(false);
         const loadingText = ref('');
 
         // ── 业务数据 ──────────────────────────────────────────
-        const originalUploadJson     = ref(null);
-        const recommendedTemplates   = ref([]);
-        const previewTemplate        = ref(null);
-        const featureSchema          = ref({});
-        const partColorMap           = ref({});
-        const unknownPartColor       = ref(DEFAULT_UNKNOWN_COLOR);
+        const originalUploadJson = ref(null);
+        const recommendedTemplates = ref([]);
+        const previewTemplate = ref(null);
+        const featureSchema = ref({});
+        const partColorMap = ref({});
+        const unknownPartColor = ref(DEFAULT_UNKNOWN_COLOR);
 
-        const uploadDataMeta     = computed(() => originalUploadJson.value?.schema);
-        const totalFeatureCount  = computed(() => {
+        const uploadDataMeta = computed(() => originalUploadJson.value?.schema);
+        const totalFeatureCount = computed(() => {
             const schemaCount = Object.keys(featureSchema.value || {}).length;
             if (schemaCount > 0) return schemaCount;
             return recommendedTemplates.value?.[0]?.featureDiffs?.length || 0;
         });
 
         // ── 模板画板状态 ──────────────────────────────────────
-        const tplPanelSize       = ref([600, 1600]);
-        const tplPanelType       = ref('安装板');
-        const tplPlacedParts     = ref([]);
-        const tplCanvasScale     = ref(1);
-        const tplPanX            = ref(0);
-        const tplPanY            = ref(0);
+        const tplPanelSize = ref([600, 1600]);
+        const tplPanelType = ref('安装板');
+        const tplPlacedParts = ref([]);
+        const tplCanvasScale = ref(1);
+        const tplPanX = ref(0);
+        const tplPanY = ref(0);
         const tplCanvasContainer = ref(null);
 
         // ── 预览模态画板状态 ──────────────────────────────────
-        const previewPanelSize       = computed(() => previewTemplate.value?.schema?.panel_size || previewTemplate.value?.meta?.panel_size || [600, 1600]);
-        const previewCanvasScale     = ref(1);
-        const previewPanX            = ref(0);
-        const previewPanY            = ref(0);
+        const previewPanelSize = computed(() => previewTemplate.value?.schema?.panel_size || previewTemplate.value?.meta?.panel_size || [600, 1600]);
+        const previewCanvasScale = ref(1);
+        const previewPanX = ref(0);
+        const previewPanY = ref(0);
         const previewCanvasContainer = ref(null);
-        const previewOnlyDiffs       = ref(true);
+        const previewOnlyDiffs = ref(true);
 
         // ── 项目画板状态 ──────────────────────────────────────
-        const prjPanelSize       = ref([600, 1600]);
-        const prjPanelType       = ref('安装板');
-        const placedParts        = ref([]);
-        const prjCanvasScale     = ref(1);
-        const prjPanX            = ref(0);
-        const prjPanY            = ref(0);
+        const prjPanelSize = ref([600, 1600]);
+        const prjPanelType = ref('安装板');
+        const placedParts = ref([]);
+        const prjCanvasScale = ref(1);
+        const prjPanX = ref(0);
+        const prjPanY = ref(0);
         const prjCanvasContainer = ref(null);
-        const panelRef           = ref(null);
+        const panelRef = ref(null);
 
         // ── 多面板只读状态 ────────────────────────────────────
-        const multiPanels         = ref([]); // [{panelSize, panelType, parts}]
-        const isMultiPanelMode    = computed(() => multiPanels.value.length > 1);
+        const multiPanels = ref([]); // [{panelSize, panelType, parts}]
+        const isMultiPanelMode = computed(() => multiPanels.value.length > 1);
         const multiPanelTotalSize = computed(() => {
             const ps = multiPanels.value;
             if (!ps.length) return [600, 1600];
@@ -145,11 +145,11 @@ const App = {
         const workbenchMode = ref('layout'); // 'recommend' | 'layout' | 'view'
         const hostMode = ref('standalone'); // 'overlay' | 'embedded' | 'standalone'
         // ── 全局交互状态 ──────────────────────────────────────
-        const settings     = reactive({ autoSnap: true, autoExtrude: true });
-        const isDragging   = ref(false);
-        const fileInput    = ref(null);
-        const isPanning    = ref(false);
-        const isSpaceDown  = ref(false);
+        const settings = reactive({ autoSnap: true, autoExtrude: true });
+        const isDragging = ref(false);
+        const fileInput = ref(null);
+        const isPanning = ref(false);
+        const isSpaceDown = ref(false);
         const activePanView = ref(null); // 'tpl' | 'prj' | 'preview'
         let panStartX = 0, panStartY = 0;
 
@@ -159,9 +159,9 @@ const App = {
         //  History – 撤销/重做
         // ============================================================
 
-        const history      = ref([]);
+        const history = ref([]);
         const historyIndex = ref(-1);
-        const MAX_HISTORY  = 50;
+        const MAX_HISTORY = 50;
 
         const getCurrentStateStr = () => JSON.stringify({ placed: placedParts.value });
 
@@ -192,7 +192,7 @@ const App = {
         const loadPartColorMap = async () => {
             try {
                 const payload = await apiGet('/part-color-map');
-                partColorMap.value    = payload.partColorMap || {};
+                partColorMap.value = payload.partColorMap || {};
                 unknownPartColor.value = payload.unknownColor || DEFAULT_UNKNOWN_COLOR;
             } catch (e) {
                 console.warn('元件颜色映射加载失败:', e);
@@ -204,7 +204,7 @@ const App = {
         // ============================================================
 
         const triggerFileInput = () => fileInput.value.click();
-        const handleFileDrop   = (e) => { isDragging.value = false; if (e.dataTransfer.files.length) processFile(e.dataTransfer.files[0]); };
+        const handleFileDrop = (e) => { isDragging.value = false; if (e.dataTransfer.files.length) processFile(e.dataTransfer.files[0]); };
         const handleFileSelect = (e) => { if (e.target.files.length) processFile(e.target.files[0]); e.target.value = ''; };
 
         const processFile = (file) => {
@@ -266,8 +266,8 @@ const App = {
             return info;
         };
 
-        const openTemplatePreview  = (tpl) => { previewTemplate.value = tpl; previewOnlyDiffs.value = true; nextTick(() => resetView('preview')); };
-        const closeTemplatePreview = ()    => { previewTemplate.value = null; previewOnlyDiffs.value = true; };
+        const openTemplatePreview = (tpl) => { previewTemplate.value = tpl; previewOnlyDiffs.value = true; nextTick(() => resetView('preview')); };
+        const closeTemplatePreview = () => { previewTemplate.value = null; previewOnlyDiffs.value = true; };
 
         const previewFeatureDiffs = computed(() => {
             const diffs = previewTemplate.value?.featureDiffs || [];
@@ -283,22 +283,22 @@ const App = {
             const rect = containerRef.value.getBoundingClientRect();
             const scale = Math.min((rect.width - padding.x) / sizeRef.value[0], (rect.height - padding.y) / sizeRef.value[1]);
             scaleRef.value = scale;
-            panXRef.value = (rect.width  - sizeRef.value[0] * scale) / 2;
+            panXRef.value = (rect.width - sizeRef.value[0] * scale) / 2;
             panYRef.value = (rect.height - sizeRef.value[1] * scale) / 2;
         };
 
         const resetView = (viewStr) => {
-            if (viewStr === 'tpl'     || !viewStr) resetSpecificView(tplCanvasContainer,     tplPanelSize,     tplCanvasScale,     tplPanX,     tplPanY);
-            if (viewStr === 'prj'     || !viewStr) resetSpecificView(prjCanvasContainer, isMultiPanelMode.value ? multiPanelTotalSize : prjPanelSize, prjCanvasScale, prjPanX, prjPanY);
+            if (viewStr === 'tpl' || !viewStr) resetSpecificView(tplCanvasContainer, tplPanelSize, tplCanvasScale, tplPanX, tplPanY);
+            if (viewStr === 'prj' || !viewStr) resetSpecificView(prjCanvasContainer, isMultiPanelMode.value ? multiPanelTotalSize : prjPanelSize, prjCanvasScale, prjPanX, prjPanY);
             if (viewStr === 'preview' || !viewStr) resetSpecificView(previewCanvasContainer, previewPanelSize, previewCanvasScale, previewPanX, previewPanY, { x: 40, y: 40 });
         };
 
         const _resolveRefs = (viewStr) => {
             const isTpl = viewStr === 'tpl', isPrev = viewStr === 'preview';
             return {
-                scaleRef:     isTpl ? tplCanvasScale     : (isPrev ? previewCanvasScale     : prjCanvasScale),
-                panXRef:      isTpl ? tplPanX            : (isPrev ? previewPanX            : prjPanX),
-                panYRef:      isTpl ? tplPanY            : (isPrev ? previewPanY            : prjPanY),
+                scaleRef: isTpl ? tplCanvasScale : (isPrev ? previewCanvasScale : prjCanvasScale),
+                panXRef: isTpl ? tplPanX : (isPrev ? previewPanX : prjPanX),
+                panYRef: isTpl ? tplPanY : (isPrev ? previewPanY : prjPanY),
                 containerRef: isTpl ? tplCanvasContainer : (isPrev ? previewCanvasContainer : prjCanvasContainer),
             };
         };
@@ -321,7 +321,7 @@ const App = {
                 : (e.button === 1 || (e.button === 0 && isSpaceDown.value));
             if (!allowPan) return;
             e.preventDefault();
-            isPanning.value    = true;
+            isPanning.value = true;
             activePanView.value = viewStr;
             const { panXRef, panYRef } = _resolveRefs(viewStr);
             panStartX = e.clientX - panXRef.value;
@@ -391,9 +391,9 @@ const App = {
         //  元件拖拽微调
         // ============================================================
 
-        const activeGuides   = ref([]);
-        let currentDragPart  = null;
-        let dragOffset       = [0, 0];
+        const activeGuides = ref([]);
+        let currentDragPart = null;
+        let dragOffset = [0, 0];
 
         const hasInvalid = computed(() => placedParts.value.some(p => p.isInvalid));
         const checkBounds = () => {
@@ -410,11 +410,11 @@ const App = {
             guides.yEdges.push(0, ph); guides.yCenters.push(ph / 2);
 
             if (!prjCanvasContainer.value) return guides;
-            const rect  = prjCanvasContainer.value.getBoundingClientRect();
+            const rect = prjCanvasContainer.value.getBoundingClientRect();
             const scale = prjCanvasScale.value;
-            const buf   = 50 / scale;
+            const buf = 50 / scale;
             const vL = -prjPanX.value / scale - buf, vT = -prjPanY.value / scale - buf;
-            const vR = (rect.width  - prjPanX.value) / scale + buf;
+            const vR = (rect.width - prjPanX.value) / scale + buf;
             const vB = (rect.height - prjPanY.value) / scale + buf;
 
             placedParts.value.forEach(p => {
@@ -425,10 +425,10 @@ const App = {
                     guides.yEdges.push(py, py + pH); guides.yCenters.push(py + pH / 2);
                 }
             });
-            guides.xEdges    = [...new Set(guides.xEdges)];
-            guides.xCenters  = [...new Set(guides.xCenters)];
-            guides.yEdges    = [...new Set(guides.yEdges)];
-            guides.yCenters  = [...new Set(guides.yCenters)];
+            guides.xEdges = [...new Set(guides.xEdges)];
+            guides.xCenters = [...new Set(guides.xCenters)];
+            guides.yEdges = [...new Set(guides.yEdges)];
+            guides.yCenters = [...new Set(guides.yCenters)];
             return guides;
         };
 
@@ -439,7 +439,7 @@ const App = {
             const rect = panelRef.value.getBoundingClientRect();
             dragOffset = [
                 ((e.clientX - rect.left) / prjCanvasScale.value) - part.position[0],
-                ((e.clientY - rect.top)  / prjCanvasScale.value) - part.position[1],
+                ((e.clientY - rect.top) / prjCanvasScale.value) - part.position[1],
             ];
             document.addEventListener('mousemove', onMovePart);
             document.addEventListener('mouseup', endMovePart);
@@ -447,18 +447,18 @@ const App = {
 
         const onMovePart = (e) => {
             if (!currentDragPart) return;
-            const rect  = panelRef.value.getBoundingClientRect();
+            const rect = panelRef.value.getBoundingClientRect();
             const scale = prjCanvasScale.value;
             let tx = ((e.clientX - rect.left) / scale) - dragOffset[0];
-            let ty = ((e.clientY - rect.top)  / scale) - dragOffset[1];
+            let ty = ((e.clientY - rect.top) / scale) - dragOffset[1];
             activeGuides.value = [];
 
             if (settings.autoSnap) {
                 const guides = getViewportGuides(currentDragPart);
                 const [w, h] = currentDragPart.part_size;
                 const thresh = 10 / scale;
-                const myXEdges  = [tx, tx + w],   myXCenter = tx + w / 2;
-                const myYEdges  = [ty, ty + h],   myYCenter = ty + h / 2;
+                const myXEdges = [tx, tx + w], myXCenter = tx + w / 2;
+                const myYEdges = [ty, ty + h], myYCenter = ty + h / 2;
                 let bX = { delta: thresh, linePos: null }, bY = { delta: thresh, linePos: null };
 
                 guides.xEdges.forEach(gx => myXEdges.forEach(mx => { const d = gx - mx; if (Math.abs(d) < Math.abs(bX.delta)) bX = { delta: d, linePos: gx }; }));
@@ -466,8 +466,8 @@ const App = {
                 guides.yEdges.forEach(gy => myYEdges.forEach(my => { const d = gy - my; if (Math.abs(d) < Math.abs(bY.delta)) bY = { delta: d, linePos: gy }; }));
                 guides.yCenters.forEach(gyc => { const d = gyc - myYCenter; if (Math.abs(d) < Math.abs(bY.delta)) bY = { delta: d, linePos: gyc }; });
 
-                if (bX.linePos !== null) { tx += bX.delta; activeGuides.value.push({ style: `left:${bX.linePos}px;top:0;bottom:0;width:1px;transform:scaleX(${1/scale});transform-origin:left;` }); }
-                if (bY.linePos !== null) { ty += bY.delta; activeGuides.value.push({ style: `top:${bY.linePos}px;left:0;right:0;height:1px;transform:scaleY(${1/scale});transform-origin:top;` }); }
+                if (bX.linePos !== null) { tx += bX.delta; activeGuides.value.push({ style: `left:${bX.linePos}px;top:0;bottom:0;width:1px;transform:scaleX(${1 / scale});transform-origin:left;` }); }
+                if (bY.linePos !== null) { ty += bY.delta; activeGuides.value.push({ style: `top:${bY.linePos}px;left:0;right:0;height:1px;transform:scaleY(${1 / scale});transform-origin:top;` }); }
             }
             currentDragPart.position = [Math.round(tx), Math.round(ty)];
         };
@@ -488,9 +488,9 @@ const App = {
 
         const isOverlap = (p1, p2) =>
             !(p1.position[0] + p1.part_size[0] <= p2.position[0] ||
-              p1.position[0] >= p2.position[0] + p2.part_size[0] ||
-              p1.position[1] + p1.part_size[1] <= p2.position[1] ||
-              p1.position[1] >= p2.position[1] + p2.part_size[1]);
+                p1.position[0] >= p2.position[0] + p2.part_size[0] ||
+                p1.position[1] + p1.part_size[1] <= p2.position[1] ||
+                p1.position[1] >= p2.position[1] + p2.part_size[1]);
 
         const resolveOverlaps = (movedPart) => {
             const queue = [{ part: movedPart, dir: null }];
@@ -518,10 +518,10 @@ const App = {
                     if ((applyDir === 'UP' || applyDir === 'DOWN') && oX <= 1) continue;
                     if ((applyDir === 'LEFT' || applyDir === 'RIGHT') && oY <= 1) continue;
 
-                    if      (applyDir === 'RIGHT') target.position[0] = sR;
-                    else if (applyDir === 'LEFT' ) target.position[0] = sL - target.part_size[0];
-                    else if (applyDir === 'DOWN' ) target.position[1] = sB;
-                    else if (applyDir === 'UP'   ) target.position[1] = sT - target.part_size[1];
+                    if (applyDir === 'RIGHT') target.position[0] = sR;
+                    else if (applyDir === 'LEFT') target.position[0] = sL - target.part_size[0];
+                    else if (applyDir === 'DOWN') target.position[1] = sB;
+                    else if (applyDir === 'UP') target.position[1] = sT - target.part_size[1];
 
                     queue.push({ part: target, dir: applyDir });
                 }
@@ -564,23 +564,23 @@ const App = {
                         panelSize: item.schema?.panel_size || [600, 1600],
                         panelType: item.schema?.panel_type || '安装板',
                         parts: (item.schema?.parts || []).map(p => ({
-                            part_id:   p.part_id,
+                            part_id: p.part_id,
                             part_type: p.part_type,
                             part_size: p.part_size,
-                            position:  item.arrange?.[p.part_id]?.position
-                                       ? [...item.arrange[p.part_id].position]
-                                       : [0, 0],
+                            position: item.arrange?.[p.part_id]?.position
+                                ? [...item.arrange[p.part_id].position]
+                                : [0, 0],
                             ...(p.parts?.length ? { parts: p.parts, arrange: p.arrange } : {}),
                         })),
                     }));
                     prjPanelSize.value = multiPanels.value[0]?.panelSize || [600, 1600];
                     prjPanelType.value = multiPanels.value[0]?.panelType || '安装板';
-                    placedParts.value  = [];
+                    placedParts.value = [];
                 } else {
                     multiPanels.value = [];
                     prjPanelSize.value = prjData.schema.panel_size || [600, 1600];
                     prjPanelType.value = prjData.schema.panel_type || '安装板';
-                    placedParts.value  = prjData.schema.parts.map(p => ({
+                    placedParts.value = prjData.schema.parts.map(p => ({
                         part_id: p.part_id, part_type: p.part_type, part_size: p.part_size,
                         position: prjData.arrange?.[p.part_id]?.position || [0, 0],
                         isInvalid: false,
@@ -614,20 +614,17 @@ const App = {
         const initLayoutPanelMode = async (layoutJson) => {
             isLayoutPanelMode.value = true;
             layoutPanelSource.value = layoutJson;
-            try {
-                originalUploadJson.value = layoutJson;
-                isLoading.value = true;
-                loadingText.value = '正在进行特征匹配...';
+            originalUploadJson.value = layoutJson;
+            isLoading.value = true;
+            loadingText.value = '正在进行特征匹配...';
 
+            try {
                 if (!Object.keys(featureSchema.value).length)
                     featureSchema.value = await apiGet('/schema');
 
                 const res = await apiPost('/recommend', layoutJson);
                 recommendedTemplates.value = res.templates;
                 step.value = 2; // 直接进入方案推荐页面
-            } catch (err) {
-                alert('操作失败: ' + err.message);
-                window.parent.postMessage({ type: 'workbench:close' }, window.location.origin);
             } finally {
                 isLoading.value = false;
             }
@@ -642,12 +639,12 @@ const App = {
                     panelSize: item.schema?.panel_size || [600, 1600],
                     panelType: item.schema?.panel_type || '安装板',
                     parts: (item.schema?.parts || []).map(p => ({
-                        part_id:   p.part_id,
+                        part_id: p.part_id,
                         part_type: p.part_type,
                         part_size: p.part_size,
-                        position:  item.arrange?.[p.part_id]?.position
-                                   ? [...item.arrange[p.part_id].position]
-                                   : [0, 0],
+                        position: item.arrange?.[p.part_id]?.position
+                            ? [...item.arrange[p.part_id].position]
+                            : [0, 0],
                         ...(p.parts?.length ? { parts: p.parts, arrange: p.arrange } : {}),
                     })),
                 }));
@@ -664,22 +661,22 @@ const App = {
 
             const panelSize = layoutJson.schema?.panel_size || [600, 1600];
             const panelType = layoutJson.schema?.panel_type || '安装板';
-            const parts     = layoutJson.schema?.parts || [];
-            const arrange   = layoutJson.arrange || {};
+            const parts = layoutJson.schema?.parts || [];
+            const arrange = layoutJson.arrange || {};
 
             // 无模板参考，左侧画板置空
-            tplPanelSize.value    = panelSize;
-            tplPanelType.value    = panelType;
-            tplPlacedParts.value  = [];
+            tplPanelSize.value = panelSize;
+            tplPanelType.value = panelType;
+            tplPlacedParts.value = [];
 
             // 右侧项目画板：使用已有 arrange 或默认 [0,0]
             prjPanelSize.value = panelSize;
             prjPanelType.value = panelType;
-            placedParts.value  = parts.map(p => ({
-                part_id:   p.part_id,
+            placedParts.value = parts.map(p => ({
+                part_id: p.part_id,
                 part_type: p.part_type,
                 part_size: p.part_size,
-                position:  arrange[p.part_id]?.position ? [...arrange[p.part_id].position] : [0, 0],
+                position: arrange[p.part_id]?.position ? [...arrange[p.part_id].position] : [0, 0],
                 isInvalid: false,
                 ...(p.parts?.length ? { parts: p.parts, arrange: p.arrange } : {}),
             }));
@@ -713,11 +710,11 @@ const App = {
         const submitLayoutPanel = () => {
             if (step.value !== 3) return;
             if (hasInvalid.value) return alert('存在超出边界的无效元件，无法提交！');
-            
+
             const exportData = JSON.parse(JSON.stringify(originalUploadJson.value));
             exportData.arrange = {};
-            placedParts.value.forEach(p => { 
-                exportData.arrange[p.part_id] = { position: [p.position[0], p.position[1]], rotation: 0 }; 
+            placedParts.value.forEach(p => {
+                exportData.arrange[p.part_id] = { position: [p.position[0], p.position[1]], rotation: 0 };
             });
 
             const result = { schema: exportData.schema, arrange: exportData.arrange };
@@ -735,11 +732,11 @@ const App = {
         //  工具函数
         // ============================================================
 
-        const formatValue       = (val) => typeof val === 'number' ? Number(val.toFixed(2)) : val;
+        const formatValue = (val) => typeof val === 'number' ? Number(val.toFixed(2)) : val;
         const getScoreBadgeClass = (score) =>
             score >= 80 ? 'bg-green-50 text-green-700 border-green-200' :
-            score >= 60 ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
-                          'bg-red-50 text-red-600 border-red-200';
+                score >= 60 ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
+                    'bg-red-50 text-red-600 border-red-200';
 
         // ============================================================
         //  返回给模板的所有绑定

@@ -45,9 +45,9 @@ if %errorlevel% neq 0 (
 popd
 
 echo.
-echo [4/5] Running Electron Builder...
+echo [4/5] Running Electron Builder (Fast Unpacked Mode)...
 pushd "%APP_DIR%"
-call npm run build
+call npm run build:fast
 if %errorlevel% neq 0 (
     echo Error: Build failed!
     popd
@@ -58,6 +58,6 @@ popd
 
 echo.
 echo [5/5] Done!
-echo Output: %DIST_DIR%
-echo Look for ".exe" (installer) or "win-portable" (no install) in the dist folder.
+echo Output: %DIST_DIR%\win-unpacked
+echo The application is ready in the win-unpacked folder. No installer or portable exe generated.
 pause

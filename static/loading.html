@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在加载 - Layout RAG</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            /* 移除 fadeIn 动画，确保内容立即显示 */
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #818cf8 0%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.025em;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #1e293b;
+            border-bottom-color: var(--primary-color);
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 4px;
+            background: #1e293b;
+            border-radius: 2px;
+            margin-top: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-line {
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            position: absolute;
+            left: -100%;
+            animation: progressMove 2s infinite linear;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes progressMove {
+            0% {
+                left: -100%;
+            }
+
+            50% {
+                left: 0;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">Layout RAG</div>
+        <div class="loader"></div>
+        <div class="status-text" id="status">即将进入工作台...</div>
+        <div class="progress-bar">
+            <div class="progress-line"></div>
+        </div>
+    </div>
+</body>
+
+</html>

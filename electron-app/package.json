@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win --x64"
+    "build": "electron-builder --win --x64",
+    "build:fast": "electron-builder --win --dir"
   },
   "build": {
     "appId": "com.layoutrag.client",
