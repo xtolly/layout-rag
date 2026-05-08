@@ -85,6 +85,7 @@ const App = {
         const originalUploadJson = ref(null);
         const recommendedTemplates = ref([]);
         const previewTemplate = ref(null);
+        const appliedTemplateSchema = ref(null);
         const featureSchema = ref({});
         const partColorMap = ref({});
         const unknownPartColor = ref(DEFAULT_UNKNOWN_COLOR);
@@ -549,6 +550,7 @@ const App = {
 
                 const tplData = jsonRes.template_data;
                 const prjData = jsonRes.project_data;
+                appliedTemplateSchema.value = tplData.schema; // 只保存模板的 schema 节点
                 originalUploadJson.value = prjData;
 
                 // 模板画板
@@ -717,7 +719,12 @@ const App = {
                 exportData.arrange[p.part_id] = { position: [p.position[0], p.position[1]], rotation: 0 };
             });
 
-            const result = { schema: exportData.schema, arrange: exportData.arrange };
+            // 确保 result 是一个纯 JS 对象，避免 Proxy 导致 IPC 克隆失败
+            const result = JSON.parse(JSON.stringify({ 
+                schema: exportData.schema, 
+                arrange: exportData.arrange,
+                template_schema: appliedTemplateSchema.value // 仅包含模板的 schema 节点
+            }));
 
             // 如果是外部传入数据的独立运行模式，直接将结果返回给 Electron (stdout)
             if (hostMode.value === 'standalone' && window.electronAPI?.submitResult) {
@@ -725,7 +732,7 @@ const App = {
                 return;
             }
 
-            window.parent.postMessage({ type: 'workbench:layoutPanelResult', payload: JSON.parse(JSON.stringify(result)) }, window.location.origin);
+            window.parent.postMessage({ type: 'workbench:layoutPanelResult', payload: result }, window.location.origin);
         };
 
         // ============================================================

@@ -5,9 +5,9 @@
         "cabinet_name": "中船国际数科城项目系统图_2b8e1b46_4d54a894",
         "box_classify": "配电箱",
         "series": "XM1",
-        "cabinet_width": 600,
-        "cabinet_height": 900,
-        "cabinet_depth": 200,
+        "cabinet_width": 0,
+        "cabinet_height": 0,
+        "cabinet_depth": 0,
         "install_type": "户内挂墙",
         "inline_mode": "上置",
         "fixup_type": "板式安装",
@@ -16,27 +16,22 @@
         "cabinet_id": "2b8e1b46-fe96-43ea-aa5d-5899fa7230ed",
         "panel_type": "安装板",
         "operation_method": "",
-        "panel_width": 600,
-        "panel_height": 900,
         "panel_id": "4d54a894-d4a6-48d8-9964-caa82138dd2d",
         "panel_size": [
-            600,
-            900
+            500,
+            800
         ],
         "parts": [
             {
                 "order": 1,
                 "part_type": "双电源自动转换开关",
                 "part_model": "TBBQ3c-125/4P 125A III",
-                "part_width": 277.5,
-                "part_height": 165,
-                "part_depth": 0,
                 "pole": "4P",
                 "current": "125",
                 "in_line": true,
                 "part_id": "9bf1e2e1-de83-4b8c-a84e-757bdb27f581",
                 "part_size": [
-                    277.5,
+                    77.5,
                     165
                 ]
             },
@@ -44,9 +39,6 @@
                 "order": 2,
                 "part_type": "剩余电流式电气火灾监控探测器",
                 "part_model": "DK-5206S",
-                "part_width": 104,
-                "part_height": 24,
-                "part_depth": 0,
                 "pole": "NA",
                 "current": "NA",
                 "in_line": true,

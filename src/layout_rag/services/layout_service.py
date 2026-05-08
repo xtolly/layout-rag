@@ -404,6 +404,14 @@ class LayoutService:
         if not tpl_data:
             return {"project_data": project_data, "template_data": None}
 
+        # 如果项目面板尺寸为 0 或无效，则借用模板的尺寸（防止优化器报错）
+        schema = project_data.get("schema", {})
+        curr_size = schema.get("panel_size", [0, 0])
+        if curr_size[0] <= 0 or curr_size[1] <= 0:
+            tpl_schema = tpl_data.get("schema", {})
+            tpl_size = tpl_schema.get("panel_size", [600, 1600])
+            schema["panel_size"] = tpl_size
+
         other_templates = self._load_other_templates(other_template_uuids or [], template_uuid)
 
         # 从业务领域获取布局约束参数

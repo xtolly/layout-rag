@@ -1,15 +1,12 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, protocol, net } = require('electron')
 const path = require('path')
 const { spawn } = require('child_process')
-const http = require('http')
 const fs = require('fs')
 
 // ============================================================
 //  配置中心
 // ============================================================
 const CLOUD_BACKEND_URL = 'http://localhost:8000'; // 你的云端服务器地址
-const INTERNAL_HOST = '127.0.0.1';
-const INTERNAL_PORT = 17321;
 // ============================================================
 
 const MIME = {
@@ -26,78 +23,14 @@ const MIME = {
     '.ttf': 'font/ttf',
 }
 
-function startStaticServer(staticDir) {
-    return new Promise((resolve) => {
-        const server = http.createServer((req, res) => {
-            const urlObj = new URL(req.url, `http://${req.headers.host}`);
-            let urlPath = urlObj.pathname;
-
-            // 1. 处理 API 代理：如果路径以 /api 开头，转发到云端
-            if (urlPath.startsWith('/api')) {
-                const fullTargetUrl = `${CLOUD_BACKEND_URL}${req.url}`;
-                console.log(`[Proxy Request] ${req.method} ${urlPath} -> ${fullTargetUrl}`);
-
-                const targetUrl = new URL(CLOUD_BACKEND_URL);
-                const proxyReq = http.request({
-                    hostname: targetUrl.hostname,
-                    port: targetUrl.port,
-                    path: req.url, // 包含 query string
-                    method: req.method,
-                    headers: req.headers
-                }, (proxyRes) => {
-                    console.log(`[Proxy Response] ${req.method} ${urlPath} -> ${proxyRes.statusCode}`);
-                    res.writeHead(proxyRes.statusCode, proxyRes.headers);
-                    proxyRes.pipe(res, { end: true });
-                });
-
-                proxyReq.on('error', (err) => {
-                    console.error('[Proxy Error]', err);
-                    res.writeHead(502);
-                    res.end('Cloud server unreachable');
-                });
-
-                req.pipe(proxyReq, { end: true });
-                return;
-            }
-
-            // 1. 处理静态文件
-            if (urlPath === '/' || urlPath === '') urlPath = '/configurator.html';
-            if (urlPath === '/layout') urlPath = '/layout_workbench.html';
-            if (urlPath.startsWith('/static/')) urlPath = urlPath.slice('/static'.length);
-
-            // 3. 处理外部传入的临时数据
-            if (urlPath === '/external-data' && externalData) {
-                res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-                res.end(JSON.stringify(externalData));
-                return;
-            }
-
-            const filePath = path.join(staticDir, urlPath);
-            const ext = path.extname(filePath);
-
-            fs.readFile(filePath, (err, data) => {
-                if (err) {
-                    res.writeHead(404);
-                    res.end(`Not found: ${urlPath}`);
-                    return;
-                }
-                res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
-                res.end(data);
-            });
-        });
-
-        server.listen(INTERNAL_PORT, INTERNAL_HOST, () => {
-            console.log(`[Server] Running at http://${INTERNAL_HOST}:${INTERNAL_PORT}`);
-            resolve(server);
-        });
-    });
-}
+// 注册自定义协议（必须在 app ready 之前调用）
+protocol.registerSchemesAsPrivileged([
+    { scheme: 'app', privileges: { standard: true, secure: true, supportFetchAPI: true } }
+]);
 
 let externalData = null;
 let outputFilePath = null;
 let wasSubmitted = false; // 标记是否成功提交方案
-
-
 
 function createWindow() {
     // 创建主窗口
@@ -118,7 +51,7 @@ function createWindow() {
 
     // 检查命令行参数：第一个 .json 为输入，第二个 .json 为输出
     const args = process.argv.slice(app.isPackaged ? 1 : 2);
-    let targetUrl = `http://${INTERNAL_HOST}:${INTERNAL_PORT}/configurator.html`;
+    let targetUrl = `app://local/configurator.html`;
 
     const jsonFiles = args.filter(arg => arg && arg.toLowerCase().endsWith('.json'));
 
@@ -130,7 +63,7 @@ function createWindow() {
                 const content = fs.readFileSync(inputPath, 'utf8');
                 externalData = JSON.parse(content);
                 console.log(`[Input Data] Loaded from: ${inputPath}`);
-                targetUrl = `http://${INTERNAL_HOST}:${INTERNAL_PORT}/layout_workbench.html?data_key=${Date.now()}`;
+                targetUrl = `app://local/layout_workbench.html?data_key=${Date.now()}`;
             } catch (e) {
                 console.error(`[Input Data] Error reading file: ${inputPath}`, e);
             }
@@ -205,9 +138,60 @@ function registerIpcHandlers() {
 
 app.whenReady().then(async () => {
     const staticDir = path.join(__dirname, 'static');
-    await startStaticServer(staticDir);
+
+    // 处理自定义协议请求
+    protocol.handle('app', async (request) => {
+        const url = new URL(request.url);
+        let urlPath = url.pathname;
+
+        // 1. 处理 API 代理：转发到云端
+        if (urlPath.startsWith('/api')) {
+            const fullTargetUrl = `${CLOUD_BACKEND_URL}${urlPath}${url.search}`;
+            console.log(`[Protocol Proxy] ${request.method} ${urlPath} -> ${fullTargetUrl}`);
+
+            try {
+                return await net.fetch(fullTargetUrl, {
+                    method: request.method,
+                    headers: request.headers,
+                    body: request.body,
+                    duplex: 'half' // 对于流式 body 必须
+                });
+            } catch (err) {
+                console.error('[Proxy Error]', err);
+                return new Response('Cloud server unreachable', { status: 502 });
+            }
+        }
+
+        // 2. 处理外部传入的临时数据
+        if (urlPath === '/external-data') {
+            return new Response(JSON.stringify(externalData), {
+                headers: { 'Content-Type': 'application/json; charset=utf-8' }
+            });
+        }
+
+        // 3. 映射静态资源路径
+        if (urlPath === '/' || urlPath === '') urlPath = '/configurator.html';
+        if (urlPath === '/layout') urlPath = '/layout_workbench.html';
+        if (urlPath.startsWith('/static/')) urlPath = urlPath.slice('/static'.length);
+
+        const filePath = path.join(staticDir, urlPath);
+
+        try {
+            const data = await fs.promises.readFile(filePath);
+            const ext = path.extname(filePath).toLowerCase();
+            return new Response(data, {
+                status: 200,
+                headers: { 'Content-Type': MIME[ext] || 'application/octet-stream' }
+            });
+        } catch (err) {
+            console.error(`[File Error] ${urlPath} not found at ${filePath}`);
+            return new Response(`Not found: ${urlPath}`, { status: 404 });
+        }
+    });
+
     registerIpcHandlers();
     createWindow();
+
     app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
 });
 
@@ -221,3 +205,4 @@ app.on('window-all-closed', () => {
         }
     }
 });
+
