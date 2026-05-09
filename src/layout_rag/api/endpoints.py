@@ -55,6 +55,15 @@ async def submit_layout(project_data: Dict[str, Any] = Body(...)):
     print("收到最终提交的布局数据，包含元件数:", len(project_data.get("schema", {}).get("parts", [])))
     return {"status": "success", "message": "布局数据保存成功"}
 
+@router.post("/upload-layout")
+async def upload_layout(
+    project_data: Dict[str, Any] = Body(...),
+    service=Depends(get_service)
+):
+    """接口 5：上传并入库新的业务布局方案 (入库图数据库)"""
+    result = service.upload_layout(project_data)
+    return result
+
 @router.post("/cabinet-layout")
 async def cabinet_layout(payload: Dict[str, Any] = Body(...)):
     """
