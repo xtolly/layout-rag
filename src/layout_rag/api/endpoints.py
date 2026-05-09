@@ -19,11 +19,12 @@ async def get_part_color_map(service=Depends(get_service)):
 
 @router.post("/recommend")
 async def recommend_layout(
+    mode: str = "recommend",
     project_data: Dict[str, Any] = Body(...),
     service=Depends(get_service)
 ):
     """接口 1：执行基于相似特征的真实推荐检索"""
-    templates = service.search_recommendations(project_data)
+    templates = service.search_recommendations(project_data, mode=mode)
     return {"templates": templates}
 
 @router.post("/apply")

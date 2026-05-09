@@ -102,15 +102,26 @@
                                     class="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">{{ totalFeatureCount
                                     }}</span> 项关键特征，为您推荐以下布局：</p>
                         </div>
-                        <button v-if="!isLayoutPanelMode" @click="triggerFileInput"
-                            class="btn-ghost flex items-center gap-2 group">
-                            <svg class="w-4 h-4 transform group-hover:-rotate-12 transition-transform" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                            </svg>
-                            重新上传
-                        </button>
+                        <div class="flex items-center gap-6">
+                            <!-- 模式切换单选按钮组 -->
+                            <div class="flex items-center p-1 bg-slate-100/80 rounded-lg border border-slate-200/60 shadow-inner">
+                                <button @click="setMode('recommend')" 
+                                    :class="recommendMode === 'recommend' ? 'bg-white text-blue-600 shadow-sm font-bold ring-1 ring-slate-200/50' : 'text-slate-500 font-medium hover:text-slate-700 hover:bg-slate-200/50'"
+                                    class="px-4 py-1.5 text-sm rounded-md transition-all duration-200">相似推荐</button>
+                                <button @click="setMode('popular')" 
+                                    :class="recommendMode === 'popular' ? 'bg-white text-blue-600 shadow-sm font-bold ring-1 ring-slate-200/50' : 'text-slate-500 font-medium hover:text-slate-700 hover:bg-slate-200/50'"
+                                    class="px-4 py-1.5 text-sm rounded-md transition-all duration-200">热门推荐</button>
+                            </div>
+                            <button v-if="!isLayoutPanelMode" @click="triggerFileInput"
+                                class="btn-ghost flex items-center gap-2 group">
+                                <svg class="w-4 h-4 transform group-hover:-rotate-12 transition-transform" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                </svg>
+                                重新上传
+                            </button>
+                        </div>
                     </div>
 
                     <!-- 推荐卡片网格 -->
@@ -137,10 +148,16 @@
                                     </div>
                                     <div class="text-right flex-shrink-0 flex flex-col items-end">
                                         <div class="text-4xl font-display font-black leading-none drop-shadow-sm transition-transform group-hover:scale-105"
-                                            :class="tpl.score >= 80 ? 'text-emerald-500' : tpl.score >= 60 ? 'text-amber-500' : 'text-red-500'">
-                                            {{ tpl.score }}<span class="text-lg font-bold">%</span></div>
+                                            :class="recommendMode === 'popular' ? 'text-blue-600' : (tpl.score >= 80 ? 'text-emerald-500' : tpl.score >= 60 ? 'text-amber-500' : 'text-red-500')">
+                                            <template v-if="recommendMode === 'popular'">
+                                                {{ tpl.score }}<span class="text-base font-bold text-slate-400 ml-1">次</span>
+                                            </template>
+                                            <template v-else>
+                                                {{ tpl.score }}<span class="text-lg font-bold">%</span>
+                                            </template>
+                                        </div>
                                         <div class="text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-wider">
-                                            匹配度</div>
+                                            {{ recommendMode === 'popular' ? '热度值' : '相似度' }}</div>
                                         <div class="text-xs font-bold mt-2 px-2 py-1 rounded tracking-wide" 
                                             :class="getAdoptionColorClass(tpl.adoption_rate)" 
                                             v-if="tpl.recommendation_count > 0" title="历史推荐采纳率">
@@ -149,12 +166,13 @@
                                 </div>
 
                                 <!-- 匹配度进度条 -->
-                                <div class="w-full bg-slate-100 rounded-full h-1.5 mb-6 overflow-hidden">
+                                <div v-if="recommendMode === 'recommend'" class="w-full bg-slate-100 rounded-full h-1.5 mb-6 overflow-hidden">
                                     <div class="h-1.5 rounded-full transition-all duration-1000 ease-out"
                                         :style="{ width: tpl.score + '%' }"
                                         :class="tpl.score >= 80 ? 'bg-gradient-to-r from-emerald-400 to-emerald-500' : tpl.score >= 60 ? 'bg-gradient-to-r from-amber-300 to-amber-400' : 'bg-gradient-to-r from-red-400 to-red-500'">
                                     </div>
                                 </div>
+                                <div v-else class="h-1.5 mb-6"></div>
 
                                 <!-- 元件统计 + 缩略预览 -->
                                 <div class="flex gap-4 items-stretch">
@@ -313,14 +331,18 @@
                                                 (previewTemplate.schema?.panel_size?.[1] ||
                                                 previewTemplate.meta?.panel_size?.[1]) || 0 }} mm</span>
                                             <span
-                                                class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
-                                                :class="previewTemplate.score >= 80 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : previewTemplate.score >= 60 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'">
-                                                匹配度 {{ previewTemplate.score }}%
+                                                class="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold"
+                                                :class="previewTemplate.match_score >= 80 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : previewTemplate.match_score >= 60 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'">
+                                                相似度 {{ previewTemplate.match_score }}%
                                             </span>
                                             <span v-if="previewTemplate.recommendation_count > 0"
                                                 class="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold"
                                                 :class="getAdoptionColorClass(previewTemplate.adoption_rate)">
                                                 采纳率 {{ previewTemplate.adoption_rate }}%
+                                            </span>
+                                            <span v-if="previewTemplate.adoption_count > 0"
+                                                class="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                                                热度值 {{ previewTemplate.adoption_count }}次
                                             </span>
                                         </div>
                                     </div>

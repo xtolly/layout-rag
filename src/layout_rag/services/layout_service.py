@@ -125,7 +125,7 @@ class LayoutService:
         diff_list.sort(key=lambda item: (-item["weight"], not item["dynamic"], item["name"]))
         return diff_list
 
-    def search_recommendations(self, project_data: dict, top_k: int = 10) -> list:
+    def search_recommendations(self, project_data: dict, top_k: int = 10, mode: str = 'recommend') -> list:
         """执行推荐搜索全流程，采用”搜 ID + 批量取详情”两步走。"""
 
         query_features = self.domain.extract_features(project_data)
@@ -155,16 +155,19 @@ class LayoutService:
             # 提取模板特征
             tpl_features = self.domain.extract_features(tpl_data)
 
-            # ====== 核心修复：调用领域基类的 Gower 算法进行精排算分 ======
-            # self.domain 是 NewDistributionBoxDomain 的实例
+            # ====== 调用领域基类的 Gower 算法进行计算 ======
             exact_similarity = self.domain.calculate_gower_similarity(
                 query_features=query_features, 
                 template_features=tpl_features, 
                 feature_ranges=feature_ranges
             )
-            # 转换为百分比整数
-            final_score = round(exact_similarity * 100, 1)
-            # ====================================================
+            match_score = round(exact_similarity * 100, 1)
+
+            if mode == 'popular':
+                # 热门模式直接用采纳次数作为 final_score 用于排序
+                final_score = tpl_data.get("adoption_count", 0)
+            else:
+                final_score = match_score
 
             # 计算前端展示用的差异列表
             query_parts = project_data.get("schema", {}).get("parts", [])
@@ -180,6 +183,7 @@ class LayoutService:
                 "uuid":         tpl_data["uuid"],
                 "name":         tpl_data.get("name"),
                 "score":        final_score,  # 使用新的高精度得分
+                "match_score":  match_score,
                 "showFeatures": False,
                 "schema":       tpl_meta,
                 "diffInfo":     diff_info,

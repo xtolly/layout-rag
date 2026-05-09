@@ -84,6 +84,34 @@ const App = {
         // ── 业务数据 ──────────────────────────────────────────
         const originalUploadJson = ref(null);
         const recommendedTemplates = ref([]);
+        const recommendMode = ref('recommend');
+
+        const fetchRecommendations = async (json) => {
+            try {
+                isLoading.value = true;
+                loadingText.value = recommendMode.value === 'recommend' ? '正在进行特征匹配...' : '正在获取热门方案...';
+                
+                if (!Object.keys(featureSchema.value).length)
+                    featureSchema.value = await apiGet('/schema');
+
+                const res = await apiPost(`/recommend?mode=${recommendMode.value}`, json);
+                recommendedTemplates.value = res.templates;
+                step.value = 2;
+            } catch (err) {
+                alert('操作失败: ' + err.message);
+            } finally {
+                isLoading.value = false;
+            }
+        };
+
+        const setMode = async (mode) => {
+            if (recommendMode.value === mode) return;
+            recommendMode.value = mode;
+            if (originalUploadJson.value) {
+                await fetchRecommendations(originalUploadJson.value);
+            }
+        };
+
         const previewTemplate = ref(null);
         const appliedTemplateSchema = ref(null);
         const appliedTemplateUuid = ref(null);
@@ -217,19 +245,9 @@ const App = {
                     const json = JSON.parse(ev.target.result);
                     if (!json.schema || !json.schema.parts) throw new Error('JSON 格式缺少 schema 或 parts 节点');
                     originalUploadJson.value = json;
-                    isLoading.value = true;
-                    loadingText.value = '正在进行特征匹配...';
-
-                    if (!Object.keys(featureSchema.value).length)
-                        featureSchema.value = await apiGet('/schema');
-
-                    const res = await apiPost('/recommend', json);
-                    recommendedTemplates.value = res.templates;
-                    step.value = 2;
+                    await fetchRecommendations(json);
                 } catch (err) {
-                    alert('操作失败: ' + err.message);
-                } finally {
-                    isLoading.value = false;
+                    alert('文件解析或加载失败: ' + err.message);
                 }
             };
             reader.readAsText(file);
@@ -757,7 +775,7 @@ const App = {
             goBackToConfig, closeWorkbench, submitLayoutPanel,
             // 数据
             originalUploadJson, recommendedTemplates, previewTemplate, previewOnlyDiffs,
-            uploadDataMeta, totalFeatureCount,
+            uploadDataMeta, totalFeatureCount, recommendMode, setMode,
             // 模板画板
             tplPanelSize, tplPanelType, tplPlacedParts, tplCanvasScale, tplPanX, tplPanY, tplCanvasContainer,
             // 预览画板
