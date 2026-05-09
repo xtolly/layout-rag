@@ -52,15 +52,9 @@ def group_components_by_y_with_tolerance(parts, arrange, tolerance=2.0):
     return rails
 
 class PLMGraphImporter:
-    def __init__(self, db_client: Neo4jClient, domain=None):
+    def __init__(self, db_client: Neo4jClient, domain):
         self.db_client = db_client
-
-        if domain is None:
-            # 兼容老代码的默认行为
-            from layout_rag.domain.new_distribution_box import NewDistributionBoxDomain
-            self.domain = NewDistributionBoxDomain()
-        else:
-            self.domain = domain
+        self.domain = domain
 
         self.schema = {name: cfg.copy() for name, cfg in self.domain.feature_schema_def.items()}
         self.part_types = self.domain.get_part_types()

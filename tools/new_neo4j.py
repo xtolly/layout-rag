@@ -29,7 +29,8 @@ if __name__ == "__main__":
     # 联调期间清空历史
     neo4j_client.clear_database()
     
-    importer = PLMGraphImporter(neo4j_client)
+    domain = NewDistributionBoxDomain()
+    importer = PLMGraphImporter(neo4j_client, domain)
 
     # 预加载所有 JSON 数据
     all_data = []

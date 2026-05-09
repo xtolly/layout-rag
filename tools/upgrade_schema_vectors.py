@@ -11,12 +11,14 @@ if str(SRC_DIR) not in sys.path:
 
 from layout_rag.core.neo4j_client import neo4j_client
 from layout_rag.core.plm_importer import PLMGraphImporter
+from layout_rag.domain.new_distribution_box import NewDistributionBoxDomain
 
 def upgrade_vectors():
     print("=== 开始更新图数据库特征向量 ===")
     
     # 1. 实例化 Importer (这会自动扫描最新 Schema 并重建匹配维度的 Vector Index)
-    importer = PLMGraphImporter(neo4j_client)
+    domain = NewDistributionBoxDomain()
+    importer = PLMGraphImporter(neo4j_client, domain)
     
     data_dir = os.path.join(os.path.dirname(__file__), '..', 'templates', 'new_distribution_box')
     if not os.path.exists(data_dir):
