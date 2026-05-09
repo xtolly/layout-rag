@@ -141,6 +141,10 @@
                                             {{ tpl.score }}<span class="text-lg font-bold">%</span></div>
                                         <div class="text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-wider">
                                             匹配度</div>
+                                        <div class="text-xs font-bold mt-2 px-2 py-1 rounded tracking-wide" 
+                                            :class="getAdoptionColorClass(tpl.adoption_rate)" 
+                                            v-if="tpl.recommendation_count > 0" title="历史推荐采纳率">
+                                            采纳率: {{ tpl.adoption_rate }}%</div>
                                     </div>
                                 </div>
 
@@ -312,6 +316,11 @@
                                                 class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
                                                 :class="previewTemplate.score >= 80 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : previewTemplate.score >= 60 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'">
                                                 匹配度 {{ previewTemplate.score }}%
+                                            </span>
+                                            <span v-if="previewTemplate.recommendation_count > 0"
+                                                class="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold"
+                                                :class="getAdoptionColorClass(previewTemplate.adoption_rate)">
+                                                采纳率 {{ previewTemplate.adoption_rate }}%
                                             </span>
                                         </div>
                                     </div>

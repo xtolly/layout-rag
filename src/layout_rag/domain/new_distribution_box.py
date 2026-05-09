@@ -72,8 +72,8 @@ class NewDistributionBoxDomain(BusinessDomain):
             "panel_area":         {"type": "continuous", "weight": 1.0, "display_name": "面板总面积", "from_bom": False, "min": 60000.0, "max": 3000000.0},
             "panel_aspect_ratio": {"type": "continuous", "weight": 1.0, "display_name": "面板纵横比", "from_bom": False, "min": 0.1, "max": 4.0},
             # ── 元件统计特征（BOM）──
-            "total_parts":        {"type": "count",      "weight": 1.0, "display_name": "元器件总数",   "from_bom": True,  "max_count": 200},
-            "unique_types":       {"type": "count",      "weight": 1.0, "display_name": "元件种类数",   "from_bom": True,  "max_count": 30},
+            "total_parts":        {"type": "count",      "weight": 1.0, "display_name": "元器件总数",   "from_bom": True,  "max_count": 80},
+            "unique_types":       {"type": "count",      "weight": 1.0, "display_name": "元件种类数",   "from_bom": True,  "max_count": 15},
             "total_parts_area":   {"type": "continuous", "weight": 1.0, "display_name": "元器件总面积", "from_bom": True,  "min": 0.0, "max": 2000000.0},
             "fill_ratio":         {"type": "continuous", "weight": 1.0, "display_name": "空间填充率",   "from_bom": True,  "min": 0.0, "max": 1.0},
             "avg_part_width":     {"type": "continuous", "weight": 1.0, "display_name": "元件平均宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
@@ -121,7 +121,7 @@ class NewDistributionBoxDomain(BusinessDomain):
         
         # ── 元件类型计数（BOM）──
         for part_type in part_types:
-            features[f"count_{part_type}"] = {"type": "count", "weight": 5.0, "display_name": f"{part_type} 数量", "from_bom": True, "max_count": 30}
+            features[f"count_{part_type}"] = {"type": "count", "weight": 5.0, "display_name": f"{part_type} 数量", "from_bom": True, "max_count": 10}
         return features
 
     # ------------------------------------------------------------------

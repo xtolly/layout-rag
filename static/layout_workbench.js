@@ -86,6 +86,7 @@ const App = {
         const recommendedTemplates = ref([]);
         const previewTemplate = ref(null);
         const appliedTemplateSchema = ref(null);
+        const appliedTemplateUuid = ref(null);
         const featureSchema = ref({});
         const partColorMap = ref({});
         const unknownPartColor = ref(DEFAULT_UNKNOWN_COLOR);
@@ -551,6 +552,7 @@ const App = {
                 const tplData = jsonRes.template_data;
                 const prjData = jsonRes.project_data;
                 appliedTemplateSchema.value = tplData.schema; // 只保存模板的 schema 节点
+                appliedTemplateUuid.value = tpl.uuid;
                 originalUploadJson.value = prjData;
 
                 // 模板画板
@@ -688,28 +690,7 @@ const App = {
             nextTick(() => resetView('prj'));
         };
 
-        // ============================================================
-        //  提交
-        // ============================================================
-
-        const submitLayout = async () => {
-            if (hasInvalid.value) return alert('存在超出边界的无效元件，无法提交！');
-            const output = JSON.parse(JSON.stringify(originalUploadJson.value));
-            if (!output.arrange) output.arrange = {};
-            placedParts.value.forEach(p => { output.arrange[p.part_id] = { position: p.position, rotation: 0 }; });
-            try {
-                isLoading.value = true; loadingText.value = '正在提交最终布局数据...';
-                await apiPost('/submit', output);
-                console.log('最终提交的JSON:', output);
-                alert('布局提交成功！完整的 JSON 数据已传输至后端并打印至控制台 (F12)。');
-            } catch (err) {
-                alert(err.message);
-            } finally {
-                isLoading.value = false;
-            }
-        };
-
-        const submitLayoutPanel = () => {
+        const submitLayoutPanel = async () => {
             if (step.value !== 3) return;
             if (hasInvalid.value) return alert('存在超出边界的无效元件，无法提交！');
 
@@ -718,6 +699,18 @@ const App = {
             placedParts.value.forEach(p => {
                 exportData.arrange[p.part_id] = { position: [p.position[0], p.position[1]], rotation: 0 };
             });
+
+            if (appliedTemplateUuid.value && recommendedTemplates.value.length > 0) {
+                try {
+                    const recommendedUuids = recommendedTemplates.value.map(t => t.uuid);
+                    await apiPost('/record-adoption', {
+                        selected_uuid: appliedTemplateUuid.value,
+                        recommended_uuids: recommendedUuids
+                    });
+                } catch (e) {
+                    console.error('记录采纳率失败:', e);
+                }
+            }
 
             // 确保 result 是一个纯 JS 对象，避免 Proxy 导致 IPC 克隆失败
             const result = JSON.parse(JSON.stringify({ 
@@ -744,6 +737,12 @@ const App = {
             score >= 80 ? 'bg-green-50 text-green-700 border-green-200' :
                 score >= 60 ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
                     'bg-red-50 text-red-600 border-red-200';
+
+        const getAdoptionColorClass = (rate) =>
+            rate >= 80 ? 'bg-emerald-50 text-emerald-600 border border-emerald-200' :
+            rate >= 50 ? 'bg-blue-50 text-blue-600 border border-blue-200' :
+            rate >= 20 ? 'bg-amber-50 text-amber-600 border border-amber-200' :
+                         'bg-slate-50 text-slate-500 border border-slate-200';
 
         // ============================================================
         //  返回给模板的所有绑定
@@ -775,7 +774,7 @@ const App = {
             startMove, panelRef, activeGuides,
             hasInvalid,
             undo, redo, canUndo, canRedo,
-            formatValue, getScoreBadgeClass,
+            formatValue, getScoreBadgeClass, getAdoptionColorClass,
             // 多面板只读
             multiPanels, isMultiPanelMode, multiPanelTotalSize, getPanelOffset
         };

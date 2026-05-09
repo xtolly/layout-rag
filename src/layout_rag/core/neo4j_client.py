@@ -146,7 +146,11 @@ class Neo4jClient:
             },
             "arrange": arrange
         }
-        if "score" in record and record["score"] is not None:
+        if "recommendation_count" in record.keys():
+            res["recommendation_count"] = record["recommendation_count"] or 0
+        if "adoption_count" in record.keys():
+            res["adoption_count"] = record["adoption_count"] or 0
+        if "score" in record.keys() and record["score"] is not None:
             res["score"] = record["score"]
         return res
 
@@ -224,6 +228,7 @@ class Neo4jClient:
             bt.CableInOutType AS cable_in_out_type,
             pi.ID AS panel_id, pc.Name AS panel_type,
             pt.Width AS panel_width, pt.Height AS panel_height,
+            COALESCE(pi.recommendation_count, 0) AS recommendation_count, COALESCE(pi.adoption_count, 0) AS adoption_count,
             raw_parts, score
         ORDER BY idx
         """
@@ -254,5 +259,21 @@ class Neo4jClient:
         with self.driver.session(database=self.database) as session:
             records = session.run(cypher, current_models=current_models, min_weight=min_weight)
             return [{"part_model": r["part_model"], "full_name": r["full_name"], "weight": r["max_weight"]} for r in records]
+
+    def record_adoption(self, selected_uuid: str, recommended_uuids: list[str]):
+        """记录推荐次数与采纳次数"""
+        cypher1 = "MATCH (p:PanelInstance) WHERE p.ID IN $recommended_uuids SET p.recommendation_count = COALESCE(p.recommendation_count, 0) + 1"
+        cypher2 = "MATCH (p:PanelInstance) WHERE p.ID = $selected_uuid SET p.adoption_count = COALESCE(p.adoption_count, 0) + 1"
+        
+        try:
+            with self.driver.session(database=self.database) as session:
+                if recommended_uuids:
+                    session.run(cypher1, recommended_uuids=recommended_uuids).consume()
+                if selected_uuid:
+                    session.run(cypher2, selected_uuid=selected_uuid).consume()
+                print(f"[Neo4j] 记录方案推荐采纳: 推荐 {len(recommended_uuids)} 个, 采纳 {selected_uuid}")
+        except Exception as e:
+            print(f"记录推荐与采纳失败: {e}")
+            traceback.print_exc()
 
 neo4j_client = Neo4jClient("neo4j://127.0.0.1:7687", "neo4j", "a3213964", "distributionbox")

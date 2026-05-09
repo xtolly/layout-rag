@@ -101,7 +101,6 @@ uv run python tools/new_neo4j.py
 
 - 自定义 `_ChatOpenAIReasoning` 子类从千问/DeepSeek 风格响应中提取 `reasoning_content`
 - 11 个工具用于柜体/面板/元件的 CRUD：`add_cabinets`、`add_panels`、`add_parts`、`edit_cabinet/panel/part`、`delete_cabinet/panel/part`、`get_current_selection`、`get_schema_summary`
-- 工具输入使用 Pydantic 模型，枚举类型从 `configurator_options.json` 动态生成
 - SSE 流式传输 via `POST /api/agent/chat/stream`，事件类型：`token`、`action`、`thinking`、`done`、`error`
 - 状态：`messages`（对话）+ `current_schema`（完整柜体配置）
 

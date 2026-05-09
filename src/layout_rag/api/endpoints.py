@@ -39,6 +39,19 @@ async def apply_template(
     updated_data = service.apply_layout_template(template_uuid, project_data, other_template_uuids)
     return updated_data
 
+@router.post("/record-adoption")
+async def record_adoption(
+    payload: Dict[str, Any] = Body(...),
+    service=Depends(get_service)
+):
+    """记录方案采纳与推荐"""
+    from layout_rag.core.neo4j_client import neo4j_client
+    selected_uuid = payload.get("selected_uuid")
+    recommended_uuids = payload.get("recommended_uuids", [])
+    if selected_uuid and recommended_uuids:
+        neo4j_client.record_adoption(selected_uuid, recommended_uuids)
+    return {"status": "success"}
+
 @router.post("/recommend-bom")
 async def recommend_bom(
     project_data: Dict[str, Any] = Body(...),

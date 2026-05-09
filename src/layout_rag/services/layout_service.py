@@ -26,16 +26,10 @@ class LayoutService:
 
     def __init__(self, domain: BusinessDomain):
         self.domain = domain
-
-        paths = get_domain_paths(domain)
-        data_dir         = paths["data_dir"]
-        vector_store_path = paths["vector_store_path"]
-
         self.schema_def = {name: cfg.copy() for name, cfg in domain.feature_schema_def.items()}
         self.part_types = domain.get_part_types()
 
         self.store = VectorStore(self.schema_def)
-        self.store.load_ruler(str(vector_store_path))
 
     # ------------------------------------------------------------------
     # 内部工具
@@ -178,6 +172,10 @@ class LayoutService:
             diff_info = self.calculate_diff_info(query_parts, template_parts)
             feature_diffs = self.get_feature_diff_list(query_features, t_features=tpl_features)
 
+            rec_count = tpl_data.get("recommendation_count", 0)
+            adp_count = tpl_data.get("adoption_count", 0)
+            adoption_rate = round(min((adp_count / rec_count * 100) if rec_count > 0 else 0.0, 100.0), 1)
+
             templates.append({
                 "uuid":         tpl_data["uuid"],
                 "name":         tpl_data.get("name"),
@@ -187,6 +185,9 @@ class LayoutService:
                 "diffInfo":     diff_info,
                 "featureDiffs": feature_diffs,
                 "arrange":      tpl_data.get("arrange", {}),
+                "recommendation_count": rec_count,
+                "adoption_count": adp_count,
+                "adoption_rate": adoption_rate,
             })
 
         # 3. 精排截断（严出）：按 Gower 算出的高精度综合评分降序排列
