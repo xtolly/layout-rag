@@ -41,7 +41,6 @@ def get_domain_paths(domain: "BusinessDomain") -> dict[str, Path]:
     return {
         "data_dir":          data_dir,
         "vecdb_dir":         vecdb_dir,
-        "vector_store_path": vecdb_dir / "vector_store.json",
     }
 
 

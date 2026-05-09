@@ -1,4 +1,3 @@
-import json
 import numpy as np
 from typing import List, Dict, Tuple
 
@@ -38,10 +37,26 @@ class VectorStore:
         self.idx_from_bom = [i for i, f in enumerate(self.feature_names) if schema[f].get("from_bom", False)]
         self.idx_not_from_bom = [i for i, f in enumerate(self.feature_names) if not schema[f].get("from_bom", False)]
 
-        # 统计参数 (标尺)
-        self.cont_min = np.zeros(len(self.idx_cont))
-        self.cont_range = np.ones(len(self.idx_cont))
-        self.count_max_log = np.ones(len(self.idx_count))
+        # 统计参数 (静态业务标尺) - 强校验配置完整性
+        try:
+            self.cont_min = np.array([schema[self.feature_names[i]]["min"] for i in self.idx_cont], dtype=float)
+            cont_max = np.array([schema[self.feature_names[i]]["max"] for i in self.idx_cont], dtype=float)
+        except KeyError as e:
+            raise ValueError(f"配置错误：特征领域中的连续特征缺少边界定义 {e}，必须提供 'min' 和 'max'")
+
+        self.cont_range = cont_max - self.cont_min
+        self.cont_range[self.cont_range == 0] = 1.0 # 防止除零
+
+        try:
+            max_counts = np.array([schema[self.feature_names[i]]["max_count"] for i in self.idx_count], dtype=float)
+        except KeyError as e:
+            raise ValueError(f"配置错误：特征领域中的计数特征缺少边界定义 {e}，必须提供 'max_count'")
+
+        self.count_max_log = np.log1p(max_counts)
+        self.count_max_log[self.count_max_log == 0] = 1.0 # 防止除零
+        
+        # 标尺已就绪
+        self.encoder_ready = True
 
     def _dict_to_vector(self, feature_dict: dict) -> np.ndarray:
         # 严格根据 Schema 中定义的 default 值进行缺失插补
@@ -92,78 +107,7 @@ class VectorStore:
     def non_bom_dimension(self) -> int:
         return len(self.idx_not_from_bom)
 
-    def fit_and_save_ruler(self, filepath: str, raw_data_list: List[dict]):
-        """
-        基于历史数据拟合统计极值（标尺）并持久化到磁盘。
-        """
-        if not raw_data_list:
-            print("[错误] 未提取到任何有效特征，无法完成标尺拟合！")
-            return False
 
-        # 1. 解析基础矩阵
-        matrix = np.array([self._dict_to_vector(item["features"]) for item in raw_data_list])
-
-        # 2. 连续特征 (Continuous) -> 获取 Min-Max 标尺
-        if self.idx_cont:
-            m_cont = matrix[:, self.idx_cont]
-            self.cont_min = np.min(m_cont, axis=0)
-            cont_max = np.max(m_cont, axis=0)
-            self.cont_range = cont_max - self.cont_min
-            self.cont_range[self.cont_range == 0] = 1.0
-
-        # 3. 计数特征 (Count) -> 获取 Max_log 标尺
-        if self.idx_count:
-            m_count = matrix[:, self.idx_count]
-            m_count_log = np.log1p(np.maximum(m_count, 0))
-            self.count_max_log = np.max(m_count_log, axis=0)
-            self.count_max_log[self.count_max_log == 0] = 1.0
-
-        # 4. 持久化标尺
-        meta_data = {
-            "version": "6.1_stat_params_only",
-            "params": {
-                "cont_min": self.cont_min.tolist(),
-                "cont_range": self.cont_range.tolist(),
-                "count_max_log": self.count_max_log.tolist()
-            }
-        }
-        with open(filepath, 'w+', encoding='utf-8') as f:
-            json.dump(meta_data, f, ensure_ascii=False, indent=2)
-        print(f"标尺拟合完成并已保存至 {filepath}")
-        return True
-
-    def load_ruler(self, filepath: str):
-        """
-        从磁盘恢复基准标尺极值。
-        特征配置(Schema)和权重完全由初始化时传入的 Python 源码主导。
-        """
-        with open(filepath, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            
-        params = data.get("params", {})
-        
-        # 提取极值
-        saved_cont_min = np.array(params.get("cont_min", []))
-        
-        # 防呆校验：如果代码里增删了特征，导致维度和硬盘里的旧标尺对不上，必须报错阻止
-        saved_count_max_log = np.array(params.get("count_max_log", []))
-        if len(self.idx_cont) > 0 and len(self.idx_cont) != len(saved_cont_min):
-            raise ValueError(
-                f"连续特征维度不匹配：代码 {len(self.idx_cont)} vs 标尺 {len(saved_cont_min)}。\n"
-                "请删除旧的 vector_store.json 并重新运行拟合。"
-            )
-        if len(self.idx_count) > 0 and len(self.idx_count) != len(saved_count_max_log):
-            raise ValueError(
-                f"计数特征维度不匹配：代码 {len(self.idx_count)} vs 标尺 {len(saved_count_max_log)}。\n"
-                "请删除旧的 vector_store.json 并重新运行拟合。"
-            )
-            
-        # 恢复统计极值
-        self.cont_min = saved_cont_min
-        self.cont_range = np.array(params.get("cont_range", []))
-        self.count_max_log = saved_count_max_log
-        
-        print("纯净标尺极值加载完毕，特征权重已完全听从 Python 代码指挥。")
 
     def get_feature_ranges(self) -> dict[str, float]:
         """

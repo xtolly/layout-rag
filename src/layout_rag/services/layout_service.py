@@ -1,5 +1,6 @@
 import os
 import json
+import uuid
 from typing import List, Dict, Optional
 
 from layout_rag.domain.base import BusinessDomain
@@ -10,6 +11,7 @@ from layout_rag.config import (
 from layout_rag.core.layout_optimizer import LayoutOptimizer
 from layout_rag.core.vector_store import VectorStore
 from layout_rag.core.neo4j_client import Neo4jClient, neo4j_client
+from layout_rag.core.plm_importer import PLMGraphImporter
 
 class LayoutService:
     """
@@ -435,4 +437,30 @@ class LayoutService:
         return {
             "template_data": tpl_data,
             "project_data":  project_data,
+        }
+
+    def upload_layout(self, project_data: dict) -> dict:
+        """
+        上传布局方案接口。
+        将方案特征和拓扑结构直接导入图数据库。
+        """
+        project_name = project_data.get("name", "未命名方案")
+
+        # 后端统一生成 UUID 并写入数据
+        backend_uuid = str(uuid.uuid4())
+        project_data["uuid"] = backend_uuid
+
+        # 实例化抽取的 Importer
+        importer = PLMGraphImporter(neo4j_client, self.domain)
+
+        # 将新的布局拓扑写入 Neo4j
+        try:
+            importer.import_plm_data(project_data)
+        except Exception as e:
+            return {"status": "error", "message": f"导入Neo4j失败: {str(e)}"}
+
+        return {
+            "status": "success", 
+            "message": f"方案 {project_name} 上传入库成功。",
+            "uuid": backend_uuid
         }
