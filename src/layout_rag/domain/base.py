@@ -190,10 +190,11 @@ class BusinessDomain(ABC):
                 weight = 1.0
                 f_type = "continuous"
 
-            total_weight += weight
-
             # 计算单维度 Gower 相似度
             if f_type == "count":
+                if (q_val == 0 and t_val == 0):
+                    continue
+
                 # count 特征先做 log1p 变换，再用 count_max_log 归一化
                 range_val = feature_ranges.get(key, 0.0)
                 if range_val <= 0.0:
@@ -213,5 +214,6 @@ class BusinessDomain(ABC):
                 sim = 1.0 if q_val == t_val else 0.0
 
             weighted_sim += sim * weight
+            total_weight += weight
 
         return weighted_sim / total_weight if total_weight > 0 else 0.0

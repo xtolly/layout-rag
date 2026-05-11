@@ -61,29 +61,8 @@ class PLMGraphImporter:
         
         self.vector_store = VectorStore(self.schema)
         self.encoder_ready = True
-        self._init_vector_index()
+        
 
-    def _init_vector_index(self):
-        """使用空数据样本探测特征提取器的实际输出维度，并通知DB建立索引"""
-        dummy_sample = {
-            "schema": {
-                "cabinet_width": 0, "cabinet_height": 0, "cabinet_depth": 0,
-                "install_type": "", "inline_mode": "", "fixup_type": "",
-                "door_type": "", "cable_in_out_type": "", "box_classify": "",
-                "panel_size": [0, 0],
-                "parts": []
-            }
-        }
-        try:
-            feature_dict = self.domain.extract_features(dummy_sample)
-            full_dim = len(self.vector_store.encode_for_neo4j(feature_dict))
-            bom_dim = self.vector_store.bom_dimension
-            non_bom_dim = self.vector_store.non_bom_dimension
-
-            print(f"[初始化] 向量维度 — 全量: {full_dim}, BOM: {bom_dim}, 非BOM: {non_bom_dim}")
-            self.db_client.create_vector_index_if_not_exists(full_dim, bom_dim, non_bom_dim)
-        except Exception as e:
-            print(f"[警告] 自动探测特征向量维度失败，将不会自动创建索引。原因: {e}")
 
     def import_plm_data(self, data):
         """解析并使用批处理显式事务导入全量数据"""
@@ -326,7 +305,9 @@ class PLMGraphImporter:
                 SET pi.Name = p.pi_name,
                     pi.FeatureVector = p.vector_list,
                     pi.BomFeatureVector = p.bom_vector_list,
-                    pi.NonBomFeatureVector = p.non_bom_vector_list
+                    pi.NonBomFeatureVector = p.non_bom_vector_list,
+                    pi.recommendation_count = coalesce(pi.recommendation_count, 0),
+                    pi.adoption_count = coalesce(pi.adoption_count, 0)
                 MERGE (pi)-[:INSTANCE_OF]->(pt)
                 MERGE (bi)-[:CONTAINS]->(pi)
             """, panels=panels)

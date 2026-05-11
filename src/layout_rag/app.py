@@ -1,3 +1,9 @@
+import os
+import sys
+
+# 将当前文件所在目录添加到 Python 搜索路径
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/")))
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

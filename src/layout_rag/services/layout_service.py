@@ -455,6 +455,8 @@ class LayoutService:
         backend_uuid = str(uuid.uuid4())
         project_data["uuid"] = backend_uuid
 
+        project_data["schema"]["panel_id"] = str(uuid.uuid4())
+
         # 实例化抽取的 Importer
         importer = PLMGraphImporter(neo4j_client, self.domain)
 

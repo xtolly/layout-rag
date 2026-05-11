@@ -16,9 +16,24 @@ from layout_rag.domain.new_distribution_box import NewDistributionBoxDomain
 def upgrade_vectors():
     print("=== 开始更新图数据库特征向量 ===")
     
-    # 1. 实例化 Importer (这会自动扫描最新 Schema 并重建匹配维度的 Vector Index)
+    # 1. 实例化 Importer 和 VectorStore
     domain = NewDistributionBoxDomain()
     importer = PLMGraphImporter(neo4j_client, domain)
+    
+    # 显式重建 Vector Index
+    dummy_sample = {
+        "schema": {
+            "cabinet_width": 0, "cabinet_height": 0, "cabinet_depth": 0,
+            "install_type": "", "inline_mode": "", "fixup_type": "",
+            "door_type": "", "cable_in_out_type": "", "box_classify": "",
+            "panel_size": [0, 0], "parts": []
+        }
+    }
+    feature_dict = domain.extract_features(dummy_sample)
+    full_dim = len(importer.vector_store.encode_for_neo4j(feature_dict))
+    bom_dim = importer.vector_store.bom_dimension
+    non_bom_dim = importer.vector_store.non_bom_dimension
+    neo4j_client.create_vector_index_if_not_exists(full_dim, bom_dim, non_bom_dim)
     
     data_dir = os.path.join(os.path.dirname(__file__), '..', 'templates', 'new_distribution_box')
     if not os.path.exists(data_dir):

@@ -67,21 +67,20 @@ class NewDistributionBoxDomain(BusinessDomain):
         part_types = self.get_part_types()
         features = {
             # ── 面板尺寸特征（非 BOM）──
-            "panel_width":        {"type": "continuous", "weight": 1.0, "display_name": "面板宽度",   "from_bom": False, "min": 200.0, "max": 1200.0},
-            "panel_height":       {"type": "continuous", "weight": 1.0, "display_name": "面板高度",   "from_bom": False, "min": 300.0, "max": 2500.0},
-            "panel_area":         {"type": "continuous", "weight": 1.0, "display_name": "面板总面积", "from_bom": False, "min": 60000.0, "max": 3000000.0},
-            "panel_aspect_ratio": {"type": "continuous", "weight": 1.0, "display_name": "面板纵横比", "from_bom": False, "min": 0.1, "max": 4.0},
+            # "panel_width":        {"type": "continuous", "weight": 1.0, "display_name": "面板宽度",   "from_bom": False, "min": 200.0, "max": 1200.0},
+            # "panel_height":       {"type": "continuous", "weight": 1.0, "display_name": "面板高度",   "from_bom": False, "min": 300.0, "max": 2500.0},
+            # "panel_area":         {"type": "continuous", "weight": 1.0, "display_name": "面板总面积", "from_bom": False, "min": 60000.0, "max": 3000000.0},
+            # "panel_aspect_ratio": {"type": "continuous", "weight": 1.0, "display_name": "面板纵横比", "from_bom": False, "min": 0.1, "max": 4.0},
             # ── 元件统计特征（BOM）──
-            "total_parts":        {"type": "count",      "weight": 1.0, "display_name": "元器件总数",   "from_bom": True,  "max_count": 80},
-            "unique_types":       {"type": "count",      "weight": 1.0, "display_name": "元件种类数",   "from_bom": True,  "max_count": 15},
-            "total_parts_area":   {"type": "continuous", "weight": 1.0, "display_name": "元器件总面积", "from_bom": True,  "min": 0.0, "max": 2000000.0},
-            "fill_ratio":         {"type": "continuous", "weight": 1.0, "display_name": "空间填充率",   "from_bom": True,  "min": 0.0, "max": 1.0},
-            "avg_part_width":     {"type": "continuous", "weight": 1.0, "display_name": "元件平均宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
-            "avg_part_height":    {"type": "continuous", "weight": 1.0, "display_name": "元件平均高度", "from_bom": True,  "min": 10.0, "max": 800.0},
-            "max_part_width":     {"type": "continuous", "weight": 1.0, "display_name": "元件最大宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
-            "max_part_height":    {"type": "continuous", "weight": 1.0, "display_name": "元件最大高度", "from_bom": True,  "min": 10.0, "max": 800.0},
-            "width_std":          {"type": "continuous", "weight": 1.0, "display_name": "元件宽度标准差", "from_bom": True,  "min": 0.0, "max": 400.0},
-            "height_std":         {"type": "continuous", "weight": 1.0, "display_name": "元件高度标准差", "from_bom": True,  "min": 0.0, "max": 400.0},
+            "total_parts":        {"type": "count",      "weight": 2.0, "display_name": "元器件总数",   "from_bom": True,  "max_count": 80},
+            "unique_types":       {"type": "count",      "weight": 2.0, "display_name": "元件种类数",   "from_bom": True,  "max_count": 15},
+            "total_parts_area":   {"type": "continuous", "weight": 2.0, "display_name": "元器件总面积", "from_bom": True,  "min": 0.0, "max": 2000000.0},
+            "avg_part_width":     {"type": "continuous", "weight": 2.0, "display_name": "元件平均宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
+            "avg_part_height":    {"type": "continuous", "weight": 2.0, "display_name": "元件平均高度", "from_bom": True,  "min": 10.0, "max": 800.0},
+            "max_part_width":     {"type": "continuous", "weight": 2.0, "display_name": "元件最大宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
+            "max_part_height":    {"type": "continuous", "weight": 2.0, "display_name": "元件最大高度", "from_bom": True,  "min": 10.0, "max": 800.0},
+            "width_std":          {"type": "continuous", "weight": 2.0, "display_name": "元件宽度标准差", "from_bom": True,  "min": 0.0, "max": 400.0},
+            "height_std":         {"type": "continuous", "weight": 2.0, "display_name": "元件高度标准差", "from_bom": True,  "min": 0.0, "max": 400.0},
             # ── 箱体分类 ──
             "box_classify_配电箱":     {"type": "boolean", "weight": 3.0, "display_name": "箱体分类:配电箱",     "from_bom": False, "field": "box_classify"},
             "box_classify_户箱":       {"type": "boolean", "weight": 3.0, "display_name": "箱体分类:户箱",       "from_bom": False, "field": "box_classify"},
@@ -141,19 +140,9 @@ class NewDistributionBoxDomain(BusinessDomain):
           6. 大型元件比例
         """
         schema = layout_json.get("schema", {})
-        panel_size = schema.get("panel_size", [0.0, 0.0])
         parts      = schema.get("parts", [])
 
-        panel_w, panel_h = float(panel_size[0]), float(panel_size[1])
-        panel_area = panel_w * panel_h
-
         features: dict[str, float] = {}
-
-        # ── 1. 面板特征 ──
-        features["panel_width"]        = panel_w
-        features["panel_height"]       = panel_h
-        features["panel_area"]         = panel_area
-        features["panel_aspect_ratio"] = panel_w / panel_h if panel_h > 0 else 0.0
 
         # ── 2. 元件统计特征 ──
         widths  = [p.get("part_size", [0, 0])[0] for p in parts]
@@ -163,7 +152,6 @@ class NewDistributionBoxDomain(BusinessDomain):
         features["total_parts"]      = len(parts)
         features["unique_types"]     = len({p.get("part_type", "") for p in parts})
         features["total_parts_area"] = sum(areas)
-        features["fill_ratio"]       = features["total_parts_area"] / panel_area if panel_area > 0 else 0.0
         features["avg_part_width"]   = float(np.mean(widths))  if widths  else 0.0
         features["avg_part_height"]  = float(np.mean(heights)) if heights else 0.0
         features["max_part_width"]   = float(np.max(widths))   if widths  else 0.0
