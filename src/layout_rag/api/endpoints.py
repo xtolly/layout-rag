@@ -23,7 +23,7 @@ async def recommend_layout(
     project_data: Dict[str, Any] = Body(...),
     service=Depends(get_service)
 ):
-    """接口 1：执行基于相似特征的真实推荐检索"""
+    """执行基于特征相似度的推荐检索"""
     templates = service.search_recommendations(project_data, mode=mode)
     return {"templates": templates}
 
@@ -32,7 +32,7 @@ async def apply_template(
     payload: Dict[str, Any] = Body(...),
     service=Depends(get_service)
 ):
-    """接口 2：应用选中的模板，为原数据填充排版坐标 arrange"""
+    """应用选中模板，为当前项目生成排版坐标并返回更新数据"""
     template_uuid = payload.get("template_uuid")
     other_template_uuids = payload.get("other_template_uuids", [])
     project_data = payload.get("project_data", {})
@@ -64,7 +64,7 @@ async def recommend_bom(
 
 @router.post("/submit")
 async def submit_layout(project_data: Dict[str, Any] = Body(...)):
-    """接口 3：接收最终的人工微调结果"""
+    """接收并保存最终的人工微调布局数据"""
     # 实际生产中这里应有持久化逻辑
     print("收到最终提交的布局数据，包含元件数:", len(project_data.get("schema", {}).get("parts", [])))
     return {"status": "success", "message": "布局数据保存成功"}
@@ -74,16 +74,16 @@ async def upload_layout(
     project_data: Dict[str, Any] = Body(...),
     service=Depends(get_service)
 ):
-    """接口 5：上传并入库新的业务布局方案 (入库图数据库)"""
+    """上传并入库新业务布局方案至图数据库"""
     result = service.upload_layout(project_data)
     return result
 
 @router.post("/cabinet-layout")
 async def cabinet_layout(payload: Dict[str, Any] = Body(...)):
     """
-    接口 4：柜体级别布局
+    柜体级别初始布局
 
-    对前端已转换完成的布局数据执行柜体级初始布局计算。
+    对前端提交的布局数据执行柜体级排版计算。
 
     输入 payload: { name, uuid, schema: { panel_size, parts, ... }, arrange }
     返回: { name, uuid, schema, arrange }

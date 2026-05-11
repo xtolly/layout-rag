@@ -43,6 +43,7 @@ class LayoutService:
 
     @staticmethod
     def _resolve_feature_status(q_value, t_value, feature_type: str) -> str:
+        """根据特征类型和数值差异计算偏离度，返回用于前端高亮展示的状态色标。"""
         if feature_type in {"continuous", "count"}:
             diff_abs  = abs(q_value - t_value)
             base_val  = max(abs(q_value), abs(t_value), 0.001)
@@ -78,7 +79,7 @@ class LayoutService:
     # ------------------------------------------------------------------
 
     def calculate_diff_info(self, query_parts: list, template_parts: list) -> dict:
-        """计算零件组成差异（matched / extra / missing）。"""
+        """对比当前方案与模板方案的零件集合，统计匹配、多余及缺失的零件数量。"""
         q_counts: dict = {}
         for p in query_parts:
             pt = p.get("part_type")
@@ -101,7 +102,7 @@ class LayoutService:
         return {"matched": matched, "extra": extra, "missing": missing}
 
     def get_feature_diff_list(self, q_features, t_features) -> List[Dict]:
-        """生成详细特征差异比对（按权重降序）。"""
+        """对比两组特征数据，生成带有权重、状态等元信息的差异列表，按重要程度降序，供前端表格渲染。"""
         diff_list = []
         for f_name, f_info in self.schema_def.items():
             qv = self._to_python_value(q_features.get(f_name, 0))
@@ -126,13 +127,17 @@ class LayoutService:
         return diff_list
 
     def search_recommendations(self, project_data: dict, top_k: int = 10, mode: str = 'recommend') -> list:
-        """执行推荐搜索全流程，采用”搜 ID + 批量取详情”两步走。"""
+        """
+        方案推荐引擎。
+        采用宽进严出的检索架构，先通过向量库检索特征扩大候选集合，
+        然后拉取完整数据，使用 Gower 距离计算精确匹配度并排序。
+        """
 
         query_features = self.domain.extract_features(project_data)
         query_vector = self.store.encode_for_neo4j(query_features)
 
-        # 1. 扩大召回（宽进）：向 Neo4j 发起向量检索，获取更多的候选集
-        # 建议把 top_k 乘以一个倍数，比如 3 倍或 5 倍，确保不会漏掉好数据
+        # 宽进：通过近似向量检索快速圈定候选集
+        # 放大 top_k 倍数确保涵盖优质数据
         recall_k = top_k * 5 
         search_results = neo4j_client.search_similar_panel(query_vector, recall_k)
         
@@ -141,7 +146,7 @@ class LayoutService:
             
         panel_ids = [r["panel_id"] for r in search_results]
 
-        # 2. 第二步：批量从数据库获取这些面板的完整拓扑数据
+        # 批量从数据库获取候选面板的完整拓扑数据
         details_from_db = neo4j_client.get_layouts_by_ids(panel_ids)
 
         # 获取用于 Gower 计算的极差字典
@@ -155,7 +160,7 @@ class LayoutService:
             # 提取模板特征
             tpl_features = self.domain.extract_features(tpl_data)
 
-            # ====== 调用领域基类的 Gower 算法进行计算 ======
+            # 基于特征极差执行高精度相似度计算
             exact_similarity = self.domain.calculate_gower_similarity(
                 query_features=query_features, 
                 template_features=tpl_features, 
@@ -194,7 +199,7 @@ class LayoutService:
                 "adoption_rate": adoption_rate,
             })
 
-        # 3. 精排截断（严出）：按 Gower 算出的高精度综合评分降序排列
+        # 严出：按 Gower 算出的综合评分降序排列并截断
         templates.sort(key=lambda x: x["score"], reverse=True)
         
         # 只返回前端请求的数量 (Top K)
@@ -206,14 +211,15 @@ class LayoutService:
 
     def recommend_bom(self, project_data: dict, top_n: int = 20) -> list:
         """
-        多路召回 + 精排的 BOM 推荐引擎（互补模式）。
-        只推荐当前面板缺少的元件，目标是补全一份完整 BOM。
+        BOM 智能推荐引擎。
+        结合环境、BOM及知识图谱共现进行多路召回，通过置信度融合预测缺失元件。
         """
-        # ── 阶段 1：状态感知 ──
+        # 提取项目特征，分别构造非BOM和带BOM向量
         query_features = self.domain.extract_features(project_data)
         env_vector = self.store.encode_for_neo4j(query_features, mode="not_from_bom")
         bom_vector = self.store.encode_for_neo4j(query_features, mode="from_bom")
 
+        # 解析已有元件明细，确定进出线、大类及型号集合
         current_parts = project_data.get("schema", {}).get("parts", [])
         current_models = {p.get("part_model", "") for p in current_parts if p.get("part_model")}
         current_types = {p.get("part_type", "") for p in current_parts if p.get("part_type")}
@@ -222,27 +228,30 @@ class LayoutService:
 
         is_cold = len(current_models) == 0
 
+        # 冷启动状态下，因为没有元件，完全依赖非BOM的外部环境特征进行召回
         if is_cold:
             w_env, w_bom, w_graph = 1.0, 0.0, 0.0
         else:
             w_env, w_bom, w_graph = 0.3, 0.4, 0.3
 
-        # ── 阶段 2：多路召回 ──
+        # 环境向量召回：匹配外部尺寸或箱体约束等维度
         env_results = neo4j_client.search_similar_panel_non_bom(env_vector, top_n)
         env_score_map = {r["panel_id"]: r["score"] for r in env_results}
         env_panel_ids = [r["panel_id"] for r in env_results]
 
+        # BOM向量召回：匹配内部排布与物料构成
         bom_score_map, bom_panel_ids = {}, []
         if not is_cold:
             bom_results = neo4j_client.search_similar_panel_bom(bom_vector, top_n)
             bom_score_map = {r["panel_id"]: r["score"] for r in bom_results}
             bom_panel_ids = [r["panel_id"] for r in bom_results]
 
+        # 图谱共现召回：发掘当前型号在拓扑图中的高频邻接元件
         graph_neighbors = []
         if not is_cold:
             graph_neighbors = neo4j_client.get_co_occurring_parts(list(current_models))
 
-        # ── 阶段 3：聚合 ──
+        # 将召回的面板集去重并拉取明细，为打分做准备
         all_panel_ids = list(set(env_panel_ids + bom_panel_ids))
         panels_data = neo4j_client.get_layouts_by_ids(all_panel_ids) if all_panel_ids else []
         panel_data_map = {p["uuid"]: p for p in panels_data}
@@ -326,15 +335,15 @@ class LayoutService:
                     c["sources"].append("graph")
                 c["appear_count"] += 1
 
-        # ── 阶段 4：互补过滤 + 精排 ──
-
+        # 互补过滤与置信度计算
         type_candidates: Dict[str, dict] = {}
         for _, c in candidates.items():
             ptype = c["part_type"]
+            # 互补过滤：跳过方案中已具备的元件大类
             if ptype in current_types:
                 continue
 
-            active_weight = 0.0
+            # 按有效通道聚合计算基础加权置信度
             weighted_sum = 0.0
             if "env" in c["sources"]:
                 active_weight += w_env
@@ -354,7 +363,7 @@ class LayoutService:
             source_bonus = {1: 1.0, 2: 1.2, 3: 1.4}.get(num_sources, 1.0)
             base_confidence *= source_bonus
 
-            # 频率加权：在召回面板中的出现率越高，置信度越高
+            # 频率加权：在召回池中的命中率越高，置信度越高
             num_source_panels = len(c["source_panels"]) or 1
             frequency = min(num_source_panels / total_recall_panels, 1.0)
             base_confidence *= (0.7 + 0.3 * frequency)
@@ -362,7 +371,8 @@ class LayoutService:
             confidence = round(base_confidence * 100)
             confidence = min(confidence, 100)
 
-            # 进出线互补加分（比例式，上浮 10%）
+            # 业务倾向调整：进出线互补
+            # 如果当前方案缺少进线元件，优先推高进线元件置信度；出线同理
             if c["in_line"] and not has_inline:
                 confidence = min(round(confidence * 1.1), 100)
             elif not c["in_line"] and not has_outline:
@@ -405,7 +415,7 @@ class LayoutService:
         other_template_uuids: List[str] | None = None,
     ) -> dict:
         """
-        应用推荐方案的排版逻辑：寻找模板中类型一致且尺寸最接近的元件进行坐标迁移。
+        调用约束求解器，将模板方案的坐标与排布逻辑映射到当前项目数据中，执行防重叠及空间优化。
         """
         tpl_data = self._load_template_data(template_uuid)
         if not tpl_data:
@@ -446,8 +456,8 @@ class LayoutService:
 
     def upload_layout(self, project_data: dict) -> dict:
         """
-        上传布局方案接口。
-        将方案特征和拓扑结构直接导入图数据库。
+        方案数据入库接口。
+        生成唯一标识分配给箱体与面板，随后通过图导入器写入 Neo4j，供后续检索与图计算使用。
         """
         project_name = project_data.get("name", "未命名方案")
 

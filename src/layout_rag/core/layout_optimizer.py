@@ -1,28 +1,16 @@
 """
-布局优化器 —— 基于模板映射 + CP-SAT 约束求解的元件自动排版。
+布局优化器 —— 基于模板映射与 CP-SAT 约束求解的元件自动排版。
 
-整体流程分为 **坐标映射** 和 **约束求解** 两个阶段：
+整体流程分为坐标映射和约束求解两个阶段：
 
-  坐标映射阶段  按以下优先级为每个待排元件分配一个"期望位置 (target)"和置信权重：
-  ┌─────────────────────────────────────────────────────────────────────┐
-  │  优先级 1 — 主模板精确映射 (weight=1000)                           │
-  │    按 part_type 匹配，贪心选尺寸+宽高比最接近的模板元件，           │
-  │    等比缩放坐标到当前面板尺寸。                                     │
-  │                                                                     │
-  │  优先级 2 — 备选模板补位 (weight=120)                               │
-  │    仅当主模板中完全没有该 part_type 时，才从其他推荐模板借坐标。     │
-  │                                                                     │
-  │  优先级 3 — 同类型游标续排 (weight=10)                              │
-  │    主模板已有同类型锚点，把新增元件沿最近锚点向右续排，溢出则折行。  │
-  │                                                                     │
-  │  优先级 4 — 默认兜底 (weight=5)                                     │
-  │    无任何参考，放到面板底部边距附近，交给求解器兜底。                │
-  └─────────────────────────────────────────────────────────────────────┘
+坐标映射阶段按以下优先级为每个待排元件分配期望位置和置信权重：
+- 主模板精确映射：按类型匹配，选尺寸最接近的模板元件并等比缩放坐标。
+- 备选模板补位：主模板无对应类型时，从其他推荐模板借用坐标。
+- 同类型游标续排：沿同类型已有锚点向右续排，溢出则折行。
+- 默认兜底：无任何参考时置于面板底部附近。
 
-  约束求解阶段  使用 OR-Tools CP-SAT 在满足以下硬约束的前提下，
-  最小化所有元件到其 target 的加权 L1 距离：
-    • 面板边距约束：元件不能触碰面板边缘
-    • 不重叠约束：任意两个元件的膨胀矩形（含间距）不交叉
+约束求解阶段使用 OR-Tools 在满足边距不重叠等硬约束下，
+最小化所有元件到期望位置的加权 L1 距离。
 """
 
 import math
@@ -115,12 +103,12 @@ class LayoutOptimizer:
         # 坐标缩放因子：模板面板 → 当前面板
         scale_x, scale_y = self._compute_scale(curr_size, tpl_size)
 
-        # ── 阶段 1：主模板精确匹配 ──
+        # 主模板精确匹配
         matched, unmatched = self._match_parts_to_template(
             curr_parts, tpl_parts, tpl_arrange, scale_x, scale_y, curr_size,
         )
 
-        # ── 阶段 2：为未匹配元件分配期望位置 ──
+        # 为未匹配元件分配期望位置
         fallback_index = self._build_fallback_type_index(fallback_templates or [], curr_size)
         all_parts = self._resolve_unmatched_targets(
             matched, unmatched, fallback_index, curr_size,
@@ -129,12 +117,12 @@ class LayoutOptimizer:
         if not all_parts:
             return project_data
 
-        # ── 阶段 3：CP-SAT 约束求解 ──
+        # CP-SAT 约束求解
         project_data["arrange"] = self._solve_layout(all_parts, curr_size[0], curr_size[1])
         return project_data
 
     # ===================================================================
-    #  阶段 1：主模板精确匹配
+    #  主模板精确匹配
     # ===================================================================
 
     def _match_parts_to_template(
@@ -147,12 +135,10 @@ class LayoutOptimizer:
         panel_size: list[float],
     ) -> tuple[list[dict], list[dict]]:
         """
-        将当前项目的每个元件与主模板中**同类型、尺寸最接近**的元件一一配对。
+        将当前项目的每个元件与主模板中同类型、尺寸最接近的元件进行配对。
 
-        匹配策略：
-          1. 按元件面积从大到小排序，优先为大元件锁定模板配对。
-          2. 对每个元件，在模板的同 part_type 候选中选 _compute_match_diff 最小的。
-          3. 已配对的模板元件不再参与后续匹配（贪心一对一）。
+        匹配策略：按元件面积降序排序，优先为大元件锁定模板配对；
+        在同类型候选中选择尺寸差异最小的模板元件，已配对元件不再参与后续匹配。
 
         Returns:
             (matched, unmatched) — matched 带有 target 坐标和 WEIGHT_PRIMARY，

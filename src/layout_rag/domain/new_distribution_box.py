@@ -7,22 +7,8 @@
 
 特征设计说明：
   本领域在 distribution_box.py 的空间特征与元件分布特征基础上，
-  融合 new_neo4j.py 中定义的配电箱业务属性（箱体分类、系列、安装方式、
-  进线方式、固定方式、门型）形成完整特征体系。
-
-  静态特征：
-    - 面板尺寸特征（panel_width/height/area/aspect_ratio）
-    - 元件统计特征（total_parts, unique_types, ...）
-    - 结构布尔特征（has_双电源, has_浪涌后备保护器, has_电涌保护器 等）
-
-  动态特征（从 schema 节点自动展开）：
-    - 元件类型计数（count_{StandardName}）
-    - 箱体分类（box_classify_配电箱 / box_classify_户箱 / ...）
-    - 箱体系列（series_XM1 / series_XM2 / ...）
-    - 安装方式（install_type_户内挂墙 / install_type_户外挂墙 / ...）
-    - 进线方式（inline_mode_上置 / inline_mode_左置）
-    - 固定方式（fixup_type_板式安装 / ...）
-    - 门型（door_type_左开门 / ...）
+  融合配电箱业务属性（箱体分类、系列、安装方式、进线方式、固定方式、门型）
+  形成完整的特征体系。
 """
 
 from __future__ import annotations
@@ -130,21 +116,15 @@ class NewDistributionBoxDomain(BusinessDomain):
     def extract_features(self, layout_json: dict) -> dict[str, float]:
         """
         从布局 JSON 中提取完整特征字典。
-
-        特征分组：
-          1. 面板几何特征（宽、高、面积、纵横比）
-          2. 元件统计特征（总数、种类数、面积统计等）
-          3. 元件类型计数特征（count_{part_type}）
-          4. 业务结构特征（由 extract_structural_features 提供）
-          5. 分类 schema 特征（boolean，如 box_classify_XXX）
-          6. 大型元件比例
+        包括面板几何尺寸、元件数量种类与面积统计、元件类型计数，
+        以及箱体分类、系列、安装方式等强业务属性的布尔特征。
         """
         schema = layout_json.get("schema", {})
         parts      = schema.get("parts", [])
 
         features: dict[str, float] = {}
 
-        # ── 2. 元件统计特征 ──
+        # 计算所有元件的宽度、高度及面积的统计量
         widths  = [p.get("part_size", [0, 0])[0] for p in parts]
         heights = [p.get("part_size", [0, 0])[1] for p in parts]
         areas   = [w * h for w, h in zip(widths, heights)]
@@ -159,7 +139,7 @@ class NewDistributionBoxDomain(BusinessDomain):
         features["width_std"]        = float(np.std(widths))   if widths  else 0.0
         features["height_std"]       = float(np.std(heights))  if heights else 0.0
 
-        # ── 3. 元件类型计数特征 ──
+        # 统计各类元件出现的频次
         part_types = self.get_part_types()
         type_counts: dict[str, int] = {pt: 0 for pt in part_types}
         for p in parts:
@@ -169,7 +149,7 @@ class NewDistributionBoxDomain(BusinessDomain):
         for pt, count in type_counts.items():
             features[f"count_{pt}"] = count
 
-        # ── 5. 分类特征（feature_schema_def 中带 field 的 boolean 自动提取）──
+        # 从业务属性中自动提取带场定义的布尔型分类特征
         for feature_name, fconfig in self.feature_schema_def.items():
             field = fconfig.get("field")
             if not field:
