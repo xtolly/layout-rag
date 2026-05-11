@@ -1,271 +1,66 @@
-# Layout RAG
+# Layout-RAG 工业电气柜布局智能推荐与生成系统
 
-基于历史电气柜布局模板检索与约束求解的元件布局推荐系统。
+Layout-RAG 是一个专为工业电气柜设计的智能排版系统。它结合了**基于图数据库的大语言模型智能体（LangGraph Agent）**与**约束规划求解器（CP-SAT）**，能够通过解析自然语言或解析导入的系统图数据，自动推荐元器件 BOM 清单，并从历史沉淀的工程图纸中召回最相似的排版方案，最终自动生成无重叠、符合电气物理约束的二维布局坐标。
 
-项目包含三部分能力：
+## 核心能力
 
-- 基于布局 JSON 的特征提取与向量检索
-- 基于相似模板的布局迁移与候选方案推荐
-- 基于 OR-Tools CP-SAT 的最终坐标求解与前端微调
+* **多路智能 BOM 推荐**：基于 Neo4j 图数据库，结合环境向量（箱体尺寸/外部约束）、BOM 向量（内部物料构成）以及图谱共现网络进行多路召回，通过置信度融合与互补过滤，智能补全缺失的电气元件。
+* **AI 智能体配置 (Agentic Configurator)**：内置基于 LangGraph 的 ReAct 智能体，支持流式对话。工程师可以用自然语言下达指令（如“帮我加一个宽600的面板，里面放3个微型断路器”），智能体会自动调用内部 CRUD 工具完成柜体数据结构的搭建。
+* **图向量混合检索 (Graph-Vector RAG)**：提取面板的几何维度、元件统计、类型计数及强业务逻辑特征，利用 Neo4j 的 HNSW 向量索引进行“宽进”召回，再配合 Gower 距离算法进行高精度“严出”排序。
+* **约束求解排版 (Constraint-Based Layout)**：利用 OR-Tools 的 CP-SAT 求解器，将选定历史模板的元件坐标映射到当前项目，严格保证面板边距限制与元件无重叠约束，自动进行空间压缩与排版优化。
+* **桌面端/Web 端双模态**：提供开箱即用的 Vue 3 可视化工作台（支持拖拽微调排版），同时可通过构建工具一键打包为无头启动的 Electron 桌面客户端，便于工业软件集成。
 
-适用场景：上传一份新的柜体/面板元件清单后，从历史案例中召回相似模板，并将模板排版迁移到当前项目，再由人工进行可视化微调。
+## 系统架构与目录结构
 
-## 功能概览
-
-- 布局样本建库：扫描 templates 下的历史布局 JSON，提取特征并构建向量库
-- 相似模板推荐：按照连续特征、计数特征、布尔特征的加权距离进行召回排序
-- 模板布局迁移：优先匹配同类型且尺寸最接近的元件坐标
-- 兜底布局求解：对无法直接映射的元件使用备选模板、游标续排和 CP-SAT 约束求解
-- 前端交互：内置静态页面，可上传 JSON、查看推荐模板、选择方案并微调布局
-
-## 目录结构
+项目采用领域驱动设计（DDD），将核心算法与具体业务领域（如配电箱、低压开关柜）解耦。
 
 ```text
 layout-rag/
-|-- src/
-|   `-- layout_rag/
-|       |-- api/
-|       |   |-- __init__.py
-|       |   `-- endpoints.py
-|       |-- core/
-|       |   |-- __init__.py
-|       |   |-- feature_extractor.py
-|       |   |-- layout_optimizer.py
-|       |   `-- vector_store.py
-|       |-- services/
-|       |   |-- __init__.py
-|       |   `-- layout_service.py
-|       |-- __init__.py
-|       |-- app.py
-|       `-- config.py
-|-- scripts/
-|   `-- build_vector_store.py
-|-- tests/
-|   |-- conftest.py
-|   `-- test_retrieval.py
-|-- data/
-|   |-- box/
-|-- templates/
-|-- vecdb/
-|   |-- vector_store.json
-|   `-- vector_store.json.npz
-|-- static/
-|   |-- index.html
-|   |-- tailwind.js
-|   `-- vue.global.js
-|-- pyproject.toml
-`-- README.md
+├── src/layout_rag/      # 后端核心包 (FastAPI)
+│  ├── api/         # 接口路由 (RESTful Endpoints, Agent SSE Stream)
+│  ├── core/         # 核心算法 (特征提取, 向量转换, CP-SAT求解器, Neo4j图客户端)
+│  ├── domain/        # 领域业务规则 (如 NewDistributionBox 新配电箱特征定义)
+│  ├── services/       # 业务编排层 (布局推荐与应用流程串联)
+│  └── agent/        # LangGraph 智能体逻辑 (图计算节点, 结构化工具调用)
+├── static/          # 前端静态资源 (Vue 3, Tailwind, 工作台界面)
+├── templates/        # 沉淀的历史优良布局 JSON 模板库
+├── tools/          # 运维与数据管道脚本 (知识图谱重建, 向量刷新, PLM导入)
+├── tests/          # 自动化测试用例
+└── build_electron.bat    # 桌面端自动打包构建脚本
 ```
-
-分层说明：
-
-- src/layout_rag：应用源码，按 api / services / core 分层
-- scripts：一次性或运维类脚本
-- tests：测试与检索验证脚本
-- data：原始样本
-- templates：布局 JSON 数据集
-- vecdb：生成的向量库产物
-- static：前端静态资源
-
-## 核心流程
-
-### 1. 特征提取
-
-FeatureExtractor 从布局 JSON 的 meta 节点提取两类特征：
-
-- 固定特征：面板尺寸、元件数量、面积、宽高统计、结构布尔特征
-- 动态特征：按 templates 中出现过的 part_type、cabinet_type、panel_type 自动扩展
-
-动态特征定义位于 src/layout_rag/config.py。每次新增数据类型或调整 schema 后，都应重新建库。
-
-### 2. 向量检索
-
-VectorStore 将特征按三类分别处理：
-
-- continuous：Min-Max 归一化
-- count：Log1p 后按最大值缩放
-- boolean：截断为 0/1 后计算布尔距离
-
-最终距离为加权欧氏距离，返回最相似的历史模板。
-
-### 3. 布局迁移
-
-LayoutService 在推荐阶段会：
-
-- 对候选模板重新提取特征并生成差异说明
-- 结合元件组成差异计算推荐分数
-- 返回模板 meta、arrange 和 featureDiffs 给前端
-
-### 4. 约束求解
-
-LayoutOptimizer 的流程如下：
-
-1. 主模板精确匹配：同类型、尺寸最接近元件优先复用模板坐标
-2. 备选模板补位：主模板缺失某类元件时，借用其他推荐模板坐标
-3. 同类型游标续排：沿已有锚点继续排布同类新增元件
-4. CP-SAT 求解：在边距、不重叠等硬约束下最小化偏移量
-
-## 数据格式
-
-历史布局样本位于 templates，基本结构如下：
-
-```json
-{
-	"name": "项目名称_uuid后缀",
-	"uuid": "ef29f756-682b-437e-9544-8298e6efc9d0",
-	"meta": {
-		"cabinet_type": "配电柜",
-		"panel_type": "安装板",
-		"panel_size": [600.0, 1600.0],
-		"parts": [
-			{
-				"part_id": "136B1C",
-				"part_type": "微型断路器",
-				"part_size": [57.0, 40.0]
-			}
-		]
-	},
-	"arrange": {
-		"136B1C": {
-			"position": [24.0, 60.0],
-			"rotation": 0
-		}
-	}
-}
-```
-
-字段约定：
-
-- meta.parts 是检索和排版的核心输入
-- arrange 是历史模板的参考坐标，键为 part_id
-- panel_size 单位默认为 mm
 
 ## 快速开始
 
-### 1. 安装依赖
+### 1. 环境准备
 
-如果使用 uv：
+* **Python 3.11+**：项目使用 `uv` 进行快速依赖管理。
+* **Neo4j 6.x**：需要在本地运行图数据库，默认连接 `neo4j://127.0.0.1:7687`（需预先建立相应业务数据库，例如 `distributionbox`）。
+* **大模型 API (可选)**：如果需要使用 AI 智能体功能，请在根目录创建 `.env` 文件并配置 `DASHSCOPE_API_KEY`。
+
+### 2. 安装与初始化
 
 ```bash
+# 1. 安装项目依赖
 uv sync --dev
-```
 
-如果使用 pip：
+# 2. 初始化知识图谱与向量索引
+# 读取原始项目数据，抽取拓扑关系并建立 Neo4j HNSW 索引
+uv run python tools/new_neo4j.py
 
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-pip install -e .
-pip install pytest
-```
-
-说明：
-
-- uv 依赖使用 dependency-groups 管理，开发依赖通过 uv sync --dev 同步
-- pip 不识别 dependency-groups，因此需要单独安装 pytest 这类开发工具
-
-### 2. 构建向量库
-
-```bash
-uv run python scripts/build_vector_store.py
-```
-
-执行后会生成：
-
-- vecdb/vector_store.json：schema、统计参数和条目元数据
-- vecdb/vector_store.json.npz：压缩后的特征矩阵
-
-### 3. 启动服务
-
-```bash
+# 3. 启动本地服务
 uv run uvicorn --app-dir src layout_rag.app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-或直接使用已安装命令：
+启动后，访问 `http://localhost:8000/` 即可进入可视化布局配置与工作台。
 
-```bash
-uvicorn --app-dir src layout_rag.app:app --host 0.0.0.0 --port 8000 --reload
-```
+## 业务领域切换
 
-启动后访问：
+系统通过 `BusinessDomain` 基类实现抽象。目前活跃领域为 `NewDistributionBoxDomain` (新配电箱)。如果需要接入如“低压开关柜”等新业务，只需在 `src/layout_rag/domain` 中新建领域类，定义其特征提取逻辑与业务约束，并在 `app.py` 中实例化挂载即可。
 
-- http://127.0.0.1:8000
-- http://127.0.0.1:8000/docs
+## API 集成参考
 
-## 测试与验证
+对于外部工业软件对接，核心流程通常只需调用三个接口：
 
-### 检索验证
-
-```bash
-uv run pytest tests/test_retrieval.py
-```
-
-该测试文件现在是标准 pytest 单元测试，覆盖动态特征生成、特征提取、检索排序以及向量库存取一致性。
-
-## API 说明
-
-### GET /api/schema
-
-返回当前动态展开后的特征 schema。
-
-### POST /api/recommend
-
-输入当前项目布局 JSON，返回推荐模板列表：
-
-```json
-{
-	"templates": [
-		{
-			"uuid": "...",
-			"name": "...",
-			"score": 87,
-			"meta": {},
-			"arrange": {},
-			"diffInfo": {},
-			"featureDiffs": []
-		}
-	]
-}
-```
-
-### POST /api/apply
-
-请求体：
-
-```json
-{
-	"template_uuid": "主模板 UUID",
-	"other_template_uuids": ["备选模板 UUID"],
-	"project_data": {}
-}
-```
-
-返回值包含：
-
-- template_data：所选模板数据
-- project_data：写入 arrange 后的项目数据
-
-### POST /api/submit
-
-接收人工微调后的最终布局，当前默认仅回显成功状态。
-
-## 常用脚本
-
-```bash
-uv run python scripts/build_vector_store.py
-uv run pytest tests/test_retrieval.py
-```
-
-## 开发建议
-
-- 修改 src/layout_rag/config.py 中的 schema 或动态特征逻辑后，必须重建 vecdb/vector_store.json
-- 如果新增了 part_type、cabinet_type 或 panel_type，建库前先确保样本 JSON 已落到 templates
-- vecdb 目录下的向量库属于构建产物，建议在数据或特征变化后重新生成
-- 当前前端为静态页面，适合原型验证；如果后续演进，可将 static 独立为单独前端工程
-
-## 后续可扩展方向
-
-- 增加正式的 pytest 单元测试与回归测试集
-- 为 API 请求体补充 Pydantic 模型定义
-- 为向量库引入版本校验和增量重建策略
-- 将静态前端拆分为独立的前端应用与构建流程
+1. `POST /api/recommend`：传入当前元件清单，获取 Top-K 推荐模板及分数。
+2. `POST /api/apply`：选择指定模板，由后端求解器计算出各元件的具体 `[x, y]` 坐标。
+3. `POST /api/upload-layout`：将人工确认无误的布局方案存入图数据库，完成经验沉淀，实现系统进化。
