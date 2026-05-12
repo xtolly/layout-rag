@@ -32,17 +32,8 @@ if __name__ == "__main__":
     domain = NewDistributionBoxDomain()
     importer = PLMGraphImporter(neo4j_client, domain)
 
-    # 初始化向量索引
-    dummy_sample = {
-        "schema": {
-            "cabinet_width": 0, "cabinet_height": 0, "cabinet_depth": 0,
-            "install_type": "", "inline_mode": "", "fixup_type": "",
-            "door_type": "", "cable_in_out_type": "", "box_classify": "",
-            "panel_size": [0, 0], "parts": []
-        }
-    }
-    feature_dict = domain.extract_features(dummy_sample)
-    full_dim = len(importer.vector_store.encode_for_neo4j(feature_dict))
+    # 直接从 VectorStore 提取静态定义好的向量维度
+    full_dim = len(importer.vector_store.feature_names)
     neo4j_client.create_vector_index_if_not_exists(full_dim, importer.vector_store.bom_dimension, importer.vector_store.non_bom_dimension)
 
     # 预加载所有 JSON 数据

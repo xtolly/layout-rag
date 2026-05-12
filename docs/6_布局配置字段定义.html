@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&#x5e03;&#x5c40;&#x914d;&#x7f6e;&#x5b57;&#x6bb5;&#x5b9a;&#x4e49;&#x8bf4;&#x660e;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="布局配置字段定义说明">布局配置字段定义说明</h1>
+<p>本文档汇总了当前系统中定义的柜体、面板及元件的相关配置字段及其可选项，旨在帮助产品及技术团队了解目前的配置能力。</p>
+<h2 id="1-柜体字段-cabinet-fields">1. 柜体字段 (Cabinet Fields)</h2>
+<p>用于定义配电柜整体属性的字段。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签 (Label)</th>
+<th style="text-align:left">字段名 (Key)</th>
+<th style="text-align:left">类型 (Type)</th>
+<th style="text-align:left">选项 / 默认值</th>
+<th style="text-align:left">是否可编辑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">柜体名称</td>
+<td style="text-align:left"><code>cabinet_name</code></td>
+<td style="text-align:left">文本 (text)</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">箱体分类</td>
+<td style="text-align:left"><code>box_classify</code></td>
+<td style="text-align:left">选择 (select)</td>
+<td style="text-align:left">配电箱 (默认), 户箱, 电表箱</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">箱体系列</td>
+<td style="text-align:left"><code>series</code></td>
+<td style="text-align:left">选择 (select)</td>
+<td style="text-align:left">XM1 (默认), XM2, MZ, HW, DNB</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">进线方式</td>
+<td style="text-align:left"><code>inline_mode</code></td>
+<td style="text-align:left">选择 (select)</td>
+<td style="text-align:left">上置 (默认), 左置</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">安装方式</td>
+<td style="text-align:left"><code>install_type</code></td>
+<td style="text-align:left">选择 (select)</td>
+<td style="text-align:left">户内暗装 (默认), 户内挂墙, 户内落地, 户外挂墙, 户外落地</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">固定方式</td>
+<td style="text-align:left"><code>fixup_type</code></td>
+<td style="text-align:left">选择 (select)</td>
+<td style="text-align:left">板式安装 (默认), 梁式安装</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">门型</td>
+<td style="text-align:left"><code>door_type</code></td>
+<td style="text-align:left">选择 (select)</td>
+<td style="text-align:left">左开门 (默认), 右开门, 双开门</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">进出线方式</td>
+<td style="text-align:left"><code>cable_in_out_type</code></td>
+<td style="text-align:left">选择 (select)</td>
+<td style="text-align:left">上进下出 (默认), 上进上出-左侧出线, 上进上出-右侧出线, 下进下出-左侧进线, 下进下出-右侧进线, 下进上出-左进右出, 下进上出-右进左出</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">宽度(W)</td>
+<td style="text-align:left"><code>cabinet_width</code></td>
+<td style="text-align:left">数字 (number)</td>
+<td style="text-align:left">默认: 500</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">高度(H)</td>
+<td style="text-align:left"><code>cabinet_height</code></td>
+<td style="text-align:left">数字 (number)</td>
+<td style="text-align:left">默认: 800</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">深度(D)</td>
+<td style="text-align:left"><code>cabinet_depth</code></td>
+<td style="text-align:left">数字 (number)</td>
+<td style="text-align:left">默认: 200</td>
+<td style="text-align:left">是</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-面板字段-panel-fields">2. 面板字段 (Panel Fields)</h2>
+<p>用于定义柜体内部面板属性的字段。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签 (Label)</th>
+<th style="text-align:left">字段名 (Key)</th>
+<th style="text-align:left">类型 (Type)</th>
+<th style="text-align:left">选项 / 默认值</th>
+<th style="text-align:left">是否可编辑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">面板类型</td>
+<td style="text-align:left"><code>panel_type</code></td>
+<td style="text-align:left">选择 (select)</td>
+<td style="text-align:left">安装板 (默认), 门板</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">宽度(W)</td>
+<td style="text-align:left"><code>panel_width</code></td>
+<td style="text-align:left">数字 (number)</td>
+<td style="text-align:left">默认: 500</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">高度(H)</td>
+<td style="text-align:left"><code>panel_height</code></td>
+<td style="text-align:left">数字 (number)</td>
+<td style="text-align:left">默认: 800</td>
+<td style="text-align:left">是</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-元件字段-part-fields">3. 元件字段 (Part Fields)</h2>
+<p>用于定义具体电气元件（如断路器等）属性的字段。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签 (Label)</th>
+<th style="text-align:left">字段名 (Key)</th>
+<th style="text-align:left">类型 (Type)</th>
+<th style="text-align:left">选项 / 默认值</th>
+<th style="text-align:left">是否可编辑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">进出线</td>
+<td style="text-align:left"><code>in_line</code></td>
+<td style="text-align:left">布尔 (boolean)</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">元件类型</td>
+<td style="text-align:left"><code>part_type</code></td>
+<td style="text-align:left">文本 (text)</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">元件型号</td>
+<td style="text-align:left"><code>part_model</code></td>
+<td style="text-align:left">文本 (text)</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">极数</td>
+<td style="text-align:left"><code>pole</code></td>
+<td style="text-align:left">文本 (text)</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">额定电流</td>
+<td style="text-align:left"><code>current</code></td>
+<td style="text-align:left">文本 (text)</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">宽(w)</td>
+<td style="text-align:left"><code>part_width</code></td>
+<td style="text-align:left">数字 (number)</td>
+<td style="text-align:left">默认: 60</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">高(h)</td>
+<td style="text-align:left"><code>part_height</code></td>
+<td style="text-align:left">数字 (number)</td>
+<td style="text-align:left">默认: 80</td>
+<td style="text-align:left">是</td>
+</tr>
+</tbody>
+</table>
+
+            
+            
+        </body>
+        </html>

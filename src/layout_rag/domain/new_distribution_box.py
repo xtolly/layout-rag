@@ -31,17 +31,66 @@ class NewDistributionBoxDomain(BusinessDomain):
     def get_part_types(self) -> list[str]:
         """返回新配电箱领域的所有元件类型（硬编码）。"""
         return [
-            "剩余电流动作微型断路器",
-            "剩余电流式电气火灾监控探测器",
-            "双电源自动转换开关",
-            "塑壳断路器",
-            "微型断路器",
-            "接触器",
-            "浪涌后备保护器",
-            "热继电器",
+            "EPS应急电源",
+            "变频器",
+            "变压器",
+            "电动机保护断路器",
+            "电动机控制保护器",
+            "电动机控制器",
+            "电流表",
+            "电流互感器",
+            "电流继电器",
+            "电压表",
             "电涌保护器",
             "电源监控",
-            "电能表",
+            "端子",
+            "多功能电力仪表",
+            "多用户功率表",
+            "风机控制器",
+            "负荷开关",
+            "双电源转换开关",
+            "隔离开关",
+            "功率表",
+            "功率因数表",
+            "接触器",
+            "控制保护开关",
+            "控制继电器",
+            "浪涌后备保护器",
+            "热继电器",
+            "熔断器",
+            "熔断器式隔离开关",
+            "后备保护器",
+            "软启动器",
+            "剩余电流动作塑壳断路器",
+            "剩余电流动作微型断路器",
+            "剩余电流互感器",
+            "时间继电器",
+            "时控开关",
+            "双电源自动转换开关",
+            "水泵控制器",
+            "塑壳断路器",
+            "微型断路器",
+            "交流接触器",
+            "微型隔离开关",
+            "温度继电器",
+            "温湿度控制器",
+            "无功功率表",
+            "微型漏电断路器",
+            "热过载继电器",
+            "显示装置",
+            "信号继电器",
+            "应急照明回路控制模块",
+            "余压控制器",
+            "指示灯",
+            "中间继电器",
+            "转换开关",
+            "交流塑壳断路器",
+            "交流微型断路器",
+            "交流微型漏电断路器",
+            "浪涌保护器",
+            "消防电源监控模块",
+            "电气火灾监控探测器",
+            "电能表"
         ]
 
     # ------------------------------------------------------------------
@@ -58,15 +107,15 @@ class NewDistributionBoxDomain(BusinessDomain):
             # "panel_area":         {"type": "continuous", "weight": 1.0, "display_name": "面板总面积", "from_bom": False, "min": 60000.0, "max": 3000000.0},
             # "panel_aspect_ratio": {"type": "continuous", "weight": 1.0, "display_name": "面板纵横比", "from_bom": False, "min": 0.1, "max": 4.0},
             # ── 元件统计特征（BOM）──
-            "total_parts":        {"type": "count",      "weight": 2.0, "display_name": "元器件总数",   "from_bom": True,  "max_count": 80},
-            "unique_types":       {"type": "count",      "weight": 2.0, "display_name": "元件种类数",   "from_bom": True,  "max_count": 15},
-            "total_parts_area":   {"type": "continuous", "weight": 2.0, "display_name": "元器件总面积", "from_bom": True,  "min": 0.0, "max": 2000000.0},
-            "avg_part_width":     {"type": "continuous", "weight": 2.0, "display_name": "元件平均宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
-            "avg_part_height":    {"type": "continuous", "weight": 2.0, "display_name": "元件平均高度", "from_bom": True,  "min": 10.0, "max": 800.0},
-            "max_part_width":     {"type": "continuous", "weight": 2.0, "display_name": "元件最大宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
-            "max_part_height":    {"type": "continuous", "weight": 2.0, "display_name": "元件最大高度", "from_bom": True,  "min": 10.0, "max": 800.0},
-            "width_std":          {"type": "continuous", "weight": 2.0, "display_name": "元件宽度标准差", "from_bom": True,  "min": 0.0, "max": 400.0},
-            "height_std":         {"type": "continuous", "weight": 2.0, "display_name": "元件高度标准差", "from_bom": True,  "min": 0.0, "max": 400.0},
+            "total_parts":        {"type": "count",      "weight": 10.0, "display_name": "元器件总数",   "from_bom": True,  "max_count": 30},
+            "unique_types":       {"type": "count",      "weight": 20.0, "display_name": "元件种类数",   "from_bom": True,  "max_count": 10},
+            "total_parts_area":   {"type": "continuous", "weight": 3.0, "display_name": "元器件总面积", "from_bom": True,  "min": 0.0, "max": 2000000.0},
+            "avg_part_width":     {"type": "continuous", "weight": 3.0, "display_name": "元件平均宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
+            "avg_part_height":    {"type": "continuous", "weight": 3.0, "display_name": "元件平均高度", "from_bom": True,  "min": 10.0, "max": 800.0},
+            "max_part_width":     {"type": "continuous", "weight": 3.0, "display_name": "元件最大宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
+            "max_part_height":    {"type": "continuous", "weight": 3.0, "display_name": "元件最大高度", "from_bom": True,  "min": 10.0, "max": 800.0},
+            "width_std":          {"type": "continuous", "weight": 3.0, "display_name": "元件宽度标准差", "from_bom": True,  "min": 0.0, "max": 400.0},
+            "height_std":         {"type": "continuous", "weight": 3.0, "display_name": "元件高度标准差", "from_bom": True,  "min": 0.0, "max": 400.0},
             # ── 箱体分类 ──
             "box_classify_配电箱":     {"type": "boolean", "weight": 3.0, "display_name": "箱体分类:配电箱",     "from_bom": False, "field": "box_classify"},
             "box_classify_户箱":       {"type": "boolean", "weight": 3.0, "display_name": "箱体分类:户箱",       "from_bom": False, "field": "box_classify"},
@@ -106,7 +155,7 @@ class NewDistributionBoxDomain(BusinessDomain):
         
         # ── 元件类型计数（BOM）──
         for part_type in part_types:
-            features[f"count_{part_type}"] = {"type": "count", "weight": 5.0, "display_name": f"{part_type} 数量", "from_bom": True, "max_count": 10}
+            features[f"count_{part_type}"] = {"type": "count", "weight": 10.0, "display_name": f"{part_type} 数量", "from_bom": True, "max_count": 10}
         return features
 
     # ------------------------------------------------------------------
@@ -128,7 +177,7 @@ class NewDistributionBoxDomain(BusinessDomain):
         widths  = [p.get("part_size", [0, 0])[0] for p in parts]
         heights = [p.get("part_size", [0, 0])[1] for p in parts]
         areas   = [w * h for w, h in zip(widths, heights)]
-
+        
         features["total_parts"]      = len(parts)
         features["unique_types"]     = len({p.get("part_type", "") for p in parts})
         features["total_parts_area"] = sum(areas)
