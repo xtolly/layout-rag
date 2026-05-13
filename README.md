@@ -33,34 +33,93 @@ layout-rag/
 
 ### 1. 环境准备
 
-* **Python 3.11+**：项目使用 `uv` 进行快速依赖管理。
-* **Neo4j 6.x**：需要在本地运行图数据库，默认连接 `neo4j://127.0.0.1:7687`（需预先建立相应业务数据库，例如 `distributionbox`）。
-* **大模型 API (可选)**：如果需要使用 AI 智能体功能，请在根目录创建 `.env` 文件并配置 `DASHSCOPE_API_KEY`。
+* **Python 3.11+**：项目推荐使用 [uv](https://github.com/astral-sh/uv) 进行极速依赖管理。
+* **Neo4j 6.x**：需要在本地运行图数据库，默认连接 `neo4j://127.0.0.1:7687`（数据库名默认为 `distributionbox`）。
+* **大模型 API**：若需开启 AI 智能体对话功能，请在根目录创建 `.env` 文件并配置 `DASHSCOPE_API_KEY`。
 
-### 2. 安装与初始化
+### 2. 安装与启动
 
 ```bash
-# 1. 安装项目依赖
+# 1. 安装项目依赖（包含开发环境）
 uv sync --dev
 
 # 2. 初始化知识图谱与向量索引
 # 读取原始项目数据，抽取拓扑关系并建立 Neo4j HNSW 索引
 uv run python tools/new_neo4j.py
 
-# 3. 启动本地服务
+# 3. 启动后端 API 服务
 uv run uvicorn --app-dir src layout_rag.app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 启动后，访问 `http://localhost:8000/` 即可进入可视化布局配置与工作台。
 
+## 自动化测试与质量保障
+
+项目内置了完整的单元测试体系，覆盖了核心算法、特征提取逻辑及业务流程。
+
+### 1. 运行全量测试
+
+```bash
+uv run pytest
+```
+
+### 2. 查看测试覆盖率
+
+项目使用 `pytest-cov` 进行覆盖率统计：
+
+* **终端摘要报告**：
+
+    ```bash
+    uv run pytest --cov=layout_rag --cov-report=term-missing
+    ```
+
+* **HTML 交互式报告**（生成后打开 `htmlcov/index.html`）：
+
+    ```bash
+    uv run pytest --cov=layout_rag --cov-report=html
+    ```
+
+目前核心模块（布局优化、特征转换）的测试覆盖率已达到 **80% 以上**。
+
 ## 业务领域切换
 
-系统通过 `BusinessDomain` 基类实现抽象。目前活跃领域为 `NewDistributionBoxDomain` (新配电箱)。如果需要接入如“低压开关柜”等新业务，只需在 `src/layout_rag/domain` 中新建领域类，定义其特征提取逻辑与业务约束，并在 `app.py` 中实例化挂载即可。
+系统通过 `BusinessDomain` 基类实现抽象。目前活跃领域为 `NewDistributionBoxDomain` (新配电箱)。如果需要接入新业务（如“低压开关柜”）：
+
+1. 在 `src/layout_rag/domain` 中继承 `BusinessDomain` 并实现抽象方法。
+2. 定义该领域的特征 Schema、提取逻辑与布局约束。
+3. 在 `app.py` 中实例化新领域并注入 `LayoutService` 即可。
+
+## 桌面端客户端 (Electron)
+
+项目提供了一个基于 Electron 的桌面客户端，用于在工业环境中提供更稳定的原生交互体验。
+
+### 1. 构建环境要求
+
+* **Node.js 18+**：需安装 `npm` 环境。
+* **Windows 系统**：目前构建脚本主要面向 Windows 平台。
+
+### 2. 自动构建发布
+
+根目录下提供了 `build_electron.bat` 脚本，可一键完成依赖安装、静态资源链接及客户端打包：
+
+```powershell
+# 在项目根目录下运行
+.\build_electron.bat
+```
+
+**脚本主要流程：**
+
+1. 清理旧的构建产物。
+2. 创建 `static` 目录的符号链接（Junction），实现前后端资源共享。
+3. 进入 `electron-app` 目录执行 `npm install`。
+4. 执行 `npm run build:fast` 生成免安装的二进制文件夹。
+
+构建完成后，产物位于 `electron-app\dist\win-unpacked` 目录下。
 
 ## API 集成参考
 
 对于外部工业软件对接，核心流程通常只需调用三个接口：
 
-1. `POST /api/recommend`：传入当前元件清单，获取 Top-K 推荐模板及分数。
-2. `POST /api/apply`：选择指定模板，由后端求解器计算出各元件的具体 `[x, y]` 坐标。
-3. `POST /api/upload-layout`：将人工确认无误的布局方案存入图数据库，完成经验沉淀，实现系统进化。
+1. `POST /api/recommend`：传入当前项目数据（BOM + 柜体属性），获取 Top-K 推荐模板及 Gower 相似度分数。
+2. `POST /api/apply`：选择指定模板，由后端求解器在满足不重叠约束下，计算出各元件的具体 `[x, y]` 坐标。
+3. `POST /api/upload-layout`：将人工确认无误的布局方案存入 Neo4j 图数据库，实现经验的自动闭环沉淀。
