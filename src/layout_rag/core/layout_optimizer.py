@@ -392,8 +392,8 @@ class LayoutOptimizer:
             w_s = int(pw * self.scale)
             h_s = int(ph * self.scale)
 
-            x_lo, x_hi = margin_s, max(margin_s, max_x_s - w_s - margin_s)
-            y_lo, y_hi = margin_s, max(margin_s, max_y_s - h_s - margin_s)
+            x_lo, x_hi = margin_s, max_x_s - w_s - margin_s
+            y_lo, y_hi = margin_s, max_y_s - h_s - margin_s
 
             if x_hi < x_lo or y_hi < y_lo:
                 raise ValueError(

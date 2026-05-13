@@ -345,6 +345,7 @@ class LayoutService:
 
             # 按有效通道聚合计算基础加权置信度
             weighted_sum = 0.0
+            active_weight = 0.0
             if "env" in c["sources"]:
                 active_weight += w_env
                 weighted_sum += w_env * c["env_score"]
