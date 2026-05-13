@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Layout-RAG &#x7cfb;&#x7edf;&#x67b6;&#x6784;&#x4e0e;&#x6838;&#x5fc3;&#x529f;&#x80fd;&#x4ecb;&#x7ecd;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="layout-rag-系统架构与核心功能介绍">Layout-RAG 系统架构与核心功能介绍</h1>
+<h2 id="一-图数据库改造-neo4j-graph-schema">一、 图数据库改造 (Neo4j Graph Schema)</h2>
+<p>本文档描述了 Layout-RAG 系统中使用的图数据库模型结构，主要由 <code>PLMGraphImporter</code> 负责数据的解析与入库。</p>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\neo4j.png" alt="neo4j"></p>
+<h3 id="1-核心模型层级">1. 核心模型层级</h3>
+<p>系统采用“分类 -&gt; 模板 -&gt; 实例”的三层解耦架构：</p>
+<ul>
+<li><strong>Category (分类)</strong>: 业务大类（如：配电箱、断路器）。</li>
+<li><strong>Template (模板/物料)</strong>: 具体的物料规格（如：型号、物理尺寸、极数等）。</li>
+<li><strong>Instance (实例)</strong>: 在具体工程项目中的应用（包含坐标位置、向量指纹等）。</li>
+</ul>
+<hr>
+<h3 id="2-节点定义-nodes">2. 节点定义 (Nodes)</h3>
+<h4 id="21-柜体层-box">2.1 柜体层 (Box)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>BoxCategory</strong></td>
+<td style="text-align:left"><code>Name</code></td>
+<td style="text-align:left">柜体分类（如：配电箱、户箱、表箱等）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>BoxTemplate</strong></td>
+<td style="text-align:left"><code>Name</code>, <code>Series</code>, <code>Width</code>, <code>Height</code>, <code>Depth</code>, <code>DoorType</code>, <code>FixUpType</code>, <code>InstallType</code></td>
+<td style="text-align:left">柜体规格定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>BoxInstance</strong></td>
+<td style="text-align:left"><code>ID</code>, <code>Name</code>, <code>Industry</code></td>
+<td style="text-align:left">具体项目中的柜体实例</td>
+</tr>
+</tbody>
+</table>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\neo4j_box.png" alt="neo4j"></p>
+<h4 id="22-面板层-panel">2.2 面板层 (Panel)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>PanelCategory</strong></td>
+<td style="text-align:left"><code>Name</code></td>
+<td style="text-align:left">面板分类（如：元件安装板、仪表门）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>PanelTemplate</strong></td>
+<td style="text-align:left"><code>Name</code>, <code>Width</code>, <code>Height</code></td>
+<td style="text-align:left">面板物理尺寸定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>PanelInstance</strong></td>
+<td style="text-align:left"><code>ID</code>, <code>Name</code>, <code>FeatureVector</code>, <code>BomFeatureVector</code>, <code>NonBomFeatureVector</code>, <code>recommendation_count</code>, <code>adoption_count</code></td>
+<td style="text-align:left">存储了用于 RAG 检索的特征向量及统计信息</td>
+</tr>
+</tbody>
+</table>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\neo4j_panel.png" alt="neo4j"></p>
+<h4 id="23-导轨层-rail">2.3 导轨层 (Rail)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Rail</strong></td>
+<td style="text-align:left"><code>Name</code>, <code>RailIndex</code>, <code>Y_Coordinate</code>, <code>TotalRails</code></td>
+<td style="text-align:left">将面板空间划分为横向排列的导轨</td>
+</tr>
+</tbody>
+</table>
+<h4 id="24-元件层-component">2.4 元件层 (Component)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>ComponentCategory</strong></td>
+<td style="text-align:left"><code>Name</code></td>
+<td style="text-align:left">元件大类（如：微型断路器、浪涌保护器）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ComponentTemplate</strong></td>
+<td style="text-align:left"><code>Name</code>, <code>ModelType</code>, <code>Width</code>, <code>Height</code>, <code>Pole</code>, <code>Current</code></td>
+<td style="text-align:left">核心物料库，存储元件物理参数</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ComponentInstance</strong></td>
+<td style="text-align:left"><code>ID</code>, <code>Name</code>, <code>X</code>, <code>Y</code>, <code>Z</code>, <code>InLine</code></td>
+<td style="text-align:left">元件在面板上的精确坐标与安装状态</td>
+</tr>
+</tbody>
+</table>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\neo4j_part.png" alt="neo4j"></p>
+<hr>
+<h3 id="3-关系定义-relationships">3. 关系定义 (Relationships)</h3>
+<h4 id="31-层级归属">3.1 层级归属</h4>
+<ul>
+<li><code>(Instance)-[:INSTANCE_OF]-&gt;(Template)</code>: 实例所属的规格。</li>
+<li><code>(Template)-[:BELONGS_TO]-&gt;(Category)</code>: 规格所属的大类。</li>
+<li><code>(BoxInstance)-[:CONTAINS]-&gt;(PanelInstance)</code>: 柜体包含的面板。</li>
+<li><code>(PanelInstance)-[:CONTAINS]-&gt;(Rail)</code>: 面板上的导轨划分。</li>
+<li><code>(Rail)-[:CONTAINS]-&gt;(ComponentInstance)</code>: 导轨上安装的元件。</li>
+</ul>
+<h4 id="32-空间拓扑-spatial-topology">3.2 空间拓扑 (Spatial Topology)</h4>
+<ul>
+<li><code>(Rail)-[:BELOW {Distance}]-&gt;(Rail)</code>: 导轨之间的纵向邻接关系及间距。</li>
+<li><code>(ComponentInstance)-[:LEFT_OF {Distance}]-&gt;(ComponentInstance)</code>: 同一导轨内元件的横向排列关系。</li>
+</ul>
+<h4 id="33-挖掘关系-mining">3.3 挖掘关系 (Mining)</h4>
+<ul>
+<li><code>(ComponentTemplate)-[:CO_OCCURS_WITH {weight, rule_type}]-&gt;(ComponentTemplate)</code>:
+<strong>核心召回关系</strong>。表示两个型号的元件经常出现在同一个面板中。<code>weight</code> 代表共现频次。</li>
+</ul>
+<hr>
+<h3 id="4-向量索引说明">4. 向量索引说明</h3>
+<p>系统在 <code>PanelInstance</code> 的特征属性上建立了 <strong>HNSW 向量索引</strong>，用于实现语义召回。</p>
+<ul>
+<li>索引字段：<code>FeatureVector</code>, <code>BomFeatureVector</code>, <code>NonBomFeatureVector</code></li>
+<li>相似度度量：<code>EUCLIDEAN</code> (欧氏距离)</li>
+</ul>
+<h2 id="二-智能布局系统改进">二、 智能布局系统改进</h2>
+<h3 id="1-bom-推荐模块">1. BOM 推荐模块</h3>
+<p>基于图向量检索与知识图谱挖掘，系统实现了<strong>多路召回 + 置信度融合</strong>的智能 BOM 补全：</p>
+<ul>
+<li><strong>环境召回 (Environment Recall)</strong>：基于箱体尺寸、系列、进线方式等非 BOM 特征，召回在类似物理约束下的历史配置。</li>
+<li><strong>BOM 召回 (BOM Recall)</strong>：基于当前部分元件的分布指纹，寻找物料构成最相似的成熟方案。</li>
+<li><strong>图谱共现召回 (Graph Recall)</strong>：利用 Neo4j 中的 <code>CO_OCCURS_WITH</code> 关系，挖掘历史数据中与当前元件高频“成对出现”的邻居部件（如：断路器与辅助触头的固定搭配）。</li>
+<li><strong>互补过滤逻辑</strong>：系统自动识别当前缺失的大类，根据加权分数（Env:0.3, Bom:0.4, Graph:0.3）计算综合置信度，精准推荐缺失型号。</li>
+</ul>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\bom_recommend.png" alt="neo4j"></p>
+<h3 id="2-方案采纳率">2. 方案采纳率</h3>
+<p>系统内置了自动化的<strong>业务反馈闭环</strong>：</p>
+<ul>
+<li><strong>自动计数</strong>：每当一个布局方案在推荐列表中展示，其 <code>recommendation_count</code> 自动加 1；当用户点击“应用”并确认，其 <code>adoption_count</code> 自动加 1。</li>
+<li><strong>质量衡量</strong>：通过“采纳/推荐”的比值，系统可以实时感知每个历史模板在实际业务中的受欢迎程度和质量得分，为后续的精排逻辑提供数据支撑。</li>
+</ul>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\schema_select.png" alt="neo4j"></p>
+<h3 id="3-热门方案推荐">3. 热门方案推荐</h3>
+<p>除了单纯的几何相似度，系统引入了<strong>热度排序维度</strong>：</p>
+<ul>
+<li><strong>高频优先</strong>：在召回结果相似度相近时，系统会优先推送 <code>adoption_count</code> 较高的“明星方案”。</li>
+<li><strong>进化学习</strong>：随着 SuperBox 用户的使用，图数据库中的统计数据会不断动态刷新，实现“用的越多、推的越准”的正向循环。</li>
+</ul>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\schema_hot.png" alt="neo4j"></p>
+<h2 id="三-superbox-智能布局">三、 SuperBox 智能布局</h2>
+<h3 id="1-electron-app">1. electron-app</h3>
+<p>使用 Electron 框架将布局算法封装为轻量级桌面工具：</p>
+<ul>
+<li><strong>跨平台桥梁</strong>：作为 SuperBox 插件与 Python 后端服务的中间层，处理数据封包与可视化展示。</li>
+<li><strong>零配置启动</strong>：通过 <code>build_electron.bat</code> 一键打包，方便集成到现有的工业设计环境。</li>
+</ul>
+<h3 id="2-ai-方案推荐与迁移">2. AI 方案推荐与迁移</h3>
+<ul>
+<li><strong>RAG 语义检索</strong>：将 SuperBox 的物料清单与柜体属性作为 Query，在图数据库中进行 HNSW 向量检索，秒级返回最匹配的 3D 布局参考。</li>
+<li><strong>布局平移优化</strong>：应用方案时，并非简单的坐标复制，而是调用 <strong>OR-Tools CP-SAT 求解器</strong>。它以历史方案为“约束骨架”，在满足当前 SuperBox 实际柜体尺寸约束下，自动计算不重叠、边距最优的新坐标，实现布局的智能迁移。</li>
+</ul>
+<h3 id="3-布局方案上传">3. 布局方案上传</h3>
+<ul>
+<li><strong>经验沉淀</strong>：用户在 SuperBox 中微调完成的最终布局，可通过一键上传接口回传。</li>
+<li><strong>自动特征化</strong>：后端 <code>PLMGraphImporter</code> 会自动提取该方案的几何特征、拓扑关系并重新计算向量指纹，将其作为新的“经验节点”沉淀到 Neo4j 知识图谱中，完成知识的自动化积累。</li>
+</ul>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\sbox.png" alt="sbox"></p>
+
+            
+            
+        </body>
+        </html>

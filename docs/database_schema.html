@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&#x6570;&#x636e;&#x5e93;&#x7ed3;&#x6784; &lpar;Neo4j Graph Schema&rpar;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="数据库结构-neo4j-graph-schema">数据库结构 (Neo4j Graph Schema)</h1>
+<p>本文档描述了 Layout-RAG 系统中使用的图数据库模型结构，主要由 <code>PLMGraphImporter</code> 负责数据的解析与入库。</p>
+<h2 id="1-核心模型层级">1. 核心模型层级</h2>
+<p>系统采用“分类 -&gt; 模板 -&gt; 实例”的三层解耦架构：</p>
+<ul>
+<li><strong>Category (分类)</strong>: 业务大类（如：配电箱、断路器）。</li>
+<li><strong>Template (模板/物料)</strong>: 具体的物料规格（如：型号、物理尺寸、极数等）。</li>
+<li><strong>Instance (实例)</strong>: 在具体工程项目中的应用（包含坐标位置、向量指纹等）。</li>
+</ul>
+<hr>
+<h2 id="2-节点定义-nodes">2. 节点定义 (Nodes)</h2>
+<h3 id="21-柜体层-box">2.1 柜体层 (Box)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>BoxCategory</strong></td>
+<td style="text-align:left"><code>Name</code></td>
+<td style="text-align:left">柜体分类（如：配电箱、户箱、表箱等）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>BoxTemplate</strong></td>
+<td style="text-align:left"><code>Name</code>, <code>Series</code>, <code>Width</code>, <code>Height</code>, <code>Depth</code>, <code>DoorType</code>, <code>FixUpType</code>, <code>InstallType</code></td>
+<td style="text-align:left">柜体规格定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>BoxInstance</strong></td>
+<td style="text-align:left"><code>ID</code>, <code>Name</code>, <code>Industry</code></td>
+<td style="text-align:left">具体项目中的柜体实例</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-面板层-panel">2.2 面板层 (Panel)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>PanelCategory</strong></td>
+<td style="text-align:left"><code>Name</code></td>
+<td style="text-align:left">面板分类（如：元件安装板、仪表门）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>PanelTemplate</strong></td>
+<td style="text-align:left"><code>Name</code>, <code>Width</code>, <code>Height</code></td>
+<td style="text-align:left">面板物理尺寸定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>PanelInstance</strong></td>
+<td style="text-align:left"><code>ID</code>, <code>Name</code>, <code>FeatureVector</code>, <code>BomFeatureVector</code>, <code>NonBomFeatureVector</code>, <code>recommendation_count</code>, <code>adoption_count</code></td>
+<td style="text-align:left">存储了用于 RAG 检索的特征向量及统计信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-导轨层-rail">2.3 导轨层 (Rail)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Rail</strong></td>
+<td style="text-align:left"><code>Name</code>, <code>RailIndex</code>, <code>Y_Coordinate</code>, <code>TotalRails</code></td>
+<td style="text-align:left">将面板空间划分为横向排列的导轨</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-元件层-component">2.4 元件层 (Component)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>ComponentCategory</strong></td>
+<td style="text-align:left"><code>Name</code></td>
+<td style="text-align:left">元件大类（如：微型断路器、浪涌保护器）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ComponentTemplate</strong></td>
+<td style="text-align:left"><code>Name</code>, <code>ModelType</code>, <code>Width</code>, <code>Height</code>, <code>Pole</code>, <code>Current</code></td>
+<td style="text-align:left">核心物料库，存储元件物理参数</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ComponentInstance</strong></td>
+<td style="text-align:left"><code>ID</code>, <code>Name</code>, <code>X</code>, <code>Y</code>, <code>Z</code>, <code>InLine</code></td>
+<td style="text-align:left">元件在面板上的精确坐标与安装状态</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-关系定义-relationships">3. 关系定义 (Relationships)</h2>
+<h3 id="31-层级归属">3.1 层级归属</h3>
+<ul>
+<li><code>(Instance)-[:INSTANCE_OF]-&gt;(Template)</code>: 实例所属的规格。</li>
+<li><code>(Template)-[:BELONGS_TO]-&gt;(Category)</code>: 规格所属的大类。</li>
+<li><code>(BoxInstance)-[:CONTAINS]-&gt;(PanelInstance)</code>: 柜体包含的面板。</li>
+<li><code>(PanelInstance)-[:CONTAINS]-&gt;(Rail)</code>: 面板上的导轨划分。</li>
+<li><code>(Rail)-[:CONTAINS]-&gt;(ComponentInstance)</code>: 导轨上安装的元件。</li>
+</ul>
+<h3 id="32-空间拓扑-spatial-topology">3.2 空间拓扑 (Spatial Topology)</h3>
+<ul>
+<li><code>(Rail)-[:BELOW {Distance}]-&gt;(Rail)</code>: 导轨之间的纵向邻接关系及间距。</li>
+<li><code>(ComponentInstance)-[:LEFT_OF {Distance}]-&gt;(ComponentInstance)</code>: 同一导轨内元件的横向排列关系。</li>
+</ul>
+<h3 id="33-挖掘关系-mining">3.3 挖掘关系 (Mining)</h3>
+<ul>
+<li><code>(ComponentTemplate)-[:CO_OCCURS_WITH {weight, rule_type}]-&gt;(ComponentTemplate)</code>:
+<strong>核心召回关系</strong>。表示两个型号的元件经常出现在同一个面板中。<code>weight</code> 代表共现频次。</li>
+</ul>
+<hr>
+<h2 id="4-向量索引说明">4. 向量索引说明</h2>
+<p>系统在 <code>PanelInstance</code> 的特征属性上建立了 <strong>HNSW 向量索引</strong>，用于实现语义召回。</p>
+<ul>
+<li>索引字段：<code>FeatureVector</code>, <code>BomFeatureVector</code>, <code>NonBomFeatureVector</code></li>
+<li>相似度度量：<code>COSINE</code> (余弦相似度)</li>
+</ul>
+
+            
+            
+        </body>
+        </html>
