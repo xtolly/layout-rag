@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Layout-RAG &#x5de5;&#x4e1a;&#x7535;&#x6c14;&#x67dc;&#x5e03;&#x5c40;&#x667a;&#x80fd;&#x63a8;&#x8350;&#x4e0e;&#x751f;&#x6210;&#x7cfb;&#x7edf;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="layout-rag-工业电气柜布局智能推荐与生成系统">Layout-RAG 工业电气柜布局智能推荐与生成系统</h1>
+<p>Layout-RAG 是一个专为工业电气柜设计的智能排版系统。它结合了<strong>基于图数据库的大语言模型智能体（LangGraph Agent）<strong>与</strong>约束规划求解器（CP-SAT）</strong>，能够通过解析自然语言或解析导入的系统图数据，自动推荐元器件 BOM 清单，并从历史沉淀的工程图纸中召回最相似的排版方案，最终自动生成无重叠、符合电气物理约束的二维布局坐标。</p>
+<h2 id="核心能力">核心能力</h2>
+<ul>
+<li><strong>多路智能 BOM 推荐</strong>：基于 Neo4j 图数据库，结合环境向量（箱体尺寸/外部约束）、BOM 向量（内部物料构成）以及图谱共现网络进行多路召回，通过置信度融合与互补过滤，智能补全缺失的电气元件。</li>
+<li><strong>AI 智能体配置 (Agentic Configurator)</strong>：内置基于 LangGraph 的 ReAct 智能体，支持流式对话。工程师可以用自然语言下达指令（如“帮我加一个宽600的面板，里面放3个微型断路器”），智能体会自动调用内部 CRUD 工具完成柜体数据结构的搭建。</li>
+<li><strong>图向量混合检索 (Graph-Vector RAG)</strong>：提取面板的几何维度、元件统计、类型计数及强业务逻辑特征，利用 Neo4j 的 HNSW 向量索引进行“宽进”召回，再配合 Gower 距离算法进行高精度“严出”排序。</li>
+<li><strong>约束求解排版 (Constraint-Based Layout)</strong>：利用 OR-Tools 的 CP-SAT 求解器，将选定历史模板的元件坐标映射到当前项目，严格保证面板边距限制与元件无重叠约束，自动进行空间压缩与排版优化。</li>
+<li><strong>桌面端/Web 端双模态</strong>：提供开箱即用的 Vue 3 可视化工作台（支持拖拽微调排版），同时可通过构建工具一键打包为无头启动的 Electron 桌面客户端，便于工业软件集成。</li>
+</ul>
+<h2 id="系统架构与目录结构">系统架构与目录结构</h2>
+<p>项目采用领域驱动设计（DDD），将核心算法与具体业务领域（如配电箱、低压开关柜）解耦。</p>
+<pre><code class="language-text">layout-rag/
+├── src/layout_rag/      # 后端核心包 (FastAPI)
+│  ├── api/         # 接口路由 (RESTful Endpoints, Agent SSE Stream)
+│  ├── core/         # 核心算法 (特征提取, 向量转换, CP-SAT求解器, Neo4j图客户端)
+│  ├── domain/        # 领域业务规则 (如 NewDistributionBox 新配电箱特征定义)
+│  ├── services/       # 业务编排层 (布局推荐与应用流程串联)
+│  └── agent/        # LangGraph 智能体逻辑 (图计算节点, 结构化工具调用)
+├── static/          # 前端静态资源 (Vue 3, Tailwind, 工作台界面)
+├── templates/        # 沉淀的历史优良布局 JSON 模板库
+├── tools/          # 运维与数据管道脚本 (知识图谱重建, 向量刷新, PLM导入)
+├── tests/          # 自动化测试用例
+└── build_electron.bat    # 桌面端自动打包构建脚本
+</code></pre>
+<h2 id="快速开始">快速开始</h2>
+<h3 id="1-环境准备">1. 环境准备</h3>
+<ul>
+<li><strong>Python 3.11+</strong>：项目推荐使用 <a href="https://github.com/astral-sh/uv">uv</a> 进行极速依赖管理。</li>
+<li><strong>Neo4j 6.x</strong>：需要在本地运行图数据库，默认连接 <code>neo4j://127.0.0.1:7687</code>（数据库名默认为 <code>distributionbox</code>）。</li>
+<li><strong>大模型 API</strong>：若需开启 AI 智能体对话功能，请在根目录创建 <code>.env</code> 文件并配置 <code>DASHSCOPE_API_KEY</code>。</li>
+</ul>
+<h3 id="2-安装与启动">2. 安装与启动</h3>
+<pre><code class="language-bash"><span class="hljs-comment"># 1. 安装项目依赖（包含开发环境）</span>
+uv <span class="hljs-built_in">sync</span> --dev
+
+<span class="hljs-comment"># 2. 初始化知识图谱与向量索引</span>
+<span class="hljs-comment"># 读取原始项目数据，抽取拓扑关系并建立 Neo4j HNSW 索引</span>
+uv run python tools/new_neo4j.py
+
+<span class="hljs-comment"># 3. 启动后端 API 服务</span>
+uv run uvicorn --app-dir src layout_rag.app:app --host 0.0.0.0 --port 8000 --reload
+</code></pre>
+<p>启动后，访问 <code>http://localhost:8000/</code> 即可进入可视化布局配置与工作台。</p>
+<h2 id="自动化测试与质量保障">自动化测试与质量保障</h2>
+<p>项目内置了完整的单元测试体系，覆盖了核心算法、特征提取逻辑及业务流程。</p>
+<h3 id="1-运行全量测试">1. 运行全量测试</h3>
+<pre><code class="language-bash">uv run pytest
+</code></pre>
+<h3 id="2-查看测试覆盖率">2. 查看测试覆盖率</h3>
+<p>项目使用 <code>pytest-cov</code> 进行覆盖率统计：</p>
+<ul>
+<li>
+<p><strong>终端摘要报告</strong>：</p>
+<pre><code class="language-bash">uv run pytest --cov=layout_rag --cov-report=term-missing
+</code></pre>
+</li>
+<li>
+<p><strong>HTML 交互式报告</strong>（生成后打开 <code>htmlcov/index.html</code>）：</p>
+<pre><code class="language-bash">uv run pytest --cov=layout_rag --cov-report=html
+</code></pre>
+</li>
+</ul>
+<p>目前核心模块（布局优化、特征转换）的测试覆盖率已达到 <strong>80% 以上</strong>。</p>
+<h2 id="业务领域切换">业务领域切换</h2>
+<p>系统通过 <code>BusinessDomain</code> 基类实现抽象。目前活跃领域为 <code>NewDistributionBoxDomain</code> (新配电箱)。如果需要接入新业务（如“低压开关柜”）：</p>
+<ol>
+<li>在 <code>src/layout_rag/domain</code> 中继承 <code>BusinessDomain</code> 并实现抽象方法。</li>
+<li>定义该领域的特征 Schema、提取逻辑与布局约束。</li>
+<li>在 <code>app.py</code> 中实例化新领域并注入 <code>LayoutService</code> 即可。</li>
+</ol>
+<h2 id="桌面端客户端-electron">桌面端客户端 (Electron)</h2>
+<p>项目提供了一个基于 Electron 的桌面客户端，用于在工业环境中提供更稳定的原生交互体验。</p>
+<h3 id="1-构建环境要求">1. 构建环境要求</h3>
+<ul>
+<li><strong>Node.js 18+</strong>：需安装 <code>npm</code> 环境。</li>
+<li><strong>Windows 系统</strong>：目前构建脚本主要面向 Windows 平台。</li>
+</ul>
+<h3 id="2-自动构建发布">2. 自动构建发布</h3>
+<p>根目录下提供了 <code>build_electron.bat</code> 脚本，可一键完成依赖安装、静态资源链接及客户端打包：</p>
+<pre><code class="language-powershell"><span class="hljs-comment"># 在项目根目录下运行</span>
+.\build_electron.bat
+</code></pre>
+<p><strong>脚本主要流程：</strong></p>
+<ol>
+<li>清理旧的构建产物。</li>
+<li>创建 <code>static</code> 目录的符号链接（Junction），实现前后端资源共享。</li>
+<li>进入 <code>electron-app</code> 目录执行 <code>npm install</code>。</li>
+<li>执行 <code>npm run build:fast</code> 生成免安装的二进制文件夹。</li>
+</ol>
+<p>构建完成后，产物位于 <code>electron-app\dist\win-unpacked</code> 目录下。</p>
+<h2 id="api-集成参考">API 集成参考</h2>
+<p>对于外部工业软件对接，核心流程通常只需调用三个接口：</p>
+<ol>
+<li><code>POST /api/recommend</code>：传入当前项目数据（BOM + 柜体属性），获取 Top-K 推荐模板及 Gower 相似度分数。</li>
+<li><code>POST /api/apply</code>：选择指定模板，由后端求解器在满足不重叠约束下，计算出各元件的具体 <code>[x, y]</code> 坐标。</li>
+<li><code>POST /api/upload-layout</code>：将人工确认无误的布局方案存入 Neo4j 图数据库，实现经验的自动闭环沉淀。</li>
+</ol>
+
+            
+            
+        </body>
+        </html>

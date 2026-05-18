@@ -44,12 +44,12 @@ class NewDistributionBoxDomain(BusinessDomain):
             "电涌保护器",
             "电源监控",
             "端子",
-            "多功能电力仪表",
             "多用户功率表",
             "风机控制器",
             "负荷开关",
             "双电源转换开关",
             "隔离开关",
+            "小型隔离开关",
             "功率表",
             "功率因数表",
             "接触器",
@@ -77,8 +77,6 @@ class NewDistributionBoxDomain(BusinessDomain):
             "无功功率表",
             "微型漏电断路器",
             "热过载继电器",
-            "显示装置",
-            "信号继电器",
             "应急照明回路控制模块",
             "余压控制器",
             "指示灯",
@@ -90,7 +88,8 @@ class NewDistributionBoxDomain(BusinessDomain):
             "浪涌保护器",
             "消防电源监控模块",
             "电气火灾监控探测器",
-            "电能表"
+            "电能表",
+            "单相预付费电能表"
         ]
 
     # ------------------------------------------------------------------
@@ -110,6 +109,8 @@ class NewDistributionBoxDomain(BusinessDomain):
             "total_parts":        {"type": "count",      "weight": 10.0, "display_name": "元器件总数",   "from_bom": True,  "max_count": 30},
             "unique_types":       {"type": "count",      "weight": 20.0, "display_name": "元件种类数",   "from_bom": True,  "max_count": 10},
             "total_parts_area":   {"type": "continuous", "weight": 3.0, "display_name": "元器件总面积", "from_bom": True,  "min": 0.0, "max": 2000000.0},
+            # "inline_parts_count": {"type": "count",      "weight": 10.0, "display_name": "进线元件数量",   "from_bom": True,  "max_count": 4},
+            # "inline_parts_area":  {"type": "continuous", "weight": 5.0, "display_name": "进线元件总面积", "from_bom": True,  "min": 0.0, "max": 100000.0},
             "avg_part_width":     {"type": "continuous", "weight": 3.0, "display_name": "元件平均宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
             "avg_part_height":    {"type": "continuous", "weight": 3.0, "display_name": "元件平均高度", "from_bom": True,  "min": 10.0, "max": 800.0},
             "max_part_width":     {"type": "continuous", "weight": 3.0, "display_name": "元件最大宽度", "from_bom": True,  "min": 10.0, "max": 800.0},
@@ -181,6 +182,13 @@ class NewDistributionBoxDomain(BusinessDomain):
         features["total_parts"]      = len(parts)
         features["unique_types"]     = len({p.get("part_type", "") for p in parts})
         features["total_parts_area"] = sum(areas)
+
+        # 进线元件统计
+        # inline_parts = [p for p in parts if p.get("in_line") is True]
+        # inline_areas = [p.get("part_size", [0, 0])[0] * p.get("part_size", [0, 0])[1] for p in inline_parts]
+        # features["inline_parts_count"] = len(inline_parts)
+        # features["inline_parts_area"]  = sum(inline_areas)
+
         features["avg_part_width"]   = float(np.mean(widths))  if widths  else 0.0
         features["avg_part_height"]  = float(np.mean(heights)) if heights else 0.0
         features["max_part_width"]   = float(np.max(widths))   if widths  else 0.0
@@ -264,7 +272,7 @@ class NewDistributionBoxDomain(BusinessDomain):
             "margin":             10.0,
             "element_gap":        0.0,
             "y_penalty":          10,
-            "solver_time_limit":  20.0,
+            "solver_time_limit":  5.0,
             "solver_num_workers": 8,
         }
 
