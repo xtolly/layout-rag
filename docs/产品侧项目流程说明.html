@@ -141,8 +141,8 @@
             <h1 id="配电箱智能布局系统---产品侧完整流程说明">配电箱智能布局系统 - 产品侧完整流程说明</h1>
 <p>本文档系统化梳理了智能配电箱排版系统的工作流，为产品侧提供从参数录入、布局推荐到模板迁移与人工微调的全链路产品业务流程说明。</p>
 <h2 id="1-参数录入与特征提取-parameter-entry">1. 参数录入与特征提取 (Parameter Entry)</h2>
-<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_1.png" alt="neo4j"></p>
 <p>系统通过结构化的表单收集当前项目配电箱的基础参数与 BOM（物料清单）信息。表单主要包括三个层级的录入项：</p>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_1.png" alt="neo4j"></p>
 <h3 id="11-柜体参数-cabinet">1.1 柜体参数 (Cabinet)</h3>
 <p>用于定义配电柜的全局业务与物理属性。</p>
 <ul>
@@ -167,28 +167,46 @@
 录入完毕后，系统不仅提取元件的长、宽、面积等几何数据，还会将“元器件总数”、“各类元件数量分布”以及前述的“箱体系列”、“安装方式”等纯业务分类属性转化为布尔值向量。这一组全面融合了物理与业务特征的数据将用于后续的精确匹配。</p>
 <hr>
 <h2 id="2-bom-智能推荐与补全-bom-recommendation">2. BOM 智能推荐与补全 (BOM Recommendation)</h2>
-<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\bom_recommend.png" alt="neo4j"></p>
 <p>在进入正式的物理布局前，系统提供基于知识网络和图谱挖掘的物料清单（BOM）智能推荐能力，辅助工程师完善前期设计：</p>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\bom_recommend.png" alt="neo4j"></p>
 <ul>
 <li><strong>环境约束召回</strong>：根据配电箱的基础物理和业务约束（如柜体尺寸、箱体系列、进线方式等），在历史库中寻找相似工况下的成熟 BOM 方案作为推荐基准。</li>
 <li><strong>图谱共现召回</strong>：利用沉淀在系统知识网络中的元件组合规律，自动发掘并推荐常与当前已有元件高频“成对出现”的衍生或配套部件。</li>
 <li><strong>智能融合补全</strong>：将上述多路召回结果进行融合与置信度计算，向工程师展示推荐补充的元件清单，有效降低漏配风险。</li>
 </ul>
 <hr>
-<h2 id="3-布局推荐引擎-layout-recommendation">3. 布局推荐引擎 (Layout Recommendation)</h2>
-<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_2.png" alt="neo4j">
-<img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_3.png" alt="neo4j"></p>
-<p>在完成参数录入后，系统会将整理好的参数传递给推荐引擎。</p>
+<h2 id="3-智能配置助手-ai-configurator-agent">3. 智能配置助手 (AI Configurator Agent)</h2>
+<p>为了进一步降低参数录入和修改的门槛，系统在交互层引入了基于自然语言和大模型的智能配置助手（Agent）：</p>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_5.png" alt="neo4j"></p>
+<ul>
+<li><strong>自然语言交互</strong>：用户可直接通过对话的形式，一次性批量添加多个柜体、面板或元器件，也可指令系统对已有属性进行修改或删除，大幅减少繁琐的表单填报工作。</li>
+<li><strong>图纸智能识别</strong>：当用户上传图纸或照片时，助手能够自动识别其中的配置信息、设备数量和规格参数，并一键生成对应的系统配置，对不确定的字段会主动询问用户确认。</li>
+<li><strong>上下文感知与智能推断</strong>：助手实时感知用户当前在界面上的选中状态（如当前操作的面板或柜体）。当用户的指令中省略了目标或部分参数时，助手能根据上下文及行业规范进行合理的智能推断并自动补全，极大提升了设计效率。</li>
+</ul>
+<hr>
+<h2 id="4-一键布局与批量排版-one-click-batch-layout">4. 一键布局与批量排版 (One-Click Batch Layout)</h2>
+<p>在完成参数录入与物料确认后，如果项目涉及多个柜体和面板，系统提供了“一键布局”的全局自动化功能：</p>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_6.png" alt="neo4j"></p>
+<ul>
+<li><strong>全局自动调度</strong>：系统会自动遍历项目中所有尚未排版的柜体和面板，对元件信息完整、合规的面板发起静默的自动排版任务。</li>
+<li><strong>无感静默排版</strong>：系统在后台自动为每个面板匹配最佳的专家模板，并瞬间完成坐标迁移和物理干涉消除，全程无需用户手动逐张面板发起推荐和应用。</li>
+<li><strong>状态追踪与跳过</strong>：在批处理过程中，系统实时反馈每个面板的排版状态。对于缺少尺寸数据或未放置元件的面板，会自动跳过并给出明确的提示，方便工程师后续单独补充处理。</li>
+</ul>
+<hr>
+<h2 id="5-布局推荐引擎-layout-recommendation">5. 布局推荐引擎 (Layout Recommendation)</h2>
+<p>在完成参数录入后，可按照面板进行智能布局推荐。</p>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_2.png" alt="neo4j"></p>
 <ul>
 <li><strong>高维特征检索</strong>：基于步骤 1 提取的综合特征向量，引擎在积累的历史专家方案库中执行检索。</li>
 <li><strong>差异度计算</strong>：找出与当前新配电箱物理特征和业务约束最接近的历史方案（Templates）。</li>
 <li><strong>可视化呈现</strong>：前端工作台会以列表形式展现推荐结果，包含历史模板缩略图、特征差异对比，并使用直观的色彩徽章（绿/黄/红）展示匹配评分。产品设计上，通过将最相关方案前置，辅助电气工程师快速确定设计的“参考基石”。</li>
 </ul>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_3.png" alt="neo4j"></p>
 <hr>
-<h2 id="4-模板迁移与智能排版-template-migration">4. 模板迁移与智能排版 (Template Migration)</h2>
-<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_4.png" alt="neo4j"></p>
+<h2 id="6-模板迁移与智能排版-template-migration">6. 模板迁移与智能排版 (Template Migration)</h2>
 <p>当工程师在推荐列表中选定某一个历史方案并点击“应用”后，系统的核心智能排版将接管工作。该过程分两个阶段实现高度自动化的设计迁移：</p>
-<h3 id="41-第一阶段坐标映射与期望位置分配-coordinate-mapping">4.1 第一阶段：坐标映射与期望位置分配 (Coordinate Mapping)</h3>
+<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_4.png" alt="neo4j"></p>
+<h3 id="61-第一阶段坐标映射与期望位置分配-coordinate-mapping">6.1 第一阶段：坐标映射与期望位置分配 (Coordinate Mapping)</h3>
 <p>算法按照优先级机制，为新配电箱中的<strong>每一个</strong>元器件分配一个“理想坐标”及对应的“置信权重”：</p>
 <ol>
 <li><strong>主模板精确映射（高权重）</strong>：按照元件类型和面积寻找主模板中的最佳对应元件，根据新旧面板尺寸的比例差异进行等比坐标转换。</li>
@@ -196,23 +214,14 @@
 <li><strong>同类型游标续排（智能追加）</strong>：对于新项目中数量增加的元件，算法会定位同类型的元件簇作为“锚点”，自动沿锚点向右追加排布；遇到面板边缘则自动执行折行（换行）逻辑，甚至Y轴触底钳位。</li>
 <li><strong>默认兜底（低权重）</strong>：完全无历史参考的零散部件会被暂置于面板底部的安全区域。</li>
 </ol>
-<h3 id="42-第二阶段约束规划与精确排布-constraint-solving">4.2 第二阶段：约束规划与精确排布 (Constraint Solving)</h3>
+<h3 id="62-第二阶段约束规划与精确排布-constraint-solving">6.2 第二阶段：约束规划与精确排布 (Constraint Solving)</h3>
 <p>拥有初始期望后，直接照搬可能导致元件重叠或溢出。系统通过严格的约束规划算法寻找合规的最优解：</p>
 <ul>
 <li><strong>硬性约束（不可违反）</strong>：所有元件必须落在面板物理边界内，且满足设定的留白边距 (Margin)；元件之间绝对不允许发生重叠，且满足最小安全间距 (Gap)。</li>
 <li><strong>优化目标（审美保障）</strong>：在满足上述前提下，尽可能让每个元件靠近其在第一阶段分配的“理想坐标”。算法中特意引入了 <strong>Y 轴偏移惩罚 (Y-Penalty)</strong>：当元件必须挪动以避免重叠时，系统更倾向于在水平方向（X轴）微调，强制保证同一行的元件在视觉上保持同一水平线，贴合严谨的工业审美要求。</li>
 </ul>
 <hr>
-<h2 id="5-智能配置助手-ai-configurator-agent">5. 智能配置助手 (AI Configurator Agent)</h2>
-<p><img src="file:///d:\Documents\Code\ai\layout-rag\docs\images\guide_5.png" alt="neo4j"></p>
-<p>为了进一步降低参数录入和修改的门槛，系统在交互层引入了基于自然语言和大模型的智能配置助手（Agent）：</p>
-<ul>
-<li><strong>自然语言交互</strong>：用户可直接通过对话的形式，一次性批量添加多个柜体、面板或元器件，也可指令系统对已有属性进行修改或删除，大幅减少繁琐的表单填报工作。</li>
-<li><strong>图纸智能识别</strong>：当用户上传图纸或照片时，助手能够自动识别其中的配置信息、设备数量和规格参数，并一键生成对应的系统配置，对不确定的字段会主动询问用户确认。</li>
-<li><strong>上下文感知与智能推断</strong>：助手实时感知用户当前在界面上的选中状态（如当前操作的面板或柜体）。当用户的指令中省略了目标或部分参数时，助手能根据上下文及行业规范进行合理的智能推断并自动补全，极大提升了设计效率。</li>
-</ul>
-<hr>
-<h2 id="6-交互微调与输出闭环-manual-fine-tuning--output">6. 交互微调与输出闭环 (Manual Fine-tuning &amp; Output)</h2>
+<h2 id="7-交互微调与输出闭环-manual-fine-tuning--output">7. 交互微调与输出闭环 (Manual Fine-tuning &amp; Output)</h2>
 <p>自动化求解完成后，结果将被投射到前端的“双画板”工作区。</p>
 <ul>
 <li><strong>智能辅助交互</strong>：工程师可通过拖拽对不甚满意的区域进行微调。前端系统内置了<strong>自动吸附 (Auto Snap)</strong> 辅助线（边缘对齐、中心线对齐），提升微调精度。</li>
